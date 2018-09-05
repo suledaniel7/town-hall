@@ -1,0 +1,15 @@
+<head>
+    <link rel="stylesheet" href="/css/select-org.css">
+    <script src="/js/jquery-3.2.1.js"></script>
+    <title>Select an Organisation | Town Hall</title>
+</head>
+<body>
+    <div class="center-block main">
+        <h3 class="center">Select your Organisation</h3>
+        <div>
+            {{#each organisations}}
+            <p class="title"><a href="/organisations/request/{{username}}/{{../username}}">{{name}} - @{{username}}</a></p>
+            {{/each}}
+        </div>
+    </div>
+</body>

@@ -1,0 +1,66 @@
+body {
+    margin: 0;
+    background-color: #ccc;
+    font-family: sans-serif;
+}
+
+.right {
+    text-align: right;
+}
+
+.center {
+    text-align: center;
+}
+
+.center-block {
+    margin: 0 auto;
+}
+
+.error {
+    font-weight: bold;
+    color: red;
+}
+
+form {
+    width: 32%;
+    padding: 2%;
+    background-color: white;
+}
+
+input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px;
+}
+
+input:focus {
+    outline: none;
+}
+
+.radio {
+    width: auto;
+    margin: 10px;
+}
+
+select {
+    width: 60%;
+    padding: 10px;
+}
+
+.button {
+    margin: 20px;
+}
+
+#submit {
+    padding: 10px;
+    background-color: transparent;
+    border: 2px solid rgb(32, 145, 153);
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+#submit:hover {
+    background-color: rgb(32, 145, 153);
+    color: white;
+    cursor: pointer;
+}

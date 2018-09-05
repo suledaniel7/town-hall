@@ -1,0 +1,152 @@
+<head>
+    <link rel="stylesheet" href="/css/journalists.css">
+    <script src="/js/jquery-3.2.1.js"></script>
+    <title>Journalists | Town Hall</title>
+</head>
+<body>
+    <nav>
+        <div class="nav-head">Town Hall</div>
+        <ul class="nav-items">
+            <a href="/legislators"><li class="nav-item">Legislators</li></a>
+            <a href="/organisations"><li class="nav-item">Organisations</li></a>
+            <a href="/"><li class="nav-item">Users</li></a>
+        </ul>
+    </nav>
+    <section class="main">
+        <div class="right">
+            <h4><a title="Log in to your J-Account" href="/journalists/signin">Already have a J-Account? Log in</a></h4>
+        </div>
+        <div class="center">
+            <h2>Town Hall Journalists</h2>
+        </div>
+        <div class="center-block pitch">
+            Our core belief at Town Hall is that the government of the people
+            be done for and by the people.
+            <br><br>
+            To truly enforce that key aspect of democracy requires an electorate
+            that is informed of every decision made on their behalf.
+            <br><br>
+            The free press helps ensure that foundation of our democracy, and for that
+            same purpose Town Hall exists.
+            <br><br>
+            Connecting the general public to their elected representatives, Town Hall
+            ensures that only relevant news gets to individuals.
+            <br><br>
+            As a journalist, it is expected that you be a part of a given media organisation.
+            Therefore, your account is a 'Formal' Account.
+            If, however, you aren't, you can still function on Town Hall, but your Account will
+            be unverified and your account is a 'Freelance' Account.
+            <br><br>
+            After creating an Account, you will either be assigned a beat by your organisation or
+            you will be prompted to select one for yourself.
+            <br><br>
+            Your posts will appear in the Feed of all Town Hall users belonging to your district
+            who are followers of your organisation.
+            <br><br>
+            If you have any questions, <a href="/support">contact us</a>
+            <br><br>
+            From all of us here at Town Hall, welcome on board.
+        </div>
+    </section>
+    <section class="form center">
+        <h3>Create a Town Hall J-Account</h3>
+        <div class="errorDiv" id="errorDiv">{{error}}</div>
+        <form action="/journalists/signup" onsubmit="return validate();" enctype="multipart/form-data" method="post">
+            <input type="text" class="inp" name="f_name" id="f_name" placeholder="*First Name"> <input type="text" name="l_name" id="l_name" class="inp" placeholder="*Last Name">
+            <input type="text" name="username" id="username" placeholder="*Town Hall Username" class="input">
+            {{!-- AJAXify username --}}
+            <input type="email" name="email" id="email" class="input" placeholder="*Email Address">
+            <input type="password" name="password" id="password" placeholder="*Password" class="input">
+            <input type="password" id="pass1" placeholder="*Confirm Password" class="input">
+            <div class="sub-heading">*Account Type</div>
+            <label for="radio1">Formal</label><input type="radio" name="ac_type" value="m" id="radio1" class="radio">
+            <label for="radio2">Freelance</label><input type="radio" name="ac_type" value="l" id="radio2" class="radio">
+            <div class="sub-heading">Profile Photo</div>
+            <input type="file" name="avatar" id="avatar">
+            <div class="button">
+                <button id="submit" type="submit">Create J-Account</button>
+            </div>
+        </form>
+    </section>
+    <script>
+        let wsp = /^\s*$/;
+
+        let clearErr = ()=>{
+            setTimeout(()=>{
+                document.getElementById('errorDiv').textContent = '';
+            }, 5000);
+        }
+
+        let throwErr = (err)=>{
+            document.getElementById('errorDiv').textContent = err;
+            clearErr();
+        }
+        
+        function validate(){
+            function identify(str){
+                return document.getElementById(str);
+            }
+            
+            let f_name = identify('f_name').value;
+            let l_name = identify('l_name').value;
+            let username = identify('username').value;
+            let email = identify('email').value;
+            let password = identify('password').value;
+            let pass1 = identify('pass1').value;
+            let radios = document.getElementsByName('ac_type');
+            let wsp = /^\s*$/;
+            let test = (val) =>{
+                return wsp.test(val);
+            }
+
+            if(test(f_name) || test(l_name) || test(username) || test(email) || test(password) || test(pass1)){
+                throwErr('All fields marked * are required');
+                return false;
+            }
+            else if(password !== pass1){
+                throwErr("Your passwords do not match");
+                return false;
+            }
+            else if(!radios[0].checked && !radios[1].checked) {
+                throwErr("Select Account Type");
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+
+        $('#username').on('blur', ()=>{
+            let username = document.getElementById('username').value;
+            if(!wsp.test(username)){
+                $.ajax({
+                    url: '/users/check/'+username,
+                    method: 'GET',
+                    success: (found)=>{
+                        if(found){
+                            throwErr("The username chosen is already in use. Please select another");
+                        }
+                    }
+
+                });
+            }
+        });
+
+        $('#email').on('blur', ()=>{
+            let email = document.getElementById('email').value;
+            if(!wsp.test(email)){
+                $.ajax({
+                    url: '/users/checkEmail/'+email,
+                    method: 'GET',
+                    success: (found)=>{
+                        if(found){
+                            throwErr("The email address chosen is already in use. Please select another");
+                        }
+                    }
+                });
+            }
+        });
+
+        clearErr();
+    </script>
+</body>

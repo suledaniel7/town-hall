@@ -1,0 +1,185 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+}
+
+.center {
+    text-align: center;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.dist {
+    font-size: 11pt;
+}
+
+.right {
+    text-align: right;
+}
+
+.grey-text {
+    color: #ddd;
+}
+
+.grey {
+    color: gray;
+}
+
+.sidebar {
+    width: 19%;
+    padding: 0.5%;
+    height: 700px;
+    float: left;
+    background-color: rgb(146, 25, 25);
+    color: white;
+}
+
+.main {
+    width: 79%;
+    padding: 0.5%;
+    height: 620px;
+    overflow-y: auto;
+    float: left;
+}
+
+.main-content {
+    width: 90%;
+    margin: 0 auto;
+    padding-top: 3%;
+}
+
+.main a {
+    color: rgb(146, 25, 25);
+}
+
+.main a:hover {
+    color: rgb(253, 43, 43);
+}
+
+.avatar {
+    width: 100%;
+    text-align: center;
+}
+
+#avatar {
+    width: 80%;
+}
+
+.tabBtn {
+    margin-right: 2%;
+    height: 2.25em;
+    background-color: transparent;
+    border: none;
+    font-size: 13pt;
+    padding: 1%;
+}
+
+.tabBtn:hover {
+    color: white;
+    background-color: rgb(146, 25, 25);
+    cursor: pointer;
+}
+
+.tabBtn:focus {
+    outline: none;
+}
+
+.active {
+    border-bottom: 2px solid rgb(146, 25, 25);
+}
+
+.hidden {
+    display: none;
+}
+
+.postDiv {
+    /* margin: 0 auto; */
+    text-align: center;
+}
+
+.post {
+    width: 55%;
+    padding: 10px;
+    font-size: 14pt;
+    height: 7em;
+    resize: none;
+    border-radius: 10px;
+    line-height: 1.25em;
+}
+
+.post:focus {
+    outline: none;
+}
+
+.postBtn {
+    width: 100px;
+    margin-right: 20%;
+    height: 2.5em;
+    background-color: rgb(146, 25, 25);
+    border: none;
+    border-radius: 5px;
+    color: white;
+}
+
+.postBtn:hover {
+    background-color: rgb(253, 43, 43);
+    cursor: pointer;
+}
+
+.message {
+    width: 70%;
+    height: 11em;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    border: 1px solid #aaa;
+    padding: 7px;
+    overflow-y: auto;
+    font-size: 13pt;
+    border-radius: 10px;
+    background-color: #eee;
+}
+
+.m-text {
+    height: 8em;
+    overflow-y: auto;
+}
+
+#cont-img {
+    width: 15px;
+}
+
+.control {
+    margin-right: 10px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.options {
+    /* position: absolute; */
+    /* display: inline; */
+    /* float: right; */
+    border: 1px solid black;
+    z-index: 0;
+    /* width: 100px; */
+}
+
+#filter {
+    padding: 5px;
+    background-color: #aaa;
+    font-weight: bold;
+    color: white;
+    border: none;
+}
+
+#filter:focus{
+    outline: none;
+}
+
+#filter option{
+    font-weight: bold;
+    padding: 5px;
+}

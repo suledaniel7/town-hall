@@ -1,0 +1,150 @@
+<head>
+    <link rel="stylesheet" href="/css/j-profile.css">
+    <link rel="stylesheet" href="/css/messages.css">
+    <script src="/js/jquery-3.2.1.js"></script>
+    <script src="/js/append.js"></script>
+    <title>{{f_name}}'s J-Account | Town Hall</title>
+</head>
+
+<body>
+    <section class="left-bar">
+        <figure class="avatar center block-center">
+            <div class="avatarDiv">
+                <img id="avatar" src="/{{avatar}}" alt="{{f_name}}'s Avatar">
+            </div>
+        </figure>
+        <br>
+        <div id="avatarText" class="center">
+            {{f_name}} {{l_name}}
+        </div>
+        <br />
+        <div class="info center">
+            {{#beatDets}}
+            <span class="bold">{{name}}</span>
+            {{/beatDets}}
+            <br> {{#if organisation}}
+            <div>
+                {{orgName}}
+            </div>
+            {{/if}}
+            <br />
+            <br />
+            <div>
+                <span class="bold">Followers: </span>
+                <span>{{followersNo}}</span>
+            </div>
+        </div>
+    </section>
+    <section class="main">
+        <div class="switchers center">
+            <button class="switch active" id="oYBtn">On Your beat</button>
+            <button class="switch" id="fYBtn">For You</button>
+        </div>
+        <div id="oYB" class="oYB">
+            <form>
+                {{#if free}}
+                <form action="/messages/j" method="post">
+                <div class="postDiv">
+                    <textarea maxlength="300" name="post" id="post" class="post" placeholder="Enter message here"></textarea>
+                </div>
+                </form>
+                <br>
+                <div class="postAcc">
+                    <div class="center grey">
+                        <span id="charCount">0</span>/300 characters</div>
+                    <div class="right">
+                        <button id="postBtn" class="postBtn">Post</button>
+                    </div>
+                </div>
+                {{else}}
+                <h4 class="pending">Your request to @{{organisation}} is still pending</h4>
+                <div class="postDiv">
+                    <textarea maxlength="300" name="post" id="post" disabled="disabled" class="post" placeholder="Enter message here"></textarea>
+                </div>
+                <br>
+                <div class="postAcc">
+                    <div class="center grey">
+                        <span id="charCount">0</span>/300 characters</div>
+                    <div class="right">
+                        <button disabled="disabled" id="postBtn" class="postBtn">Post</button>
+                    </div>
+                </div>
+                {{/if}}
+            </form>
+            <br>
+            <br>
+            <div class="messagesDiv" id="messagesDiv">
+                {{#if messages}}
+                {{>messages}}
+                {{else}}
+                <div id="no-prior" class="center grey">You have no prior posts</div>
+                {{/if}}
+            </div>
+            <footer>
+                <a href="/logout/j">Log out</a>
+            </footer>
+        </div>
+        <div id="fY" class="fY hidden">
+            some random stuff, well, really, messages
+        </div>
+    </section>
+    <section class="right-bar">
+        Yet, other stuff
+    </section>
+    <script>
+        let wsp = /^\s*$/;
+        //message counter
+        $('#post').on('input', () => {
+            let num = $('#post').val().length;
+            document.getElementById('charCount').innerText = num;
+        });
+
+        //switcher
+        $('#fYBtn').on('click', () => {
+            document.getElementById('oYBtn').className = 'switch';
+            document.getElementById('oYB').classList += ' hidden';
+            document.getElementById('fYBtn').classList += ' active';
+            document.getElementById('fY').className = 'fY';
+        });
+        $('#oYBtn').on('click', () => {
+            document.getElementById('fYBtn').className = 'switch';
+            document.getElementById('fY').classList += ' hidden';
+            document.getElementById('oYBtn').classList += ' active';
+            document.getElementById('oYB').className = 'oYB';
+        });
+
+        //message sender
+        $('#postBtn').on('click', (event)=>{
+            event.preventDefault();
+            let text = document.getElementById('post').value;
+            if(!wsp.test(text)){
+                //text isn't empty. Do stuff w/ it
+                let priorP = document.getElementById('no-prior');
+                let isEmpty = true;
+                if(priorP){
+                    if(!wsp.test(priorP.textContent)){
+                        isEmpty = false;
+                    }
+                }
+                $.ajax({
+                    url: '/messages/j',
+                    method: 'POST',
+                    data: {mBody: text},
+                    error: ()=>{
+                        alert("An error occured trying to send your message. Please check your connection and try again");
+                    },
+                    success: (data)=>{
+                        document.getElementById('post').value = '';
+                        document.getElementById('charCount').innerText = 0;
+                        appendMessage(data.message, data.originator);
+                        if(!isEmpty){
+                            priorP.textContent = '';
+                        }
+                    }
+                });
+            }
+        });
+
+        //refactor pages to do all this i.e. fix message controller to cater to all use cases, fix all controllers to render w/ data. Refer to message.js
+    </script>
+</body>

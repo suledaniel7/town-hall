@@ -1,0 +1,133 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background-color: #F5F5F5;
+}
+
+.center {
+    text-align: center;
+}
+
+.right {
+    text-align: right;
+}
+
+.center-block {
+    margin: 0 auto;
+}
+
+.errorDiv {
+    color: red;
+    text-align: center;
+    font-weight: bold;
+    font-size: 11pt;
+}
+
+nav {
+    border-bottom: 2px solid rgb(120, 2, 255);
+    padding: 10px;
+    font-size: 16pt;
+}
+
+nav a {
+    text-decoration: none;
+    color: black;
+}
+
+nav .nav-head, nav .nav-items {
+    display: inline;
+}
+
+.nav-head {
+    padding: 10px;
+}
+
+nav .nav-items {
+    float: right;
+    margin: 0;
+}
+
+.nav-items li {
+    display: inline;
+    padding: 11px;
+    margin-right: 10px;
+}
+
+.nav-item:hover {
+    cursor: pointer;
+    background-color: rgb(120, 2, 255);
+    color: white;
+}
+
+.main {
+    width: 68%;
+    padding: 1%;
+    float: left;
+    /* background-color: #eee; */
+    /* background-color: #0F1626;
+    color: white; */
+    height: 100%;
+    /* background-image: linear-gradient(to top, white, #d4adff); */
+}
+
+.form {
+    width: 28%;
+    padding: 1%;
+    float: left;
+    background-color: white;
+}
+
+.main a {
+    color: rgb(160, 80, 252);
+}
+
+.pitch {
+    width: 50%;
+}
+
+input:focus {
+    outline: none;
+}
+
+.inp {
+    width: 40%;
+    height: 1.5em;
+    padding: 5px;
+    margin: 10px;
+    border-radius: 5px;
+    border: 1px solid grey;
+    margin-bottom: 15px;
+}
+
+.input {
+    width: 90%;
+    height: 1.5em;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid grey;
+    margin-bottom: 15px;
+}
+
+.sub-heading {
+    margin: 20px;
+    font-weight: bold;
+    font-size: 11pt;
+}
+
+.button {
+    margin: 40px;
+}
+
+#submit {
+    padding: 10px;
+    background-color: transparent;
+    border: 2px solid rgb(120, 2, 255);
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+#submit:hover {
+    background-color: rgb(120, 2, 255);
+    color: white;
+    cursor: pointer;
+}

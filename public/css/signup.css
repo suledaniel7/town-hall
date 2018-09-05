@@ -1,0 +1,74 @@
+body {
+    background-color: #ccc;
+    margin-top: 0;
+    font-family: sans-serif;
+}
+
+.center {
+    text-align: center;
+}
+
+.center-block {
+    margin: 0 auto;
+}
+
+.error, .errorDiv {
+    color: red;
+    text-align: center;
+}
+
+form {
+    width: 500px;
+    background-color: white;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+input {
+    width: 400px;
+    border: 1px solid grey;
+    padding: 5px;
+    height: 2em;
+    margin: 20px;
+}
+
+.no-border {
+    border: none;
+}
+
+button {
+    background-color: rgb(59, 120, 212);
+    border: transparent;
+    color: white;
+    width: 100px;
+    height: 2.5em;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: rgb(70, 163, 250);
+}
+
+.l-button {
+    background-color: rgb(146, 25, 25);
+}
+
+.l-button:hover {
+    background-color: rgb(253, 43, 43);
+}
+
+.j-button {
+    background-color: rgb(120, 2, 255);
+}
+
+.j-button:hover {
+    background-color: rgb(160, 80, 252);
+}
+
+.u-button {
+    background-color: rgb(32, 145, 153);
+}
+
+.u-button:hover {
+    background-color: rgb(48, 210, 221);
+}

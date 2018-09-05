@@ -1,0 +1,96 @@
+body {
+    font-family: sans-serif;
+    margin-top: 0;
+    background-color: #ccc;
+}
+
+.hidden {
+    display: none;
+}
+
+.center {
+    text-align: center;
+}
+
+.error, .errorDiv {
+    color: red;
+    text-align: center;
+}
+
+.slide {
+    background-color: white;
+    padding: 20px;
+    width: 600px;
+    margin: 0 auto;
+    height: 250px;
+}
+
+h3 {
+    margin-bottom: 40px;
+}
+
+input {
+    width: 400px;
+    height: 2em;
+    padding: 2px;
+}
+
+input:focus {
+    outline: none;
+}
+
+.tip {
+    margin-bottom: 20px;
+    /* text-align: left; */
+    color: #444;
+}
+
+.button {
+    width: 100px;
+    height: 2em;
+    margin: 50px;
+    border-radius: 5px;
+    border: transparent;
+    color: white;
+    background-color: #555;
+}
+
+.button:hover {
+    background-color: #eee;
+    color: black;
+}
+
+.submit {
+    width: 150px;
+    margin: 20px;
+    margin-top: 50px;
+    height: 2.5em;
+}
+
+.green-back {
+    background-color: rgb(59, 212, 59);
+    border: transparent;
+    color: white;
+    border-radius: 5px;
+}
+
+.green-back:hover {
+    background-color: rgb(70, 250, 70);
+}
+
+button{
+    transition: all 0.5s;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+button:disabled {
+    color: black;
+}
+
+button:disabled:hover {
+    background-color: #555;
+    cursor: not-allowed;
+}

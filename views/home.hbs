@@ -1,0 +1,51 @@
+<head>
+    {{!-- <script src="/uikit/js/uikit.js"></script>
+    <script src="/uikit/js/uikit-icons.js"></script>
+    <link rel="stylesheet" href="/uikit/css/uikit.css"> --}}
+    <link rel="stylesheet" href="/css/home.css">
+    <script src="/js/jquery-3.2.1.js"></script>
+    <title>Town Hall</title>
+</head>
+<body>
+    <nav>
+        <ul class="navigation">
+            <li class="left"><a href="/">Town Hall</a></li>
+            <li class="nav-item"><a href="/legislators">Legislators</a></li>
+            <li class="nav-item"><a href="/organisations">Media Organisations</a></li>
+            <li class="nav-item"><a href="/journalists">Journalists</a></li>
+        </ul>
+    </nav>
+    <section id="main">
+        <div class="central-heading">
+            <h1 class="center">Town Hall</h1>
+        </div>
+        <div class="central-buttons">
+            <button id="btn1" class="central-button">Sign Up</button>
+            <button id="btn2" class="central-button">Log In</button>
+        </div>
+        <div class="text-division">
+            <div class="central-text-division">
+                <h3 class="center">Welcome to Town Hall</h3>
+                <div class="central-text">
+                    Town Hall exists to facilitate communication between the legislators and
+                    the most important part of our democracy: the citizenry for whom all institutions exist.
+                    Town Hall gives you a platform through which you remain informed about the activities of
+                    your elected officials in the National Assembly, and maybe also State Houses of Assembly.
+                    An informed electorate is fundamental to the success of any democracy. <br><br>
+                    Welcome to Town Hall.
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+<script>
+    $(()=>{
+        $('#btn1').on('click', ()=>{
+            location.assign('/users/signup');
+        });
+
+        $('#btn2').on('click', ()=>{
+            location.assign('/users/signin');
+        });
+    });
+</script>

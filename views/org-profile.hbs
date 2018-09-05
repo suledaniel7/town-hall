@@ -1,0 +1,306 @@
+<head>
+    <script src="/js/jquery-3.2.1.js"></script>
+    <script src="/js/append.js"></script>
+    <link rel="stylesheet" href="/css/org-profile.css">
+    <link rel="stylesheet" href="/css/messages.css">
+    <title>{{name}} | Town Hall</title>
+</head>
+<body>
+    <section class="sidebar">
+        <div class="avatar">
+            <img src="{{logo}}" alt="{{username}}'s Avatar" class="avatar-img"><br><br>
+            {{name}}<br><br>
+            @{{username}} <br><br>
+            <div>
+                Unique followers: <a href="/followers/organisations/{{username}}">{{followersNo}}</a>
+                <br><br>
+                <a href="/settings/{{username}}">Settings</a>
+                {{!-- Other stuff could go here --}}
+            </div>
+        </div>
+    </section>
+    <section class="main">
+        <div class="tabs">
+            <div id="beats" class="tab active">Beats</div>
+            <div id="messaging" class="tab">Messaging</div>
+            <div id="journalists" class="tab">Journalists</div>
+        </div>
+        <div id="notif" class="notif">{{notif}}</div>
+        <section id="b-content" class="tab-content">
+            <div class="add-beat">
+                <div class="right">
+                    <button id="beatBtn">View Beats</button>
+                </div>
+                <div class="beat-dets modal">
+                    <div class="modal-content">
+                        <div class="modal-head">
+                            {{!-- <div class="heading">Add Beat</div> --}}
+                            <div class="close">&times;</div>
+                        </div>
+                        <div class="modal-text">
+                            <table class="table">
+                                <tbody>
+                                    <div class="b-sect-heading">Beats you Follow</div>
+                                    <div class="center emp-modal-heading" id="b-follow-emp"></div>
+                                    <div>
+                                        {{#each f_dists}}
+                                        <tr id="b-follow" class="b-heading">
+                                            <td class="center td">{{name}}</td>
+                                        </tr>
+                                        {{#each districts}}
+                                        <tr>
+                                            {{#if sen}}
+                                            <td class="table-link sen td"><a target="_blank" href="/add-beat/{{code}}">{{name}}</a></td>    
+                                            {{/if}}
+                                            {{#if rep}}
+                                            <td class="table-link td"><a target="_blank" href="/add-beat/{{code}}">{{name}}</a></td>
+                                            {{/if}}
+                                        </tr>
+                                        {{/each}}
+                                        {{/each}}
+                                    </div>
+
+                                    <div class="b-sect-heading">All Districts</div>
+                                    <div class="center emp-modal-heading" id="all-b-emp"></div>
+                                    <div>
+                                        {{#each dists}}
+                                        <tr id="all-b" class="b-heading">
+                                            <td class="center td">{{name}}</td>
+                                        </tr>
+                                        {{#each districts}}
+                                        <tr>
+                                            {{#if sen}}
+                                            <td class="table-link sen td"><a target="_blank" href="/add-beat/{{code}}">{{name}}</a></td>    
+                                            {{/if}}
+                                            {{#if fed}}
+                                            <td class="table-link td"><a target="_blank" href="/add-beat/{{code}}">{{name}}</a></td>
+                                            {{/if}}
+                                        </tr>
+                                        {{/each}}
+                                        {{/each}}
+                                    </div>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="beat-heading">Some place</div>
+            <div class="beat-stats">
+                <h3><a href="/journalists/journo-name">Journo name</a></h3>
+                <article>
+                    Recent post
+                    <p class="right"><span><a href="/posts/id">View discussion</a></span></p>
+                </article>
+                <p class="center"><a href="/journalists/journo-name/feed">View more</a></p>
+            </div>
+        </section>
+        <section id="m-content" class="tab-content hidden">
+            <div class="postDiv">
+                <form action="/messages/o" method="post">
+                    <textarea id="post" maxlength="360" class="post" placeholder="Type post"></textarea>
+                </form>
+            </div>
+            <div class="int-recs">
+                {{!-- Use a pre-populated select for the beats --}}
+                {{!-- int-recs: intended recepients --}}
+            </div>
+            <div class="postAcc">
+                <div class="center grey"><span id="charCount">0</span>/360 characters</div>
+                <div class="right">
+                    <button id="postBtn" class="postBtn">Post</button>
+                </div>
+            </div>
+            <br><br>
+            {{!-- <div class="lineDiv">
+                <hr>
+            </div> --}}
+            <div class="prevM">
+                <div class="posts" id="messagesDiv">
+                    {{#if messages}}
+                    {{>messages}}
+                    {{else}}
+                    <div id="no-prior" class="center grey">You have no prior posts</div>
+                    {{/if}}
+                </div>
+            </div>
+        </section>
+        <section id="j-content" class="tab-content hidden">
+            <div class="center emp-heading" id="j-reqs-emp"></div>
+            <div class="j-reqs">
+                {{#if pending_reqs}}
+                <h3 class="center">Journalist Requests</h3>
+                <table class="j-table">
+                <tbody>
+                    {{#each pending_reqs}}
+                    <tr class="j-tr" id="j-{{username}}">
+                        <td class="j-td"><a href="/users/j/{{username}}">{{f_name}} {{l_name}}</a></td>
+                        <td class="j-td">@{{username}}</td>
+                        <td class="j-td"><img class="btn-img" onclick="location.assign('/organisations/j-requests/accept/{{../username}}/{{username}}')" src="/img/img-1/success.png" title="Accept" alt="Accept"></td>
+                        <td class="j-td"><img class="btn-img" onclick="decline('{{username}}', 'j-{{username}}');" src="/img/img-1/error.png" title="Decline" alt="Decline"><td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+                </table>
+                {{/if}}
+            </div>
+            <div class="center emp-heading" id="j-text-emp"></div>
+            <div class="journos">
+                {{#each journos}}
+                <div id="j-text" class="journo">
+                    <figure class="javatar center">
+                        <img src="/{{avatar}}" alt="{{f_name}}'s Avatar'">
+                        <figcaption><h4><a href="/users/j/{{username}}">{{f_name}} {{l_name}}</a></h4></figcaption>
+                    </figure>
+                    <div class="j-stats">
+                        <p>Followers: <a href="/followers/j/{{username}}">{{followersNo}}</a></p>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </section>
+        <footer>
+            <a href="/logout/o">Log out</a>
+        </footer>
+    </section>
+    <section class="right-sect">
+        yo
+    </section>
+    <script>
+        //tab switching
+        let tabs = document.getElementsByClassName('tab');
+        let content = document.getElementsByClassName('tab-content');
+        function switchTab (num){
+            for(let i=0; i<tabs.length; i++){
+                tabs[i].className = 'tab';
+                content[i].classList += ' hidden';
+            }
+            tabs[num].classList += ' active';
+            content[num].className = 'tab-content';
+        }
+        $('#beats').on('click', ()=>{
+            switchTab(0);
+        });
+        $('#messaging').on('click', ()=>{
+            switchTab(1);
+        });
+        $('#journalists').on('click', ()=>{
+            switchTab(2);
+        });
+
+        //set notif
+        function setNotif(content){
+            document.getElementById('notif').textContent = content;
+            clearNotif();
+        }
+
+        //clear notif
+        function clearNotif(){
+            setTimeout(()=>{
+                document.getElementById('notif').textContent = '';
+            }, 5000);
+        }
+
+        //modal work
+        //default btn open
+        
+        $('#beatBtn').on('click', ()=>{
+            $('.modal')[0].style.display = 'block';
+        });
+        $('.close').on('click', ()=>{
+            $('.modal')[0].style.display = 'none';
+        });
+        $('.modal').on('click', (event)=>{
+            if(event.target == document.getElementsByClassName('modal')[0] || event.target == document.getElementsByName('html')[0]){
+                $('.modal')[0].style.display = 'none';
+            }
+        });
+
+        //message counter
+        $('#post').on('input', ()=>{
+            let num = $('#post').val().length;
+            document.getElementById('charCount').innerText = num;
+        });
+
+        //checking for empties
+        if(!document.getElementById('b-follow')){
+            document.getElementById('b-follow-emp').textContent = "You are currently following no Beats";
+        }
+        if(!document.getElementById('all-b')){
+            document.getElementById('all-b-emp').textContent = "There are currently no Districts to follow";
+        }
+        if(!document.getElementById('j-text')){
+            document.getElementById('j-text-emp').textContent = "You have no registered Journalists";
+        }
+
+        //dealing with j's, imp a confirmation
+
+        {{!-- function accept(j_username, _id_){
+            $.ajax({
+                url: '/organisations/j-requests/accept/{{username}}/'+j_username,
+                method: 'GET',
+                success: (j_name)=>{
+                    document.getElementById(_id_).classList += ' hidden';
+                    setNotif("Journalist: " + j_name + " added successfully");
+                },
+                error: ()=>{
+                    //do other stuff: notify about conn
+                    setNotif("An error occured. Please try again");
+                }
+            });
+        } --}}
+
+        function decline(j_username, _id_){
+            $.ajax({
+                url: '/organisations/j-requests/decline/{{username}}/'+j_username,
+                method: 'GET',
+                success: (j_name)=>{
+                    document.getElementById(_id_).classList += ' hidden';
+                    setNotif("Journalist: " + j_name + " rejected");
+                },
+                error: ()=>{
+                    //do other stuff: notify about conn
+                    setNotif("An error occured. Please try again");
+                }
+            });
+        }
+
+        //send message
+        $('#postBtn').on('click', (event)=>{
+            let wsp = /^\s*$/;
+            event.preventDefault();
+            let text = document.getElementById('post').value;
+
+            if(!wsp.test(text)){
+                //text is populated
+                let priorP = document.getElementById('no-prior');
+                let isEmpty = true;
+                if(priorP){
+                    if(!wsp.test(priorP.textContent)){
+                        isEmpty = false;
+                    }
+                }
+                $.ajax({
+                    url: '/messages/o',
+                    method: 'POST',
+                    data: {mBody: text, recepients: 'all'},
+                    error: ()=>{
+                        alert("An error occured trying to send your message. Please check your connection and try again");
+                    },
+                    success: (data)=>{
+                        document.getElementById('post').value = '';
+                        document.getElementById('charCount').innerText = 0;
+                        appendMessage(data.message, data.originator);
+                        if(!isEmpty){
+                            priorP.textContent = '';
+                        }
+                    }
+                });
+            }
+        });
+
+        clearNotif();
+        $('#messaging').click();
+    </script>
+</body>

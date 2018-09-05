@@ -1,0 +1,26 @@
+<head>
+    <link rel="stylesheet" href="/css/signup.css">
+    <script src="/js/jquery-3.2.1.js"></script>
+    <title>Legislators | Town Hall</title>
+</head>
+<body>
+    <form action="/legislators/signin" onsubmit="return validate();" class="center-block center" method="post">
+        <h3 class="error">{{error}}</h3>
+        <h2 class="center">Sign in to your Town Hall Legislator Account</h2>
+        <input type="text" name="email" id="email" placeholder="Email Address">
+        <input type="password" name="password" id="password" placeholder="Password">
+        <button class="l-button" type="submit">Sign in</button>
+    </form>
+    <script>
+        let wsp = /^\s*$/;
+
+        function validate(){
+            if (wsp.test($('#email').val()) || wsp.test($('#password').val())){
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+    </script>
+</body>

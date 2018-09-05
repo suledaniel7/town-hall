@@ -1,0 +1,221 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+}
+
+*:focus {
+    outline: none;
+}
+
+.grey-text {
+    color: #ddd;
+}
+
+.grey {
+    color: gray;
+}
+
+.black {
+    color: black;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.hidden {
+    display: none;
+}
+
+.left-bar {
+    width: 18%;
+    padding: 1%;
+    height: 700px;
+    background-color: rgb(32, 145, 153);
+    color: white;
+    float: left;
+}
+
+.main {
+    width: 58%;
+    padding: 1%;
+    padding-top: 0%;
+    float: left;
+    height: 620px;
+    overflow-y: auto;
+    /* background-color: #ddd; */
+}
+
+.main a {
+    color: rgb(32, 145, 153);
+}
+
+.main a:hover {
+    color: rgb(48, 210, 221);
+}
+
+.right-bar {
+    width: 18%;
+    height: 700px;
+    background-color: rgb(32, 145, 153);
+    color: white;
+    padding: 1%;
+    float: left;
+}
+
+.right-bar a {
+    color: white;
+}
+
+.right-bar a:hover {
+    color: rgb(48, 210, 221);
+}
+
+.right-bar hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.avatar {
+    width: 100%;
+    text-align: center;
+}
+
+.avatarDiv {
+    width: 100%;
+}
+
+#avatar {
+    width: 70%;
+}
+
+.center {
+    text-align: center;
+}
+
+.right {
+    text-align: right;
+}
+
+.block-center {
+    margin: 0 auto;
+}
+
+.message {
+    width: 80%;
+    height: 11em;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    border: 1px solid #aaa;
+    padding: 7px;
+    overflow-y: auto;
+    font-size: 13pt;
+    border-radius: 10px;
+    background-color: #eee;
+}
+
+.m-text {
+    height: 8em;
+    overflow-y: auto;
+}
+
+#cont-img {
+    width: 15px;
+}
+
+.control {
+    margin-right: 10px;
+}
+
+.rep_avatar {
+    width: 90%;
+}
+
+#tabBtn {
+    width: 49%;
+    height: 3em;
+    margin-bottom: 10px;
+    border: none;
+    background-color: unset;
+    font-size: 13pt;
+    transition: all 0.2s;
+    border-bottom: 2px solid rgb(48, 210, 221);
+}
+
+#tabBtn:hover {
+    /* background-color: rgb(32, 145, 153); */
+    color: rgb(48, 210, 221);
+    cursor: pointer;
+}
+
+#tabBtn:focus {
+    outline: none;
+}
+
+.active {
+    color: rgb(32, 145, 153);
+}
+
+.tabSect {
+    height: 550px;
+    overflow-y: auto;
+    padding: 1%;
+}
+
+#searchBox {
+    width: 95%;
+    height: 2.5em;
+    border-radius: 5px;
+    border: 2px solid rgb(32, 145, 153);
+    padding: 5px;
+    margin-bottom: 20px;
+}
+
+.trend {
+    margin-top: 10px;
+}
+
+.sug-orgs {
+    height: 400px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin-bottom: 20px;
+}
+
+.sug-org {
+    float: left;
+    width: 30%;
+    margin: 1%;
+    height: 300px;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.sug-org-logo-img {
+    width: 100%;
+    height: 145px;
+}
+
+.follow-btn {
+    width: 60%;
+    height: 2.5em;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(32, 145, 153);
+    color: white;
+}
+
+.follow-btn:hover {
+    background-color: rgb(48, 210, 221);
+    cursor: pointer;
+}
+
+#close {
+    font-weight: bold;
+    letter-spacing: 0.25em;
+}
+
+#close:hover {
+    cursor: pointer;
+    color: red;
+}

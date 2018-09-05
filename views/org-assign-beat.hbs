@@ -1,0 +1,29 @@
+<head>
+    <link rel="stylesheet" href="/css/select-beat.css">
+    <script src="/js/jquery-3.2.1.js"></script>
+    <title>Select District | Town Hall</title>
+</head>
+<body>
+    <div class="center-block center f-style">
+        <h3>Select a District for {{j_name}} to report on</h3>
+        {{#each states}}
+        <div class="grey-text sub-heading">{{name}}</div>
+        <div class="left">
+            <div class="dist-heading">Federal Constituencies:</div>
+            <table>
+                {{#each fed_consts}}
+                <tr><td><a href="/organisations/select-beat/{{../../o_username}}/{{../../j_username}}/{{code}}">{{name}}</a></td></tr>
+                {{/each}}
+            </table>
+        </div>
+        <div class="left">
+            <div class="dist-heading">Senatorial Districts:</div>
+            <table>
+                {{#each sen_dists}}
+                <tr><td><a href="/organisations/select-beat/{{../../o_username}}/{{../../j_username}}/{{code}}">{{name}}</a></td></tr>
+                {{/each}}
+            </table>
+        </div>
+        {{/each}}
+    </div>
+</body>

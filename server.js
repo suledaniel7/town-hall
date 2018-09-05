@@ -1,0 +1,20 @@
+const express = require('express');
+const exphbs = require('express-handlebars');
+const mongoose = require('mongoose');
+
+const router = require('./server/router');
+
+const app = express();
+
+mongoose.connect('mongodb://127.0.0.1/town_hall');
+
+app.use(express.static(__dirname+'/public/'));
+
+app.engine('.hbs', exphbs({extname: '.hbs', defaultLayout: 'main'}));
+app.set('view engine', '.hbs');
+
+app.use('/', router);
+
+app.listen(8080, ()=>{
+    console.log("Server running at http://127.0.0.1:8080");
+});

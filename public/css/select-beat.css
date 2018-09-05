@@ -1,0 +1,39 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background-color: #ddd;
+}
+
+.center {
+    text-align: center;
+}
+
+.left {
+    text-align: left;
+}
+
+.center-block {
+    margin: 0 auto;
+}
+
+.grey-text {
+    color: gray;
+}
+
+.f-style {
+    width: 30%;
+    padding: 1%;
+    height: 600px;
+    overflow-y: auto;
+    background-color: white;
+}
+
+.sub-heading {
+    font-size: 16pt;
+    margin: 15px 0;
+}
+
+.dist-heading {
+    font-size: 14pt;
+    margin: 10px 0;
+}

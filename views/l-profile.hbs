@@ -1,0 +1,179 @@
+<head>
+    <link rel="stylesheet" href="/css/l-profile.css">
+    <link rel="stylesheet" href="/css/messages.css">
+    <script src="/js/jquery-3.2.1.js"></script>
+    <script src="/js/append.js"></script>
+    <title>{{full_name}} | Town Hall</title>
+</head>
+<body>
+    <div class="sidebar center">
+        <div class="avatar">
+            <figure>
+                <img src="{{avatar}}" id="avatar" alt="{{f_name}}'s Avatar">
+                <br><br>
+                <figcaption>{{type_exp}} {{full_name}}</figcaption>
+            </figure>
+        </div>
+        <div class="dets">
+            <div class="dist bold">
+                Representing {{district}}, {{state}} State
+            </div>
+            <br>
+            <div>
+                {{const_num}} Constituents
+            </div>
+            <br><br>
+            <div>
+                <a href="/logout/l">Logout</a>
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        <div class="tabs center">
+            <button class="tabBtn active">Messaging</button>
+            <button class="tabBtn">Mentions</button>
+            <button class="tabBtn">Surveys</button>
+        </div>
+        <div class="main-content">
+            <div class="tab-content" id="messaging">
+                <form>
+                    <div class="postDiv">
+                        <textarea maxlength="360" name="post" id="post" class="post" placeholder="Enter message here"></textarea>
+                    </div><br>
+                    <div class="postAcc">
+                    <div class="center grey"><span id="charCount">0</span>/360 characters</div>
+                        <div class="right">
+                            <button id="postBtn" class="postBtn">Post</button>
+                        </div>
+                    </div>
+                </form><br>
+                <div class="prevM">
+                    <div class="posts" id="messagesDiv">
+                        {{#if messages}}
+                        {{>messages}}
+                        {{else}}
+                        <div id="no-prior" class="center grey">You have no prior posts</div>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content hidden" id="mentions">
+                <div class="right filter">
+                    Filter by:
+                    <select id="filter">
+                        <option value="a">All</option>
+                        <option value="j">Journalists</option>
+                        <option value="c">Constituents</option>
+                        <option value="g">General Public</option>
+                    </select>
+                </div>
+                <br>
+                <div class="mentionDiv">
+                    <div class="posts">
+                        <div class="message">
+                            <div class="m-text">
+                                Message text
+                            </div>
+                            <div class="m-time grey">
+                                8:24am | 15 Jul, 2018
+                            </div>
+                            <div class="controls right">
+                            <span class="control"><a href="/messages/replies/num">Replies (0)</a></span>
+                            <span class="control"><a href="javascript:void(0)">Edit</a></span>
+                            <span class="control"><a href="javascript:void(0)">Delete</a></span>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content hidden" id="surveys">
+                S-content
+            </div>
+        </div>
+        
+    </div>
+    <script>
+        let tabs = document.getElementsByClassName('tab-content');
+        let tabBtns = document.getElementsByClassName('tabBtn');
+        let tab1 = tabBtns[0];
+        let tab2 = tabBtns[1];
+        let tab3 = tabBtns[2];
+
+        function switchTab(num){
+            //hide all tabs
+            for(let i=0; i<3; i++){
+                tabs[i].className = 'tab-content hidden';
+            }
+
+            //make tab visible
+            tabs[num-1].className = 'tab-content';
+            
+            //deactivate active tab
+            tab1.className = 'tabBtn';
+            tab2.className = 'tabBtn';
+            tab3.className = 'tabBtn';
+            
+            //activate right tab
+            if(num == 1){
+                tab1.classList += ' active';
+            }
+            else if(num == 2){
+                tab2.classList += ' active';
+            }
+            else {
+                tab3.classList += ' active';
+            }
+        }
+        //test the above
+        tab1.addEventListener('click', ()=>{
+            switchTab(1);
+        });
+        tab2.addEventListener('click', ()=>{
+            switchTab(2);
+        });
+        tab3.addEventListener('click', ()=>{
+            switchTab(3);
+        });
+
+        //message counter
+        $('#post').on('input', ()=>{
+            let num = $('#post').val().length;
+            document.getElementById('charCount').innerText = num;
+        });
+
+        $('#postBtn').on('click', (event)=>{
+            let wsp = /^\s*$/;
+            event.preventDefault();
+            let text = document.getElementById('post').value;
+
+            if(!wsp.test(text)){
+                //text is populated
+                let priorP = document.getElementById('no-prior');
+                let isEmpty = true;
+                if(priorP){
+                    if(!wsp.test(priorP.textContent)){
+                        isEmpty = false;
+                    }
+                }
+                $.ajax({
+                    url: '/messages/l',
+                    method: 'POST',
+                    data: {mBody: text},
+                    error: ()=>{
+                        alert("An error occured trying to send your message. Please check your connection and try again");
+                    },
+                    success: (data)=>{
+                        document.getElementById('post').value = '';
+                        document.getElementById('charCount').innerText = 0;
+                        appendMessage(data.message, data.originator);
+                        if(!isEmpty){
+                            priorP.textContent = '';
+                        }
+                    }
+                });
+            }
+        });
+
+        {{!-- tab2.click(); --}}
+    </script>
+</body>

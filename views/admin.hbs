@@ -1,0 +1,149 @@
+{{!-- You need to first of all take in all representatives and senators, because apart from them being db entries, they have
+TH accounts --}} {{!-- Therefore, the names and passwords of all these accounts have to be initialised. Everyone has the
+same password, but not in production --}} {{!-- Also, you are assigning the keywords to each one, based on states, I guess.
+Each district has to be an entity --}} {{!-- Each district has its f_name which is unique, the actual name is entered through
+you, and every duplicate is ignored, so you create stuff only once --}} {{!-- So, on f_end: name, district, and district
+keyword. Also, state. PW is done on backend --}}
+{{!-- Also, all f_names are done in lowercase --}}
+
+<head>
+    <title>Town Hall Administrator</title>
+    <script src="/js/jquery-3.2.1.js"></script>
+    <style>
+        form {
+            width: 90%;
+            float: left;
+            padding: 20px;
+            background-color: #eee;
+            text-align: center;
+        }
+
+        .input {
+            height: 1.5em;
+            width: 50%;
+            border-radius: 5px;
+            padding: 5px;
+            margin: 10px;
+        }
+
+        .leftbar {
+            width: 50%;
+        }
+
+        .sidebar {
+            float: right;
+            width: 50%;
+            text-align: left;
+            height: 650px;
+            overflow-y: auto;
+        }
+
+        .bold-text {
+            font-weight: bold;
+            font-size: 16pt;
+        }
+
+        .yellow {
+            color: rgb(226, 226, 33);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="leftbar">
+        <form action="/admin" id="form" method="post">
+            <h3>Town Hall Administrator</h3>
+            <h4 class="center yellow">{{notif}}</h4>
+            <input type="text" class="input" name="f_name" id="f_name" placeholder="Enter First Name">
+            <input type="text" class="input" name="l_name" id="l_name" placeholder="Enter Last Name">
+            <br>
+            <br> Senator:
+            <input type="radio" name="type" id="type" value="sen"> Representative:
+            <input type="radio" name="type" id="type" checked="checked" value="rep">
+            <br>
+            <br> Female
+            <input type="radio" name="gender" id="gender" value="f"> Male
+            <input type="radio" name="gender" id="gender" value="m">
+            <br>
+            <br>
+            <input type="text" name="state" id="state" placeholder="State" class="input">
+            <input type="text" name="s_code" id="s_name" placeholder="State shortcode. Two letters, lowercase" class="input">
+            <input type="text" class="input" name="district" id="district" placeholder="District. Watch your spelling">
+            <input type="text" name="d_code" id="d_name" placeholder="District shortcode. Three letters, lowercase" class="input"><br><br>
+            <button type="submit">Submit Form</button>
+        </form>
+    </div>
+
+    <div class="sidebar">
+        <div class="states">
+            <ol>
+                {{#each states}}
+                <li class="bold-text">{{name}} | {{state_code}}</li>
+                Senatorial districts:
+                <ul>
+                    {{#each sen_dists}}
+                    <li>{{name}} | {{dist_code}} | {{rep}}</li>
+                    {{/each}}
+                </ul>
+                <br><br>
+                Representative districts:
+                <ul>
+                    {{#each rep_dists}}
+                    <li>{{name}} | {{dist_code}} | {{rep}}</li>
+                    {{/each}}
+                </ul>
+                {{/each}}
+            </ol>
+        </div>
+    </div>
+    <script>
+        $(()=>{
+            $('#form').on('submit', (event)=>{
+                if(!validate()){
+                    event.preventDefault();
+                }
+            });
+        });
+
+        function validate(){
+            let f_name = $('#f_name').val();
+            let l_name = $('#l_name').val();
+            let state = $('#state').val();
+            let s_name = $('#s_name').val();
+            let district = $('#district').val();
+            let d_name = $('#d_name').val();
+            let radio = ()=>{
+                var checked = false;
+                if(document.getElementsByName('type')[0].checked){
+                    checked = true;
+                }
+                if(document.getElementsByName('type')[1].checked){
+                    checked = true;
+                }
+                return checked;
+            }
+            let gen = () =>{
+                var genderSel = false;
+                if(document.getElementsByName('gender')[0].checked){
+                    genderSel = true;
+                }
+                if(document.getElementsByName('gender')[1].checked){
+                    genderSel = true;
+                }
+                return genderSel;
+            }
+            let wsp = /^\s*$/;
+
+            let test = (param) =>{
+                return wsp.test(param);
+            }
+
+            if(test(f_name) || test(l_name) || test(state) || test(s_name) || test(district) || test(d_name) || !radio() || !gen()){
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+    </script>
+</body>

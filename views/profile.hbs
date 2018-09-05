@@ -1,0 +1,127 @@
+<head>
+    <link rel="stylesheet" href="/css/u-profile.css">
+    <script src="/js/jquery-3.2.1.js"></script>
+    <title>Name's Account | Town Hall</title>
+</head>
+<body>
+    <section class="left-bar center bold">
+        <figure class="avatar center block-center">
+            <div class="avatarDiv">
+                <img id="avatar" src="/img/png/avatar.png" alt="Name's Avatar">
+                {{!-- Your last act, before dropping all dbs is to refactor avatar --}}
+                {{!-- Refactor everything else, put in a place to see legs, and then move on to messages --}}
+            </div>
+        </figure><br>
+        <div id="avatarText">
+            Name | @username
+        </div>
+        <br>
+        <div>
+            State
+        </div>
+        <br>
+        <div>
+            <a href="/logout/u">Logout</a>
+        </div>
+    </section>
+    <section class="main">
+        <button class="tabBtn active" id="tabBtn">Your Feed <span></span></button><span>&nbsp;</span><button class="tabBtn" id="tabBtn">Town Hall</button>
+        <section id="feed" class="tabSect">
+            <div class="messagesDiv">
+                <div class="message">
+                    <div class="m-text">
+                        Some text here
+                    </div>
+                    <div class="controls right">
+                        <span class="control"><a href="/messages/replies/num">Replies (0)</a></span>
+                        <span class="control"><a href="javascript:void(0)">Edit</a></span>
+                        <span class="control"><a href="javascript:void(0)">Delete</a></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="hall" class="tabSect hidden">
+            <form action="javascript:void()" class="center" method="get">
+                <input type="search" name="terms" id="searchBox" placeholder="Search Town Hall">
+            </form>
+            <div class="message">
+                <div class="m-text">
+                    Some text here
+                </div>
+                <div class="controls right">
+                    <span class="control"><a href="/messages/replies/num">Replies (0)</a></span>
+                    <span class="control"><a href="javascript:void(0)">Edit</a></span>
+                    <span class="control"><a href="javascript:void(0)">Delete</a></span>
+                </div>
+            </div>
+        </section>
+    </section>
+    <section class="right-bar">
+        <section class="tabBar">
+            <h4 class="center black">Your Representatives</h4>
+            <div class="rep">
+                <figure>
+                    <img src="/img/png/avatar.png" alt="{{full_name}}'s Avatar" class="rep_avatar">
+                </figure>
+                <figcaption class="center">
+                    <a href="/users/l/{{code}}">Rep Name</a>
+                </figcaption>
+            </div>
+            <hr>
+            <div class="rep">
+                <figure>
+                    <img src="/img/png/avatar.png" alt="{{full_name}}'s Avatar" class="rep_avatar">
+                </figure>
+                <figcaption class="center">
+                    <a href="/users/l/{{code}}">Sen Name</a>
+                </figcaption>
+            </div>
+        </section>
+        <section class="tabBar hidden">
+            <h4 class="center">Trends</h4>
+            <ol class="trends">
+                <li class="trend"><a href="/">The First</a></li>
+                <li class="trend"><a href="/">The Second</a></li>
+                <li class="trend"><a href="/">The Third</a></li>
+            </ol>
+        </section>
+    </section>
+    <script>
+        //changing tabs
+        let tabs = document.getElementsByClassName('tabBtn');
+        let sects = document.getElementsByClassName('tabSect');
+        let bars = document.getElementsByClassName('tabBar');
+        let active = 1;
+        let tab1 = tabs[0];
+        let sect1 = sects[0];
+        let bar1 = bars[0];
+        let tab2 = tabs[1];
+        let sect2 = sects[1];
+        let bar2 = bars[1];
+
+        tab1.addEventListener('click', ()=>{
+            if (active !== 1){
+                tab2.className = 'tabBtn';
+                sect1.className = 'tabSect';
+                bar1.className = 'tabBar';
+                sect2.classList += ' hidden';
+                tab1.classList += ' active';
+                bar2.classList += ' hidden';
+                active = 1;
+            }
+        });
+        tab2.addEventListener('click', ()=>{
+            if(active !== 2){
+                tab1.className = 'tabBtn';
+                sect2.className = 'tabSect';
+                bar2.className = 'tabBar';
+                sect1.classList += ' hidden';
+                tab2.classList += ' active';
+                bar1.classList += ' hidden';
+                active = 2;
+            }
+        });
+
+        tab2.click();
+    </script>
+</body>

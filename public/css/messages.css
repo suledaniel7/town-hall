@@ -1,0 +1,57 @@
+.message {
+    width: 90%;
+    height: 300px;
+    padding: 1%;
+    background-color: #eee;
+    margin: 20px;
+    border-radius: 10px;
+}
+
+.m-avatar {
+    width: 10%;
+    padding-right: 10px;
+    padding-left: 10px;
+    float: left;
+}
+
+.m-avatar-img {
+    width: 100%;
+}
+
+.m-sender {
+    height: 50px;
+}
+
+.m-sender-line {
+    line-height: 1.5em;
+    font-weight: bold;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.verified img {
+    width: 2.5%;
+    margin-left: 10px;
+}
+
+.m-text {
+    height: 220px;
+    margin-bottom: 5px;
+    overflow-y: auto;
+    line-height: 1.5em;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: justify;
+}
+
+.m-info img {
+    width: 3%;
+}
+
+.m-info img:hover {
+    cursor: pointer;
+}
+
+.m-info .item {
+    display: inline;
+    margin-left: 10%;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
