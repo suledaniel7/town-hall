@@ -4,15 +4,15 @@ const districts = require('./schemas/districts');
 const journalists = require('./schemas/journalists');
 const messages = require('./schemas/messages');
 
-function profileRender(req, res){
+function profileRender(req, res) {
     let init_user = req.organisation.user;
     let username = init_user.username;
-    orgSchema.findOne({username: username}, (err, user)=>{
-        if(err){
+    orgSchema.findOne({ username: username }, (err, user) => {
+        if (err) {
             throw err;
         }
         else {
-            if(!user){
+            if (!user) {
                 res.redirect('/organisations/signup');
             }
             else if (user.pendingBeat.status) {
@@ -23,33 +23,33 @@ function profileRender(req, res){
                 //find a way to discover whether passwords correlate
                 //now, gather information for render: beats fllg, all beats, all js, all messages
                 let beats = user.districts;
-                journalists.find({organisation: username, beat: /^[^\s$]/}, (err, journos)=>{
-                    if(err){
+                journalists.find({ organisation: username, beat: /^[^\s$]/ }, (err, journos) => {
+                    if (err) {
                         throw err;
                     }
                     else {
                         let f_dists = [];
                         beats.forEach(beat => {
-                            districts.findOne({code: beat.code}, (err, dist)=>{
-                                if(err){
+                            districts.findOne({ code: beat.code }, (err, dist) => {
+                                if (err) {
                                     throw err;
                                 }
                                 else {
-                                    if(dist){
+                                    if (dist) {
                                         f_dists.push(dist);
                                     }
                                 }
                             });
                         });
                         //obtain all other districts, and mark the ones that journos follow
-                        districts.find((err, dists)=>{
-                            if(err){
+                        districts.find((err, dists) => {
+                            if (err) {
                                 throw err;
                             }
                             else {
                                 f_dists.forEach(f_dist => {
-                                    for(let i=0; i<dists.length; i++){
-                                        if(f_dist.code == dists[i].code){
+                                    for (let i = 0; i < dists.length; i++) {
+                                        if (f_dist.code == dists[i].code) {
                                             dists.splice(i, 1);
                                         }
                                     }
@@ -59,7 +59,7 @@ function profileRender(req, res){
                                 let s_codes = [];
                                 f_dists.forEach(f_dist => {
                                     let s_code = f_dist.state_code;
-                                    if(s_codes.indexOf(s_code) == -1){
+                                    if (s_codes.indexOf(s_code) == -1) {
                                         s_codes.push(s_code);
                                     }
                                 });
@@ -67,7 +67,7 @@ function profileRender(req, res){
                                 let st_codes = []; //for general states
                                 dists.forEach(dist => {
                                     let st_code = dist.state_code;
-                                    if(st_codes.indexOf(st_code) == -1){
+                                    if (st_codes.indexOf(st_code) == -1) {
                                         st_codes.push(st_code);
                                     }
                                 });
@@ -77,9 +77,9 @@ function profileRender(req, res){
                                     let state = {};
                                     state.districts = [];
                                     f_dists.forEach(f_dist => {
-                                        if(f_dist.state_code == s_code){
+                                        if (f_dist.state_code == s_code) {
                                             state.name = f_dist.state;
-                                            if(f_dist.type == 'sen'){
+                                            if (f_dist.type == 'sen') {
                                                 f_dist.sen = true;
                                             }
                                             else {
@@ -96,9 +96,9 @@ function profileRender(req, res){
                                     let state = {};
                                     state.districts = [];
                                     dists.forEach(dist => {
-                                        if(dist.state_code == st_code){
+                                        if (dist.state_code == st_code) {
                                             state.name = dist.state;
-                                            if(dist.type == 'sen'){
+                                            if (dist.type == 'sen') {
                                                 dist.sen = true;
                                             }
                                             else {
@@ -116,13 +116,36 @@ function profileRender(req, res){
                                 user.journos = journos;
 
                                 //find and compile messages
-                                messages.find({sender: username}).sort({timestamp: -1}).exec((err, ret_msgs)=>{
-                                    if(err){
+                                messages.find({ sender: username }).sort({ timestamp: -1 }).exec((err, ret_msgs) => {
+                                    if (err) {
                                         throw err;
                                     }
                                     else {
-                                        ret_msgs.forEach(ret_m =>{
+                                        ret_msgs.forEach(ret_m => {
                                             ret_m.originator = true;
+                                            //identify tags and messily give 'em html
+                                            let mText = ret_m.message;
+                                            let mTextArr = mText.split(/\s/);
+                                            let finalTextArr = [];
+                                            mTextArr.forEach(element => {
+                                                if (element[0] == '#' && element.slice(1).search(/\W/) != 0) {
+                                                    let hold_elem = element[0];
+                                                    let part_elem = element.slice(1);
+                                                    let end = part_elem.search(/\W/);
+                                                    if (end == -1) {
+                                                        hold_elem = '#' + part_elem;
+                                                    }
+                                                    else {
+                                                        hold_elem += part_elem.slice(0, end);
+                                                    }
+
+                                                    hold_elem = `<span><a href="/search/tag/${part_elem}" class="tag">${hold_elem}</a></span>`;
+                                                    element = hold_elem;
+                                                }
+                                                finalTextArr.push(element);
+                                            });
+
+                                            ret_m.message = finalTextArr.join(' ');
                                         });
                                         user.messages = ret_msgs;
                                         res.render('org-profile', user);

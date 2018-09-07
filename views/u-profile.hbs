@@ -1,4 +1,5 @@
 <head>
+    <link rel="stylesheet" href="/css/suggestions.css">
     <link rel="stylesheet" href="/css/u-profile.css">
     <link rel="stylesheet" href="/css/messages.css">
     <script src="/js/jquery-3.2.1.js"></script>
@@ -24,117 +25,20 @@
         </div>
     </section>
     <section class="main">
-        <button class="tabBtn active" id="tabBtn">Your Feed <span></span></button><span>&nbsp;</span><button class="tabBtn" id="tabBtn">Town Hall</button>
+        <button class="tabBtn active" id="tabBtn">Your Feed</button><span>&nbsp;</span><button class="tabBtn" id="tabBtn">Town Hall</button>
         <section id="feed" class="tabSect">
             <div class="messagesDiv">
-                {{#if sourceSel}}
-                {{#if messages}}
-                {{#if auto_sug}}
-                <div id="auto-sug" class="sug-orgs">
-                <h4 class="center">Organisations &amp; Freelance Journalists you may want to follow</h4>
-                <div class="right"><span id="close">X</span></div>
-                {{#each sug_sources}}
-                    {{#if organisation}}
-                    <div class="sug-org">
-                        <figure class="sug-org-logo">
-                            <img src="/{{logo}}" class="sug-org-logo-img" alt="{{name}}'s Logo" title="{{name}}">
-                        </figure>
-                        <div class="sug-org-dets center bold">
-                            <p><a href="/users/o/{{username}}">{{name}}</a></p>
-                            <p>{{followersNo}}</p>
-                            <button class="follow-btn" id="follow-btn" onclick="follow('{{username}}', 'org');">Follow</button>
-                        </div>
-                    </div>
-                    {{else}}
-                    <div class="sug-org">
-                        <figure class="sug-org-logo">
-                            <img src="/{{avatar}}" class="sug-org-logo-img" alt="{{name}}'s Logo" title="{{name}}">
-                        </figure>
-                        <div class="sug-org-dets center bold">
-                            <p><a href="/users/o/{{username}}">{{name}}</a></p>
-                            <p>{{followersNo}}</p>
-                            <button class="follow-btn" id="follow-btn" onclick="follow('{{username}}', 'j');">Follow</button>
-                        </div>
-                    </div>
-                    {{/if}}
-                {{/each}}
-                </div>
-                {{/if}}
-                {{#each messages}}
-                <div class="message">
-                    <div class="m-avatar">
-                        <img src="/{{sender_avatar}}" class="m-avatar-img" alt="{{sender_name}}'s avatar">
-                    </div>
-                    <div class="m-sender">
-                        <div class="m-sender-line"><a href="/users/{{sender}}">{{sender_name}}</a>{{#if verified}}<span class="verified"><img src="/img/img-1/success.png" title="Verified User" alt="Verified User"></span>{{/if}}</div>
-                        <div class="m-sender-line">{{sender_position}}</div>
-                    </div>
-                    <div class="m-text">
-                    {{message}}
-                    </div>
-                    <div class="m-info center">
-                        <img src="/img/png/chat-1.png" class="item" title="Conversation" alt="Conversation"> ({{comments_no}})
-                        <img src="/img/img-1/flag.png" class="item" title="Report" alt="Report">
-                        <span class="item grey">{{time_created}} | {{date_created}}</span>
-                    </div>
-                </div>
-                {{/each}}
-                {{else}}
-                <div class="center grey">You have no posts from the Organisations you follow</div>
-                {{/if}}
-                {{else}}
-                <div id="no-prior" class="center grey">Follow an organisation to keep up with your Legislators</div>
-                <h4 class="center">Organisations that report on your Legislators</h4>
-                {{#if suggested_orgs}}
-                <div class="sug-orgs">
-                {{#each suggested_orgs}}
-                    <div class="sug-org">
-                        <figure class="sug-org-logo">
-                            <img src="/{{logo}}" class="sug-org-logo-img" alt="{{name}}'s Logo" title="{{name}}">
-                        </figure>
-                        <div class="sug-org-dets center bold">
-                            <p><a href="/users/o/{{username}}">{{name}}</a></p>
-                            <p>{{followersNo}}</p>
-                            <button class="follow-btn" id="follow-btn" onclick="follow('{{username}}', 'org');">Follow</button>
-                        </div>
-                    </div>
-                {{/each}}
-                </div>
-                {{else}}
-                <div class="center grey bold">
-                    Unfortunately, at this time, we have no Organisations that report on your Legislators.
-                    <br><br>
-                    We're working with more media organisations to ensure that you are duly informed.
-                    <br><br>
-                    We'll inform you when a news organisation begins covering your District.
-                </div>
-                {{/if}}
-                {{/if}}
+                {{>sources}}
             </div>
         </section>
         <section id="hall" class="tabSect hidden">
             <form action="javascript:void()" class="center" method="get">
                 <input type="search" name="terms" id="searchBox" placeholder="Search Town Hall">
             </form>
-            {{#each thMessages}}
-            <div class="message">
-                <div class="m-avatar">
-                    <img src="/{{sender_avatar}}" class="m-avatar-img" alt="{{sender_name}}'s avatar">
-                </div>
-                <div class="m-sender">
-                    <div class="m-sender-line"><a href="/users/{{sender}}">{{sender_name}}</a>{{#if verified}}<span class="verified"><img src="/img/img-1/success.png" title="Verified User" alt="Verified User"></span>{{/if}}</div>
-                    <div class="m-sender-line">{{sender_position}}</div>
-                </div>
-                <div class="m-text">
-                {{message}}
-                </div>
-                <div class="m-info center">
-                    <img src="/img/png/chat-1.png" class="item" title="Conversation" alt="Conversation"> ({{comments_no}})
-                    <img src="/img/img-1/flag.png" class="item" title="Report" alt="Report">
-                    <span class="item grey">{{time_created}} | {{date_created}}</span>
-                </div>
-            </div>
-            {{/each}}
+            {{!-- 
+                {{>suggestions-m}}
+                {{>suggestions-d}}
+            --}}
         </section>
     </section>
     <section class="right-bar">
@@ -228,6 +132,14 @@
 
         $('#close').on('click', ()=>{
             document.getElementById('auto-sug').classList += ' hidden';
+        });
+
+        $('#close-m').on('click', ()=>{
+            document.getElementById('sug-m').classList += ' hidden';
+        });
+
+        $('#close-d').on('click', ()=>{
+            document.getElementById('sug-d').classList += ' hidden';
         });
 
         {{!-- tab2.click(); --}}

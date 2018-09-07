@@ -1,0 +1,67 @@
+<head>
+    <title>Search Results for Search Term</title>
+    <link rel="stylesheet" href="/css/search-res.css">
+    <link rel="stylesheet" href="/css/search-result.css">
+    <link rel="stylesheet" href="/css/messages.css">
+</head>
+<body>
+    <section class="content" id="leftBar">
+        <div class="center" id="leftContent">
+            <figure>
+                <img src="/img/png/avatar.png" class="avatar" title="User's Avatar" alt="User's Avatar">
+            </figure>
+            <div class="sug-content" id="suggestions">
+                <h4>Search suggestions</h4>
+                <div class="suggestions left">
+                    <p><a href="javascript:void()">Something to search perhaps</a></p>
+                </div>
+            </div>
+            <div class="sug-content" id="previous">
+                <h4>Previous searches</h4>
+                <div class="suggestions left">
+                    <p><a href="javascript:void()">Something to search perhaps</a></p>
+                    <p class="center small" id="clear"><a href="javascript:void()">Clear History</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content" id="centerBar">
+        <div class="center" id="main">
+            <form action="/search/general/term" method="get">
+                <input type="search" maxlength="100" name="term" class="search" id="searchBox" placeholder="Search Town Hall">
+            </form>
+            <div class="error"></div>
+            <div class="results left">
+                <div class="accounts">
+                    {{>search-result}}
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content" id="rightBar">
+        <div class="center" id="rightContent">
+            <h4>Trending Now</h4>
+            <div class="trend left">
+                <p><a href="javascript:void()">Something to search perhaps</a></p>
+                <p class="small grey-text center">250 talking about this</p>
+            </div>
+            <div class="trend left">
+                <p><a href="javascript:void()">Something to search perhaps</a></p>
+                <p class="small grey-text center">250 talking about this</p>
+            </div>
+            <div class="trend left">
+                <p><a href="javascript:void()">Something to search perhaps</a></p>
+                <p class="small grey-text center">250 talking about this</p>
+            </div>
+            <div class="trend left">
+                <p><a href="javascript:void()">Something to search perhaps</a></p>
+                <p class="small grey-text center">250 talking about this</p>
+            </div>
+            <div class="trend left">
+                <p><a href="javascript:void()">Something to search perhaps</a></p>
+                <p class="small grey-text center">250 talking about this</p>
+            </div>
+            <p class="more"><a href="javascript:void()">View more</a></p>
+        </div>
+    </section>
+</body>

@@ -1,0 +1,39 @@
+*:focus {
+    outline: none;
+}
+
+.grey-text {
+    color: #ddd;
+}
+
+.grey {
+    color: gray;
+}
+
+.black {
+    color: black;
+}
+
+.small {
+    font-size: smaller;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.hidden {
+    display: none;
+}
+
+.center {
+    text-align: center;
+}
+
+.right {
+    text-align: right;
+}
+
+.left {
+    text-align: left;
+}

@@ -25,6 +25,7 @@ const l_signin = require('../controllers/l-signin');
 const m_handler = require('../controllers/message');
 const follow = require('../controllers/follow');
 const logout = require('../controllers/logout');
+const search = require('../controllers/search');
 
 const router = express.Router();
 const logos = multer({dest: 'public/logos/'});
@@ -133,12 +134,8 @@ router.post('/messages/:type', m_handler);
 
 router.post('/follow/:type/:org_type/:username', follow);
 
+router.get('/search/:type/:term', search);
+
 router.get('/logout/:type', logout);
 
 module.exports = router;
-
-/*
-    Change AJAXed messages to new format
-    Eliminate annoying, you have no prior posts post AJAX entry
-    
-*/

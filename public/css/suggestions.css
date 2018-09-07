@@ -1,0 +1,81 @@
+h4 {
+    margin: 5px;
+}
+
+.suggestions, .sug-ds {
+    height: 15em;
+    width: 95%;
+    margin: 0 auto;
+    padding: 1%;
+    margin-bottom: 20px;
+}
+
+.suggestion, .sug-d {
+    height: 13em;
+    float: left;
+    width: 23%;
+    padding: 0.3%;
+    margin: 0.3%;
+    border-radius: 10px;
+}
+
+.suggestion-img {
+    /* width: 90%; */
+    margin: 0 auto;
+    display: block;
+    height: 7em;
+    border-radius: 50%;
+}
+
+.center {
+    text-align: center;
+}
+
+.verified {
+    height: 0.85em;
+    margin-left: 10px;
+}
+
+.close {
+    float: right;
+}
+
+.more {
+    margin-top: 17em;
+}
+
+.j-text {
+    color: rgb(112, 146, 190);
+}
+
+.j-text:hover {
+    color: rgb(151, 195, 253);
+}
+
+.j-border {
+    border: 2px solid rgb(112, 146, 190);
+}
+
+.o-text {
+    color: rgb(13, 118, 150);
+}
+
+.o-text:hover {
+    color: rgb(21, 176, 223);
+}
+
+.o-border {
+    border: 2px solid rgb(13, 118, 150);
+}
+
+.l-text {
+    color: rgb(146, 25, 25);
+}
+
+.l-text:hover {
+    color: rgb(253, 43, 43);
+}
+
+.l-border {
+    border: 2px solid rgb(146, 25, 25);
+}

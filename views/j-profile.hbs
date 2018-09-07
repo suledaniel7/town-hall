@@ -20,7 +20,8 @@
         <br />
         <div class="info center">
             {{#beatDets}}
-            <span class="bold">{{name}}</span>
+            <div class="bold">{{name}}</div>
+            <div class="bold">{{type_name}}</div>
             {{/beatDets}}
             <br> {{#if organisation}}
             <div>
@@ -36,22 +37,23 @@
         </div>
     </section>
     <section class="main">
-        <div class="switchers center">
+        {{!-- <div class="switchers center"> --}}
             <button class="switch active" id="oYBtn">On Your beat</button>
-            <button class="switch" id="fYBtn">For You</button>
-        </div>
-        <div id="oYB" class="oYB">
+            <span>&nbsp;</span>
+            <button class="switch" id="fYBtn">Town Hall</button>
+        {{!-- </div> --}}
+        <div id="oYB" class="oYB beatSect">
             <form>
                 {{#if free}}
                 <form action="/messages/j" method="post">
                 <div class="postDiv">
-                    <textarea maxlength="300" name="post" id="post" class="post" placeholder="Enter message here"></textarea>
+                    <textarea maxlength="360" name="post" id="post" class="post" placeholder="Enter message here"></textarea>
                 </div>
                 </form>
                 <br>
                 <div class="postAcc">
                     <div class="center grey">
-                        <span id="charCount">0</span>/300 characters</div>
+                        <span id="charCount">0</span>/360 characters</div>
                     <div class="right">
                         <button id="postBtn" class="postBtn">Post</button>
                     </div>
@@ -84,7 +86,7 @@
                 <a href="/logout/j">Log out</a>
             </footer>
         </div>
-        <div id="fY" class="fY hidden">
+        <div id="fY" class="fY beatSect hidden">
             some random stuff, well, really, messages
         </div>
     </section>
@@ -104,13 +106,13 @@
             document.getElementById('oYBtn').className = 'switch';
             document.getElementById('oYB').classList += ' hidden';
             document.getElementById('fYBtn').classList += ' active';
-            document.getElementById('fY').className = 'fY';
+            document.getElementById('fY').className = 'fY beatSect';
         });
         $('#oYBtn').on('click', () => {
             document.getElementById('fYBtn').className = 'switch';
             document.getElementById('fY').classList += ' hidden';
             document.getElementById('oYBtn').classList += ' active';
-            document.getElementById('oYB').className = 'oYB';
+            document.getElementById('oYB').className = 'oYB beatSect';
         });
 
         //message sender
@@ -144,7 +146,5 @@
                 });
             }
         });
-
-        //refactor pages to do all this i.e. fix message controller to cater to all use cases, fix all controllers to render w/ data. Refer to message.js
     </script>
 </body>

@@ -61,11 +61,11 @@ body {
     height: 620px;
 }
 
-.main a {
+.main a, .tag {
     color: rgb(13, 118, 150);
 }
 
-.main a:hover {
+.main a:hover, .tag:hover {
     color: rgb(21, 176, 223);
 }
 
@@ -255,41 +255,6 @@ hr {
 .posts {
     margin: 0 auto;
     width: 85%;
-}
-
-.message {
-    background-color: #eee;
-    border: transparent;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    overflow-y: auto;
-    padding: 10px;
-}
-
-.m-text {
-    height: 8em;
-    overflow-y: auto;
-}
-
-#cont-img {
-    width: 15px;
-}
-
-.control {
-    margin-right: 10px;
-}
-
-ul {
-    list-style-type: none;
-}
-
-.options {
-    /* position: absolute; */
-    /* display: inline; */
-    /* float: right; */
-    border: 1px solid black;
-    z-index: 0;
-    /* width: 100px; */
 }
 
 .journo {

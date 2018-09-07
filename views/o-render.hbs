@@ -1,0 +1,34 @@
+<head>
+    <title>Organisation Name | Town Hall</title>
+    <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/css/profile-render.css">
+    <link rel="stylesheet" href="/css/messages.css">
+</head>
+<body class="o">
+    <section class="content center b" id="leftBar">
+         <figure class="">
+            <div class="avatarDiv">
+                <img id="avatar" class="avatar" src="/img/png/avatar.png" alt="{{f_name}}'s Avatar">
+            </div>
+        </figure>
+        <br>
+        <div id="avatarText" class="center">
+            Org Name | Username
+        </div>
+        <br />
+        <div class="info">
+            <div class="bold">58 Town Hall Journalists</div>
+            <div class="bold">500 Followers</div>
+            <br>
+            <p>
+                <a href="javascript:void()">Contact OrgName</a>
+            </p>
+            <br>
+            <br>
+        </div>
+    </section>
+    <section class="content center" id="main">
+        <h3 class="center">Organisation's Posts</h3>
+        {{>messages}}
+    </section>
+</body>

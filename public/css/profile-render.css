@@ -1,0 +1,84 @@
+html {
+    background-color: #eee;
+}
+
+body {
+    margin: 0 auto;
+    width: 80%;
+    font-family: sans-serif;
+}
+
+.content {
+    float: left;
+    height: 648px;
+}
+
+#leftBar {
+    width: 19%;
+    padding: 0.5%;
+}
+
+#main {
+    width: 79%;
+    padding: 0.5%;
+}
+
+.avatar {
+    width: 100%;
+    margin: 0 auto;
+    display: block;
+}
+
+#main {
+    background-color: white;
+    overflow-y: auto;
+}
+
+a {
+    text-decoration: none;
+}
+
+.j .b {
+    background-color: rgb(112, 146, 190);
+}
+
+.j a, .tag {
+    color: rgb(112, 146, 190);
+}
+
+.j a:hover, .tag:hover {
+    color: rgb(151, 195, 253);
+}
+
+.l .b {
+    background-color: rgb(146, 25, 25);
+}
+
+.l a, .tag {
+    color: rgb(146, 25, 25);
+}
+
+.l a:hover, .tag:hover {
+    color: rgb(253, 43, 43);
+}
+
+.o .b {
+    background-color: rgb(13, 118, 150);
+}
+
+.o a, .tag {
+    color: rgb(13, 118, 150);
+}
+
+.o a:hover, .tag:hover {
+    color: rgb(21, 176, 223);
+}
+
+.b a {
+    color: white;
+}
+
+.b a:hover {
+    color: white;
+    text-decoration: underline;
+}

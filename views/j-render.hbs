@@ -1,0 +1,42 @@
+<head>
+    <title>Journalist Name | Town Hall</title>
+    <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/css/profile-render.css">
+    <link rel="stylesheet" href="/css/messages.css">
+</head>
+<body class="j">
+    <section class="content center b" id="leftBar">
+         <figure class="">
+            <div class="avatarDiv">
+                <img id="avatar" class="avatar" src="/img/png/avatar.png" alt="{{f_name}}'s Avatar">
+            </div>
+        </figure>
+        <br>
+        <div id="avatarText" class="center">
+            Journo Name
+        </div>
+        <br />
+        <div class="info">
+            {{!-- {{#beatDets}} --}}
+            <div class="bold">{{name}}</div>
+            <div class="bold">{{type_name}}</div>
+            {{!-- {{/beatDets}} --}}
+            <br>
+            {{!-- {{#if organisation}} --}}
+            <div>
+                <a href="javascript:void()">{{orgName}}Organisation Name</a>
+            </div>
+            {{!-- {{/if}} --}}
+            <br>
+            <br>
+            <div>
+                <span class="bold">Followers: </span>
+                <span>{{followersNo}}</span>
+            </div>
+        </div>
+    </section>
+    <section class="content center" id="main">
+        <h3 class="center">Journalist's Posts</h3>
+        {{>messages}}
+    </section>
+</body>

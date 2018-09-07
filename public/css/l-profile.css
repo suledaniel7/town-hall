@@ -28,8 +28,8 @@ body {
 }
 
 .sidebar {
-    width: 19%;
-    padding: 0.5%;
+    width: 18%;
+    padding: 1%;
     height: 700px;
     float: left;
     background-color: rgb(146, 25, 25);
@@ -37,25 +37,38 @@ body {
 }
 
 .main {
-    width: 79%;
-    padding: 0.5%;
+    width: 58%;
+    padding: 1%;
     height: 620px;
     overflow-y: auto;
     float: left;
 }
 
-.main-content {
-    width: 90%;
-    margin: 0 auto;
-    padding-top: 3%;
+.rightBar {
+    width: 18%;
+    height: 700px;
+    padding: 1%;
+    float: left;
+    color: white;
+    background-color: rgb(146, 25, 25);
 }
 
-.main a {
+.main-content {
+    margin: 0 auto;
+    padding-top: 1%;
+}
+
+.main a, .tag {
     color: rgb(146, 25, 25);
 }
 
-.main a:hover {
+.main a:hover, .tag:hover {
     color: rgb(253, 43, 43);
+}
+
+.tab-content {
+    height: 550px;
+    overflow-y: auto;
 }
 
 .avatar {
@@ -126,45 +139,6 @@ body {
 .postBtn:hover {
     background-color: rgb(253, 43, 43);
     cursor: pointer;
-}
-
-.message {
-    width: 70%;
-    height: 11em;
-    margin: 0 auto;
-    margin-bottom: 20px;
-    border: 1px solid #aaa;
-    padding: 7px;
-    overflow-y: auto;
-    font-size: 13pt;
-    border-radius: 10px;
-    background-color: #eee;
-}
-
-.m-text {
-    height: 8em;
-    overflow-y: auto;
-}
-
-#cont-img {
-    width: 15px;
-}
-
-.control {
-    margin-right: 10px;
-}
-
-ul {
-    list-style-type: none;
-}
-
-.options {
-    /* position: absolute; */
-    /* display: inline; */
-    /* float: right; */
-    border: 1px solid black;
-    z-index: 0;
-    /* width: 100px; */
 }
 
 #filter {

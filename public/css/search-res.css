@@ -1,0 +1,125 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+}
+
+*:focus {
+    outline: none;
+}
+
+.grey-text {
+    color: #ddd;
+}
+
+.grey {
+    color: gray;
+}
+
+.black {
+    color: black;
+}
+
+.small {
+    font-size: smaller;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.hidden {
+    display: none;
+}
+
+.center {
+    text-align: center;
+}
+
+.right {
+    text-align: right;
+}
+
+.left {
+    text-align: left;
+}
+
+.error {
+    color: red;
+    font-size: 16pt;
+}
+
+.content {
+    float: left;
+    height: 648px;
+}
+
+#leftBar {
+    width: 19%;
+    padding: 0.5%;
+    background-color: rgb(32, 145, 153);
+}
+
+#centerBar {
+    width: 59%;
+    padding: 0.5%;
+}
+
+#rightBar {
+    width: 19%;
+    padding: 0.5%;
+    background-color: rgb(32, 145, 153);
+}
+
+.avatar {
+    height: 5em;
+    display: block;
+    margin: 0 auto;
+    border: 2px solid rgb(48, 210, 221);;
+    border-radius: 50%;
+    padding: 0.5%;
+}
+
+.sug-content {
+    height: 16em;
+    overflow-y: auto;
+}
+
+#leftBar a, #rightBar a {
+    color: white;
+    text-decoration: none;
+}
+
+#leftBar a:hover, #rightBar a:hover {
+    text-decoration: underline;
+}
+
+#centerBar a {
+    color: rgb(32, 145, 153);
+}
+
+#centerBar a:hover {
+    color: rgb(48, 210, 221);
+}
+
+#searchBox {
+    width: 90%;
+    height: 2.5em;
+    border-radius: 10px;
+    border: 2px solid rgb(32, 145, 153);
+    padding: 5px;
+    margin-bottom: 20px;
+    font-size: 12pt;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.accounts {
+    height: 20em;
+}
+
+.trend {
+    border: 2px solid rgb(48, 210, 221);
+    height: 4.5em;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+}

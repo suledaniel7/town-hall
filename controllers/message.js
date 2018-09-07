@@ -6,35 +6,57 @@ const legislators = require('./schemas/legislators');
 const dateFn = require('./dateFn');
 const timeFn = require('./timeFn');
 
-function messageHandler(req, res){
+function messageHandler(req, res) {
     let m_type = req.params.type;
     let mText = req.body.mBody;
     let today = new Date();
     let comments_no = 0;
     let timestamp = today.getTime();
     let wsp = /^\s*$/;
-    if(!wsp.test(mText)){
+    if (!wsp.test(mText)) {
         //message not-empty. Clear trailing and leading whitespace
         let tsp = /\s+$/;
         let lsp = /^\s+/;
-        
-        if(tsp.test(mText)){
+
+        if (tsp.test(mText)) {
             mText = mText.replace(tsp, '');
         }
-        if(lsp.test(mText)){
+        if (lsp.test(mText)) {
             mText = mText.replace(lsp, '');
         }
         //create message
         //find type
-        if(m_type == 'j'){
+        if (m_type == 'j') {
             //journo
-            if(!req.journalist){
+            if (!req.journalist) {
                 res.sendStatus(403);//forbidden
             }
-            else if(!req.journalist.user){
+            else if (!req.journalist.user) {
                 res.sendStatus(403);//forbidden
             }
             else {
+                let tags = [];
+                let unRefTags = [];
+                let mTextArr = mText.split(/\s/);
+                //extract based on hashes
+                mTextArr.forEach(element => {
+                    if(element[0] == '#' && element.slice(1).search(/\W/) != 0){
+                        unRefTags.push(element);
+                    }
+                });
+                //extract invalid characters
+                unRefTags.forEach(tag => {
+                    let partTag = tag.slice(1);
+                    let end = partTag.search(/\W/);
+                    if (end == -1) {
+                        tags.push(tag);
+                    }
+                    else {
+                        let fin_tag = '#' + partTag.slice(0, end);
+                        tags.push(fin_tag);
+                    }
+                });
+
                 let username = req.journalist.user.username;
                 let message = new messages({
                     sender: username,
@@ -42,22 +64,23 @@ function messageHandler(req, res){
                     ac_type: m_type,
                     comments_no: comments_no,
                     timestamp: timestamp,
+                    tags: tags,
                     date_created: dateFn(new Date(), true),
                     time_created: timeFn(new Date())
                 });
-                
-                journalists.findOne({username: username}, (err, ret_j)=>{
-                    if(err){
+
+                journalists.findOne({ username: username }, (err, ret_j) => {
+                    if (err) {
                         throw err;
                     }
-                    else if(!ret_j){
+                    else if (!ret_j) {
                         res.sendStatus(403);
                     }
                     else {
-                        //j exists, send message finally
+                        //j exists, send message finally//extract tags
                         message.verified = ret_j.verified;
                         message.sender_name = ret_j.f_name + ' ' + ret_j.l_name;
-                        if(ret_j.account.type == 'formal'){
+                        if (ret_j.account.type == 'formal') {
                             message.sender_position = ret_j.orgName + ' Journalist';
                         }
                         else {
@@ -65,28 +88,51 @@ function messageHandler(req, res){
                         }
                         message.sender_avatar = ret_j.avatar;
                         message.beat = ret_j.beat;
-                        message.save((err)=>{
-                            if(err){
+                        message.save((err) => {
+                            if (err) {
                                 res.sendStatus(403);
                             }
                             else {
-                                res.send({message: message, originator: true});
+                                res.send({ message: message, originator: true });
                             }
                         });
                     }
                 });
             }
         }
-        else if(m_type == 'o'){
+        else if (m_type == 'o') {
             let recepients = req.body.recepients;
-            if(!req.organisation){
+            if (!req.organisation) {
                 res.sendStatus(403);
             }
-            else if(!req.organisation.user){
+            else if (!req.organisation.user) {
                 res.sendStatus(403);
             }
             else {
                 //user exists
+                //extract tags
+                let tags = [];
+                let unRefTags = [];
+                let mTextArr = mText.split(/\s/);
+                //extract based on hashes
+                mTextArr.forEach(element => {
+                    if(element[0] == '#' && element.slice(1).search(/\W/) != 0){
+                        unRefTags.push(element);
+                    }
+                });
+                //extract invalid characters
+                unRefTags.forEach(tag => {
+                    let partTag = tag.slice(1);
+                    let end = partTag.search(/\W/);
+                    if (end == -1) {
+                        tags.push(tag);
+                    }
+                    else {
+                        let fin_tag = '#' + partTag.slice(0, end);
+                        tags.push(fin_tag);
+                    }
+                });
+
                 let username = req.organisation.user.username;
                 let message = new messages({
                     sender: username,
@@ -94,15 +140,16 @@ function messageHandler(req, res){
                     ac_type: m_type,
                     comments_no: comments_no,
                     timestamp: timestamp,
+                    tags: tags,
                     date_created: dateFn(new Date(), true),
                     time_created: timeFn(new Date())
                 });
 
-                organisations.findOne({username: username}, (err, ret_o)=>{
-                    if(err){
+                organisations.findOne({ username: username }, (err, ret_o) => {
+                    if (err) {
                         throw err;
                     }
-                    else if(!ret_o){
+                    else if (!ret_o) {
                         res.sendStatus(403);
                     }
                     else {
@@ -111,34 +158,34 @@ function messageHandler(req, res){
                         message.sender_name = ret_o.name;
                         message.sender_avatar = ret_o.logo;
 
-                        if(recepients == 'all'){
+                        if (recepients == 'all') {
                             //normal
                             message.beat = 'all';
-                            message.save((err)=>{
-                                if(err){
+                            message.save((err) => {
+                                if (err) {
                                     res.sendStatus(403);
                                 }
                                 else {
-                                    res.send({message: message, originator: true});
+                                    res.send({ message: message, originator: true });
                                 }
                             });
                         }
                         else {
-                            districts.findOne({code: recepients}, (err, ret_d)=>{
-                                if(err){
+                            districts.findOne({ code: recepients }, (err, ret_d) => {
+                                if (err) {
                                     throw err;
                                 }
-                                else if(!ret_d){
+                                else if (!ret_d) {
                                     res.redirect('/');
                                 }
                                 else {
                                     message.beat = ret_d.code;
-                                    message.save((err)=>{
-                                        if(err){
+                                    message.save((err) => {
+                                        if (err) {
                                             res.sendStatus(403);
                                         }
                                         else {
-                                            res.send({message: message});
+                                            res.send({ message: message });
                                         }
                                     });
                                 }
@@ -148,15 +195,39 @@ function messageHandler(req, res){
                 });
             }
         }
-        else if(m_type == 'l'){
-            if(!req.legislator){
+        else if (m_type == 'l') {
+            if (!req.legislator) {
                 res.sendStatus(403);
             }
-            else if(!req.legislator.user){
+            else if (!req.legislator.user) {
                 res.sendStatus(403);
             }
             else {
                 //user exists
+                //extract tags
+                let tags = [];
+                let unRefTags = [];
+                let mTextArr = mText.split(/\s/);
+                //extract based on hashes
+                mTextArr.forEach(element => {
+                    if(element[0] == '#' && element.slice(1).search(/\W/) != 0){
+                        unRefTags.push(element);
+                    }
+                });
+                //extract invalid characters
+                unRefTags.forEach(tag => {
+                    let partTag = tag.slice(1);
+                    let end = partTag.search(/\W/);
+                    if (end == -1) {
+                        tags.push(tag);
+                    }
+                    else {
+                        let fin_tag = '#' + partTag.slice(0, end);
+                        tags.push(fin_tag);
+                    }
+                });
+
+                //compile message
                 let email = req.legislator.user.email;
                 let message = new messages({
                     sender: email,
@@ -164,15 +235,16 @@ function messageHandler(req, res){
                     ac_type: m_type,
                     comments_no: comments_no,
                     timestamp: timestamp,
+                    tags: tags,
                     date_created: dateFn(new Date(), true),
                     time_created: timeFn(new Date())
                 });
 
-                legislators.findOne({email: email}, (err, ret_l)=>{
-                    if(err){
+                legislators.findOne({ email: email }, (err, ret_l) => {
+                    if (err) {
                         throw err;
                     }
-                    else if(!ret_l){
+                    else if (!ret_l) {
                         res.sendStatus(403);
                     }
                     else {
@@ -182,12 +254,12 @@ function messageHandler(req, res){
                         message.sender_name = ret_l.type_exp + ' ' + ret_l.full_name;
                         message.sender_position = 'Representative of ' + ret_l.district + ' | ' + ret_l.state + ' State';
                         message.sender_avatar = ret_l.avatar;
-                        message.save((err)=>{
-                            if(err){
+                        message.save((err) => {
+                            if (err) {
                                 res.sendStatus(403);
                             }
                             else {
-                                res.send({message: message, originator: true});
+                                res.send({ message: message, originator: true });
                             }
                         });
                     }

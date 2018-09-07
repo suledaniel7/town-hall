@@ -1,0 +1,77 @@
+.result {
+    width: 22%;
+    height: 15em;
+    padding-top: 10px;
+    float: left;
+    border-radius: 10px;
+}
+
+.result figcaption {
+    height: 2em;
+    overflow: hidden;
+}
+
+.center-block {
+    display: block;
+    margin: 0 auto;
+}
+
+.j-avatar {
+    height: 7em;
+}
+
+.verified {
+    height: 1em;
+}
+
+.deep-grey-text {
+    color: #444;
+}
+
+.follow {
+    width: 80%;
+    height: 2.5em;
+    border: none;
+    border-radius: 10px;
+    color: white;
+}
+
+.follow:hover {
+    cursor: pointer;
+}
+
+.o-border {
+    border: 2px solid rgb(13, 118, 150);
+}
+
+.o-button {
+    background-color: rgb(13, 118, 150);
+}
+
+.o-button:hover {
+    background-color: rgb(21, 176, 223);
+}
+
+.j-border {
+    border: 2px solid rgb(112, 146, 190);
+}
+
+.j-button {
+    background-color: rgb(112, 146, 190);
+}
+
+.j-button:hover {
+    background-color: rgb(151, 195, 253);
+}
+
+.l-border {
+    border: 2px solid rgb(146, 25, 25);
+}
+
+.l-button {
+    background-color: rgb(146, 25, 25);
+}
+
+.l-button:hover {
+    background-color: rgb(253, 43, 43);
+}

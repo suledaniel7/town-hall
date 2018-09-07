@@ -1,4 +1,4 @@
-{{#each messages}}
+{{!-- {{#each messages}} --}}
 <div class="message">
     <div class="m-avatar">
         <img src="/{{sender_avatar}}" class="m-avatar-img" alt="{{sender_name}}'s avatar">
@@ -8,7 +8,7 @@
         <div class="m-sender-line">{{sender_position}}</div>
     </div>
     <div class="m-text">
-    {{message}}
+    {{{message}}}
     </div>
     <div class="m-info center">
         <img src="/img/png/chat-1.png" class="item" title="Conversation" alt="Conversation"> ({{comments_no}})
@@ -21,4 +21,4 @@
         <span class="item grey">{{time_created}} | {{date_created}}</span>
     </div>
 </div>
-{{/each}}
+{{!-- {{/each}} --}}

@@ -46,11 +46,11 @@ body {
     /* background-color: #ddd; */
 }
 
-.main a {
+.main a, .tag {
     color: rgb(32, 145, 153);
 }
 
-.main a:hover {
+.main a:hover, .tag:hover {
     color: rgb(48, 210, 221);
 }
 
@@ -101,32 +101,6 @@ body {
     margin: 0 auto;
 }
 
-.message {
-    width: 80%;
-    height: 11em;
-    margin: 0 auto;
-    margin-bottom: 20px;
-    border: 1px solid #aaa;
-    padding: 7px;
-    overflow-y: auto;
-    font-size: 13pt;
-    border-radius: 10px;
-    background-color: #eee;
-}
-
-.m-text {
-    height: 8em;
-    overflow-y: auto;
-}
-
-#cont-img {
-    width: 15px;
-}
-
-.control {
-    margin-right: 10px;
-}
-
 .rep_avatar {
     width: 90%;
 }
@@ -168,7 +142,6 @@ body {
     border-radius: 5px;
     border: 2px solid rgb(32, 145, 153);
     padding: 5px;
-    margin-bottom: 20px;
 }
 
 .trend {
@@ -186,13 +159,12 @@ body {
     float: left;
     width: 30%;
     margin: 1%;
-    height: 300px;
+    height: 320px;
     border: 2px solid black;
     border-radius: 10px;
 }
 
 .sug-org-logo-img {
-    width: 100%;
     height: 145px;
 }
 
@@ -210,12 +182,12 @@ body {
     cursor: pointer;
 }
 
-#close {
+.close {
     font-weight: bold;
     letter-spacing: 0.25em;
 }
 
-#close:hover {
+.close:hover {
     cursor: pointer;
     color: red;
 }

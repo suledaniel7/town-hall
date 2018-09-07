@@ -1,0 +1,31 @@
+<head>
+    <title>Legislator Name | Town Hall</title>
+    <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/css/profile-render.css">
+    <link rel="stylesheet" href="/css/messages.css">
+</head>
+<body class="l">
+    <section class="content center b" id="leftBar">
+        <div class="avatar">
+            <figure>
+                <img src="{{avatar}}" id="avatar" alt="{{f_name}}'s Avatar">
+                <br><br>
+                <figcaption>{{type_exp}} {{full_name}}</figcaption>
+            </figure>
+        </div>
+        <div class="dets">
+            <div class="dist bold">
+                Representing {{district}}, {{state}} State
+            </div>
+            <br>
+            <div>
+                {{const_num}} Town Hall Constituents
+            </div>
+            <br><br>
+        </div>
+    </section>
+    <section class="content center" id="main">
+        <h3 class="center">Legislator's Posts</h3>
+        {{>messages}}
+    </section>
+</body>
