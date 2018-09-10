@@ -1,9 +1,10 @@
-{{!-- Organisations, freelancers, and legislators --}}
-<div class="o-border result center">
+{{#each accounts}}
+<div class="{{tint}}-border result center">
     <figure class="center-block">
-        <img src="/img/png/avatar-1.png" class="j-avatar" title="Organisation's Avatar" alt="Organisation's Avatar">
-        <figcaption><a href="javascript:void();">Organisation Name</a> <img src="/img/img-1/success.png" class="verified" title="Verified User" alt="Verified User"></figcaption>
+        <img src="/{{logo}}{{avatar}}" class="j-avatar" title="{{name}}{{type_exp}} {{f_name}} {{l_name}}'s Avatar" alt="{{name}}{{type_exp}} {{f_name}} {{l_name}}'s Avatar">
+        <figcaption><a class="{{tint}}-a" href="/profile/{{username}}{{code}}">{{name}}{{type_exp}} {{f_name}} {{l_name}}</a> <img src="/img/img-1/success.png" class="verified" title="Verified User" alt="Verified User"></figcaption>
     </figure>
-    <p class="deep-grey-text">35 Followers</p>
-    <button class="follow o-button">Follow</button>
+    <p class="deep-grey-text">{{const_num}}{{followersNo}} Followers</p>
+    <button class="follow {{tint}}-button">Follow</button>
 </div>
+{{/each}}

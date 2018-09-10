@@ -39,7 +39,7 @@ body {
 .main {
     width: 58%;
     padding: 1%;
-    padding-top: 0%;
+    padding-top: 1%;
     float: left;
     height: 620px;
     overflow-y: auto;
@@ -131,7 +131,7 @@ body {
 }
 
 .tabSect {
-    height: 550px;
+    height: 600px;
     overflow-y: auto;
     padding: 1%;
 }

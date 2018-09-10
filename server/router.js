@@ -26,6 +26,7 @@ const m_handler = require('../controllers/message');
 const follow = require('../controllers/follow');
 const logout = require('../controllers/logout');
 const search = require('../controllers/search');
+const profile = require('../controllers/profile');
 
 const router = express.Router();
 const logos = multer({dest: 'public/logos/'});
@@ -135,6 +136,8 @@ router.post('/messages/:type', m_handler);
 router.post('/follow/:type/:org_type/:username', follow);
 
 router.get('/search/:type/:term', search);
+
+router.get('/profile/:username', profile);
 
 router.get('/logout/:type', logout);
 

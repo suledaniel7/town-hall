@@ -13,7 +13,7 @@
             {{/each}}
             </div>
         {{/if}}
-            {{>messages}}
+        {{>messages}}
     {{else}}
         <div class="center grey">You have no posts from the Organisations you follow</div>
     {{/if}}
@@ -26,6 +26,7 @@
             {{>sug-org}}
         {{/each}}
         </div>
+        {{>messages}};
     {{else}}
         <div class="center grey bold">
             Unfortunately, at this time, we have no Organisations that report on your Legislators.

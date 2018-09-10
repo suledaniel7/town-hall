@@ -1,10 +1,10 @@
-{{!-- {{#each messages}} --}}
+{{#each messages}}
 <div class="message">
     <div class="m-avatar">
         <img src="/{{sender_avatar}}" class="m-avatar-img" alt="{{sender_name}}'s avatar">
     </div>
     <div class="m-sender">
-        <div class="m-sender-line"><a href="/users/{{sender}}">{{#if originator}}You{{else}}{{sender_name}}{{/if}}</a>{{#if verified}}<span class="verified"><img src="/img/img-1/success.png" title="Verified User" alt="Verified User"></span>{{/if}}</div>
+        <div class="m-sender-line"><a href="/profile/{{sender}}">{{#if originator}}You{{else}}{{sender_name}}{{/if}}</a>{{#if verified}}<span class="verified"><img src="/img/img-1/success.png" title="Verified User" alt="Verified User"></span>{{/if}}</div>
         <div class="m-sender-line">{{sender_position}}</div>
     </div>
     <div class="m-text">
@@ -21,4 +21,4 @@
         <span class="item grey">{{time_created}} | {{date_created}}</span>
     </div>
 </div>
-{{!-- {{/each}} --}}
+{{/each}}

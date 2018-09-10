@@ -6,6 +6,7 @@ const convertPath = require('./uploadFilePathConversion');
 function signup(req, res) {
     let { f_name, l_name, username, email, password, ac_type } = req.body;
     username = username.toLowerCase();
+    email = email.toLowerCase();
     let fPath = '';
     if (req.file) {
         fPath = convertPath(req.file);
@@ -46,7 +47,9 @@ function signup(req, res) {
                 username: username,
                 email: email,
                 f_name: f_name,
+                lc_f_name: f_name.toLowerCase(),
                 l_name: l_name,
+                lc_l_name: l_name.toLowerCase(),
                 password: password,
                 account: account,
                 avatar: fPath,

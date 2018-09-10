@@ -2,6 +2,7 @@ const journalists = require('./schemas/journalists');
 const messages = require('./schemas/messages');
 const beatSelect = require('./select-beat-render');
 const orgSelect = require('./select-org-render');
+const extractTags = require('./extractTags');
 
 function renderProfile(req, res) {
     let init_user = req.journalist.user;
@@ -38,33 +39,7 @@ function renderProfile(req, res) {
                                 throw err;
                             }
                             else {
-                                ret_msgs.forEach(ret_m => {
-                                    ret_m.originator = true;
-                                    //identify tags and messily give 'em html
-                                    let mText = ret_m.message;
-                                    let mTextArr = mText.split(/\s/);
-                                    let finalTextArr = [];
-                                    mTextArr.forEach(element => {
-                                        if (element[0] == '#' && element.slice(1).search(/\W/) != 0) {
-                                            let hold_elem = element[0];
-                                            let part_elem = element.slice(1);
-                                            let end = part_elem.search(/\W/);
-                                            if (end == -1) {
-                                                hold_elem = '#' + part_elem;
-                                            }
-                                            else {
-                                                hold_elem += part_elem.slice(0, end);
-                                            }
-
-                                            hold_elem = `<span><a href="/search/tag/${part_elem}" class="tag">${hold_elem}</a></span>`;
-                                            element = hold_elem;
-                                        }
-                                        finalTextArr.push(element);
-                                    });
-
-                                    ret_m.message = finalTextArr.join(' ');
-                                });
-                                journalist.messages = ret_msgs;
+                                journalist.messages = extractTags(ret_msgs, init_username);
                                 res.render('j-profile', journalist);
                             }
                         });
@@ -84,33 +59,7 @@ function renderProfile(req, res) {
                                 throw err;
                             }
                             else {
-                                ret_msgs.forEach(ret_m => {
-                                    ret_m.originator = true;
-                                    //identify tags and messily give 'em html
-                                    let mText = ret_m.message;
-                                    let mTextArr = mText.split(/\s/);
-                                    let finalTextArr = [];
-                                    mTextArr.forEach(element => {
-                                        if (element[0] == '#' && element.slice(1).search(/\W/) != 0) {
-                                            let hold_elem = element[0];
-                                            let part_elem = element.slice(1);
-                                            let end = part_elem.search(/\W/);
-                                            if (end == -1) {
-                                                hold_elem = '#' + part_elem;
-                                            }
-                                            else {
-                                                hold_elem += part_elem.slice(0, end);
-                                            }
-
-                                            hold_elem = `<span><a href="/search/tag/${part_elem}" class="tag">${hold_elem}</a></span>`;
-                                            element = hold_elem;
-                                        }
-                                        finalTextArr.push(element);
-                                    });
-
-                                    ret_m.message = finalTextArr.join(' ');//doesn't use the same char as was used to separate
-                                });
-                                journalist.messages = ret_msgs;
+                                journalist.messages = extractTags(ret_msgs, init_username);
                                 res.render('j-profile', journalist);
                             }
                         });

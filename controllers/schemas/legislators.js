@@ -2,17 +2,22 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;//create absolutely different schemas for 'tweets' for everyone. Three different schemas for the three account classes
 
 const legislatorSchema = new Schema({
-    lc_name: {type: String, required: true},//lowercase, for searching
+    lc_name: {type: String, required: true},
     password: {type: String, required: true},
     email: {type: String, unique: true, required: true},
     f_name: {type: String, required: true},
+    lc_f_name: {type: String, required: true},
     l_name: {type: String, required: true},
+    lc_l_name: {type: String, required: true},
     full_name: {type: String, required: true},
     district: {type: String, required: true},
+    lc_district: {type: String, required: true},
     district_code: {type: String, required: true},
+    const_num: {type: String, required: true},
     type: {type: String, required: true},
     type_exp: {type: String, required: true},//Type expatiated: Sen. or Rep.
     state: {type: String, required: true},
+    lc_state: {type: String, required: true},
     state_code: {type: String, required: true},
     messages_no: Number,
     bio: String,

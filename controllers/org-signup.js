@@ -14,6 +14,8 @@ function signup(req, res) {
     }
     else {
         username = username.toLowerCase();
+        email = email.toLowerCase();
+        email_corr = email_corr.toLowerCase();
         let file = req.file;
 
         if (!file) {
@@ -62,6 +64,7 @@ function signup(req, res) {
                     else {
                         const newOrg = new orgSchema({
                             name: name,
+                            lc_name: name.toLowerCase(),
                             username: username,
                             email: email,
                             pub_email: email_corr,

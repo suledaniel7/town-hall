@@ -56,25 +56,26 @@ body {
 #leftBar {
     width: 19%;
     padding: 0.5%;
-    background-color: rgb(32, 145, 153);
+    /* background-color: rgb(32, 145, 153); */
 }
 
 #centerBar {
     width: 59%;
     padding: 0.5%;
+    overflow-y: auto;
 }
 
 #rightBar {
     width: 19%;
     padding: 0.5%;
-    background-color: rgb(32, 145, 153);
+    /* background-color: rgb(32, 145, 153); */
 }
 
 .avatar {
     height: 5em;
     display: block;
     margin: 0 auto;
-    border: 2px solid rgb(48, 210, 221);;
+    /* border: 2px solid rgb(48, 210, 221); */
     border-radius: 50%;
     padding: 0.5%;
 }
@@ -92,20 +93,20 @@ body {
 #leftBar a:hover, #rightBar a:hover {
     text-decoration: underline;
 }
-
+/* 
 #centerBar a {
     color: rgb(32, 145, 153);
 }
 
 #centerBar a:hover {
     color: rgb(48, 210, 221);
-}
+} */
 
 #searchBox {
     width: 90%;
     height: 2.5em;
     border-radius: 10px;
-    border: 2px solid rgb(32, 145, 153);
+    /* border: 2px solid rgb(32, 145, 153); */
     padding: 5px;
     margin-bottom: 20px;
     font-size: 12pt;
@@ -117,9 +118,86 @@ body {
 }
 
 .trend {
-    border: 2px solid rgb(48, 210, 221);
+    /* border: 2px solid rgb(48, 210, 221); */
     height: 4.5em;
     border-radius: 10px;
     margin-bottom: 10px;
     padding: 10px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.j .b {
+    background-color: rgb(112, 146, 190);
+}
+
+.j .br {
+    border: 2px solid rgb(151, 195, 253);
+}
+
+.j a, .tag {
+    color: rgb(112, 146, 190);
+}
+
+.j a:hover, .tag:hover {
+    color: rgb(151, 195, 253);
+}
+
+.l .b {
+    background-color: rgb(146, 25, 25);
+}
+
+.l .br {
+    border: 2px solid rgb(230, 40, 40);
+}
+
+.l a, .tag {
+    color: rgb(146, 25, 25);
+}
+
+.l a:hover, .tag:hover {
+    color: rgb(230, 40, 40);
+}
+
+.o .b {
+    background-color: rgb(13, 118, 150);
+}
+
+.o .br {
+    border: 2px solid rgb(21, 176, 223);
+}
+
+.o a, .tag {
+    color: rgb(13, 118, 150);
+}
+
+.o a:hover, .tag:hover {
+    color: rgb(21, 176, 223);
+}
+
+.u .b {
+    background-color: rgb(32, 145, 153);
+}
+
+.u .br {
+    border: 2px solid rgb(48, 210, 221);
+}
+
+.u a, .tag {
+    color: rgb(32, 145, 153);
+}
+
+.u a:hover, .tag:hover {
+    color: rgb(48, 210, 221);
+}
+
+.b a {
+    color: white;
+}
+
+.b a:hover {
+    color: white;
+    text-decoration: underline;
 }

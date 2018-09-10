@@ -49,11 +49,11 @@ function messageHandler(req, res) {
                     let partTag = tag.slice(1);
                     let end = partTag.search(/\W/);
                     if (end == -1) {
-                        tags.push(tag);
+                        tags.push(partTag.toLowerCase());
                     }
                     else {
-                        let fin_tag = '#' + partTag.slice(0, end);
-                        tags.push(fin_tag);
+                        let fin_tag = partTag.slice(0, end);
+                        tags.push(fin_tag.toLowerCase());
                     }
                 });
 
@@ -64,6 +64,7 @@ function messageHandler(req, res) {
                     ac_type: m_type,
                     comments_no: comments_no,
                     timestamp: timestamp,
+                    m_timestamp: username + '-' + timestamp,
                     tags: tags,
                     date_created: dateFn(new Date(), true),
                     time_created: timeFn(new Date())
@@ -125,11 +126,11 @@ function messageHandler(req, res) {
                     let partTag = tag.slice(1);
                     let end = partTag.search(/\W/);
                     if (end == -1) {
-                        tags.push(tag);
+                        tags.push(partTag.toLowerCase());
                     }
                     else {
-                        let fin_tag = '#' + partTag.slice(0, end);
-                        tags.push(fin_tag);
+                        let fin_tag = partTag.slice(0, end);
+                        tags.push(fin_tag.toLowerCase());
                     }
                 });
 
@@ -140,6 +141,7 @@ function messageHandler(req, res) {
                     ac_type: m_type,
                     comments_no: comments_no,
                     timestamp: timestamp,
+                    m_timestamp: username + '-' + timestamp,
                     tags: tags,
                     date_created: dateFn(new Date(), true),
                     time_created: timeFn(new Date())
@@ -219,22 +221,24 @@ function messageHandler(req, res) {
                     let partTag = tag.slice(1);
                     let end = partTag.search(/\W/);
                     if (end == -1) {
-                        tags.push(tag);
+                        tags.push(partTag.toLowerCase());
                     }
                     else {
-                        let fin_tag = '#' + partTag.slice(0, end);
-                        tags.push(fin_tag);
+                        let fin_tag = partTag.slice(0, end);
+                        tags.push(fin_tag.toLowerCase());
                     }
                 });
 
                 //compile message
                 let email = req.legislator.user.email;
+                let code = req.legislator.user.code;
                 let message = new messages({
-                    sender: email,
+                    sender: code,
                     message: mText,
                     ac_type: m_type,
                     comments_no: comments_no,
                     timestamp: timestamp,
+                    m_timestamp: code + '-' + timestamp,
                     tags: tags,
                     date_created: dateFn(new Date(), true),
                     time_created: timeFn(new Date())

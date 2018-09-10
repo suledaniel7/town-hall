@@ -1,14 +1,19 @@
 <head>
-    <title>Search Results for Search Term</title>
+    <title>Search Results for {{term}}</title>
     <link rel="stylesheet" href="/css/search-res.css">
     <link rel="stylesheet" href="/css/search-result.css">
     <link rel="stylesheet" href="/css/messages.css">
 </head>
-<body>
-    <section class="content" id="leftBar">
+<body class="{{tint}}">
+    <section class="content b" id="leftBar">
         <div class="center" id="leftContent">
             <figure>
-                <img src="/img/png/avatar.png" class="avatar" title="User's Avatar" alt="User's Avatar">
+                {{#if avatar}}
+                <a href="/"><img src="/{{avatar}}{{logo}}" class="avatar br" title="{{f_name}}'s Avatar" alt="{{f_name}}'s Avatar"></a>
+                {{/if}}
+                {{#if logo}}
+                <a href="/"><img src="/{{avatar}}{{logo}}" class="avatar br" title="{{f_name}}'s Avatar" alt="{{f_name}}'s Avatar"></a>
+                {{/if}}
             </figure>
             <div class="sug-content" id="suggestions">
                 <h4>Search suggestions</h4>
@@ -28,36 +33,46 @@
     <section class="content" id="centerBar">
         <div class="center" id="main">
             <form action="/search/general/term" method="get">
-                <input type="search" maxlength="100" name="term" class="search" id="searchBox" placeholder="Search Town Hall">
+                <input type="search" maxlength="100" name="term" class="search br" id="searchBox" value="{{term}}" placeholder="Search Town Hall">
             </form>
-            <div class="error"></div>
+            {{#if results}}
             <div class="results left">
+                {{#if accounts}}
                 <div class="accounts">
                     {{>search-result}}
                 </div>
+                {{/if}}
+                {{#if messages}}
+                <div class="messages">
+                    {{>messages}}
+                </div>
+                {{/if}}
             </div>
+            {{else}}
+            <div class="error">{{error}}</div>
+            {{/if}}
         </div>
     </section>
-    <section class="content" id="rightBar">
+    <section class="content b" id="rightBar">
         <div class="center" id="rightContent">
             <h4>Trending Now</h4>
-            <div class="trend left">
+            <div class="trend br left">
                 <p><a href="javascript:void()">Something to search perhaps</a></p>
                 <p class="small grey-text center">250 talking about this</p>
             </div>
-            <div class="trend left">
+            <div class="trend br left">
                 <p><a href="javascript:void()">Something to search perhaps</a></p>
                 <p class="small grey-text center">250 talking about this</p>
             </div>
-            <div class="trend left">
+            <div class="trend br left">
                 <p><a href="javascript:void()">Something to search perhaps</a></p>
                 <p class="small grey-text center">250 talking about this</p>
             </div>
-            <div class="trend left">
+            <div class="trend br left">
                 <p><a href="javascript:void()">Something to search perhaps</a></p>
                 <p class="small grey-text center">250 talking about this</p>
             </div>
-            <div class="trend left">
+            <div class="trend br left">
                 <p><a href="javascript:void()">Something to search perhaps</a></p>
                 <p class="small grey-text center">250 talking about this</p>
             </div>

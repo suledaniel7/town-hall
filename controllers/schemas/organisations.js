@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 
 const orgSchema = new Schema({
     name: {type: String, required: true},
-    username: {type: String, required: true, unique: true},
+    lc_name: {type: String, required: true},
+    username: {type: String, required: true, unique: true},//default is lc
     email: {type: String, required: true, unique: true},
     pub_email: {type: String, required: true, unique: true},
     verification: {type: Object, required: true},

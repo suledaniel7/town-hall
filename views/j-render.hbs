@@ -1,5 +1,5 @@
 <head>
-    <title>Journalist Name | Town Hall</title>
+    <title>{{f_name}} {{l_name}} | Town Hall</title>
     <link rel="stylesheet" href="/css/general.css">
     <link rel="stylesheet" href="/css/profile-render.css">
     <link rel="stylesheet" href="/css/messages.css">
@@ -8,25 +8,30 @@
     <section class="content center b" id="leftBar">
          <figure class="">
             <div class="avatarDiv">
-                <img id="avatar" class="avatar" src="/img/png/avatar.png" alt="{{f_name}}'s Avatar">
+                <img id="avatar" class="avatar" src="/{{avatar}}" alt="{{f_name}}'s Avatar">
             </div>
         </figure>
         <br>
         <div id="avatarText" class="center">
-            Journo Name
+            {{f_name}} {{l_name}}
         </div>
         <br />
         <div class="info">
-            {{!-- {{#beatDets}} --}}
-            <div class="bold">{{name}}</div>
-            <div class="bold">{{type_name}}</div>
-            {{!-- {{/beatDets}} --}}
+            {{#beatDets}}
+            <div class="bold">Reporting on {{name}} {{type_name}}</div>
+            {{/beatDets}}
             <br>
-            {{!-- {{#if organisation}} --}}
+            {{#if organisation}}
             <div>
-                <a href="javascript:void()">{{orgName}}Organisation Name</a>
+                <a href="/profile/{{organisation}}">{{orgName}}</a> Journalist
             </div>
-            {{!-- {{/if}} --}}
+            {{else}}
+            <div>
+                <span class="bold">Freelance Journalist</span>
+            </div>
+            {{!-- if not following - global code --}}
+            {{!-- <div><a href="/follow/u/j/{{username}}">Follow</a></div> --}}
+            {{/if}}
             <br>
             <br>
             <div>
@@ -36,7 +41,7 @@
         </div>
     </section>
     <section class="content center" id="main">
-        <h3 class="center">Journalist's Posts</h3>
+        <h3 class="center">{{f_name}} {{l_name}}'s Posts</h3>
         {{>messages}}
     </section>
 </body>

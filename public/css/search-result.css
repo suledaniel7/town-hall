@@ -1,9 +1,14 @@
+a:hover {
+    text-decoration: underline;
+}
+
 .result {
     width: 22%;
     height: 15em;
     padding-top: 10px;
     float: left;
     border-radius: 10px;
+    margin: 5px;
 }
 
 .result figcaption {
@@ -52,6 +57,14 @@
     background-color: rgb(21, 176, 223);
 }
 
+.o-a {
+    color: rgb(13, 118, 150);
+}
+
+.o-a:hover {
+    color: rgb(21, 176, 223);
+}
+
 .j-border {
     border: 2px solid rgb(112, 146, 190);
 }
@@ -64,6 +77,14 @@
     background-color: rgb(151, 195, 253);
 }
 
+.j-a {
+    color: rgb(112, 146, 190);
+}
+
+.j-a:hover {
+    color: rgb(151, 195, 253);
+}
+
 .l-border {
     border: 2px solid rgb(146, 25, 25);
 }
@@ -74,4 +95,12 @@
 
 .l-button:hover {
     background-color: rgb(253, 43, 43);
+}
+
+.l-a {
+    color: rgb(146, 25, 25);
+}
+
+.l-a:hover {
+    color: rgb(253, 43, 43);
 }
