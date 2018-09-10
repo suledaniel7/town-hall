@@ -16,14 +16,12 @@ function search(req, res) {
     let user = findActive(req, res);
 
     if (type == 'tag') {
-        let term = init_term.toLowerCase();
-        console.log(term)
+        let term = RegExp(init_term.toLowerCase());
         messages.find({ tags: term }).sort({ timestamp: -1 }).exec((err, ret_msgs) => {
             if (err) {
                 throw err;
             }
             else {
-                console.log(ret_msgs)
                 if (user == 'legislator') {
                     let code = req.legislator.user.code;
                     legislators.findOne({ code: code }, (err, ret_l) => {
@@ -137,7 +135,7 @@ function search(req, res) {
         });
     }
     else if (type == 'people') {
-        let term = init_term.toLowerCase();
+        let term = RegExp(init_term.toLowerCase());
         legislators.find({ $or: [{ lc_name: term }, { lc_f_name: term }, { lc_l_name: term }, { lc_district: term }, { lc_state: term }] }, (err, ret_ls) => {
             if (err) {
                 throw err;
@@ -280,7 +278,7 @@ function search(req, res) {
     }
     else {
         //general search
-        let term = init_term.toLowerCase();
+        let term = RegExp(init_term.toLowerCase());
         legislators.find({ $or: [{ lc_name: term }, { lc_f_name: term }, { lc_l_name: term }, { lc_district: term }, { lc_state: term }] }, (err, ret_ls) => {
             if (err) {
                 throw err;
