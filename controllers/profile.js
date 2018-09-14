@@ -5,6 +5,8 @@ const o_render = require('./o-render');
 
 function profile(req, res){
     let username = req.params.username;
+    let referee = req.headers.referer;
+    
     general.findOne({username: username}, (err, ret_g)=>{
         if(err){
             throw err;

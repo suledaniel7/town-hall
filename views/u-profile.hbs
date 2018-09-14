@@ -3,13 +3,14 @@
     <link rel="stylesheet" href="/css/u-profile.css">
     <link rel="stylesheet" href="/css/messages.css">
     <script src="/js/jquery-3.2.1.js"></script>
+    <script src="/js/map_char.js"></script>
     <title>{{f_name}}'s Account | Town Hall</title>
 </head>
 <body>
     <section class="left-bar center bold">
         <figure class="avatar center block-center">
             <div class="avatarDiv">
-                <img id="avatar" src="/img/png/avatar.png" alt="Name's Avatar">
+                <img id="avatar" src="/{{avatar}}" alt="{{f_name}}'s Avatar">
             </div>
         </figure><br>
         <div id="avatarText">
@@ -26,8 +27,13 @@
     </section>
     <section class="main">
         <section id="feed" class="tabSect">
-            <form action="javascript:void()" id="search" class="center" method="get">
-                <input type="search" name="terms" id="searchBox" placeholder="Search Town Hall">
+            <form action="javascript:search();" id="search" autocomplete="off" method="get">
+                <input type="search" maxlength="100" name="term" class="search br" id="searchBox" value="{{term}}" placeholder="Search Town Hall">
+                <div id="suggs" class="searchSuggs hidden">
+                    <div id="searchSugg" class="searchSugg">
+                        
+                    </div>
+                </div>
             </form>
             <div class="messagesDiv">
                 {{>sources}}
@@ -60,12 +66,11 @@
             {{/sen}}
         </section>
         <section class="tabBar hidden">
-            <h4 class="center">Trends</h4>
-            <ol class="trends">
-                <li class="trend"><a href="/">The First</a></li>
-                <li class="trend"><a href="/">The Second</a></li>
-                <li class="trend"><a href="/">The Third</a></li>
-            </ol>
+            <h4>Trending Now</h4>
+            <div class="trend br left">
+                <p><a href="javascript:void()">Something to search perhaps</a></p>
+                <p class="small grey-text center">250 talking about this</p>
+            </div>
         </section>
     </section>
     <script>
@@ -76,7 +81,13 @@
         let bar1 = bars[0];
         let bar2 = bars[1];
 
+        //for suggestions
+        let sActive = false;
+
         searchBar.addEventListener('blur', ()=>{
+            if(!sActive){
+                document.getElementById('suggs').classList += ' hidden';
+            }
             if (active !== 1){
                 bar1.className = 'tabBar';
                 bar2.classList += ' hidden';
@@ -84,6 +95,7 @@
             }
         });
         searchBar.addEventListener('focus', ()=>{
+            document.getElementById('suggs').className = 'searchSuggs';
             if(active !== 2){
                 bar2.className = 'tabBar';
                 bar1.classList += ' hidden';
@@ -110,8 +122,60 @@
             });
         }
 
+        
+        document.getElementById('suggs').addEventListener('mouseover', ()=>{
+            sActive = true;
+        });
+        document.getElementById('suggs').addEventListener('mouseout', ()=>{
+            sActive = false;
+        });
+        document.getElementById('searchBox').addEventListener('focus', ()=>{
+            {{!-- document.getElementById('suggs').className = 'searchSuggs'; --}}
+        });
+        document.getElementById('searchBox').addEventListener('blur', ()=>{
+            {{!-- if(!sActive){
+                document.getElementById('suggs').classList += ' hidden';
+            } --}}
+        });
+
+        //search suggestions
+        document.getElementById('searchBox').addEventListener('input', ()=>{
+            let text = $('#searchBox').val();
+            $.ajax({
+                url: '/autofill/',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    term: text
+                }),
+                success: (data)=>{
+                    autofill(data.data);
+                }
+            });
+        });
+
+        function autofill(data){
+            let searchSugg = document.getElementById('searchSugg');
+            searchSugg.innerHTML = '';
+            data.forEach(datum => {
+                let dataA = document.createElement('a');
+                dataA.setAttribute('href', datum.href);
+                dataA.setAttribute('class', 'sugg');
+                let dataText = document.createTextNode(datum.name);
+
+                dataA.appendChild(dataText);
+                searchSugg.appendChild(dataA);
+            });
+        }
+
         function search(){
             let terms = document.getElementById('searchBox').value;
+            terms = terms.split('');
+            let fin_terms = [];
+            terms.forEach(term => {
+                fin_terms.push(mapChar(term));
+            });
+            terms = fin_terms.join('');
             location.assign('/search/general/'+terms);
         }
 
@@ -127,6 +191,62 @@
             document.getElementById('sug-d').classList += ' hidden';
         });
 
-        $('#search').on('submit', search);
+        function getSuggs(){
+            let suggArr = document.getElementsByClassName('sugg');
+            return suggArr;
+        }
+
+        let activeSugg = -1;
+        document.getElementById('searchBox').addEventListener('keydown', (ev) => {
+            if(ev.which == 40){
+                //down arrow
+                let suggs = getSuggs();
+                if(suggs.length > 0){
+                    activeSugg++;
+                    if(suggs[activeSugg]){
+                        for(let i=0; i < suggs.length; i++){
+                            suggs[i].className = 'sugg';
+                        }
+                        suggs[activeSugg].classList += ' activeSugg';
+                    }
+                    else {
+                        activeSugg--;
+                    }
+                }
+            }
+            else if(ev.which == 38){
+                //up arrow
+                let suggs = getSuggs();
+                if(suggs.length > 0){
+                    activeSugg--;
+                    if(suggs[activeSugg]){
+                        for(let i=0; i < suggs.length; i++){
+                            suggs[i].className = 'sugg';
+                        }
+                        suggs[activeSugg].classList += ' activeSugg';
+                    }
+                    else {
+                        activeSugg++;
+                    }
+                }
+            }
+            else if (ev.which == 13){
+                //enter key
+                ev.preventDefault();
+                let suggs = getSuggs();
+                if(suggs.length > 0 && suggs[activeSugg]){
+                    document.getElementById('searchBox').value = suggs[activeSugg].textContent;
+                    location.assign(suggs[activeSugg].href);
+                }
+                else {
+                    search();
+                }
+            }
+            else if(ev.which == 27){
+                //escape key
+                ev.preventDefault();
+                document.getElementById('searchSugg').classList += ' hidden';
+            }
+        });
     </script>
 </body>

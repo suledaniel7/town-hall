@@ -102,6 +102,10 @@ body {
     color: rgb(48, 210, 221);
 } */
 
+#search {
+    position: relative;
+}
+
 #searchBox {
     width: 90%;
     height: 2.5em;
@@ -111,6 +115,29 @@ body {
     margin-bottom: 20px;
     font-size: 12pt;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.searchSuggs {
+    position: absolute;
+    top: 2.5em;
+    z-index: 1;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.searchSugg {
+    width: 90%;
+    margin: 0 auto;
+    text-align: left;
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-top-width: 0;
+}
+
+.sugg {
+    display: block;
+    margin: 7px;
+    padding: 5px;
 }
 
 .accounts {
@@ -200,4 +227,9 @@ a {
 .b a:hover {
     color: white;
     text-decoration: underline;
+}
+
+.activeSugg {
+    background-color: #eee;
+    color: white;
 }
