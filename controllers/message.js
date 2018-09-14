@@ -3,6 +3,7 @@ const districts = require('./schemas/districts');
 const journalists = require('./schemas/journalists');
 const organisations = require('./schemas/organisations');
 const legislators = require('./schemas/legislators');
+const saveTags = require('./save_tags');
 const dateFn = require('./dateFn');
 const timeFn = require('./timeFn');
 
@@ -13,6 +14,7 @@ function messageHandler(req, res) {
     let comments_no = 0;
     let timestamp = today.getTime();
     let wsp = /^\s*$/;
+    
     if (!wsp.test(mText)) {
         //message not-empty. Clear trailing and leading whitespace
         let tsp = /\s+$/;
@@ -24,6 +26,30 @@ function messageHandler(req, res) {
         if (lsp.test(mText)) {
             mText = mText.replace(lsp, '');
         }
+        //extract tags
+        let tags = [];
+        let unRefTags = [];
+        let mTextArr = mText.split(/\s/);
+        //extract based on hashes
+        mTextArr.forEach(element => {
+            if(element[0] == '#' && element.slice(1).search(/\W/) != 0){
+                unRefTags.push(element);
+            }
+        });
+        //extract invalid characters
+        unRefTags.forEach(tag => {
+            let partTag = tag.slice(1);
+            let end = partTag.search(/\W/);
+            if (end == -1) {
+                tags.push(partTag.toLowerCase());
+            }
+            else {
+                let fin_tag = partTag.slice(0, end);
+                tags.push(fin_tag.toLowerCase());
+            }
+        });
+
+        saveTags(tags);
         //create message
         //find type
         if (m_type == 'j') {
@@ -35,28 +61,6 @@ function messageHandler(req, res) {
                 res.sendStatus(403);//forbidden
             }
             else {
-                let tags = [];
-                let unRefTags = [];
-                let mTextArr = mText.split(/\s/);
-                //extract based on hashes
-                mTextArr.forEach(element => {
-                    if(element[0] == '#' && element.slice(1).search(/\W/) != 0){
-                        unRefTags.push(element);
-                    }
-                });
-                //extract invalid characters
-                unRefTags.forEach(tag => {
-                    let partTag = tag.slice(1);
-                    let end = partTag.search(/\W/);
-                    if (end == -1) {
-                        tags.push(partTag.toLowerCase());
-                    }
-                    else {
-                        let fin_tag = partTag.slice(0, end);
-                        tags.push(fin_tag.toLowerCase());
-                    }
-                });
-
                 let username = req.journalist.user.username;
                 let message = new messages({
                     sender: username,
@@ -111,29 +115,6 @@ function messageHandler(req, res) {
             }
             else {
                 //user exists
-                //extract tags
-                let tags = [];
-                let unRefTags = [];
-                let mTextArr = mText.split(/\s/);
-                //extract based on hashes
-                mTextArr.forEach(element => {
-                    if(element[0] == '#' && element.slice(1).search(/\W/) != 0){
-                        unRefTags.push(element);
-                    }
-                });
-                //extract invalid characters
-                unRefTags.forEach(tag => {
-                    let partTag = tag.slice(1);
-                    let end = partTag.search(/\W/);
-                    if (end == -1) {
-                        tags.push(partTag.toLowerCase());
-                    }
-                    else {
-                        let fin_tag = partTag.slice(0, end);
-                        tags.push(fin_tag.toLowerCase());
-                    }
-                });
-
                 let username = req.organisation.user.username;
                 let message = new messages({
                     sender: username,
@@ -206,29 +187,6 @@ function messageHandler(req, res) {
             }
             else {
                 //user exists
-                //extract tags
-                let tags = [];
-                let unRefTags = [];
-                let mTextArr = mText.split(/\s/);
-                //extract based on hashes
-                mTextArr.forEach(element => {
-                    if(element[0] == '#' && element.slice(1).search(/\W/) != 0){
-                        unRefTags.push(element);
-                    }
-                });
-                //extract invalid characters
-                unRefTags.forEach(tag => {
-                    let partTag = tag.slice(1);
-                    let end = partTag.search(/\W/);
-                    if (end == -1) {
-                        tags.push(partTag.toLowerCase());
-                    }
-                    else {
-                        let fin_tag = partTag.slice(0, end);
-                        tags.push(fin_tag.toLowerCase());
-                    }
-                });
-
                 //compile message
                 let email = req.legislator.user.email;
                 let code = req.legislator.user.code;

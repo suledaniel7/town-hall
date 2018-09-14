@@ -233,3 +233,7 @@ a {
     background-color: #eee;
     color: white;
 }
+
+#tr-err {
+    color: black;
+}

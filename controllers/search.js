@@ -10,11 +10,11 @@ const findActive = require('./findActive');
 const rank = require('./rank');
 const sort_rank = require('./sort_rank');
 const strip = require('./strip');
-const mapChar = require('./mapChar');
 const decodeStr = require('./decodeStr');
+const log_entry = require('./log_entry');
 
 function search(req, res) {
-    console.log("Began search at:", new Date().toString(), new Date().getMilliseconds());
+    let startTime = new Date();
     let type = req.params.type;
     let raw_term = req.params.term;
     let init_term = decodeStr(raw_term, false);
@@ -69,7 +69,13 @@ function search(req, res) {
 
         function actual_search() {
             if (type == 'tag' || init_term[0] == '#') {
-                let term = search_term.slice(1).toLowerCase();
+                let term = '';
+                if(init_term[0] == '#'){
+                    term = search_term.slice(1).toLowerCase();
+                }
+                else {
+                    term = search_term.toLowerCase();
+                }
                 messages.find({ tags: term }).sort({ timestamp: -1 }).exec((err, ret_msgs) => {
                     if (err) {
                         throw err;
@@ -96,7 +102,8 @@ function search(req, res) {
                                     ret_l.term = init_term;
                                     ret_l.tint = 'l';
                                     res.render('search-res', ret_l);
-                                    console.log("Ended search at", new Date().toString(), new Date().getMilliseconds());
+                                    let endTime = new Date();
+                                    log_entry("Search", false, startTime, endTime);
                                 }
                             });
                         }
@@ -121,7 +128,8 @@ function search(req, res) {
                                     ret_o.term = init_term;
                                     ret_o.tint = 'o';
                                     res.render('search-res', ret_o);
-                                    console.log("Ended search at", new Date().toString(), new Date().getMilliseconds());
+                                    let endTime = new Date();
+                                    log_entry("Search", false, startTime, endTime);
                                 }
                             });
                         }
@@ -146,7 +154,8 @@ function search(req, res) {
                                     ret_j.term = init_term;
                                     ret_j.tint = 'j';
                                     res.render('search-res', ret_j);
-                                    console.log("Ended search at", new Date().toString(), new Date().getMilliseconds());
+                                    let endTime = new Date();
+                                    log_entry("Search", false, startTime, endTime);
                                 }
                             });
                         }
@@ -171,7 +180,8 @@ function search(req, res) {
                                     ret_u.term = init_term;
                                     ret_u.tint = 'u';
                                     res.render('search-res', ret_u);
-                                    console.log("Ended search at", new Date().toString(), new Date().getMilliseconds());
+                                    let endTime = new Date();
+                                    log_entry("Search", false, startTime, endTime);
                                 }
                             });
                         }
@@ -187,7 +197,8 @@ function search(req, res) {
                             ret_u.term = init_term;
                             ret_u.tint = 'u';
                             res.render('search-res', ret_u);
-                            console.log("Ended search at", new Date().toString(), new Date().getMilliseconds());
+                            let endTime = new Date();
+                            log_entry("Search", false, startTime, endTime);
                         }
                     }
                 });
@@ -252,7 +263,8 @@ function search(req, res) {
                                                     ret_u.tint = 'u';
                                                     ret_u.accounts = final_objs;
                                                     res.render('search-res', ret_u);
-                                                    console.log("Ended search at", new Date().toString(), new Date().getMilliseconds());
+                                                    let endTime = new Date();
+                                                    log_entry("Search", false, startTime, endTime);
                                                 }
                                             })
                                         }
@@ -274,7 +286,8 @@ function search(req, res) {
                                                     ret_l.tint = 'l';
                                                     ret_l.accounts = final_objs;
                                                     res.render('search-res', ret_l);
-                                                    console.log("Ended search at", new Date().toString(), new Date().getMilliseconds());
+                                                    let endTime = new Date();
+                                                    log_entry("Search", false, startTime, endTime);
                                                 }
                                             });
                                         }
@@ -296,7 +309,8 @@ function search(req, res) {
                                                     ret_o.tint = 'o';
                                                     ret_o.accounts = final_objs;
                                                     res.render('search-res', ret_o);
-                                                    console.log("Ended search at", new Date().toString(), new Date().getMilliseconds());
+                                                    let endTime = new Date();
+                                                    log_entry("Search", false, startTime, endTime);
                                                 }
                                             });
                                         }
@@ -318,7 +332,8 @@ function search(req, res) {
                                                     ret_j.tint = 'j';
                                                     ret_j.accounts = final_objs;
                                                     res.render('search-res', ret_j);
-                                                    console.log("Ended search at", new Date().toString(), new Date().getMilliseconds());
+                                                    let endTime = new Date();
+                                                    log_entry("Search", false, startTime, endTime);
                                                 }
                                             });
                                         }
@@ -330,7 +345,8 @@ function search(req, res) {
                                             ret_u.tint = 'u';
                                             ret_u.accounts = final_objs;
                                             res.render('search-res', ret_u);
-                                            console.log("Ended search at", new Date().toString(), new Date().getMilliseconds());
+                                            let endTime = new Date();
+                                            log_entry("Search", false, startTime, endTime);
                                         }
                                     }
                                 });
@@ -412,7 +428,8 @@ function search(req, res) {
                                                             ret_l.tint = 'l';
                                                             ret_l.accounts = final_objs;
                                                             res.render('search-res', ret_l);
-                                                            console.log("Ended search at", new Date().toString(), new Date().getMilliseconds());
+                                                            let endTime = new Date();
+                                                            log_entry("Search", false, startTime, endTime);
                                                         }
                                                     });
                                                 }
@@ -435,7 +452,8 @@ function search(req, res) {
                                                             ret_o.tint = 'o';
                                                             ret_o.accounts = final_objs;
                                                             res.render('search-res', ret_o);
-                                                            console.log("Ended search at", new Date().toString(), new Date().getMilliseconds());
+                                                            let endTime = new Date();
+                                                            log_entry("Search", false, startTime, endTime);
                                                         }
                                                     });
                                                 }
@@ -458,7 +476,8 @@ function search(req, res) {
                                                             ret_j.tint = 'j';
                                                             ret_j.accounts = final_objs;
                                                             res.render('search-res', ret_j);
-                                                            console.log("Ended search at", new Date().toString(), new Date().getMilliseconds());
+                                                            let endTime = new Date();
+                                                            log_entry("Search", false, startTime, endTime);
                                                         }
                                                     });
                                                 }
@@ -481,7 +500,8 @@ function search(req, res) {
                                                             ret_u.tint = 'u';
                                                             ret_u.accounts = final_objs;
                                                             res.render('search-res', ret_u);
-                                                            console.log("Ended search at", new Date().toString(), new Date().getMilliseconds());
+                                                            let endTime = new Date();
+                                                            log_entry("Search", false, startTime, endTime);
                                                         }
                                                     });
                                                 }
@@ -494,7 +514,8 @@ function search(req, res) {
                                                     ret_u.tint = 'u';
                                                     ret_u.accounts = final_objs;
                                                     res.render('search-res', ret_u);
-                                                    console.log("Ended search at", new Date().toString(), new Date().getMilliseconds());
+                                                    let endTime = new Date();
+                                                    log_entry("Search", false, startTime, endTime);
                                                 }
                                             }
                                         });

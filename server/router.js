@@ -28,6 +28,7 @@ const logout = require('../controllers/logout');
 const search = require('../controllers/search');
 const profile = require('../controllers/profile');
 const autofill = require('../controllers/autofill');
+const serve_trends = require('../controllers/serve_trends');
 
 const router = express.Router();
 const logos = multer({dest: 'public/logos/'});
@@ -141,6 +142,8 @@ router.get('/search/:type/:term', search);
 router.get('/profile/:username', profile);
 
 router.post('/autofill', autofill);
+
+router.post('/request-trends', serve_trends);
 
 router.get('/logout/:type', logout);
 
