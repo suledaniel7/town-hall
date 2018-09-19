@@ -50,6 +50,7 @@ function signup(req, res) {
                 lc_f_name: f_name.toLowerCase(),
                 l_name: l_name,
                 lc_l_name: l_name.toLowerCase(),
+                full_name: f_name + ' ' + l_name,
                 password: password,
                 account: account,
                 avatar: fPath,

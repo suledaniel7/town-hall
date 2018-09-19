@@ -14,6 +14,7 @@ let messageSchema = new Schema({
     ac_type: {type: String, required: true},
     beat: {type: String, required: true},
     tags: Array,
+    mentions: Array,
     comments_no: Number,
     verified: Boolean
     // date: Date

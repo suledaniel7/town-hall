@@ -2,6 +2,7 @@ const legislators = require('./schemas/legislators');
 const districts = require('./schemas/districts');
 const messages = require('./schemas/messages');
 const extractTags = require('./extractTags');
+const extractMentions = require('./extractMentions');
 
 function renderProfile(req, res, code){
     legislators.findOne({code: code}, (err, ret_l)=>{
@@ -32,7 +33,8 @@ function renderProfile(req, res, code){
                             throw err;
                         }
                         else {
-                            ret_l.messages = extractTags(ret_msgs, null);
+                            let tmpMsgs = extractTags(ret_msgs, null);
+                            ret_l.messages = extractMentions(tmpMsgs);
                             res.render('l-render', ret_l);
                         }
                     });

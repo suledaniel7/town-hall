@@ -1,7 +1,16 @@
 <head>
     <link rel="stylesheet" href="/css/l-profile.css">
     <link rel="stylesheet" href="/css/messages.css">
+    <link rel="stylesheet" href="/css/search.css">
+    <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/uikit/css/uikit.css">
     <script src="/js/jquery-3.3.1.js"></script>
+    <script src="/uikit/js/uikit.js"></script>
+    <script src="/js/conversation.js"></script>
+    <script src="/js/map_char.js"></script>
+    <script src="/js/trends.js"></script>
+    <script src="/js/search.js"></script>
+    <script src="/js/extract_tags_render.js"></script>
     <script src="/js/append.js"></script>
     <title>{{full_name}} | Town Hall</title>
 </head>
@@ -29,13 +38,35 @@
         </div>
     </div>
     <div class="main">
-        <div class="tabs center">
-            <button class="tabBtn active">Messaging</button>
-            <button class="tabBtn">Mentions</button>
-            <button class="tabBtn">Surveys</button>
+        <div class="errDiv">
+            <div class="errorDiv" id="errorDiv"></div>
         </div>
+        <div class="tabs center">
+            <button class="tabBtn active">On Your District</button>
+            <button class="tabBtn">Messaging</button>
+            <button class="tabBtn">Mentions</button>
+        </div>
+        <form action="javascript:search();" id="search" autocomplete="off" method="get">
+            <input type="search" maxlength="100" name="term" class="search br" id="searchBox" placeholder="Search Town Hall">
+            <div id="suggs" class="searchSuggs hidden">
+                <div id="searchSugg" class="searchSugg">
+                    
+                </div>
+            </div>
+        </form>
         <div class="main-content">
-            <div class="tab-content" id="messaging">
+            <div class="tab-content" id="oyd">
+                <div class="posts" id="dist-posts">
+                    {{#if dist_posts}}
+                    {{#each dist_posts}}
+                    {{>messages}}
+                    {{/each}}
+                    {{else}}
+                    <div id="no-prior" class="center grey">There are no posts on your District</div>
+                    {{/if}}
+                </div>
+            </div>
+            <div class="tab-content hidden" id="messaging">
                 <form>
                     <div class="postDiv">
                         <textarea maxlength="360" name="post" id="post" class="post" placeholder="Enter message here"></textarea>
@@ -50,10 +81,13 @@
                 <div class="prevM">
                     <div class="posts" id="messagesDiv">
                         {{#if messages}}
+                        {{#each messages}}
                         {{>messages}}
+                        {{/each}}
                         {{else}}
                         <div id="no-prior" class="center grey">You have no prior posts</div>
                         {{/if}}
+                        {{>modal}}
                     </div>
                 </div>
             </div>
@@ -63,37 +97,34 @@
                     <select id="filter">
                         <option value="a">All</option>
                         <option value="j">Journalists</option>
-                        <option value="c">Constituents</option>
-                        <option value="g">General Public</option>
+                        <option value="m">Media Organisations</option>
+                        <option value="l">Legislators</option>
                     </select>
                 </div>
                 <br>
                 <div class="mentionDiv">
-                    <div class="posts">
-                        <div class="message">
-                            <div class="m-text">
-                                Message text
-                            </div>
-                            <div class="m-time grey">
-                                8:24am | 15 Jul, 2018
-                            </div>
-                            <div class="controls right">
-                            <span class="control"><a href="/messages/replies/num">Replies (0)</a></span>
-                            <span class="control"><a href="javascript:void(0)">Edit</a></span>
-                            <span class="control"><a href="javascript:void(0)">Delete</a></span>
-                        </div>
-                        </div>
-                    </div>
+                    {{#if mentions}}
+                    {{#each mentions}}
+                    {{>messages}}
+                    {{/each}}
+                    {{else}}
+                    <div id="no-prior" class="center grey">You have not yet been mentioned in any Town Hall posts</div>
+                    {{/if}}
+                    {{>modal}}
                 </div>
             </div>
-            <div class="tab-content hidden" id="surveys">
-                S-content
-            </div>
         </div>
-        
     </div>
     <div class="rightBar">
-        Stuff
+        <section class="tabBar">
+            <div class="center" id="rightContent">
+                <h4><a href="javascript:void();" title="Click to view more">Trending Now</a></h4>
+                <div id="tr-err"></div>
+                <div class="trends" id="trends">
+                    
+                </div>
+            </div>
+        </section>
     </div>
     <script>
         let tabs = document.getElementsByClassName('tab-content');
@@ -138,6 +169,17 @@
             switchTab(3);
         });
 
+        function clearErr(){
+            setTimeout(()=>{
+                document.getElementById('errorDiv').textContent = '';
+            }, 5000);
+        }
+
+        function setErr(text){
+            document.getElementById('errorDiv').textContent = text;
+            clearErr();
+        }
+
         //message counter
         $('#post').on('input', ()=>{
             let num = $('#post').val().length;
@@ -163,7 +205,7 @@
                     method: 'POST',
                     data: {mBody: text},
                     error: ()=>{
-                        alert("An error occured trying to send your message. Please check your connection and try again");
+                        setErr("An error occured trying to send your message. Please check your connection and try again");
                     },
                     success: (data)=>{
                         document.getElementById('post').value = '';
@@ -176,7 +218,8 @@
                 });
             }
         });
-
+        fullSearch();
+        reqTrends();
         {{!-- tab2.click(); --}}
     </script>
 </body>

@@ -1,5 +1,4 @@
 function displayTrendErr() {
-    alert('yeah')
     document.getElementById('tr-err').innerHTML =
         `<span>An error occured in retrieving trends. Click <a href = 'javascript:reqTrends();'>here</a> to retry</span>`;
 }

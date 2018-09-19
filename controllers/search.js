@@ -6,6 +6,7 @@ const tags = require('./schemas/tags');
 const instants = require('./schemas/instants');
 const users = require('./schemas/users');
 const extractTags = require('./extractTags');
+const extractMentions = require('./extractMentions');
 const findActive = require('./findActive');
 const rank = require('./rank');
 const sort_rank = require('./sort_rank');
@@ -20,17 +21,27 @@ function search(req, res) {
     let init_term = decodeStr(raw_term, false);
     let search_term = decodeStr(raw_term, true);
     let user = findActive(req, res);
+    let m_search_term = search_term;
+    if(search_term[0] == '@'){
+        type = 'people';
+        search_term = search_term.slice(1);
+        m_search_term = search_term.slice(1);
+    }
+    else if(search_term[0] == '#'){
+        type = 'tag';
+        m_search_term = search_term.slice(1);
+    }
 
-    instants.findOne({ name: search_term }, (err, ret_i) => {
+    instants.findOne({ name: m_search_term, type: type }, (err, ret_i) => {
         let href = '';
         if (type == 'tag') {
-            href = '/search/tag/' + search_term;
+            href = '/search/tag/' + m_search_term;
         }
         else if (type == 'people') {
-            href = '/search/people/' + search_term;
+            href = '/search/people/' + m_search_term;
         }
         else {
-            href = '/search/general/' + search_term;
+            href = '/search/general/' + m_search_term;
         }
 
         if (err) {
@@ -39,7 +50,7 @@ function search(req, res) {
         else if (!ret_i) {
             //no i, create
             let inst = new instants({
-                name: search_term,
+                name: m_search_term,
                 href: href,
                 type: type,
                 mentions: 1
@@ -57,7 +68,7 @@ function search(req, res) {
         else {
             //i exists, update
             ret_i.mentions++;
-            instants.findOneAndUpdate({ name: search_term }, ret_i, (err) => {
+            instants.findOneAndUpdate({ name: m_search_term, type: type }, ret_i, (err) => {
                 if (err) {
                     throw err;
                 }
@@ -70,7 +81,7 @@ function search(req, res) {
         function actual_search() {
             if (type == 'tag' || init_term[0] == '#') {
                 let term = '';
-                if(init_term[0] == '#'){
+                if (init_term[0] == '#') {
                     term = search_term.slice(1).toLowerCase();
                 }
                 else {
@@ -92,7 +103,8 @@ function search(req, res) {
                                     res.redirect('/');
                                 }
                                 else {
-                                    ret_l.messages = extractTags(ret_msgs, code);
+                                    let tmpMsgs = extractTags(ret_msgs, code);
+                                    ret_l.messages = extractMentions(tmpMsgs);
                                     if (ret_l.messages.length > 0) {
                                         ret_l.results = true;
                                     }
@@ -118,7 +130,8 @@ function search(req, res) {
                                     res.redirect('/');
                                 }
                                 else {
-                                    ret_o.messages = extractTags(ret_msgs, username);
+                                    let tmpMsgs = extractTags(ret_msgs, username);
+                                    ret_o.messages = extractMentions(tmpMsgs);
                                     if (ret_o.messages.length > 0) {
                                         ret_o.results = true;
                                     }
@@ -144,7 +157,8 @@ function search(req, res) {
                                     res.redirect('/');
                                 }
                                 else {
-                                    ret_j.messages = extractTags(ret_msgs, username);
+                                    let tmpMsgs = extractTags(ret_msgs, username);
+                                    ret_j.messages = extractMentions(tmpMsgs);
                                     if (ret_j.messages.length > 0) {
                                         ret_j.results = true;
                                     }
@@ -170,7 +184,8 @@ function search(req, res) {
                                     res.redirect('/');
                                 }
                                 else {
-                                    ret_u.messages = extractTags(ret_msgs, null);
+                                    let tmpMsgs = extractTags(ret_msgs, null);
+                                    ret_u.messages = extractMentions(tmpMsgs);
                                     if (ret_u.messages.length > 0) {
                                         ret_u.results = true;
                                     }
@@ -187,7 +202,8 @@ function search(req, res) {
                         }
                         else {
                             let ret_u = {};
-                            ret_u.messages = extractTags(ret_msgs, null);
+                            let tmpMsgs = extractTags(ret_msgs, null);
+                            ret_u.messages = extractMentions(tmpMsgs);
                             if (ret_u.messages.length > 0) {
                                 ret_u.results = true;
                             }
@@ -228,13 +244,19 @@ function search(req, res) {
                                         //rank results
                                         let prelim_objs = [];
                                         ret_ls.forEach(ret_l => {
-                                            prelim_objs.push(rank(ret_l, term, ['lc_name', 'lc_f_name', 'lc_l_name', 'lc_district', 'lc_state']));
+                                            ret_l = rank(ret_l, term, ['lc_name', 'lc_f_name', 'lc_l_name', 'lc_district', 'lc_state']);
+                                            ret_l.r_obj.tint = 'l';
+                                            prelim_objs.push(ret_l);
                                         });
                                         ret_js.forEach(ret_j => {
-                                            prelim_objs.push(rank(ret_j, term, ['lc_f_name', 'lc_l_name', 'username']));
+                                            ret_j = rank(ret_j, term, ['lc_f_name', 'lc_l_name', 'username']);
+                                            ret_j.r_obj.tint = 'j';
+                                            prelim_objs.push(ret_j);
                                         });
                                         ret_os.forEach(ret_o => {
-                                            prelim_objs.push(rank(ret_o, term, ['username', 'lc_name']));
+                                            ret_o = rank(ret_o, term, ['username', 'lc_name']);
+                                            ret_o.r_obj.tint = 'o';
+                                            prelim_objs.push(ret_o);
                                         });
 
                                         final_objs = sort_rank(prelim_objs);
@@ -398,7 +420,7 @@ function search(req, res) {
                                         final_objs = sort_rank(prelim_objs);
 
                                         //getting messages
-                                        messages.find({ $or: [{ tags: term }, { message: term }] }).sort({ timestamp: -1 }).exec((err, ret_msgs) => {
+                                        messages.find({ $or: [{ tags: term }, { message: term }, { sender: term }, { sender_name: term }] }).sort({ timestamp: -1 }).exec((err, ret_msgs) => {
                                             if (err) {
                                                 throw err;
                                             }
@@ -421,7 +443,8 @@ function search(req, res) {
                                                         }
                                                         else {
                                                             ret_l = strip([ret_l], ['password', 'email', 'likes', 'dislikes'])[0];
-                                                            ret_l.messages = extractTags(ret_msgs, code);
+                                                            let tmpMsgs = extractTags(ret_msgs, code);
+                                                            ret_l.messages = extractMentions(tmpMsgs);
                                                             ret_l.results = results;
                                                             ret_l.error = error;
                                                             ret_l.term = init_term;
@@ -444,7 +467,8 @@ function search(req, res) {
                                                             res.redirect('/');
                                                         }
                                                         else {
-                                                            ret_o.messages = extractTags(ret_msgs, username);
+                                                            let tmpMsgs = extractTags(ret_msgs, username);
+                                                            ret_o.messages = extractMentions(tmpMsgs);
                                                             ret_o = strip([ret_o], ['email', 'pub_email', 'password', 'pendingBeat', 'districts', 'journalists', 'pending_reqs', 'followers', 'likes', 'dislikes'])[0];
                                                             ret_o.results = results;
                                                             ret_o.error = error;
@@ -468,7 +492,8 @@ function search(req, res) {
                                                             res.redirect('/');
                                                         }
                                                         else {
-                                                            ret_j.messages = extractTags(ret_msgs, username);
+                                                            let tmpMsgs = extractTags(ret_msgs, username);
+                                                            ret_j.messages = extractMentions(tmpMsgs);
                                                             ret_j = strip([ret_j], ['email', 'password', 'account', 'orientation', 'rejected', 'likes', 'dislikes', 'followers'])[0];
                                                             ret_j.results = results;
                                                             ret_j.error = error;
@@ -492,7 +517,8 @@ function search(req, res) {
                                                             res.redirect('/');
                                                         }
                                                         else {
-                                                            ret_u.messages = extractTags(ret_msgs, null);
+                                                            let tmpMsgs = extractTags(ret_msgs, null);
+                                                            ret_u.messages = extractMentions(tmpMsgs);
                                                             ret_u = strip([ret_u], ['password', 'email', 'likes', 'dislikes'])[0];
                                                             ret_u.results = results;
                                                             ret_u.error = error;
@@ -507,7 +533,8 @@ function search(req, res) {
                                                 }
                                                 else {
                                                     let ret_u = {};
-                                                    ret_u.messages = extractTags(ret_msgs, null);
+                                                    let tmpMsgs = extractTags(ret_msgs, null);
+                                                    ret_u.messages = extractMentions(tmpMsgs);
                                                     ret_u.results = results;
                                                     ret_u.error = error;
                                                     ret_u.term = init_term;

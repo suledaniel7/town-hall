@@ -4,6 +4,7 @@ const journalists = require('./schemas/journalists');
 const organisations = require('./schemas/organisations');
 const legislators = require('./schemas/legislators');
 const saveTags = require('./save_tags');
+const extractMentions = require('./extractMentions');
 const dateFn = require('./dateFn');
 const timeFn = require('./timeFn');
 
@@ -49,6 +50,9 @@ function messageHandler(req, res) {
             }
         });
 
+        //extract mentions
+        let mentions = extractMentions([{message: mText}], true).m_arr;
+
         saveTags(tags);
         //create message
         //find type
@@ -70,6 +74,7 @@ function messageHandler(req, res) {
                     timestamp: timestamp,
                     m_timestamp: username + '-' + timestamp,
                     tags: tags,
+                    mentions: mentions,
                     date_created: dateFn(new Date(), true),
                     time_created: timeFn(new Date())
                 });
@@ -124,6 +129,7 @@ function messageHandler(req, res) {
                     timestamp: timestamp,
                     m_timestamp: username + '-' + timestamp,
                     tags: tags,
+                    mentions: mentions,
                     date_created: dateFn(new Date(), true),
                     time_created: timeFn(new Date())
                 });
@@ -139,6 +145,7 @@ function messageHandler(req, res) {
                         //org exists
                         message.verified = ret_o.verification.verified;
                         message.sender_name = ret_o.name;
+                        message.sender_position = "Media Organisation";
                         message.sender_avatar = ret_o.logo;
 
                         if (recepients == 'all') {
@@ -198,6 +205,7 @@ function messageHandler(req, res) {
                     timestamp: timestamp,
                     m_timestamp: code + '-' + timestamp,
                     tags: tags,
+                    mentions: mentions,
                     date_created: dateFn(new Date(), true),
                     time_created: timeFn(new Date())
                 });

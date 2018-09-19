@@ -77,6 +77,16 @@ function assignBeat(req, res){
                                             username: ''
                                         }
 
+                                        //journo inherits followers
+                                        let followers = ret_org.followers;
+                                        let followersNo = 0;
+                                        followers.forEach(follower => {
+                                            if(follower.name == code){
+                                                followersNo = follower.number;
+                                            }
+                                        });
+                                        ret_j.followersNo = followersNo;
+
                                         //update both
                                         journalists.findOneAndUpdate({username: j_username}, ret_j, (err)=>{
                                             if(err){

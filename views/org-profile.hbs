@@ -1,8 +1,17 @@
 <head>
     <script src="/js/jquery-3.3.1.js"></script>
+    <script src="/js/extract_tags_render.js"></script>
+    <script src="/js/map_char.js"></script>
+    <script src="/js/trends.js"></script>
     <script src="/js/append.js"></script>
+    <script src="/js/search.js"></script>
+    <script src="/uikit/js/uikit.js"></script>
+    <script src="/js/conversation.js"></script>
+    <link rel="stylesheet" href="/uikit/css/uikit.css">
     <link rel="stylesheet" href="/css/org-profile.css">
     <link rel="stylesheet" href="/css/messages.css">
+    <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/css/search.css">
     <title>{{name}} | Town Hall</title>
 </head>
 <body>
@@ -20,81 +29,31 @@
         </div>
     </section>
     <section class="main">
-        <div class="tabs">
-            <div id="beats" class="tab active">Beats</div>
-            <div id="messaging" class="tab">Messaging</div>
-            <div id="journalists" class="tab">Journalists</div>
+        <div class="errDiv">
+            <div class="errorDiv" id="errorDiv"></div>
         </div>
+        <div class="tabs">
+            <div id="beats" class="tab active">From Your Journalists</div>
+            <div id="messaging" class="tab">Your Messaging</div>
+            <div id="journalists" class="tab">Your Journalists</div>
+        </div>
+        <form action="javascript:search();" id="search" autocomplete="off" method="get">
+            <input type="search" maxlength="100" name="term" class="search br" id="searchBox" placeholder="Search Town Hall">
+            <div id="suggs" class="searchSuggs hidden">
+                <div id="searchSugg" class="searchSugg">
+
+                </div>
+            </div>
+        </form>
         <div id="notif" class="notif">{{notif}}</div>
         <section id="b-content" class="tab-content">
-            <div class="add-beat">
-                <div class="right">
-                    <button id="beatBtn">View Beats</button>
-                </div>
-                <div class="beat-dets modal">
-                    <div class="modal-content">
-                        <div class="modal-head">
-                            {{!-- <div class="heading">Add Beat</div> --}}
-                            <div class="close">&times;</div>
-                        </div>
-                        <div class="modal-text">
-                            <table class="table">
-                                <tbody>
-                                    <div class="b-sect-heading">Beats you Follow</div>
-                                    <div class="center emp-modal-heading" id="b-follow-emp"></div>
-                                    <div>
-                                        {{#each f_dists}}
-                                        <tr id="b-follow" class="b-heading">
-                                            <td class="center td">{{name}}</td>
-                                        </tr>
-                                        {{#each districts}}
-                                        <tr>
-                                            {{#if sen}}
-                                            <td class="table-link sen td"><a target="_blank" href="/add-beat/{{code}}">{{name}}</a></td>    
-                                            {{/if}}
-                                            {{#if rep}}
-                                            <td class="table-link td"><a target="_blank" href="/add-beat/{{code}}">{{name}}</a></td>
-                                            {{/if}}
-                                        </tr>
-                                        {{/each}}
-                                        {{/each}}
-                                    </div>
-
-                                    <div class="b-sect-heading">All Districts</div>
-                                    <div class="center emp-modal-heading" id="all-b-emp"></div>
-                                    <div>
-                                        {{#each dists}}
-                                        <tr id="all-b" class="b-heading">
-                                            <td class="center td">{{name}}</td>
-                                        </tr>
-                                        {{#each districts}}
-                                        <tr>
-                                            {{#if sen}}
-                                            <td class="table-link sen td"><a target="_blank" href="/add-beat/{{code}}">{{name}}</a></td>    
-                                            {{/if}}
-                                            {{#if fed}}
-                                            <td class="table-link td"><a target="_blank" href="/add-beat/{{code}}">{{name}}</a></td>
-                                            {{/if}}
-                                        </tr>
-                                        {{/each}}
-                                        {{/each}}
-                                    </div>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="beat-heading">Some place</div>
-            <div class="beat-stats">
-                <h3><a href="/journalists/journo-name">Journo name</a></h3>
-                <article>
-                    Recent post
-                    <p class="right"><span><a href="/posts/id">View discussion</a></span></p>
-                </article>
-                <p class="center"><a href="/journalists/journo-name/feed">View more</a></p>
-            </div>
+            {{#if j_msgs}}
+            {{#each j_msgs}}
+            {{>messages}}
+            {{/each}}
+            {{else}}
+            <div id="no-prior" class="center grey">There are no posts from your Journalists</div>
+            {{/if}}
         </section>
         <section id="m-content" class="tab-content hidden">
             <div class="postDiv">
@@ -116,10 +75,13 @@
             <div class="prevM">
                 <div class="posts" id="messagesDiv">
                     {{#if messages}}
+                    {{#each messages}}
                     {{>messages}}
+                    {{/each}}
                     {{else}}
                     <div id="no-prior" class="center grey">You have no prior posts</div>
                     {{/if}}
+                    {{>modal}}
                 </div>
             </div>
         </section>
@@ -132,7 +94,7 @@
                 <tbody>
                     {{#each pending_reqs}}
                     <tr class="j-tr" id="j-{{username}}">
-                        <td class="j-td"><a href="/users/j/{{username}}">{{f_name}} {{l_name}}</a></td>
+                        <td class="j-td"><a href="/profile/{{username}}">{{f_name}} {{l_name}}</a></td>
                         <td class="j-td">@{{username}}</td>
                         <td class="j-td"><img class="btn-img" onclick="location.assign('/organisations/j-requests/accept/{{../username}}/{{username}}')" src="/img/img-1/success.png" title="Accept" alt="Accept"></td>
                         <td class="j-td"><img class="btn-img" onclick="decline('{{username}}', 'j-{{username}}');" src="/img/img-1/error.png" title="Decline" alt="Decline"><td>
@@ -148,7 +110,7 @@
                 <div id="j-text" class="journo">
                     <figure class="javatar center">
                         <img src="/{{avatar}}" alt="{{f_name}}'s Avatar'">
-                        <figcaption><h4><a href="/users/j/{{username}}">{{f_name}} {{l_name}}</a></h4></figcaption>
+                        <figcaption><h4><a href="/profile/{{username}}">{{f_name}} {{l_name}}</a></h4></figcaption>
                     </figure>
                     <div class="j-stats">
                         <p>Followers: <a href="/followers/j/{{username}}">{{followersNo}}</a></p>
@@ -162,7 +124,15 @@
         </footer>
     </section>
     <section class="right-sect">
-        yo
+        <section class="tabBar">
+            <div class="center" id="rightContent">
+                <h4><a href="javascript:void();" title="Click to view more">Trending Now</a></h4>
+                <div id="tr-err"></div>
+                <div class="trends" id="trends">
+                    
+                </div>
+            </div>
+        </section>
     </section>
     <script>
         //tab switching
@@ -188,31 +158,8 @@
 
         //set notif
         function setNotif(content){
-            document.getElementById('notif').textContent = content;
-            clearNotif();
+            setErr(content);
         }
-
-        //clear notif
-        function clearNotif(){
-            setTimeout(()=>{
-                document.getElementById('notif').textContent = '';
-            }, 5000);
-        }
-
-        //modal work
-        //default btn open
-        
-        $('#beatBtn').on('click', ()=>{
-            $('.modal')[0].style.display = 'block';
-        });
-        $('.close').on('click', ()=>{
-            $('.modal')[0].style.display = 'none';
-        });
-        $('.modal').on('click', (event)=>{
-            if(event.target == document.getElementsByClassName('modal')[0] || event.target == document.getElementsByName('html')[0]){
-                $('.modal')[0].style.display = 'none';
-            }
-        });
 
         //message counter
         $('#post').on('input', ()=>{
@@ -220,33 +167,7 @@
             document.getElementById('charCount').innerText = num;
         });
 
-        //checking for empties
-        if(!document.getElementById('b-follow')){
-            document.getElementById('b-follow-emp').textContent = "You are currently following no Beats";
-        }
-        if(!document.getElementById('all-b')){
-            document.getElementById('all-b-emp').textContent = "There are currently no Districts to follow";
-        }
-        if(!document.getElementById('j-text')){
-            document.getElementById('j-text-emp').textContent = "You have no registered Journalists";
-        }
-
         //dealing with j's, imp a confirmation
-
-        {{!-- function accept(j_username, _id_){
-            $.ajax({
-                url: '/organisations/j-requests/accept/{{username}}/'+j_username,
-                method: 'GET',
-                success: (j_name)=>{
-                    document.getElementById(_id_).classList += ' hidden';
-                    setNotif("Journalist: " + j_name + " added successfully");
-                },
-                error: ()=>{
-                    //do other stuff: notify about conn
-                    setNotif("An error occured. Please try again");
-                }
-            });
-        } --}}
 
         function decline(j_username, _id_){
             $.ajax({
@@ -254,11 +175,11 @@
                 method: 'GET',
                 success: (j_name)=>{
                     document.getElementById(_id_).classList += ' hidden';
-                    setNotif("Journalist: " + j_name + " rejected");
+                    setErr("Journalist: " + j_name + " rejected");
                 },
                 error: ()=>{
                     //do other stuff: notify about conn
-                    setNotif("An error occured. Please try again");
+                    setErr("An error occured. Please try again");
                 }
             });
         }
@@ -283,7 +204,7 @@
                     method: 'POST',
                     data: {mBody: text, recepients: 'all'},
                     error: ()=>{
-                        alert("An error occured trying to send your message. Please check your connection and try again");
+                        setErr("An error occured trying to send your message. Please check your connection and try again");
                     },
                     success: (data)=>{
                         document.getElementById('post').value = '';
@@ -297,7 +218,9 @@
             }
         });
 
+        fullSearch();
+        reqTrends();
         clearNotif();
-        $('#messaging').click();
+        {{!-- $('#messaging').click(); --}}
     </script>
 </body>

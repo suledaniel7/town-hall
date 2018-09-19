@@ -1,5 +1,4 @@
-{{#each messages}}
-<div class="message">
+<div id="{{ac_type}}" class="message {{ac_type}} {{className}}">
     <div class="m-avatar">
         <img src="/{{sender_avatar}}" class="m-avatar-img" alt="{{sender_name}}'s avatar">
     </div>
@@ -11,7 +10,7 @@
     {{{message}}}
     </div>
     <div class="m-info center">
-        <img src="/img/png/chat-1.png" class="item" title="Conversation" alt="Conversation"> ({{comments_no}})
+        <img uk-toggle="target: #converse" onclick="conversation('{{m_timestamp}}');" src="/img/png/chat-1.png" class="item" title="Conversation" alt="Conversation"> <span id="comm-num-{{m_timestamp}}">{{comments_no}}</span>
         {{#if originator}}
         <img src="/img/png/edit.png" class="item" title="Edit" alt="Edit">
         <img src="/img/png/garbage.png" class="item" title="Delete" alt="Delete">
@@ -21,4 +20,3 @@
         <span class="item grey">{{time_created}} | {{date_created}}</span>
     </div>
 </div>
-{{/each}}

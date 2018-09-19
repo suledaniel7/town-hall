@@ -1,6 +1,7 @@
 const organisations = require('./schemas/organisations');
 const messages = require('./schemas/messages');
 const extractTags = require('./extractTags');
+const extractMentions = require('./extractMentions');
 
 function renderProfile(req, res, username){
     organisations.findOne({username: username}, (err, ret_o)=>{
@@ -27,7 +28,8 @@ function renderProfile(req, res, username){
                     throw err;
                 }
                 else {
-                    ret_o.messages = extractTags(ret_msgs, null);
+                    let tmpMsgs = extractTags(ret_msgs, null);
+                    ret_o.messages = extractMentions(tmpMsgs);
                     res.render('o-render', ret_o);
                 }
             });

@@ -1,0 +1,50 @@
+#search {
+    position: relative;
+    top: 0;
+}
+
+#searchBox {
+    width: 95%;
+    height: 2.5em;
+    border-radius: 10px;
+    border: 2px solid rgb(32, 145, 153);
+    padding: 5px;
+    font-size: 12pt;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.searchSuggs {
+    position: absolute;
+    top: 2.5em;
+    z-index: 1;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.searchSugg {
+    width: 95%;
+    text-align: left;
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-top-width: 0;
+}
+
+.sugg {
+    display: block;
+    margin: 7px;
+    padding: 5px;
+}
+
+.activeSugg {
+    background-color: #eee;
+    color: white;
+}
+
+.trend {
+    border: 2px solid rgb(48, 210, 221);
+    height: 4.5em;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding: 10px;
+}

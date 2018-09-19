@@ -2,8 +2,13 @@
     <title>Search Results for {{term}}</title>
     <link rel="stylesheet" href="/css/search-res.css">
     <link rel="stylesheet" href="/css/search-result.css">
+    <link rel="stylesheet" href="/css/general.css">
     <link rel="stylesheet" href="/css/messages.css">
+    <link rel="stylesheet" href="/uikit/css/uikit.css">
     <script src="/js/jquery-3.3.1.js"></script>
+    <script src="/uikit/js/uikit.js"></script>
+    <script src="/js/extract_tags_render.js"></script>
+    <script src="/js/conversation.js"></script>
     <script src="/js/map_char.js"></script>
     <script src="/js/trends.js"></script>
 </head>
@@ -34,6 +39,9 @@
         </div>
     </section>
     <section class="content" id="centerBar">
+        <div class="errDiv">
+            <div class="errorDiv" id="errorDiv"></div>
+        </div>
         <div class="center" id="main">
             <form action="javascript:search();" id="search" autocomplete="off" method="get">
                 <input type="search" maxlength="100" name="term" class="search br" id="searchBox" value="{{term}}" placeholder="Search Town Hall">
@@ -52,12 +60,14 @@
                 {{/if}}
                 {{#if messages}}
                 <div class="messages">
+                    {{#each messages}}
                     {{>messages}}
+                    {{/each}}
+                    {{>modal}}
                 </div>
                 {{/if}}
             </div>
             {{else}}
-            <div class="error">{{error}}</div>
             {{/if}}
         </div>
     </section>
@@ -66,10 +76,7 @@
             <h4><a href="javascript:void();" title="Click to view more">Trending Now</a></h4>
             <div id="tr-err"></div>
             <div class="trends" id="trends">
-                {{!-- <div class="trend br left">
-                    <p><a href="javascript:void()">Something to search perhaps</a></p>
-                    <p class="small grey-text center">250 talking about this</p>
-                </div> --}}
+                
             </div>
         </div>
     </section>
@@ -125,7 +132,14 @@
                 let dataA = document.createElement('a');
                 dataA.setAttribute('href', datum.href);
                 dataA.setAttribute('class', 'sugg');
+                let d_type = datum.type;
                 let dataText = document.createTextNode(datum.name);
+                if(d_type == 'tag'){
+                    dataText = document.createTextNode('#'+datum.name);
+                }
+                else if(d_type == 'people'){
+                    dataText = document.createTextNode('@'+datum.name);
+                }
 
                 dataA.appendChild(dataText);
                 searchSugg.appendChild(dataA);
@@ -145,7 +159,7 @@
                         location.reload(true);
                     }
                     else {
-                        alert(data.error);
+                        setErr(data.error);
                     }
                 }
             });

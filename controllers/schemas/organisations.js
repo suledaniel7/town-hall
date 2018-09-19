@@ -9,7 +9,7 @@ const orgSchema = new Schema({
     pub_email: {type: String, required: true, unique: true},
     verification: {type: Object, required: true},
     password: {type: String, required: true},
-    messages_no: Number,
+    messages_no: {type: Number, default: 0},
     followersNo: { type: Number, required: true },
     pendingBeat: { type: Object, required: true },
     districts: Array,

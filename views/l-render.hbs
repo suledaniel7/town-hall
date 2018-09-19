@@ -3,7 +3,11 @@
     <link rel="stylesheet" href="/css/general.css">
     <link rel="stylesheet" href="/css/profile-render.css">
     <link rel="stylesheet" href="/css/messages.css">
+    <link rel="stylesheet" href="/uikit/css/uikit.css">
     <script src="/js/jquery-3.3.1.js"></script>
+    <script src="/uikit/js/uikit.js"></script>
+    <script src="/js/extract_tags_render.js"></script>
+    <script src="/js/conversation.js"></script>
 </head>
 <body class="l">
     <section class="content center b" id="leftBar">
@@ -27,6 +31,9 @@
     </section>
     <section class="content center" id="main">
         <h3 class="center">{{type_exp}} {{full_name}}'s Posts</h3>
+        {{#each messages}}
         {{>messages}}
+        {{/each}}
+        {{>modal}}
     </section>
 </body>

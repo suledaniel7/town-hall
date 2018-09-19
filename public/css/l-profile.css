@@ -1,30 +1,5 @@
-body {
-    margin: 0;
-    font-family: sans-serif;
-}
-
-.center {
-    text-align: center;
-}
-
-.bold {
-    font-weight: bold;
-}
-
 .dist {
     font-size: 11pt;
-}
-
-.right {
-    text-align: right;
-}
-
-.grey-text {
-    color: #ddd;
-}
-
-.grey {
-    color: gray;
 }
 
 .sidebar {
@@ -32,7 +7,7 @@ body {
     padding: 1%;
     height: 700px;
     float: left;
-    background-color: rgb(146, 25, 25);
+    background-color: rgb(32, 145, 153);
     color: white;
 }
 
@@ -50,7 +25,7 @@ body {
     padding: 1%;
     float: left;
     color: white;
-    background-color: rgb(146, 25, 25);
+    background-color: rgb(32, 145, 153);
 }
 
 .main-content {
@@ -59,11 +34,15 @@ body {
 }
 
 .main a, .tag {
-    color: rgb(146, 25, 25);
+    color: rgb(32, 145, 153);
 }
 
 .main a:hover, .tag:hover {
-    color: rgb(253, 43, 43);
+    color: rgb(48, 210, 221);
+}
+
+.tabs {
+    margin-bottom: 10px;
 }
 
 .tab-content {
@@ -91,7 +70,7 @@ body {
 
 .tabBtn:hover {
     color: white;
-    background-color: rgb(146, 25, 25);
+    background-color: rgb(32, 145, 153);
     cursor: pointer;
 }
 
@@ -100,7 +79,7 @@ body {
 }
 
 .active {
-    border-bottom: 2px solid rgb(146, 25, 25);
+    border-bottom: 2px solid rgb(32, 145, 153);
 }
 
 .hidden {
@@ -122,26 +101,22 @@ body {
     line-height: 1.25em;
 }
 
-.post:focus {
-    outline: none;
-}
-
 .postBtn {
     width: 100px;
     margin-right: 20%;
     height: 2.5em;
-    background-color: rgb(146, 25, 25);
+    background-color: rgb(32, 145, 153);
     border: none;
     border-radius: 5px;
     color: white;
 }
 
 .postBtn:hover {
-    background-color: rgb(253, 43, 43);
+    background-color: rgb(48, 210, 221);
     cursor: pointer;
 }
 
-#filter {
+/* #filter {
     padding: 5px;
     background-color: #aaa;
     font-weight: bold;
@@ -156,4 +131,13 @@ body {
 #filter option{
     font-weight: bold;
     padding: 5px;
+} */
+
+.tabBar a {
+    color: white;
+}
+
+.tabBar a:hover {
+    color: white;
+    text-decoration: underline;
 }

@@ -1,11 +1,10 @@
 const events = require('events');
-const elimDup = require('./duplicateElim');
 const strip = require('./strip');
 const extractTags = require('./extractTags');
+const extractMentions = require('./extractMentions');
 const users = require('./schemas/users');
 const organisations = require('./schemas/organisations');
 const legislators = require('./schemas/legislators');
-const districts = require('./schemas/districts');
 const journalists = require('./schemas/journalists');
 const messages = require('./schemas/messages');
 
@@ -65,6 +64,7 @@ function renderProfile(req, res) {
                                                 }
                                                 else {
                                                     ret_msgs = extractTags(ret_msgs, null);
+                                                    ret_msgs = extractMentions(ret_msgs);
                                                     ret_u.messages = ret_msgs;
                                                     res.render('u-profile', ret_u);
                                                 }
@@ -141,7 +141,8 @@ function renderProfile(req, res) {
                                                             throw err;
                                                         }
                                                         else {
-                                                            ret_u.messages = extractTags(ret_msgs, null);
+                                                            let tmpMsgs = extractTags(ret_msgs, null);
+                                                            ret_u.messages = extractMentions(tmpMsgs);
                                                             res.render('u-profile', ret_u);
                                                         }
                                                     });

@@ -19,11 +19,12 @@ const legislatorSchema = new Schema({
     state: {type: String, required: true},
     lc_state: {type: String, required: true},
     state_code: {type: String, required: true},
-    messages_no: Number,
+    messages_no: {type: Number, default: 0},
     bio: String,
     gender: {type: String, required: true},
     code: {type: String, unique: true, required: true},
     avatar: {type: String, required: true},
+    sources: Array,
     likes: Array,
     dislikes: Array
 });

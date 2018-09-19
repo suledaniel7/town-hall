@@ -1,6 +1,7 @@
 const journalists = require('./schemas/journalists');
 const messages = require('./schemas/messages');
 const extractTags = require('./extractTags');
+const extractMentions = require('./extractMentions');
 
 function renderJ(req, res, username){
     journalists.findOne({username: username}, (err, ret_j)=>{
@@ -23,7 +24,8 @@ function renderJ(req, res, username){
                     throw err;
                 }
                 else {
-                    ret_j.messages = extractTags(ret_msgs, null);
+                    let tmpMsgs = extractTags(ret_msgs, null);
+                    ret_j.messages = extractMentions(tmpMsgs);
                     res.render('j-render', ret_j);
                 }
             });

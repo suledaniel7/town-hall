@@ -13,10 +13,13 @@
             {{/each}}
             </div>
         {{/if}}
+        {{#each messages}}
         {{>messages}}
+        {{/each}}
     {{else}}
         <div class="center grey">You have no posts from the Organisations you follow</div>
     {{/if}}
+    {{>modal}}
 {{else}}
     <div id="no-prior" class="center grey">Follow an organisation to keep up with your Legislators</div>
     <h4 class="center">Organisations that report on your Legislators</h4>
@@ -26,7 +29,9 @@
             {{>sug-org}}
         {{/each}}
         </div>
-        {{>messages}};
+        {{#each messages}}
+        {{>messages}}
+        {{/each}}
     {{else}}
         <div class="center grey bold">
             Unfortunately, at this time, we have no Organisations that report on your Legislators.

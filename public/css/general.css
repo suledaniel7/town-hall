@@ -1,3 +1,8 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+}
+
 *:focus {
     outline: none;
 }
@@ -36,4 +41,28 @@
 
 .left {
     text-align: left;
+}
+
+.block-center {
+    margin: 0 auto;
+}
+
+.main {
+    position: relative;
+}
+
+.errDiv {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    margin: 0 auto;
+    z-index: 2;
+    text-align: center;
+}
+
+.errorDiv {
+    background-color: rgb(253, 229, 11);
+    color: black;
+    border-radius: 5px;
+    width: 95%;
 }

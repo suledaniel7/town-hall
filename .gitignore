@@ -1,3 +1,4 @@
 # Ignore node modules and nodemon dev settings #
 /node_modules/*
 /nodemon.json
+/package-lock.json
