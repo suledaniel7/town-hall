@@ -5,7 +5,7 @@ const legislators = require('./schemas/legislators');
 const findActive = require('./findActive');
 const findType = require('./findType');
 
-function follow(req, res) {
+function unfollow(req, res) {
     let f_username = req.params.username;
     let u_type = findActive(req, res);
     //only js and us can follow
@@ -38,11 +38,12 @@ function follow(req, res) {
                                 res.send({success: false, text: "Invalid Legislator Account"});
                             }
                             else {
-                                if (ret_u.sources.indexOf(f_username) == -1 && ret_u.fed_const != f_username && ret_u.sen_dist != f_username) {
+                                if (ret_u.sources.indexOf(f_username) != -1 && ret_u.fed_const != f_username && ret_u.sen_dist != f_username) {
                                     //not following
-                                    ret_u.sources.push(f_username);
-                                    if(!ret_u.sourceSel){
-                                        ret_u.sourceSel = true;
+                                    let pop_index = ret_u.sources.indexOf(f_username);
+                                    ret_u.sources.splice(pop_index, 1);
+                                    if(ret_u.sources.length < 1){
+                                        ret_u.sourceSel = false;
                                     }
                                     users.findOneAndUpdate({ username: username }, ret_u, (err) => {
                                         if (err) {
@@ -54,7 +55,7 @@ function follow(req, res) {
                                     });
                                 }
                                 else {
-                                    res.send({success: false, text: "You are already following this Account"});
+                                    res.send({success: false, text: "You cannot unfollow this Account"});
                                 }
                             }
                         });
@@ -70,14 +71,16 @@ function follow(req, res) {
                             }
                             else {
                                 //j exists, add to sources post integrity check
-                                if (ret_u.sources.indexOf(f_username) == -1 && ret_j.account.status) {
+                                if (ret_u.sources.indexOf(f_username) != -1) {
                                     //j is verified, and isn't already in sources
-                                    ret_u.sources.push(f_username);
-                                    if(!ret_u.sourceSel){
-                                        ret_u.sourceSel = true;
+                                    let u_pop_index = ret_u.sources.indexOf(f_username);
+                                    let j_pop_index = ret_j.followers.indexOf(username);
+                                    ret_u.sources.splice(u_pop_index, 1);
+                                    ret_j.followersNo--;
+                                    ret_j.followers.splice(j_pop_index, 1);
+                                    if(ret_u.sources.length < 1){
+                                        ret_u.sourceSel = false;
                                     }
-                                    ret_j.followersNo++;
-                                    ret_j.followers.push(username);
 
                                     users.findOneAndUpdate({ username: username }, ret_u, (err) => {
                                         if (err) {
@@ -96,7 +99,7 @@ function follow(req, res) {
                                     });
                                 }
                                 else {
-                                    res.send({success: false, text: "You are already following this Account"});
+                                    res.send({success: false, text: "You are not following this Account"});
                                 }
                             }
                         });
@@ -111,14 +114,15 @@ function follow(req, res) {
                                 res.send({success: false, text: "Invalid Organisation Account"});
                             }
                             else {
-                                if(ret_u.sources.indexOf(f_username) == -1 && ret_o.followers.indexOf(username) == -1){
-                                    if(!ret_u.sourceSel){
-                                        ret_u.sourceSel = true;
+                                if(ret_u.sources.indexOf(f_username) != -1){
+                                    let u_pop_index = ret_u.sources.indexOf(f_username);
+                                    let o_pop_index = ret_o.followers.indexOf(username);
+                                    ret_u.sources.splice(u_pop_index, 1);
+                                    ret_o.followers.splice(o_pop_index, 1);
+                                    ret_o.followersNo--;
+                                    if(ret_u.sources.length < 1){
+                                        ret_u.sourceSel = false;
                                     }
-                                    ret_u.sources.push(f_username);
-                                    ret_o.followers.push(username);
-                                    ret_o.followersNo++;
-
                                     organisations.findOneAndUpdate({username: f_username}, ret_o, (err)=>{
                                         if(err){
                                             throw err;
@@ -136,7 +140,7 @@ function follow(req, res) {
                                     });
                                 }
                                 else {
-                                    res.send({success: false, text: "You are already following this Account"});
+                                    res.send({success: false, text: "You are not following this Account"});
                                 }
                             }
                         });
@@ -178,8 +182,9 @@ function follow(req, res) {
                                 res.send({success: false, text: "Invalid Legislator Account"});
                             }
                             else {
-                                if(ret_j.sources.indexOf(f_username) == -1 && ret_j.beat != '' && ret_j.beat != f_username){
-                                    ret_j.sources.push(f_username);
+                                if(ret_j.sources.indexOf(f_username) != -1 && ret_j.beat != '' && ret_j.beat != f_username){
+                                    let j_pop_index = ret_j.sources.indexOf(f_username);
+                                    ret_j.sources.splice(j_pop_index, 1);
 
                                     journalists.findOneAndUpdate({username: username}, ret_j, (err)=>{
                                         if(err){
@@ -191,7 +196,7 @@ function follow(req, res) {
                                     });
                                 }
                                 else {
-                                    res.send({success: false, text: "You are already following this Account"});
+                                    res.send({success: false, text: "You are either not following this Account or cannot unfollow this Account"});
                                 }
                             }
                         });
@@ -206,10 +211,12 @@ function follow(req, res) {
                                 res.send({success: false, text: "Invalid J-Account"});
                             }
                             else {
-                                if(ret_j.sources.indexOf(f_username) == -1 && ret_f_j.followers.indexOf(username) == -1 && username != f_username){
-                                    ret_j.sources.push(f_username);
-                                    ret_f_j.followers.push(username);
-                                    ret_f_j.followersNo++;
+                                if(ret_j.sources.indexOf(f_username) != -1 && ret_f_j.followers.indexOf(username) != -1 && username != f_username){
+                                    let f_pop_index = ret_f_j.followers.indexOf(username);
+                                    let j_pop_index = ret_j.sources.indexOf(f_username);
+                                    ret_j.sources.splice(j_pop_index, 1);
+                                    ret_f_j.followers.splice(f_pop_index, 1);
+                                    ret_f_j.followersNo--;
 
                                     journalists.findOneAndUpdate({username: f_username}, ret_f_j, (err)=>{
                                         if(err){
@@ -228,7 +235,7 @@ function follow(req, res) {
                                     });
                                 }
                                 else {
-                                    res.send({success: false, text: "You are already following this Account"});
+                                    res.send({success: false, text: "You are not following this Account"});
                                 }
                             }
                         });
@@ -243,10 +250,12 @@ function follow(req, res) {
                                 res.send({success: false, text: "Invalid Organisation Account"});
                             }
                             else {
-                                if(ret_j.sources.indexOf(f_username) == -1 && ret_o.followers.indexOf(username) == -1 && ret_j.organisation != f_username){
-                                    ret_j.sources.push(f_username);
-                                    ret_o.followers.push(username);
-                                    ret_o.followersNo++;
+                                if(ret_j.sources.indexOf(f_username) != -1 && ret_o.followers.indexOf(username) != -1 && ret_j.organisation != f_username){
+                                    let o_pop_index = ret_o.followers.indexOf(username);
+                                    let j_pop_index = ret_j.sources.indexOf(f_username);
+                                    ret_j.sources.splice(j_pop_index, 1);
+                                    ret_o.followers.splice(o_pop_index, 1);
+                                    ret_o.followersNo--;
 
                                     organisations.findOneAndUpdate({username: f_username}, ret_o, (err)=>{
                                         if(err){
@@ -265,7 +274,7 @@ function follow(req, res) {
                                     });
                                 }
                                 else {
-                                    res.send({success: false, text: "You are already following this Account"});
+                                    res.send({success: false, text: "You are not following this Account"});
                                 }
                             }
                         });
@@ -279,8 +288,8 @@ function follow(req, res) {
         });
     }
     else {
-        res.send({success: false, text: "You cannot follow other accounts"});
+        res.send({success: false, text: "You cannot unfollow other accounts"});
     }
 }
 
-module.exports = follow;
+module.exports = unfollow;

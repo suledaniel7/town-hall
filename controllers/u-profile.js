@@ -82,6 +82,8 @@ function renderProfile(req, res) {
                                     sources.forEach(source => {
                                         searchSourceArr.push({ username: source });
                                     });
+                                    //very messy, but, just so the arr isn't empty for the $or
+                                    searchSourceArr.push({username: ''});
                                     //now obtain the sources that are organisations to extract their journalists
                                     //simultaneously, ensure that they are organisations while extracting freelance journalists
                                     organisations.find({ $or: searchSourceArr }, (err, ret_os) => {
@@ -107,7 +109,8 @@ function renderProfile(req, res) {
                                             orgSourcesArr.forEach(orgSource => {
                                                 searchJsArr.push({ organisation: orgSource });
                                             });
-
+                                            //same messy code
+                                            searchJsArr.push({username: ''});
                                             journalists.find({ $or: searchJsArr }, (err, ret_journos) => {
                                                 if (err) {
                                                     throw err;

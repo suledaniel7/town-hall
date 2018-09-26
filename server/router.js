@@ -24,6 +24,7 @@ const assignOrgBeat = require('../controllers/org-assign-beat');
 const l_signin = require('../controllers/l-signin');
 const m_handler = require('../controllers/message');
 const follow = require('../controllers/follow');
+const unfollow = require('../controllers/unfollow');
 const logout = require('../controllers/logout');
 const search = require('../controllers/search');
 const profile = require('../controllers/profile');
@@ -137,7 +138,9 @@ router.get('/organisations/select-beat/:o_username/:j_username/:code', assignOrg
 
 router.post('/messages/:type', m_handler);
 
-router.post('/follow/:type/:org_type/:username', follow);
+router.post('/follow/:username', follow);
+
+router.post('/unfollow/:username', unfollow);
 
 router.get('/search/:type/:term', search);
 

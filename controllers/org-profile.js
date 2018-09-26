@@ -48,19 +48,26 @@ function profileRender(req, res) {
                                     });
                                 });
 
-                                messages.find({ $or: j_list }).sort({ timestamp: -1 }).exec((err, ret_jMsgs) => {
-                                    if (err) {
-                                        throw err;
-                                    }
-                                    else {
-                                        let tmpJMsgs = extractTags(ret_jMsgs, null);
-                                        user.j_msgs = extractMentions(tmpJMsgs);
+                                if (j_list.length > 0) {
+                                    messages.find({ $or: j_list }).sort({ timestamp: -1 }).exec((err, ret_jMsgs) => {
+                                        if (err) {
+                                            throw err;
+                                        }
+                                        else {
+                                            let tmpJMsgs = extractTags(ret_jMsgs, null);
+                                            user.j_msgs = extractMentions(tmpJMsgs);
 
-                                        res.render('org-profile', user);
-                                        let end_time = new Date();
-                                        log_entry("Render Organisation profile", false, start_time, end_time);
-                                    }
-                                });
+                                            res.render('org-profile', user);
+                                            let end_time = new Date();
+                                            log_entry("Render Organisation profile", false, start_time, end_time);
+                                        }
+                                    });
+                                }
+                                else {
+                                    res.render('org-profile', user);
+                                    let end_time = new Date();
+                                    log_entry("Render Organisation profile", false, start_time, end_time);
+                                }
                             }
                         });
                     }

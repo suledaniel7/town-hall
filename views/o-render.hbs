@@ -8,6 +8,7 @@
     <script src="/uikit/js/uikit.js"></script>
     <script src="/js/extract_tags_render.js"></script>
     <script src="/js/conversation.js"></script>
+    <script src="/js/follow.js"></script>
 </head>
 <body class="o">
     <section class="content center b" id="leftBar">
@@ -20,10 +21,23 @@
         <div id="avatarText" class="center">
             {{name}} | @{{username}}
         </div>
+        <br>
+        <div class="follow">
+            {{#if canFollow}}
+            {{#if following}}
+            <button id="unfollowBtn" class="followBtn" onclick="unfollow('{{username}}');">Unfollow</button>
+            {{else}}
+            <button id="followBtn" class="followBtn" onclick="follow('{{username}}');">Follow</button>
+            {{/if}}
+            {{/if}}
+        </div>
         <br />
         <div class="info">
             <div class="bold">{{journo_num}} Town Hall Journalists</div>
-            <div class="bold">{{followersNo}} Followers</div>
+            <div>
+                <span class="bold">Followers: </span>
+                <span id="follCount">{{followersNo}}</span>
+            </div>
             <br>
             <p>
                 <a href="mailto:{{pub_email}}">Contact {{name}}</a>
@@ -33,10 +47,17 @@
         </div>
     </section>
     <section class="content center" id="main">
+        <div class="errDiv">
+            <div class="errorDiv" id="errorDiv"></div>
+        </div>
         <h3 class="center">{{name}}'s Posts</h3>
+        {{#if messages}}
         {{#each messages}}
         {{>messages}}
         {{/each}}
+        {{else}}
+        <h4 class="center grey">{{name}} has no Posts</h4>
+        {{/if}}
         {{>modal}}
     </section>
 </body>

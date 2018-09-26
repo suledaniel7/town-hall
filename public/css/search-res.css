@@ -96,7 +96,12 @@
 }
 
 .accounts {
-    height: 20em;
+    height: 18em;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    /* Child element has flex: 0 0 auto */
 }
 
 .trend {
@@ -110,70 +115,6 @@
 a {
     text-decoration: none;
 }
-/* 
-.j .b {
-    background-color: rgb(112, 146, 190);
-}
-
-.j .br {
-    border: 2px solid rgb(151, 195, 253);
-}
-
-.j a, .tag {
-    color: rgb(112, 146, 190);
-}
-
-.j a:hover, .tag:hover {
-    color: rgb(151, 195, 253);
-}
-
-.l .b {
-    background-color: rgb(146, 25, 25);
-}
-
-.l .br {
-    border: 2px solid rgb(230, 40, 40);
-}
-
-.l a, .tag {
-    color: rgb(146, 25, 25);
-}
-
-.l a:hover, .tag:hover {
-    color: rgb(230, 40, 40);
-}
-
-.o .b {
-    background-color: rgb(13, 118, 150);
-}
-
-.o .br {
-    border: 2px solid rgb(21, 176, 223);
-}
-
-.o a, .tag {
-    color: rgb(13, 118, 150);
-}
-
-.o a:hover, .tag:hover {
-    color: rgb(21, 176, 223);
-}
-
-.u .b {
-    background-color: rgb(32, 145, 153);
-}
-
-.u .br {
-    border: 2px solid rgb(48, 210, 221);
-}
-
-.u a, .tag {
-    color: rgb(32, 145, 153);
-}
-
-.u a:hover, .tag:hover {
-    color: rgb(48, 210, 221);
-} */
 
 .b a {
     color: white;

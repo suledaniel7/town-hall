@@ -8,7 +8,7 @@ function admin(req, res) {
     //default avatar
     s_code = s_code.toLowerCase();
     d_code = d_code.toLowerCase();
-    let code = s_code + '-' + type + '-' + d_code;
+    let code = s_code + '_' + type + '_' + d_code;
     let email = code + '@nass.gov';
     email = email.toLowerCase();
     if (gender == 'f') {

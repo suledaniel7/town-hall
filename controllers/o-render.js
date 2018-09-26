@@ -3,7 +3,7 @@ const messages = require('./schemas/messages');
 const extractTags = require('./extractTags');
 const extractMentions = require('./extractMentions');
 
-function renderProfile(req, res, username){
+function renderProfile(req, res, username, user){
     organisations.findOne({username: username}, (err, ret_o)=>{
         if(err){
             throw err;
@@ -12,6 +12,16 @@ function renderProfile(req, res, username){
             res.redirect('/');//redirect to error page explaining what happened
         }
         else {
+            if(user){
+                ret_o.canFollow = true;
+                let flag = false;
+                user.sources.forEach(source => {
+                    if(source == ret_o.username){
+                        flag = true;
+                    }
+                });
+                ret_o.following = flag;
+            }
             ret_o.journalists = null;
             ret_o.districts = null;
             ret_o.pending_reqs = null;

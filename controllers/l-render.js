@@ -4,7 +4,7 @@ const messages = require('./schemas/messages');
 const extractTags = require('./extractTags');
 const extractMentions = require('./extractMentions');
 
-function renderProfile(req, res, code){
+function renderProfile(req, res, code, user){
     legislators.findOne({code: code}, (err, ret_l)=>{
         if(err){
             throw err;
@@ -13,6 +13,19 @@ function renderProfile(req, res, code){
             res.redirect('/');//explain what happened
         }
         else {
+            if(user){
+                ret_l.canFollow = true;
+                let flag = false;
+                user.sources.forEach(source => {
+                    if(source == ret_l.code){
+                        flag = true;
+                    }
+                });
+                if(user.districts.indexOf(code) != -1){
+                    flag = true;
+                }
+                ret_l.following = flag;
+            }
             ret_l.likes = null;
             ret_l.dislikes = null;
             ret_l.password = null;

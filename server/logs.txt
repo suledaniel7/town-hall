@@ -172,3 +172,85 @@ Tue Sep 18 2018 12:58:58 GMT+0100 (W. Central Africa Standard Time): Render Orga
 Tue Sep 18 2018 14:34:30 GMT+0100 (W. Central Africa Standard Time): Render Organisation profile query took 0.049 seconds 
 Tue Sep 18 2018 15:14:06 GMT+0100 (W. Central Africa Standard Time): Render Organisation profile query took 0.076 seconds 
 Tue Sep 18 2018 15:18:15 GMT+0100 (W. Central Africa Standard Time): Render Organisation profile query took 0.278 seconds 
+Mon Sep 24 2018 07:20:21 GMT+0100 (W. Central Africa Standard Time): Search query took 0.434 seconds
+Mon Sep 24 2018 07:21:13 GMT+0100 (W. Central Africa Standard Time): Search query took 0.302 seconds
+Mon Sep 24 2018 07:26:51 GMT+0100 (W. Central Africa Standard Time): Search query took 0.036 seconds
+Mon Sep 24 2018 07:27:01 GMT+0100 (W. Central Africa Standard Time): Search query took 0.044 seconds
+Mon Sep 24 2018 07:27:33 GMT+0100 (W. Central Africa Standard Time): Search query took 0.035 seconds
+Mon Sep 24 2018 07:28:35 GMT+0100 (W. Central Africa Standard Time): Search query took 0.029 seconds
+Mon Sep 24 2018 07:28:42 GMT+0100 (W. Central Africa Standard Time): Search query took 0.028 seconds
+Mon Sep 24 2018 07:29:07 GMT+0100 (W. Central Africa Standard Time): Search query took 0.054 seconds
+Mon Sep 24 2018 10:17:24 GMT+0100 (W. Central Africa Standard Time): Search query took 1.583 seconds
+Mon Sep 24 2018 10:22:07 GMT+0100 (W. Central Africa Standard Time): Search query took 0.043 seconds
+Mon Sep 24 2018 10:23:11 GMT+0100 (W. Central Africa Standard Time): Search query took 0.033 seconds
+Mon Sep 24 2018 10:26:01 GMT+0100 (W. Central Africa Standard Time): Search query took 0.039 seconds
+Mon Sep 24 2018 10:26:31 GMT+0100 (W. Central Africa Standard Time): Search query took 0.029 seconds
+Mon Sep 24 2018 10:26:47 GMT+0100 (W. Central Africa Standard Time): Search query took 0.05 seconds
+Mon Sep 24 2018 10:27:26 GMT+0100 (W. Central Africa Standard Time): Search query took 0.13 seconds
+Mon Sep 24 2018 10:28:43 GMT+0100 (W. Central Africa Standard Time): Search query took 0.268 seconds
+Mon Sep 24 2018 10:28:55 GMT+0100 (W. Central Africa Standard Time): Search query took 0.09 seconds
+Mon Sep 24 2018 10:30:21 GMT+0100 (W. Central Africa Standard Time): Search query took 0.224 seconds
+Mon Sep 24 2018 10:32:24 GMT+0100 (W. Central Africa Standard Time): Search query took 0.164 seconds
+Mon Sep 24 2018 10:32:54 GMT+0100 (W. Central Africa Standard Time): Search query took 0.048 seconds
+Mon Sep 24 2018 10:35:27 GMT+0100 (W. Central Africa Standard Time): Search query took 0.034 seconds
+Mon Sep 24 2018 10:45:17 GMT+0100 (W. Central Africa Standard Time): Search query took 0.027 seconds
+Mon Sep 24 2018 10:49:14 GMT+0100 (W. Central Africa Standard Time): Search query took 0.191 seconds
+Mon Sep 24 2018 10:50:28 GMT+0100 (W. Central Africa Standard Time): Search query took 0.351 seconds
+Mon Sep 24 2018 10:50:41 GMT+0100 (W. Central Africa Standard Time): Search query took 0.127 seconds
+Mon Sep 24 2018 10:51:49 GMT+0100 (W. Central Africa Standard Time): Search query took 0.044 seconds
+Mon Sep 24 2018 11:00:29 GMT+0100 (W. Central Africa Standard Time): Search query took 0.09 seconds
+Mon Sep 24 2018 11:02:06 GMT+0100 (W. Central Africa Standard Time): Search query took 0.203 seconds
+Mon Sep 24 2018 11:03:03 GMT+0100 (W. Central Africa Standard Time): Search query took 0.114 seconds
+Mon Sep 24 2018 11:03:28 GMT+0100 (W. Central Africa Standard Time): Search query took 0.072 seconds
+Mon Sep 24 2018 11:04:24 GMT+0100 (W. Central Africa Standard Time): Search query took 0.075 seconds
+Mon Sep 24 2018 11:05:00 GMT+0100 (W. Central Africa Standard Time): Search query took 0.068 seconds
+Mon Sep 24 2018 11:05:22 GMT+0100 (W. Central Africa Standard Time): Search query took 0.054 seconds
+Mon Sep 24 2018 11:20:26 GMT+0100 (W. Central Africa Standard Time): Search query took 0.262 seconds
+Mon Sep 24 2018 11:23:27 GMT+0100 (W. Central Africa Standard Time): Search query took 0.2 seconds
+Mon Sep 24 2018 11:24:20 GMT+0100 (W. Central Africa Standard Time): Search query took 0.225 seconds
+Mon Sep 24 2018 11:25:18 GMT+0100 (W. Central Africa Standard Time): Search query took 0.213 seconds
+Mon Sep 24 2018 11:26:04 GMT+0100 (W. Central Africa Standard Time): Search query took 0.292 seconds
+Mon Sep 24 2018 11:26:52 GMT+0100 (W. Central Africa Standard Time): Search query took 0.258 seconds
+Mon Sep 24 2018 11:27:52 GMT+0100 (W. Central Africa Standard Time): Search query took 0.715 seconds
+Mon Sep 24 2018 11:42:15 GMT+0100 (W. Central Africa Standard Time): Search query took 0.075 seconds
+Mon Sep 24 2018 11:43:04 GMT+0100 (W. Central Africa Standard Time): Search query took 0.05 seconds
+Mon Sep 24 2018 11:44:39 GMT+0100 (W. Central Africa Standard Time): Search query took 0.197 seconds
+Mon Sep 24 2018 11:46:00 GMT+0100 (W. Central Africa Standard Time): Search query took 0.215 seconds
+Mon Sep 24 2018 11:48:14 GMT+0100 (W. Central Africa Standard Time): Search query took 0.1 seconds
+Mon Sep 24 2018 20:06:46 GMT+0100 (W. Central Africa Standard Time): Search query took 0.068 seconds
+Mon Sep 24 2018 20:06:56 GMT+0100 (W. Central Africa Standard Time): Search query took 0.069 seconds
+Mon Sep 24 2018 20:07:21 GMT+0100 (W. Central Africa Standard Time): Search query took 0.052 seconds
+Mon Sep 24 2018 20:07:33 GMT+0100 (W. Central Africa Standard Time): Search query took 0.041 seconds
+Mon Sep 24 2018 20:08:17 GMT+0100 (W. Central Africa Standard Time): Render Organisation profile query took 0.126 seconds
+Mon Sep 24 2018 20:08:28 GMT+0100 (W. Central Africa Standard Time): Search query took 0.039 seconds
+Mon Sep 24 2018 20:08:46 GMT+0100 (W. Central Africa Standard Time): Search query took 0.033 seconds
+Mon Sep 24 2018 20:11:04 GMT+0100 (W. Central Africa Standard Time): Search query took 0.091 seconds
+Mon Sep 24 2018 20:11:22 GMT+0100 (W. Central Africa Standard Time): Render Organisation profile query took 0.053 seconds
+Mon Sep 24 2018 20:16:36 GMT+0100 (W. Central Africa Standard Time): Search query took 0.14 seconds
+Mon Sep 24 2018 20:16:42 GMT+0100 (W. Central Africa Standard Time): Render Organisation profile query took 0.135 seconds
+Tue Sep 25 2018 06:53:47 GMT+0100 (W. Central Africa Standard Time): Render Organisation profile query took 1.546 seconds
+Tue Sep 25 2018 07:39:48 GMT+0100 (W. Central Africa Standard Time): Search query took 0.211 seconds
+Tue Sep 25 2018 21:31:55 GMT+0100 (W. Central Africa Standard Time): Render Organisation profile query took 0.086 seconds
+Tue Sep 25 2018 21:32:40 GMT+0100 (W. Central Africa Standard Time): Render Organisation profile query took 0.032 seconds
+Tue Sep 25 2018 21:34:32 GMT+0100 (W. Central Africa Standard Time): Render Journalist profile query took 0.022 seconds
+Tue Sep 25 2018 21:34:45 GMT+0100 (W. Central Africa Standard Time): Render Organisation profile query took 0.111 seconds
+Tue Sep 25 2018 21:34:58 GMT+0100 (W. Central Africa Standard Time): Render Organisation profile query took 0.021 seconds
+Tue Sep 25 2018 21:48:14 GMT+0100 (W. Central Africa Standard Time): Search query took 0.525 seconds
+Tue Sep 25 2018 21:53:43 GMT+0100 (W. Central Africa Standard Time): Render Organisation profile query took 0.024 seconds
+Tue Sep 25 2018 21:54:04 GMT+0100 (W. Central Africa Standard Time): Search query took 0.08 seconds
+Tue Sep 25 2018 21:57:14 GMT+0100 (W. Central Africa Standard Time): Search query took 0.099 seconds
+Tue Sep 25 2018 21:59:54 GMT+0100 (W. Central Africa Standard Time): Render Organisation profile query took 0.027 seconds
+Wed Sep 26 2018 14:58:05 GMT+0100 (W. Central Africa Standard Time): Render Organisation profile query took 0.081 seconds
+Wed Sep 26 2018 14:58:55 GMT+0100 (W. Central Africa Standard Time): Render Organisation profile query took 0.022 seconds
+Wed Sep 26 2018 15:00:28 GMT+0100 (W. Central Africa Standard Time): Render Journalist profile query took 0.042 seconds
+Wed Sep 26 2018 15:00:35 GMT+0100 (W. Central Africa Standard Time): Render Organisation profile query took 0.03 seconds
+Wed Sep 26 2018 15:00:45 GMT+0100 (W. Central Africa Standard Time): Render Organisation profile query took 0.028 seconds
+Wed Sep 26 2018 15:00:50 GMT+0100 (W. Central Africa Standard Time): Render Journalist profile query took 0.032 seconds
+Wed Sep 26 2018 15:02:20 GMT+0100 (W. Central Africa Standard Time): Search query took 0.479 seconds
+Wed Sep 26 2018 15:06:45 GMT+0100 (W. Central Africa Standard Time): Search query took 0.049 seconds
+Wed Sep 26 2018 15:07:14 GMT+0100 (W. Central Africa Standard Time): Render Organisation profile query took 0.07 seconds
+Wed Sep 26 2018 15:07:28 GMT+0100 (W. Central Africa Standard Time): Render Journalist profile query took 0.026 seconds
+Wed Sep 26 2018 15:07:50 GMT+0100 (W. Central Africa Standard Time): Render Organisation profile query took 0.023 seconds
+Wed Sep 26 2018 15:09:04 GMT+0100 (W. Central Africa Standard Time): Render Organisation profile query took 0.026 seconds
+Wed Sep 26 2018 15:19:50 GMT+0100 (W. Central Africa Standard Time): Render Organisation profile query took 0.028 seconds
+Wed Sep 26 2018 15:20:53 GMT+0100 (W. Central Africa Standard Time): Render Journalist profile query took 0.037 seconds

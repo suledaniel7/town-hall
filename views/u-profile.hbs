@@ -10,6 +10,7 @@
     <script src="/js/conversation.js"></script>
     <script src="/js/map_char.js"></script>
     <script src="/js/trends.js"></script>
+    <script src="/js/follow.js"></script>
     <title>{{f_name}}'s Account | Town Hall</title>
 </head>
 <body>
@@ -114,26 +115,6 @@
             }
         });
 
-        // Follow org
-        function follow(username, org_type){
-            $.ajax({
-                url: '/follow/u/'+org_type+'/'+username,
-                method: 'POST',
-                error: ()=>{
-                    setErr("An error occured. Please check your Internet connection");
-                },
-                success: (data)=>{
-                    if(data.success){
-                        location.reload(true);
-                    }
-                    else {
-                        setErr(data.error);
-                    }
-                }
-            });
-        }
-
-        
         document.getElementById('suggs').addEventListener('mouseover', ()=>{
             sActive = true;
         });

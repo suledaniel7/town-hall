@@ -2,9 +2,16 @@
 <div class="{{tint}}-border result center">
     <figure class="center-block">
         <img src="/{{logo}}{{avatar}}" class="j-avatar" title="{{name}}{{type_exp}} {{f_name}} {{l_name}}'s Avatar" alt="{{name}}{{type_exp}} {{f_name}} {{l_name}}'s Avatar">
-        <figcaption><a class="{{tint}}-a" href="/profile/{{username}}{{code}}">{{name}}{{type_exp}} {{f_name}} {{l_name}}</a> <img src="/img/img-1/success.png" class="verified" title="Verified User" alt="Verified User"></figcaption>
+        {{#if username}}
+        <figcaption><a class="{{tint}}-a" href="/profile/{{username}}{{code}}">{{name}}{{type_exp}} {{f_name}} {{l_name}}</a> {{#if verified}}<img src="/img/img-1/success.png" class="verified" title="Verified Account" alt="Verified Account">{{/if}}</figcaption>
+        <br>
+        | @{{username}} |
+        {{else}}
+        <br><br>
+        <figcaption><a class="{{tint}}-a" href="/profile/{{username}}{{code}}">{{name}}{{type_exp}} {{f_name}} {{l_name}}</a> {{#if verified}}<img src="/img/img-1/success.png" class="verified" title="Verified Account" alt="Verified Account">{{/if}}</figcaption>
+        {{/if}}
     </figure>
     <p class="deep-grey-text">{{const_num}}{{followersNo}} Followers</p>
-    <button class="follow {{tint}}-button">Follow</button>
+    {{!-- <a href="/follow/:type/:{{tint}}/:{{username}}{{code}}"><button class="follow {{tint}}-button">Follow</button></a> --}}
 </div>
 {{/each}}

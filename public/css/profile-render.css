@@ -16,6 +16,7 @@ body {
 #leftBar {
     width: 19%;
     padding: 0.5%;
+    color: black;
 }
 
 #main {
@@ -38,39 +39,15 @@ a {
     text-decoration: none;
 }
 
-.j .b {
-    background-color: rgb(112, 146, 190);
-}
-
-.j a, .tag {
-    color: rgb(112, 146, 190);
-}
-
-.j a:hover, .tag:hover {
-    color: rgb(151, 195, 253);
-}
-
-.l .b {
-    background-color: rgb(146, 25, 25);
-}
-
-.l a, .tag {
-    color: rgb(146, 25, 25);
-}
-
-.l a:hover, .tag:hover {
-    color: rgb(253, 43, 43);
-}
-
-.o .b {
+.b {
     background-color: rgb(13, 118, 150);
 }
 
-.o a, .tag {
+a, .tag {
     color: rgb(13, 118, 150);
 }
 
-.o a:hover, .tag:hover {
+a:hover, .tag:hover {
     color: rgb(21, 176, 223);
 }
 
@@ -81,4 +58,18 @@ a {
 .b a:hover {
     color: white;
     text-decoration: underline;
+}
+
+.followBtn {
+    width: 80%;
+    height: 2.5em;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    background-color: rgb(21, 176, 223);
+}
+
+.followBtn:hover {
+    text-decoration: underline;
+    cursor: pointer;
 }

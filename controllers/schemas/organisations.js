@@ -12,6 +12,7 @@ const orgSchema = new Schema({
     messages_no: {type: Number, default: 0},
     followersNo: { type: Number, required: true },
     pendingBeat: { type: Object, required: true },
+    journo_num: {type: Number, default: 0},
     districts: Array,
     journalists: Array,
     pending_reqs: Array,
