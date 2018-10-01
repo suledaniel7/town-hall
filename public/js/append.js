@@ -7,6 +7,7 @@ function appendMessage(message, originator, loc) {
     //create text div
     let m_text = document.createElement('div');
     m_text.setAttribute('class', 'm-text');
+    m_text.setAttribute('id', `m-text-${m_timestamp}`);
 
     //working on message text
     let tagsNo = message.tags.length;
@@ -17,6 +18,7 @@ function appendMessage(message, originator, loc) {
     //create entire message div
     let newMessage = document.createElement('div');
     newMessage.setAttribute('class', 'message');
+    newMessage.setAttribute('id', m_timestamp);
 
     //create user avatar div
     let m_avatar = document.createElement('div');
@@ -69,6 +71,7 @@ function appendMessage(message, originator, loc) {
         m_item_img2.setAttribute('class', 'item');
         m_item_img2.setAttribute('title', 'Edit');
         m_item_img2.setAttribute('alt', 'Edit');
+        m_item_img2.setAttribute('onclick', `editMessage(true, '${m_timestamp}')`);
 
         var m_item_img4 = document.createElement('img');
         m_item_img4.setAttribute('src', '/img/png/garbage.png');

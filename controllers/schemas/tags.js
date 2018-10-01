@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 let tagSchema = new Schema({
     tag: {type: String, required: true},
     mentions: Number,
-    related: Array
+    related: Array,
+    messages: Array
 });
 
 let tags = mongoose.model('tags', tagSchema);

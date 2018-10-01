@@ -15,7 +15,7 @@ function messageHandler(req, res) {
     let comments_no = 0;
     let timestamp = today.getTime();
     let wsp = /^\s*$/;
-    
+
     if (!wsp.test(mText)) {
         //message not-empty. Clear trailing and leading whitespace
         let tsp = /\s+$/;
@@ -33,7 +33,7 @@ function messageHandler(req, res) {
         let mTextArr = mText.split(/\s/);
         //extract based on hashes
         mTextArr.forEach(element => {
-            if(element[0] == '#' && element.slice(1).search(/\W/) != 0){
+            if (element[0] == '#' && element.slice(1).search(/\W/) != 0) {
                 unRefTags.push(element);
             }
         });
@@ -51,9 +51,8 @@ function messageHandler(req, res) {
         });
 
         //extract mentions
-        let mentions = extractMentions([{message: mText}], true).m_arr;
+        let mentions = extractMentions([{ message: mText }], true).m_arr;
 
-        saveTags(tags);
         //create message
         //find type
         if (m_type == 'j') {
@@ -79,6 +78,8 @@ function messageHandler(req, res) {
                     time_created: timeFn(new Date())
                 });
 
+                saveTags(tags, username + '-' + timestamp);
+
                 journalists.findOne({ username: username }, (err, ret_j) => {
                     if (err) {
                         throw err;
@@ -97,7 +98,7 @@ function messageHandler(req, res) {
                             message.sender_position = null;
                         }
                         message.sender_avatar = ret_j.avatar;
-                        message.beat = ret_j.beat;
+                        message.beats = [ret_j.beat];
                         message.save((err) => {
                             if (err) {
                                 res.sendStatus(403);
@@ -111,7 +112,7 @@ function messageHandler(req, res) {
             }
         }
         else if (m_type == 'o') {
-            let recepients = req.body.recepients;
+            let beats = req.body.recepients;
             if (!req.organisation) {
                 res.sendStatus(403);
             }
@@ -134,6 +135,8 @@ function messageHandler(req, res) {
                     time_created: timeFn(new Date())
                 });
 
+                saveTags(tags, username + '-' + timestamp);
+
                 organisations.findOne({ username: username }, (err, ret_o) => {
                     if (err) {
                         throw err;
@@ -148,9 +151,9 @@ function messageHandler(req, res) {
                         message.sender_position = "Media Organisation";
                         message.sender_avatar = ret_o.logo;
 
-                        if (recepients == 'all') {
+                        if (beats[0] == 'all') {
                             //normal
-                            message.beat = 'all';
+                            message.beats = 'all';
                             message.save((err) => {
                                 if (err) {
                                     res.sendStatus(403);
@@ -161,25 +164,15 @@ function messageHandler(req, res) {
                             });
                         }
                         else {
-                            districts.findOne({ code: recepients }, (err, ret_d) => {
+                            message.beats = beats;
+                            message.save((err) => {
                                 if (err) {
-                                    throw err;
-                                }
-                                else if (!ret_d) {
-                                    res.redirect('/');
+                                    res.sendStatus(403);
                                 }
                                 else {
-                                    message.beat = ret_d.code;
-                                    message.save((err) => {
-                                        if (err) {
-                                            res.sendStatus(403);
-                                        }
-                                        else {
-                                            res.send({ message: message });
-                                        }
-                                    });
+                                    res.send({ message: message, originator: true });
                                 }
-                            })
+                            });
                         }
                     }
                 });
@@ -210,6 +203,8 @@ function messageHandler(req, res) {
                     time_created: timeFn(new Date())
                 });
 
+                saveTags(tags, code + '-' + timestamp);
+
                 legislators.findOne({ email: email }, (err, ret_l) => {
                     if (err) {
                         throw err;
@@ -220,7 +215,7 @@ function messageHandler(req, res) {
                     else {
                         //leg exists
                         message.verified = true;
-                        message.beat = ret_l.code;
+                        message.beats = [ret_l.code];
                         message.sender_name = ret_l.type_exp + ' ' + ret_l.full_name;
                         message.sender_position = 'Representative of ' + ret_l.district + ' | ' + ret_l.state + ' State';
                         message.sender_avatar = ret_l.avatar;

@@ -1,5 +1,5 @@
 //create variable to check whether there already exist comments for req'd message, so we know not to request server again
-function conversation(m_id){
+function conversation(m_id) {
     //clear
     document.getElementById('message-comm').innerHTML = '';
     document.getElementById('conversation').innerHTML = '';
@@ -11,10 +11,10 @@ function conversation(m_id){
         data: JSON.stringify({
             m_timestamp: m_id
         }),
-        error: ()=>{
+        error: () => {
             setErr("Error contacting server. Please check your Internet connection and try again");
         },
-        success: (data)=>{
+        success: (data) => {
             //message, comments, user. Precisely
             appendCMessage(data.message, data.user);
             data.comments.forEach(comment => {
@@ -26,7 +26,7 @@ function conversation(m_id){
     // use fn below to pre or append the comments
 }
 
-function appendCMessage(message, user){
+function appendCMessage(message, user) {
     let mDiv = document.getElementById('message-comm');
     let m_text = message.message;
     let m_sender = message.sender;
@@ -52,15 +52,15 @@ function appendCMessage(message, user){
     let m_avatar_div = document.createElement('div');
     m_avatar_div.setAttribute('class', 'm-avatar');
     let m_avatar_img = document.createElement('img');
-    m_avatar_img.setAttribute('src', '/'+m_avatar);
+    m_avatar_img.setAttribute('src', '/' + m_avatar);
     m_avatar_img.setAttribute('class', 'm-avatar-img');
-    m_avatar_img.setAttribute('alt', m_sender_name+"'s avatar");
+    m_avatar_img.setAttribute('alt', m_sender_name + "'s avatar");
     let m_sender_div = document.createElement('div');
     m_sender_div.setAttribute('class', 'm-sender');
     let m_sender_line_div = document.createElement('div');
     m_sender_line_div.setAttribute('class', 'm-sender-line');
     let m_sender_line_a = document.createElement('a');
-    m_sender_line_a.setAttribute('href', '/profile/'+m_sender);
+    m_sender_line_a.setAttribute('href', '/profile/' + m_sender);
     let m_sender_verified_span = document.createElement('span');
     m_sender_verified_span.setAttribute('class', 'verified');
     let m_sender_verified_img = document.createElement('img');
@@ -82,13 +82,13 @@ function appendCMessage(message, user){
     m_avatar_div.appendChild(m_avatar_img);
     m_sender_line_a.appendChild(m_sender_node);
     m_sender_line_div.appendChild(m_sender_line_a);
-    if(m_verified){
+    if (m_verified) {
         m_sender_verified_span.appendChild(m_sender_verified_img);
         m_sender_line_div.appendChild(m_sender_verified_span);
     }
     m_sender_position_div.appendChild(m_sender_position_node);
     m_sender_div.appendChild(m_sender_line_div);
-    if(m_sender_position){
+    if (m_sender_position) {
         m_sender_div.appendChild(m_sender_position_div);
     }
     m_info_span.appendChild(m_info_node);
@@ -102,7 +102,7 @@ function appendCMessage(message, user){
     mDiv.appendChild(messageDiv);
 
     //combining user props
-    if(user){
+    if (user) {
         u_username = user.username;
         u_name = user.name;
         u_avatar = user.avatar;
@@ -117,7 +117,7 @@ function appendCMessage(message, user){
         let u_c_avatar_div = document.createElement('div');
         u_c_avatar_div.setAttribute('class', 'c-avatar');
         let u_c_avatar_img = document.createElement('img');
-        u_c_avatar_img.setAttribute('src', '/'+u_avatar);
+        u_c_avatar_img.setAttribute('src', '/' + u_avatar);
         u_c_avatar_img.setAttribute('class', 'c-avatar-img');
         u_c_avatar_img.setAttribute('alt', 'avatar');
         let u_c_text_div = document.createElement('div');
@@ -152,7 +152,7 @@ function appendCMessage(message, user){
     }
 }
 
-function prependComment(comment, first, username){
+function prependComment(comment, first, username) {
     let cDiv = document.getElementById('conversation');
 
     let c_text = comment.comment;
@@ -164,43 +164,65 @@ function prependComment(comment, first, username){
     let time_created = comment.time_created;
     let isUser = comment.isUser;
 
-    if(username == c_sender){
+    if (username == c_sender) {
         c_sender_name = "You";
     }
     let c_text_div = document.createElement('div');
     c_text_div.setAttribute('class', 'c-text');
+    c_text_div.setAttribute('id', `c-text-${c_timestamp}`);
     extractTags(c_text_div, c_text, comment.tags.length);
 
     let c_div = document.createElement('div');
     c_div.setAttribute('class', 'comment');
+    c_div.setAttribute('id', c_timestamp);
     let c_avatar_div = document.createElement('div');
     c_avatar_div.setAttribute('class', 'c-avatar');
     let c_avatar_img = document.createElement('img');
-    c_avatar_img.setAttribute('src', '/'+c_sender_avatar);
+    c_avatar_img.setAttribute('src', '/' + c_sender_avatar);
     c_avatar_img.setAttribute('class', 'c-avatar-img');
-    c_avatar_img.setAttribute('alt', c_sender_name+'\'s avatar');
+    c_avatar_img.setAttribute('alt', c_sender_name + '\'s avatar');
     let c_sender_div = document.createElement('div');
     c_sender_div.setAttribute('class', 'c-sender');
     let c_sender_name_div = document.createElement('div');
     c_sender_name_div.setAttribute('class', 'c-sender-line');
     let c_sender_name_a = document.createElement('a');
-    c_sender_name_a.setAttribute('href', '/profile/'+c_sender);
+    c_sender_name_a.setAttribute('href', '/profile/' + c_sender);
     //c-text
     let c_info_div = document.createElement('div');
     c_info_div.setAttribute('class', 'c-info right');
     let c_info_span = document.createElement('span');
     c_info_span.setAttribute('class', 'item grey');
+    let c_edit_span = document.createElement('span');
+    c_edit_span.setAttribute('class', 'item item-img');
+    let c_delete_span = document.createElement('span');
+    c_delete_span.setAttribute('class', 'item item-img');
 
     let c_sender_node = document.createTextNode(c_sender_name);
+    let c_edit_img = document.createElement('img');
+    c_edit_img.setAttribute('src', '/img/png/edit.png');
+    c_edit_img.setAttribute('alt', 'Edit');
+    c_edit_img.setAttribute('title', 'Edit');
+    c_edit_img.setAttribute('onclick', `editMessage(false, '${c_timestamp}')`);
+    let c_delete_img = document.createElement('img');
+    c_delete_img.setAttribute('src', '/img/png/garbage.png');
+    c_delete_img.setAttribute('alt', 'Delete');
+    c_delete_img.setAttribute('title', 'Delete');
     let c_info_node = document.createTextNode(time_created + ' | ' + date_created);
 
     c_avatar_div.appendChild(c_avatar_img);
-    if(!isUser){
+    if (!isUser) {
         c_sender_name_a.appendChild(c_sender_node);
         c_sender_name_div.appendChild(c_sender_name_a);
     }
     else {
         c_sender_name_div.appendChild(c_sender_node);
+    }
+
+    if (username == c_sender) {
+        c_edit_span.appendChild(c_edit_img);
+        c_delete_span.appendChild(c_delete_img);
+        c_info_div.appendChild(c_edit_span);
+        c_info_div.appendChild(c_delete_span);
     }
     c_sender_div.appendChild(c_sender_name_div);
     c_info_span.appendChild(c_info_node);
@@ -214,7 +236,7 @@ function prependComment(comment, first, username){
     cDiv.appendChild(c_div);
 }
 
-function postComment(m_timestamp, c_type){
+function postComment(m_timestamp, c_type) {
     let comment = document.getElementById('user-comment').value;
     $.ajax({
         url: '/comments/post',
@@ -225,10 +247,10 @@ function postComment(m_timestamp, c_type){
             m_timestamp: m_timestamp,
             c_type: c_type
         }),
-        error: ()=>{
+        error: () => {
             setErr("An error occured posting your comment. Please check your Internet connection and try again");
         },
-        success: (data)=>{
+        success: (data) => {
             prependComment(data.comment, true, data.username);
             document.getElementById('user-comment').value = '';
             let num = document.getElementById(`comm-num-${m_timestamp}`).textContent;
@@ -238,14 +260,163 @@ function postComment(m_timestamp, c_type){
         }
     });
 }
+let openEdit = false;
+function editMessage(message, timestamp) {
+    if(document.getElementById('m-textarea-'+timestamp) || document.getElementById('c-textarea-'+timestamp)){
+        openEdit = true;
+    }
+    else {
+        openEdit = false;
+    }
+    if (!openEdit) {
+        openEdit = true;
+        if (message) {
+            let m_text_div = document.getElementById(`m-text-${timestamp}`);
+            if (m_text_div) {
+                let m_html = m_text_div.innerHTML;
+                let m_text = m_text_div.innerText;
+                let m_textarea = document.createElement('textarea');
+                m_textarea.setAttribute('class', 'user-comment');
+                m_textarea.setAttribute('id', `m-textarea-${timestamp}`);
+                m_textarea.value = m_text;
+                let m_wrapper = document.createElement('div');
+                let btn_div = document.createElement('div');
+                btn_div.setAttribute('class', 'right');
+                let update_btn = document.createElement('button');
+                update_btn.setAttribute('class', 'c-btn');
+                let btn_text = document.createTextNode("Update Post");
+                update_btn.setAttribute('onclick', `updateMessage('${timestamp}', true)`);
+                let cancel_btn = document.createElement('button');
+                cancel_btn.setAttribute('class', 'c-btn');
+                cancel_btn.setAttribute('onclick', `revert('${timestamp}', true, \`${m_html}\`)`);
+                let c_btn_text = document.createTextNode("Cancel");
+                update_btn.appendChild(btn_text);
+                btn_div.appendChild(update_btn);
+                cancel_btn.appendChild(c_btn_text);
+                btn_div.appendChild(cancel_btn);
+                m_wrapper.appendChild(m_textarea);
+                m_wrapper.appendChild(btn_div);
+                m_text_div.innerHTML = '';
+                m_text_div.appendChild(m_wrapper);
+            }
+        }
+        else {
+            let c_text_div = document.getElementById(`c-text-${timestamp}`);
+            if (c_text_div) {
+                let c_html = c_text_div.innerHTML;
+                let c_text = c_text_div.textContent;
+                let c_textarea = document.createElement('textarea');
+                c_textarea.setAttribute('class', 'user-comment');
+                c_textarea.setAttribute('id', `c-textarea-${timestamp}`);
+                c_textarea.value = c_text;
+                let c_wrapper = document.createElement('div');
+                let btn_div = document.createElement('div');
+                btn_div.setAttribute('class', 'right');
+                let update_btn = document.createElement('button');
+                update_btn.setAttribute('class', 'c-btn');
+                update_btn.setAttribute('onclick', `updateMessage('${timestamp}', false)`);
+                let cancel_btn = document.createElement('button');
+                cancel_btn.setAttribute('class', 'c-btn');
+                cancel_btn.setAttribute('onclick', `revert('${timestamp}', false, \`${c_html}\`)`);
+                let btn_text = document.createTextNode("Update Comment");
+                let c_btn_text = document.createTextNode("Cancel");
+                update_btn.appendChild(btn_text);
+                cancel_btn.appendChild(c_btn_text);
+                btn_div.appendChild(update_btn);
+                btn_div.appendChild(cancel_btn);
 
-function clearErr(){
-    setTimeout(()=>{
+                c_wrapper.appendChild(c_textarea);
+                c_wrapper.appendChild(btn_div);
+                c_text_div.innerHTML = '';
+                c_text_div.appendChild(c_wrapper);
+            }
+        }
+    }
+}
+
+function clearErr() {
+    setTimeout(() => {
         document.getElementById('errorDiv').textContent = '';
     }, 5000);
 }
 
-function setErr(text){
+function setErr(text) {
     document.getElementById('errorDiv').textContent = text;
     clearErr();
+}
+
+function revert(timestamp, message, init_html) {
+    if (message) {
+        let m_text_div = document.getElementById(`m-text-${timestamp}`);
+        m_text_div.innerHTML = '';
+        m_text_div.innerHTML = init_html;
+        openEdit = false;
+    }
+    else {
+        let c_text_div = document.getElementById(`c-text-${timestamp}`);
+        c_text_div.innerHTML = '';
+        c_text_div.innerHTML = init_html;
+        openEdit = false;
+    }
+}
+
+function updateMessage(timestamp, message) {
+    if (message) {
+        let m_text = document.getElementById(`m-textarea-${timestamp}`).value;
+        $.ajax({
+            url: '/edit/message/' + timestamp,
+            method: 'POST',
+            contentType: 'application/JSON',
+            data: JSON.stringify({
+                m_text: m_text
+            }),
+            error: () => {
+                setErr("An error occured in editing your message. Please check your Internet connection and try again.");
+            },
+            success: (data) => {
+                if (data.success) {
+                    //destroy initial element
+                    //prepend
+                    let m_text_div = document.getElementById(`${timestamp}`);
+                    if (m_text_div) {
+                        m_text_div.innerHTML = '';
+                        m_text_div.classList += ' hidden';
+                        appendMessage(data.message, data.originator);
+                    }
+                }
+                else {
+                    setErr("An error occured in editing your message. Try again.");
+                }
+            }
+        });
+    }
+    else {
+        let m_text = document.getElementById(`c-textarea-${timestamp}`).value;
+        $.ajax({
+            url: '/edit/comment/' + timestamp,
+            method: 'POST',
+            contentType: 'application/JSON',
+            data: JSON.stringify({
+                m_text: m_text
+            }),
+            error: () => {
+                setErr("An error occured in editing your message. Please check your Internet connection and try again.");
+            },
+            success: (data) => {
+                if (data.success) {
+                    //destroy initial element
+                    //prepend
+                    let c_text_div = document.getElementById(`${timestamp}`);
+                    if (c_text_div) {
+                        c_text_div.innerHTML = '';
+                        c_text_div.classList += ' hidden';
+                        prependComment(data.comment, true, data.username);
+                    }
+                }
+                else {
+                    setErr("An error occured in editing your message. Try again.");
+                }
+            }
+        });
+    }
 }

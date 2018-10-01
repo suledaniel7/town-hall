@@ -8,9 +8,9 @@
         <h3>Create a Town Hall Account</h3>
         <div class="error" id="error">{{error}}</div>
         <input type="text" name="f_name" id="f_name" placeholder="Enter your First Name" title="First Name">
-        <input type="text" name="username" id="username" placeholder="Town Hall Username" title="Username">
+        <input type="text" name="username" id="username" placeholder="Create a Town Hall Username" title="Username">
         <input type="email" name="email" id="email" placeholder="Enter your Email Address" title="Email">
-        <input type="password" name="password" id="password" placeholder="Create a password" title="Password">
+        <input type="password" name="password" id="password" placeholder="Create a Password" title="Password">
         <input type="password" id="password1" placeholder="Confirm Password" title="Confirm Password">
         <h4>Gender:</h4>
         Male: <input type="radio" name="gender" value="m" class="radio" id="rad1">Female: <input type="radio" name="gender" value="f" class="radio" id="rad2">
@@ -27,10 +27,9 @@
         <button class="button" type="submit" id="submit">Create Account</button>
     </form>
     <script>
-        let keysString = "{{keys}}";
-        let keys = keysString.split(',');
         document.getElementById('state').addEventListener('change', (el)=>{
             let index = document.getElementById('state').selectedIndex;
+            let key = document.getElementById('state')[index].value;
             //assuming the selected state is not the placeholder
             if(index !== 0){
                 //decrement index to correspond with array

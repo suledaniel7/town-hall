@@ -1,6 +1,6 @@
 const tags = require('./schemas/tags');
 
-function saveTags(tagArr){
+function saveTags(tagArr, m_timestamp){
     tagArr.forEach(tag => {
         //extract related
         let related = [];
@@ -18,6 +18,7 @@ function saveTags(tagArr){
                 let fin_tag = new tags({
                     tag: tag,
                     mentions: 1,
+                    messages: [m_timestamp],
                     related: related
                 });
 
@@ -42,7 +43,11 @@ function saveTags(tagArr){
                     ret_t.related.push(fin_r);
                 });
 
-                ret_t.mentions++;
+                //increment mentions only if tag is appearing for the first time in a given message
+                if(ret_t.messages.indexOf(m_timestamp) == -1){
+                    ret_t.messages.push(m_timestamp);
+                    ret_t.mentions++;
+                }
 
                 tags.findOneAndUpdate({tag: tag}, ret_t, (err)=>{
                     if(err){

@@ -32,6 +32,7 @@ const autofill = require('../controllers/autofill');
 const serve_trends = require('../controllers/serve_trends');
 const post_comment = require('../controllers/comments_post');
 const serve_comments = require('../controllers/comments_serve');
+const edit = require('../controllers/edit');
 
 const router = express.Router();
 const logos = multer({dest: 'public/logos/'});
@@ -153,6 +154,8 @@ router.post('/request-trends', serve_trends);
 router.post('/comments/post', post_comment);
 
 router.post('/request-comments', serve_comments);
+
+router.post('/edit/:m_type/:timestamp', edit);
 
 router.get('/logout/:type', logout);
 

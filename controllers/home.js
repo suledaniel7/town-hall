@@ -2,6 +2,7 @@ const orgProfile = require('./org-profile');
 const jProfile = require('./j-profile');
 const lProfile = require('./l-profile');
 const uProfile = require('./u-profile');
+const homeRender = require('./home-render');
 //as a rule, all rendering controllers check the db to ensure the account still exists, and that the passwords are the same
 
 function home(req, res){
@@ -21,7 +22,7 @@ function home(req, res){
         orgProfile(req, res);
     }
     function homeFn(){
-        res.render('home');
+        homeRender(req, res);
     }
 
     //finding active session

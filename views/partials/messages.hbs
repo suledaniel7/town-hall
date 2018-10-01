@@ -6,13 +6,13 @@
         <div class="m-sender-line"><a href="/profile/{{sender}}">{{#if originator}}You{{else}}{{sender_name}}{{/if}}</a>{{#if verified}}<span class="verified"><img src="/img/img-1/success.png" title="Verified User" alt="Verified User"></span>{{/if}}</div>
         <div class="m-sender-line">{{sender_position}}</div>
     </div>
-    <div class="m-text">
+    <div class="m-text" id="m-text-{{m_timestamp}}">
     {{{message}}}
     </div>
     <div class="m-info center">
         <img uk-toggle="target: #converse" onclick="conversation('{{m_timestamp}}');" src="/img/png/chat-1.png" class="item" title="Conversation" alt="Conversation"> <span id="comm-num-{{m_timestamp}}">{{comments_no}}</span>
         {{#if originator}}
-        <img src="/img/png/edit.png" class="item" title="Edit" alt="Edit">
+        <img onclick="editMessage(true, '{{m_timestamp}}');" src="/img/png/edit.png" class="item" title="Edit" alt="Edit">
         <img src="/img/png/garbage.png" class="item" title="Delete" alt="Delete">
         {{else}}
         <img src="/img/img-1/flag.png" class="item" title="Report" alt="Report">

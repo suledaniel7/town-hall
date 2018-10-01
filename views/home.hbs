@@ -1,51 +1,216 @@
 <head>
-    {{!-- <script src="/uikit/js/uikit.js"></script>
-    <script src="/uikit/js/uikit-icons.js"></script>
-    <link rel="stylesheet" href="/uikit/css/uikit.css"> --}}
+    <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/uikit/css/uikit.css">
+    <link rel="stylesheet" href="/css/u-signup.css">
     <link rel="stylesheet" href="/css/home.css">
     <script src="/js/jquery-3.3.1.js"></script>
-    <title>Town Hall</title>
+    <script src="/uikit/js/uikit.js"></script>
+    <title>Town Hall | Promoting Accountability</title>
 </head>
 <body>
     <nav>
         <ul class="navigation">
-            <li class="left"><a href="/">Town Hall</a></li>
+            <li class="left larger"><a href="javascript:void();">Town Hall</a></li>
             <li class="nav-item"><a href="/legislators">Legislators</a></li>
             <li class="nav-item"><a href="/organisations">Media Organisations</a></li>
             <li class="nav-item"><a href="/journalists">Journalists</a></li>
         </ul>
     </nav>
     <section id="main">
-        <div class="central-heading">
-            <h1 class="center">Town Hall</h1>
-        </div>
-        <div class="central-buttons">
-            <button id="btn1" class="central-button">Sign Up</button>
-            <button id="btn2" class="central-button">Log In</button>
-        </div>
-        <div class="text-division">
-            <div class="central-text-division">
-                <h3 class="center">Welcome to Town Hall</h3>
-                <div class="central-text">
-                    Town Hall exists to facilitate communication between the legislators and
-                    the most important part of our democracy: the citizenry for whom all institutions exist.
-                    Town Hall gives you a platform through which you remain informed about the activities of
-                    your elected officials in the National Assembly, and maybe also State Houses of Assembly.
-                    An informed electorate is fundamental to the success of any democracy. <br><br>
-                    Welcome to Town Hall.
-                </div>
-            </div>
-        </div>
+        <section id="left" class="sect-content">
+            <p class="right"><a href="/users/signin">Already have an Account? Log in</a></p>
+            <h1 class="center intro">Welcome to Town Hall</h1>
+            {{!-- <img src="/img/background.jpeg" alt="Background Image"> --}}
+        </section>
+        <section id="right" class="sect-content">
+            <form class="center-block center" id="form" onsubmit="return validate();" action="/users/signup" enctype="multipart/form-data" method="post">
+                <h3>Create a Town Hall Account</h3>
+                <div class="error" id="error">{{error}}</div>
+                <input type="text" class="input" name="f_name" id="f_name" placeholder="Enter your First Name" title="First Name">
+                <input type="text" class="input" name="username" id="username" placeholder="Create a Town Hall Username" title="Username">
+                <input type="email" class="input" name="email" id="email" placeholder="Enter your Email Address" title="Email">
+                <input type="password" class="input" name="password" id="password" placeholder="Create a Password" title="Password">
+                <input type="password" class="input" id="password1" placeholder="Confirm Password" title="Confirm Password">
+                <h4>Gender:</h4>
+                Male: <input type="radio" name="gender" value="m" title="Male" class="radio" id="rad1">Female: <input type="radio" name="gender" value="f" title="Female" class="radio" id="rad2">
+                <h4>Select State:</h4>
+                <select name="state" id="state">
+                    <option>--State Name--</option>
+                    {{#each states}}
+                    <option value="{{key}}">{{name}}</option>
+                    {{/each}}
+                </select>
+                <div id="selects"></div>
+                <h4 class="center">Upload Profile Photo</h4>
+                <input type="file" name="avatar" accept="{{!-- .jpg,.jpeg,.png,.gif --}} image/*" id="avatar">
+                <button class="button" type="submit" id="submit">Create Account</button>
+            </form>
+        </section>
     </section>
 </body>
 <script>
-    $(()=>{
-        $('#btn1').on('click', ()=>{
-            location.assign('/users/signup');
-        });
+    document.getElementById('state').addEventListener('change', (el)=>{
+        let index = document.getElementById('state').selectedIndex;
+        let key = document.getElementById('state')[index].value;
+        //assuming the selected state is not the placeholder
+        if(index !== 0){
+            //decrement index to correspond with array
+            index--;
+            
+            //AJAX call for districts
+            $.ajax({
+                url: '/users/signup/districts/'+key,
+                method: 'GET',
+                error: ()=>{
+                    alert("Please check your Internet connection. An error occured");
+                },
+                success: (data)=>{
+                    //class returned districts into rep et fed
+                    let sen_dists = [];
+                    let fed_consts = [];
 
-        $('#btn2').on('click', ()=>{
-            location.assign('/users/signin');
-        });
+                    let districts = data.districts;
+                    districts.forEach(district => {
+                        if(district.type == 'sen'){
+                            sen_dists.push(district);
+                        }
+                        else {
+                            fed_consts.push(district);
+                        }
+                    });
+                    let senSelect = document.createElement('select');
+                    senSelect.setAttribute('name', 'sen_dist');
+                    let fedSelect = document.createElement('select');
+                    fedSelect.setAttribute('name', 'fed_const');
+                    //create and append options to selects
+                    
+                    let sen_text = document.createElement('h4');
+                    sen_text.innerText = "Senatorial District: ";
+                    sen_dists.forEach(sen_dist =>{
+                        let opt = document.createElement('option');
+                        opt.setAttribute('value', sen_dist.code);
+                        opt.innerText = sen_dist.name;
+                        senSelect.appendChild(opt);
+                    });
+                    
+                    let fed_text = document.createElement('h4');
+                    fed_text.innerText = "Federal Constituency: ";
+                    fed_consts.forEach(fed_const =>{
+                        let opt = document.createElement('option');
+                        opt.setAttribute('value', fed_const.code);
+                        opt.innerText = fed_const.name;
+                        fedSelect.appendChild(opt);
+                    });
+                    
+                    //append selects to form
+                    document.getElementById('selects').textContent = '';
+                    document.getElementById('selects').appendChild(sen_text);
+                    document.getElementById('selects').appendChild(senSelect);
+                    document.getElementById('selects').appendChild(fed_text);
+                    document.getElementById('selects').appendChild(fedSelect);
+                }
+            });
+        }
     });
+
+    document.getElementById('username').onblur = checkUsername;
+    let invalidUsername = false;
+    function checkUsername(){
+        let username = document.getElementById('username').value;
+        let wsp = /^\s*$/;
+        if(!wsp.test(username)){
+            $.ajax({
+                url: '/users/check/'+username,
+                method: 'GET',
+                success: (response)=>{
+                    if(response){
+                        popErr("The username '" + username + "' is already in use. Please choose another");
+                        invalidUsername = true;
+                    }
+                    else {
+                        invalidUsername = false;
+                    }
+                },
+                error: ()=>{
+                    popErr("Please ensure that you have an active Internet connection");
+                }
+            });
+        }
+        
+    }
+
+    //check email
+    document.getElementById('email').onblur = checkEmail;
+    let invalidEmail = false;
+    function checkEmail(){
+        let email = document.getElementById('email').value;
+        let wsp = /^\s*$/;
+        if(!wsp.test(email)){
+            $.ajax({
+                url: '/users/checkEmail/'+email,
+                method: 'GET',
+                success: (response)=>{
+                    if(response){
+                        popErr("The email address '" + email + "' is already in use. Please choose another");
+                        invalidEmail = true;
+                    }
+                    else {
+                        invalidEmail = false;
+                    }
+                },
+                error: ()=>{
+                    popErr("Please ensure that you have an active Internet connection");
+                }
+            });
+        }
+        
+    }
+
+    function validate(){
+        let f_name = document.getElementById('f_name').value;
+        let username = document.getElementById('username').value;
+        let email = document.getElementById('email').value;
+        let password = document.getElementById('password').value;
+        let c_pass = document.getElementById('password1').value;
+        let sel_state = document.getElementById('state').selectedIndex;
+
+        let wsp = /^\s*$/;
+
+        if(wsp.test(f_name) || wsp.test(username) || wsp.test(email) || wsp.test(password) || wsp.test(c_pass) || wsp.test(sel_state)){
+            popErr("Please ensure all fields are filled out");
+            return false;
+        }
+        else if (sel_state == 0){
+            popErr("Please select a State");
+            return false;
+        }
+        else if(invalidUsername){
+            popErr("Please select another username");
+            return false;
+        }
+        else if(invalidEmail){
+            popErr("Please select another email address");
+            return false;
+        }
+        else if(password !== c_pass){
+            popErr("Your passwords do not match");
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    function popErr(text){
+        document.getElementById('error').innerText = text;
+        clearErr();
+    }
+
+    function clearErr(){
+        setTimeout(()=>{
+            document.getElementById('error').innerText = '';
+        }, 5000);
+    }
+
+    clearErr();
 </script>

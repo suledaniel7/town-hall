@@ -240,7 +240,7 @@ function search(req, res) {
                                     peopleSearch(term);
                                 }
                                 else {
-                                    res.redirect('/profile/'+ret_l.username);
+                                    res.redirect('/profile/'+ret_l.code);
                                 }
                             });
                         }

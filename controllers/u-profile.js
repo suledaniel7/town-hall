@@ -2,6 +2,7 @@ const events = require('events');
 const strip = require('./strip');
 const extractTags = require('./extractTags');
 const extractMentions = require('./extractMentions');
+const log_entry = require('./log_entry');
 const users = require('./schemas/users');
 const organisations = require('./schemas/organisations');
 const legislators = require('./schemas/legislators');
@@ -11,6 +12,7 @@ const messages = require('./schemas/messages');
 const eventEmitter = events.EventEmitter;
 
 function renderProfile(req, res) {
+    let start_time = new Date();
     users.findOne({ username: req.user.user.username }, (err, ret_u) => {
         if (err) {
             throw err;
@@ -67,6 +69,8 @@ function renderProfile(req, res) {
                                                     ret_msgs = extractMentions(ret_msgs);
                                                     ret_u.messages = ret_msgs;
                                                     res.render('u-profile', ret_u);
+                                                    let end_time = new Date();
+                                                    log_entry("Render User Profile", false, start_time, end_time);
                                                 }
                                             });
                                         }
@@ -129,12 +133,16 @@ function renderProfile(req, res) {
                                                     sources.forEach(source => {
                                                         finalSourcesArr.push(source);
                                                     });
+                                                    let finalJsArr = [];
                                                     ret_js.forEach(ret_j => {
-                                                        finalSourcesArr.push(ret_j.username);
+                                                        finalJsArr.push(ret_j.username);
                                                     });
                                                     let finalSearchArr = [];
                                                     finalSourcesArr.forEach(source => {
-                                                        finalSearchArr.push({ sender: source });
+                                                        finalSearchArr.push({ sender: source, $or:[{beats: 'all'}, {beats: ret_u.fed_const}, {beats: ret_u.sen_dist}] });
+                                                    });
+                                                    finalJsArr.forEach(journo =>{
+                                                        finalSearchArr.push({ sender: journo });
                                                     });
                                                     finalSearchArr.push({ sender: ret_u.fed_const });
                                                     finalSearchArr.push({ sender: ret_u.sen_dist });
@@ -147,6 +155,8 @@ function renderProfile(req, res) {
                                                             let tmpMsgs = extractTags(ret_msgs, null);
                                                             ret_u.messages = extractMentions(tmpMsgs);
                                                             res.render('u-profile', ret_u);
+                                                            let end_time = new Date();
+                                                            log_entry("Render User Profile", false, start_time, end_time);
                                                         }
                                                     });
                                                 }

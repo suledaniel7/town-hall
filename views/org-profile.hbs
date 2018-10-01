@@ -61,9 +61,13 @@
                     <textarea id="post" maxlength="360" class="post" placeholder="Type post"></textarea>
                 </form>
             </div>
-            <div class="int-recs">
-                {{!-- Use a pre-populated select for the beats --}}
-                {{!-- int-recs: intended recepients --}}
+            <div class="int-recs center">
+                <p>
+                    Send to:
+                    <br><br>
+                    All: <input type="radio" checked="checked" name="beat" id="beatRad" class="beatRad" value="all">
+                    Select Beats: <input type="radio" uk-toggle="target: #beatSelModal" name="beat" id="selBeat" class="beatRad">
+                </p>
             </div>
             <div class="postAcc">
                 <div class="center grey"><span id="charCount">0</span>/360 characters</div>
@@ -82,6 +86,7 @@
                     <div id="no-prior" class="center grey">You have no prior posts</div>
                     {{/if}}
                     {{>modal}}
+                    {{>beatSel}}
                 </div>
             </div>
         </section>
@@ -199,10 +204,34 @@
                         isEmpty = false;
                     }
                 }
+                let checkedArr = [];
+                let beats = document.getElementsByName('beat');
+                for(let i=0; i<beats.length; i++){
+                    if(beats[i].checked){
+                        checkedArr.push(beats[i].value);
+                    }
+                }
+                let final_beats = [];
+                if(checkedArr.length > 1){
+                    if(checkedArr[0] == 'all'){
+                        final_beats.push('all');
+                    }
+                    else {
+                        final_beats = checkedArr.slice(1);
+                    }
+                }
+                else {
+                    final_beats.push('all');
+                }
+                
                 $.ajax({
                     url: '/messages/o',
                     method: 'POST',
-                    data: {mBody: text, recepients: 'all'},
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        mBody: text,
+                        recepients: final_beats
+                    }),
                     error: ()=>{
                         setErr("An error occured trying to send your message. Please check your connection and try again");
                     },
@@ -220,7 +249,7 @@
 
         fullSearch();
         reqTrends();
-        clearNotif();
-        {{!-- $('#messaging').click(); --}}
+        clearErr();
+        $('#messaging').click();
     </script>
 </body>

@@ -12,7 +12,7 @@ let messageSchema = new Schema({
     date_created: {type: String, required: true},
     time_created: {type: String, required: true},
     ac_type: {type: String, required: true},
-    beat: {type: String, required: true},
+    beats: {type: Array, required: true},
     tags: Array,
     mentions: Array,
     comments_no: Number,
