@@ -78,6 +78,7 @@ function appendMessage(message, originator, loc) {
         m_item_img4.setAttribute('class', 'item');
         m_item_img4.setAttribute('title', 'Delete');
         m_item_img4.setAttribute('alt', 'Delete');
+        m_item_img4.setAttribute('onclick', `deleteMessage('${m_timestamp}', 'm')`)
     }
     else {
         var m_item_img3 = document.createElement('img');
@@ -85,6 +86,7 @@ function appendMessage(message, originator, loc) {
         m_item_img3.setAttribute('class', 'item');
         m_item_img3.setAttribute('title', 'Report');
         m_item_img3.setAttribute('alt', 'Report');
+        m_item_img3.setAttribute('onclick', `reportMessage('${m_timestamp}', 'm')`)
     }
     let m_item_span = document.createElement('span');
     m_item_span.setAttribute('class', 'item grey');

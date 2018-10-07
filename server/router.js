@@ -33,6 +33,8 @@ const serve_trends = require('../controllers/serve_trends');
 const post_comment = require('../controllers/comments_post');
 const serve_comments = require('../controllers/comments_serve');
 const edit = require('../controllers/edit');
+const deleteFn = require('../controllers/delete');
+const reportFn = require('../controllers/report');
 
 const router = express.Router();
 const logos = multer({dest: 'public/logos/'});
@@ -156,6 +158,10 @@ router.post('/comments/post', post_comment);
 router.post('/request-comments', serve_comments);
 
 router.post('/edit/:m_type/:timestamp', edit);
+
+router.post('/delete/:m_type/:timestamp', deleteFn);
+
+router.post('/report/:m_type/:timestamp', reportFn);
 
 router.get('/logout/:type', logout);
 

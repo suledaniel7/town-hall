@@ -88,23 +88,31 @@ function messageHandler(req, res) {
                         res.sendStatus(403);
                     }
                     else {
-                        //j exists, send message finally//extract tags
-                        message.verified = ret_j.verified;
-                        message.sender_name = ret_j.f_name + ' ' + ret_j.l_name;
-                        if (ret_j.account.type == 'formal') {
-                            message.sender_position = ret_j.orgName + ' Journalist';
-                        }
-                        else {
-                            message.sender_position = null;
-                        }
-                        message.sender_avatar = ret_j.avatar;
-                        message.beats = [ret_j.beat];
-                        message.save((err) => {
+                        //j exists, send message finally
+                        ret_j.messages_no++;
+                        journalists.findOneAndUpdate({ username: username }, ret_j, (err) => {
                             if (err) {
-                                res.sendStatus(403);
+                                throw err;
                             }
                             else {
-                                res.send({ message: message, originator: true });
+                                message.verified = ret_j.verified;
+                                message.sender_name = ret_j.f_name + ' ' + ret_j.l_name;
+                                if (ret_j.account.type == 'formal') {
+                                    message.sender_position = ret_j.orgName + ' Journalist';
+                                }
+                                else {
+                                    message.sender_position = null;
+                                }
+                                message.sender_avatar = ret_j.avatar;
+                                message.beats = [ret_j.beat];
+                                message.save((err) => {
+                                    if (err) {
+                                        res.sendStatus(403);
+                                    }
+                                    else {
+                                        res.send({ message: message, originator: true });
+                                    }
+                                });
                             }
                         });
                     }
@@ -146,34 +154,42 @@ function messageHandler(req, res) {
                     }
                     else {
                         //org exists
-                        message.verified = ret_o.verification.verified;
-                        message.sender_name = ret_o.name;
-                        message.sender_position = "Media Organisation";
-                        message.sender_avatar = ret_o.logo;
+                        ret_o.messages_no++;
+                        organisations.findOneAndUpdate({ username: username }, ret_o, (err) => {
+                            if (err) {
+                                throw err;
+                            }
+                            else {
+                                message.verified = ret_o.verification.verified;
+                                message.sender_name = ret_o.name;
+                                message.sender_position = "Media Organisation";
+                                message.sender_avatar = ret_o.logo;
 
-                        if (beats[0] == 'all') {
-                            //normal
-                            message.beats = 'all';
-                            message.save((err) => {
-                                if (err) {
-                                    res.sendStatus(403);
+                                if (beats[0] == 'all') {
+                                    //normal
+                                    message.beats = 'all';
+                                    message.save((err) => {
+                                        if (err) {
+                                            res.sendStatus(403);
+                                        }
+                                        else {
+                                            res.send({ message: message, originator: true });
+                                        }
+                                    });
                                 }
                                 else {
-                                    res.send({ message: message, originator: true });
+                                    message.beats = beats;
+                                    message.save((err) => {
+                                        if (err) {
+                                            res.sendStatus(403);
+                                        }
+                                        else {
+                                            res.send({ message: message, originator: true });
+                                        }
+                                    });
                                 }
-                            });
-                        }
-                        else {
-                            message.beats = beats;
-                            message.save((err) => {
-                                if (err) {
-                                    res.sendStatus(403);
-                                }
-                                else {
-                                    res.send({ message: message, originator: true });
-                                }
-                            });
-                        }
+                            }
+                        });
                     }
                 });
             }
@@ -214,19 +230,27 @@ function messageHandler(req, res) {
                     }
                     else {
                         //leg exists
-                        message.verified = true;
-                        message.beats = [ret_l.code];
-                        message.sender_name = ret_l.type_exp + ' ' + ret_l.full_name;
-                        message.sender_position = 'Representative of ' + ret_l.district + ' | ' + ret_l.state + ' State';
-                        message.sender_avatar = ret_l.avatar;
-                        message.save((err) => {
+                        ret_l.messages_no++;
+                        legislators.findOneAndUpdate({ email: email }, ret_l, (err) => {
                             if (err) {
-                                res.sendStatus(403);
+                                throw err;
                             }
                             else {
-                                res.send({ message: message, originator: true });
+                                message.verified = true;
+                                message.beats = [ret_l.code];
+                                message.sender_name = ret_l.type_exp + ' ' + ret_l.full_name;
+                                message.sender_position = 'Representative of ' + ret_l.district + ' | ' + ret_l.state + ' State';
+                                message.sender_avatar = ret_l.avatar;
+                                message.save((err) => {
+                                    if (err) {
+                                        res.sendStatus(403);
+                                    }
+                                    else {
+                                        res.send({ message: message, originator: true });
+                                    }
+                                });
                             }
-                        });
+                        })
                     }
                 });
             }

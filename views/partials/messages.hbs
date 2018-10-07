@@ -13,9 +13,9 @@
         <img uk-toggle="target: #converse" onclick="conversation('{{m_timestamp}}');" src="/img/png/chat-1.png" class="item" title="Conversation" alt="Conversation"> <span id="comm-num-{{m_timestamp}}">{{comments_no}}</span>
         {{#if originator}}
         <img onclick="editMessage(true, '{{m_timestamp}}');" src="/img/png/edit.png" class="item" title="Edit" alt="Edit">
-        <img src="/img/png/garbage.png" class="item" title="Delete" alt="Delete">
+        <img src="/img/png/garbage.png" onclick="deleteMessage('{{m_timestamp}}', 'm');" class="item" title="Delete" alt="Delete">
         {{else}}
-        <img src="/img/img-1/flag.png" class="item" title="Report" alt="Report">
+        <img src="/img/img-1/flag.png" onclick="reportMessage('{{m_timestamp}}', 'm')" class="item" title="Report" alt="Report">
         {{/if}}
         <span class="item grey">{{time_created}} | {{date_created}}</span>
     </div>

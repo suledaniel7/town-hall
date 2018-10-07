@@ -196,6 +196,8 @@ function prependComment(comment, first, username) {
     c_edit_span.setAttribute('class', 'item item-img');
     let c_delete_span = document.createElement('span');
     c_delete_span.setAttribute('class', 'item item-img');
+    let c_report_span = document.createElement('span');
+    c_report_span.setAttribute('class', 'item item-img');
 
     let c_sender_node = document.createTextNode(c_sender_name);
     let c_edit_img = document.createElement('img');
@@ -207,6 +209,12 @@ function prependComment(comment, first, username) {
     c_delete_img.setAttribute('src', '/img/png/garbage.png');
     c_delete_img.setAttribute('alt', 'Delete');
     c_delete_img.setAttribute('title', 'Delete');
+    c_delete_img.setAttribute('onclick', `deleteMessage('${c_timestamp}', 'c')`);
+    let c_report_img = document.createElement('img');
+    c_report_img.setAttribute('src', '/img/img-1/flag.png');
+    c_report_img.setAttribute('alt', 'Report');
+    c_report_img.setAttribute('title', 'Report');
+    c_report_img.setAttribute('onclick', `reportMessage('${c_timestamp}', 'c')`);
     let c_info_node = document.createTextNode(time_created + ' | ' + date_created);
 
     c_avatar_div.appendChild(c_avatar_img);
@@ -223,6 +231,10 @@ function prependComment(comment, first, username) {
         c_delete_span.appendChild(c_delete_img);
         c_info_div.appendChild(c_edit_span);
         c_info_div.appendChild(c_delete_span);
+    }
+    else {
+        c_report_span.appendChild(c_report_img);
+        c_info_div.appendChild(c_report_span);
     }
     c_sender_div.appendChild(c_sender_name_div);
     c_info_span.appendChild(c_info_node);
@@ -262,7 +274,7 @@ function postComment(m_timestamp, c_type) {
 }
 let openEdit = false;
 function editMessage(message, timestamp) {
-    if(document.getElementById('m-textarea-'+timestamp) || document.getElementById('c-textarea-'+timestamp)){
+    if (document.getElementById('m-textarea-' + timestamp) || document.getElementById('c-textarea-' + timestamp)) {
         openEdit = true;
     }
     else {
@@ -415,6 +427,56 @@ function updateMessage(timestamp, message) {
                 }
                 else {
                     setErr("An error occured in editing your message. Try again.");
+                }
+            }
+        });
+    }
+}
+
+function deleteMessage(timestamp, m_type) {
+    let confirmed = confirm("Are you sure you want to delete this Post?");
+    if (confirmed) {
+        $.ajax({
+            url: '/delete/' + m_type + '/' + timestamp,
+            method: 'POST',
+            error: () => {
+                setErr("An error occured deleting your message. Try again");
+            },
+            success: (data) => {
+                if (data.success) {
+                    document.getElementById(timestamp).innerHTML = '';
+                    document.getElementById(timestamp).classList += ' hidden';
+                    if (m_type == 'c') {
+                        let m_timestamp = data.m_timestamp;
+                        let num = document.getElementById(`comm-num-${m_timestamp}`).textContent;
+                        num = parseInt(num);
+                        num--;
+                        document.getElementById(`comm-num-${m_timestamp}`).textContent = num;
+                    }
+                }
+                else {
+                    setErr("You do not have adequate permissions to delete this message");
+                }
+            }
+        });
+    }
+}
+
+function reportMessage(timestamp, m_type){
+    let confirmed = confirm("Are you sure you want to report this message for a Community violation?");
+    if(confirmed){
+        $.ajax({
+            url: '/report/'+m_type+'/'+timestamp,
+            method: 'POST',
+            error: ()=>{
+                setErr("An error occured in reporting the message. Please check your Internet connection");
+            },
+            success: (data)=>{
+                if(data.success){
+                    setErr("Message reported successfully. We'll review it and take any necessary actions. Thanks");
+                }
+                else {
+                    setErr("An error occured in reporting the message. Please refresh your feed");
                 }
             }
         });

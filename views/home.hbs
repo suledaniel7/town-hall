@@ -1,77 +1,119 @@
 <head>
     <link rel="stylesheet" href="/css/general.css">
     <link rel="stylesheet" href="/uikit/css/uikit.css">
-    <link rel="stylesheet" href="/css/u-signup.css">
+    {{!-- <link rel="stylesheet" href="/css/u-signup.css"> --}}
     <link rel="stylesheet" href="/css/home.css">
     <script src="/js/jquery-3.3.1.js"></script>
     <script src="/uikit/js/uikit.js"></script>
     <title>Town Hall | Promoting Accountability</title>
 </head>
+
 <body>
-    <nav>
-        <ul class="navigation">
-            <li class="left larger"><a href="javascript:void();">Town Hall</a></li>
-            <li class="nav-item"><a href="/legislators">Legislators</a></li>
-            <li class="nav-item"><a href="/organisations">Media Organisations</a></li>
-            <li class="nav-item"><a href="/journalists">Journalists</a></li>
-        </ul>
+    <nav class="uk-navbar-container uk-margin" uk-navbar>
+        <div class="uk-navbar-center">
+            <div>
+                <div class="uk-navbar-nav">
+                    <a class="uk-active uk-navbar-item uk-logo" href="javascript:void();">Town Hall</a>
+                </div>
+            </div>
+        </div>
+        <div class="uk-navbar-right">
+            <div>
+                <ul class="uk-navbar-nav">
+                    <li><a href="/journalists">Journalists</a></li>
+                    <li><a href="/organisations">Media Organisations</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
-    <section id="main">
-        <section id="left" class="sect-content">
-            <p class="right"><a href="/users/signin">Already have an Account? Log in</a></p>
-            <h1 class="center intro">Welcome to Town Hall</h1>
-            {{!-- <img src="/img/background.jpeg" alt="Background Image"> --}}
-        </section>
-        <section id="right" class="sect-content">
-            <form class="center-block center" id="form" onsubmit="return validate();" action="/users/signup" enctype="multipart/form-data" method="post">
-                <h3>Create a Town Hall Account</h3>
-                <div class="error" id="error">{{error}}</div>
-                <input type="text" class="input" name="f_name" id="f_name" placeholder="Enter your First Name" title="First Name">
-                <input type="text" class="input" name="username" id="username" placeholder="Create a Town Hall Username" title="Username">
-                <input type="email" class="input" name="email" id="email" placeholder="Enter your Email Address" title="Email">
-                <input type="password" class="input" name="password" id="password" placeholder="Create a Password" title="Password">
-                <input type="password" class="input" id="password1" placeholder="Confirm Password" title="Confirm Password">
-                <h4>Gender:</h4>
-                Male: <input type="radio" name="gender" value="m" title="Male" class="radio" id="rad1">Female: <input type="radio" name="gender" value="f" title="Female" class="radio" id="rad2">
-                <h4>Select State:</h4>
-                <select name="state" id="state">
-                    <option>--State Name--</option>
-                    {{#each states}}
-                    <option value="{{key}}">{{name}}</option>
-                    {{/each}}
-                </select>
-                <div id="selects"></div>
-                <h4 class="center">Upload Profile Photo</h4>
-                <input type="file" name="avatar" accept="{{!-- .jpg,.jpeg,.png,.gif --}} image/*" id="avatar">
-                <button class="button" type="submit" id="submit">Create Account</button>
-            </form>
-        </section>
-    </section>
+    <div class="errorDiv uk-form-danger" id="errorDiv">{{error}}{{notif}}</div>
+    <div class="main" uk-grid>
+        <div class="uk-width-2-3@l uk-width-1-1@m">
+            <div class="block-center uk-width-1-2@m uk-width-1-2@s">
+                <div class="uk-width-1-1 uk-card uk-card-hover uk-card-default uk-card-body">
+                    <h3 class="uk-card-title center">Log in to Your Account</h3>
+                    <form action="/login" onsubmit="return validateLogin();" class="center" method="post">
+                        <input type="text" name="username" title="Username or Email" id="username-lgn" class="uk-input" placeholder="Enter your username or email address">
+                        <input type="password" name="password" title="Password" id="password-lgn" class="uk-input" placeholder="Enter your password">
+                        <button class="button-lgn">Log in</button>
+                        <p class="center"><a href="#signup">Don't have an Account? Sign Up</a></p>
+                    </form>
+                </div>
+            </div>
+            <div id="about" class="uk-width-1-1">
+                <div class="uk-width-2-3@l uk-width-1-2@s block-center uk-card uk-card-secondary uk-card-body">
+                    <h3 class="uk-card-title center">About Town Hall</h3>
+                    <p class="uk-card-body">
+                        Town Hall exists to inform the most important part of our democracy
+                        - the electorate. We bring together the voices that you need to hear
+                        - the voices of your elected Representatives, and the journalists
+                        who have the essential duty of informing you on the decisions made
+                        on your behalf, so Sign Up and weigh in on the conversations.
+                    </p>
+                    <p class="uk-card-footer center">
+                        Town Hall... Promoting Accountability.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div id="signup" class="uk-width-1-3@l uk-width-1-1@m">
+            <div class="uk-width-1-1@l uk-width-1-2@s block-center uk-card uk-card-hover uk-card-default uk-card-body">
+                <h3 class="uk-card-title center">Create a User Account</h3>
+                <form class="center" id="form" onsubmit="return validate();" action="/users/signup" enctype="multipart/form-data" method="post">
+                    <div class="error" id="error">{{error}}</div>
+                    <input type="text" class="uk-input" name="f_name" id="f_name" placeholder="Enter your First Name" title="First Name">
+                    <input type="text" class="uk-input" name="username" id="username" placeholder="Create a Town Hall Username" title="Username">
+                    <input type="email" class="uk-input" name="email" id="email" placeholder="Enter your Email Address" title="Email">
+                    <input type="password" class="uk-input" name="password" id="password" placeholder="Create a Password" title="Password">
+                    <input type="password" class="uk-input" id="password1" placeholder="Confirm Password" title="Confirm Password">
+                    <h4>Gender:</h4>
+                    Female: <input type="radio" name="gender" value="f" title="Female" class="radio uk-radio" id="rad2">
+                    Male: <input type="radio" name="gender" value="m" title="Male" class="radio uk-radio" id="rad1">
+                    <h4>Select State:</h4>
+                    <select name="state" id="state" class="uk-select">
+                        <option>--State Name--</option>
+                        {{#each states}}
+                        <option value="{{key}}">{{name}}</option>
+                        {{/each}}
+                    </select>
+                    <div id="selects"></div>
+                    <h4 class="center">Upload Profile Photo</h4>
+                    <input type="file" class="uk-placeholder" name="avatar" accept="{{!-- .jpg,.jpeg,.png,.gif --}} image/*" id="avatar">
+                    {{!-- <div class="js-upload" id="uk-input" uk-form-custom>
+                        <input type="file" name="avatar" id="avatar" accept="image/*">
+                        <button class="uk-button uk-button-default" type="button" tabindex="-1">Upload Profile Photo</button>
+                    </div> --}}
+                    <button class="button" type="submit" id="submit">Create Account</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 <script>
-    document.getElementById('state').addEventListener('change', (el)=>{
+    document.getElementById('state').addEventListener('change', (el) => {
         let index = document.getElementById('state').selectedIndex;
         let key = document.getElementById('state')[index].value;
         //assuming the selected state is not the placeholder
-        if(index !== 0){
+        if (index !== 0) {
             //decrement index to correspond with array
             index--;
-            
+
             //AJAX call for districts
             $.ajax({
-                url: '/users/signup/districts/'+key,
+                url: '/users/signup/districts/' + key,
                 method: 'GET',
-                error: ()=>{
+                error: () => {
                     alert("Please check your Internet connection. An error occured");
                 },
-                success: (data)=>{
+                success: (data) => {
                     //class returned districts into rep et fed
                     let sen_dists = [];
                     let fed_consts = [];
 
                     let districts = data.districts;
                     districts.forEach(district => {
-                        if(district.type == 'sen'){
+                        if (district.type == 'sen') {
                             sen_dists.push(district);
                         }
                         else {
@@ -80,28 +122,30 @@
                     });
                     let senSelect = document.createElement('select');
                     senSelect.setAttribute('name', 'sen_dist');
+                    senSelect.setAttribute('class', 'uk-select');
                     let fedSelect = document.createElement('select');
                     fedSelect.setAttribute('name', 'fed_const');
+                    fedSelect.setAttribute('class', 'uk-select');
                     //create and append options to selects
-                    
+
                     let sen_text = document.createElement('h4');
                     sen_text.innerText = "Senatorial District: ";
-                    sen_dists.forEach(sen_dist =>{
+                    sen_dists.forEach(sen_dist => {
                         let opt = document.createElement('option');
                         opt.setAttribute('value', sen_dist.code);
                         opt.innerText = sen_dist.name;
                         senSelect.appendChild(opt);
                     });
-                    
+
                     let fed_text = document.createElement('h4');
                     fed_text.innerText = "Federal Constituency: ";
-                    fed_consts.forEach(fed_const =>{
+                    fed_consts.forEach(fed_const => {
                         let opt = document.createElement('option');
                         opt.setAttribute('value', fed_const.code);
                         opt.innerText = fed_const.name;
                         fedSelect.appendChild(opt);
                     });
-                    
+
                     //append selects to form
                     document.getElementById('selects').textContent = '';
                     document.getElementById('selects').appendChild(sen_text);
@@ -115,58 +159,58 @@
 
     document.getElementById('username').onblur = checkUsername;
     let invalidUsername = false;
-    function checkUsername(){
+    function checkUsername() {
         let username = document.getElementById('username').value;
         let wsp = /^\s*$/;
-        if(!wsp.test(username)){
+        if (!wsp.test(username)) {
             $.ajax({
-                url: '/users/check/'+username,
+                url: '/users/check/' + username,
                 method: 'GET',
-                success: (response)=>{
-                    if(response){
-                        popErr("The username '" + username + "' is already in use. Please choose another");
+                success: (response) => {
+                    if (response) {
+                        setErr("The username '" + username + "' is already in use. Please choose another");
                         invalidUsername = true;
                     }
                     else {
                         invalidUsername = false;
                     }
                 },
-                error: ()=>{
-                    popErr("Please ensure that you have an active Internet connection");
+                error: () => {
+                    setErr("Please ensure that you have an active Internet connection");
                 }
             });
         }
-        
+
     }
 
     //check email
     document.getElementById('email').onblur = checkEmail;
     let invalidEmail = false;
-    function checkEmail(){
+    function checkEmail() {
         let email = document.getElementById('email').value;
         let wsp = /^\s*$/;
-        if(!wsp.test(email)){
+        if (!wsp.test(email)) {
             $.ajax({
-                url: '/users/checkEmail/'+email,
+                url: '/users/checkEmail/' + email,
                 method: 'GET',
-                success: (response)=>{
-                    if(response){
-                        popErr("The email address '" + email + "' is already in use. Please choose another");
+                success: (response) => {
+                    if (response) {
+                        setErr("The email address '" + email + "' is already in use. Please choose another");
                         invalidEmail = true;
                     }
                     else {
                         invalidEmail = false;
                     }
                 },
-                error: ()=>{
-                    popErr("Please ensure that you have an active Internet connection");
+                error: () => {
+                    setErr("Please ensure that you have an active Internet connection");
                 }
             });
         }
-        
+
     }
 
-    function validate(){
+    function validate() {
         let f_name = document.getElementById('f_name').value;
         let username = document.getElementById('username').value;
         let email = document.getElementById('email').value;
@@ -176,24 +220,24 @@
 
         let wsp = /^\s*$/;
 
-        if(wsp.test(f_name) || wsp.test(username) || wsp.test(email) || wsp.test(password) || wsp.test(c_pass) || wsp.test(sel_state)){
-            popErr("Please ensure all fields are filled out");
+        if (wsp.test(f_name) || wsp.test(username) || wsp.test(email) || wsp.test(password) || wsp.test(c_pass) || wsp.test(sel_state)) {
+            setErr("Please ensure all fields are filled out");
             return false;
         }
-        else if (sel_state == 0){
-            popErr("Please select a State");
+        else if (sel_state == 0) {
+            setErr("Please select a State");
             return false;
         }
-        else if(invalidUsername){
-            popErr("Please select another username");
+        else if (invalidUsername) {
+            setErr("Please select another username");
             return false;
         }
-        else if(invalidEmail){
-            popErr("Please select another email address");
+        else if (invalidEmail) {
+            setErr("Please select another email address");
             return false;
         }
-        else if(password !== c_pass){
-            popErr("Your passwords do not match");
+        else if (password !== c_pass) {
+            setErr("Your passwords do not match");
             return false;
         }
         else {
@@ -201,14 +245,30 @@
         }
     }
 
-    function popErr(text){
-        document.getElementById('error').innerText = text;
+    function validateLogin(){
+        let u_name = document.getElementById('username-lgn').value;
+        let pass = document.getElementById('password-lgn').value;
+
+        let wsp = /^\s*$/;
+
+        if(wsp.test(u_name) || wsp.test(pass)){
+            setErr("All fields are required");
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    
+    function setErr(text) {
+        window.scrollTo(0, 0);
+        document.getElementById('errorDiv').innerText = text;
         clearErr();
     }
 
-    function clearErr(){
-        setTimeout(()=>{
-            document.getElementById('error').innerText = '';
+    function clearErr() {
+        setTimeout(() => {
+            document.getElementById('errorDiv').innerText = '';
         }, 5000);
     }
 
