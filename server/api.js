@@ -3,38 +3,36 @@ const bodyParser = require('body-parser');
 const sessions = require('client-sessions');
 const multer = require('multer');
 
-const home = require('../controllers/home');
-const admin = require('../controllers/admin');
-const admin_render = require('../controllers/admin-render');
-const org_signup = require('../controllers/org-signup');
-const org_signin = require('../controllers/org-signin');
-const render_u_signup = require('../controllers/u-signup-render');
-const render_u_dists = require('../controllers/u-district-render');
-const check_username = require('../controllers/check-username');
-const check_email = require('../controllers/check-email');
-const check_corr_email = require('../controllers/check-corr-email');
-const u_signup = require('../controllers/u-signup');
-const u_signin = require('../controllers/u-signin');
-const j_signup = require('../controllers/j-signup');
-const j_signin = require('../controllers/j-signin');
-const select_f_beat = require('../controllers/select-f-beat');
-const select_org = require('../controllers/select-org');
-const handleJReq = require('../controllers/org-j-requests');
-const assignOrgBeat = require('../controllers/org-assign-beat');
-const l_signin = require('../controllers/l-signin');
-const m_handler = require('../controllers/message');
-const follow = require('../controllers/follow');
-const unfollow = require('../controllers/unfollow');
-const logout = require('../controllers/logout');
-const search = require('../controllers/search');
-const profile = require('../controllers/profile');
-const autofill = require('../controllers/autofill');
-const serve_trends = require('../controllers/serve_trends');
-const post_comment = require('../controllers/comments_post');
-const serve_comments = require('../controllers/comments_serve');
-const edit = require('../controllers/edit');
-const deleteFn = require('../controllers/delete');
-const reportFn = require('../controllers/report');
+const home = require('../controllers/api/home');
+const org_signup = require('../controllers/api/org-signup');
+const org_signin = require('../controllers/api/org-signin');
+const render_u_signup = require('../controllers/api/u-signup-render');
+const render_u_dists = require('../controllers/api/u-district-render');
+const check_username = require('../controllers/api/check-username');
+const check_email = require('../controllers/api/check-email');
+const check_corr_email = require('../controllers/api/check-corr-email');
+const u_signup = require('../controllers/api/u-signup');
+const u_signin = require('../controllers/api/u-signin');
+const j_signup = require('../controllers/api/j-signup');
+const j_signin = require('../controllers/api/j-signin');
+const select_f_beat = require('../controllers/api/select-f-beat');
+const select_org = require('../controllers/api/select-org');
+const handleJReq = require('../controllers/api/org-j-requests');
+const assignOrgBeat = require('../controllers/api/org-assign-beat');
+const l_signin = require('../controllers/api/l-signin');
+const m_handler = require('../controllers/api/message');
+const follow = require('../controllers/api/follow');
+const unfollow = require('../controllers/api/unfollow');
+const logout = require('../controllers/api/logout');
+const search = require('../controllers/api/search');
+const profile = require('../controllers/api/profile');
+const autofill = require('../controllers/api/autofill');
+const serve_trends = require('../controllers/api/serve_trends');
+const post_comment = require('../controllers/api/comments_post');
+const serve_comments = require('../controllers/api/comments_serve');
+const edit = require('../controllers/api/edit');
+const deleteFn = require('../controllers/api/delete');
+const reportFn = require('../controllers/api/report');
 
 const router = express.Router();
 const logos = multer({dest: 'public/logos/'});
@@ -75,49 +73,17 @@ router.use(bodyParser.urlencoded({extended: true}));
 
 router.get('/', home);
 
-router.get('/admin', admin_render);
-
-router.post('/admin', admin);
-
-router.get('/organisations', (req, res)=>{
-    res.render('organisations');
-});
-
-router.get('/organisations/signup', (req, res)=>{
-    res.render('org-signup');
-});
-
 router.post('/organisations/signup', logos.single('logo'), org_signup);
-
-router.get('/organisations/signin', (req, res)=>{
-    res.render('org-signin');
-});
 
 router.post('/organisations/signin', org_signin);
 
-router.get('/journalists', (req, res)=>{
-    res.render('journalists');
-});
-
-router.get('/journalists/signin', (req, res)=>{
-    res.render('j-signin');
-});
-
 router.post('/journalists/signin', j_signin);
 
-router.post('/journalists/signup', j_avatars.single('avatar'), j_signup);
-
-router.get('/legislators', (req, res)=>{
-    res.render('l-signin');
-});
+router.post('/journalists/signup', j_signup);
 
 router.post('/legislators/signin', l_signin);
 
 router.get('/users/signup', render_u_signup);
-
-router.get('/users/signin', (req, res)=>{
-    res.render('u-signin');
-});
 
 router.get('/users/check/:username', check_username);
 
@@ -127,7 +93,7 @@ router.get('/users/checkCorrEmail/:email', check_corr_email);
 
 router.get('/users/signup/districts/:key', render_u_dists);
 
-router.post('/users/signup', u_avatars.single('avatar'), u_signup);
+router.post('/users/signup', u_signup);
 
 router.post('/users/signin', u_signin);
 

@@ -3,6 +3,7 @@ const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
 
 const router = require('./server/router');
+const api = require('./server/api');
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.engine('.hbs', exphbs({extname: '.hbs', defaultLayout: 'main'}));
 app.set('view engine', '.hbs');
 
 app.use('/', router);
+app.use('/api', router);
 
 app.listen(8080, ()=>{
     console.log("Server running at http://127.0.0.1:8080");
