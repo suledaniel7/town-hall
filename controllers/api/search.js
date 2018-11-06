@@ -99,7 +99,7 @@ function search(req, res) {
                                 }
                                 else if (!ret_l) {
                                     req.legislator.user = null;
-                                    res.send({success: false, reason: "Invalid Account"});
+                                    res.send(JSON.stringify({success: false, reason: "Invalid Account"}));
                                 }
                                 else {
                                     let tmpMsgs = extractTags(ret_msgs, code);
@@ -112,7 +112,7 @@ function search(req, res) {
                                     }
                                     ret_l.term = init_term;
                                     ret_l.tint = 'l';
-                                    res.send({success: true, redirect: false, results: ret_l});
+                                    res.send(JSON.stringify({success: true, redirect: false, results: ret_l}));
                                     let endTime = new Date();
                                     log_entry("Search", false, startTime, endTime);
                                 }
@@ -126,7 +126,7 @@ function search(req, res) {
                                 }
                                 else if (!ret_o) {
                                     req.organisation.user = null;
-                                    res.send({success: false, reason: "Invalid Account"});
+                                    res.send(JSON.stringify({success: false, reason: "Invalid Account"}));
                                 }
                                 else {
                                     let tmpMsgs = extractTags(ret_msgs, username);
@@ -139,7 +139,7 @@ function search(req, res) {
                                     }
                                     ret_o.term = init_term;
                                     ret_o.tint = 'o';
-                                    res.send({success: true, redirect: false, results: ret_o});
+                                    res.send(JSON.stringify({success: true, redirect: false, results: ret_o}));
                                     let endTime = new Date();
                                     log_entry("Search", false, startTime, endTime);
                                 }
@@ -153,7 +153,7 @@ function search(req, res) {
                                 }
                                 else if (!ret_j) {
                                     req.journalist.user = null;
-                                    res.send({success: false, reason: "Invalid Account"});;
+                                    res.send(JSON.stringify({success: false, reason: "Invalid Account"}));
                                 }
                                 else {
                                     let tmpMsgs = extractTags(ret_msgs, username);
@@ -166,7 +166,7 @@ function search(req, res) {
                                     }
                                     ret_j.term = init_term;
                                     ret_j.tint = 'j';
-                                    res.send({success: true, redirect: false, results: ret_j});
+                                    res.send(JSON.stringify({success: true, redirect: false, results: ret_j}));
                                     let endTime = new Date();
                                     log_entry("Search", false, startTime, endTime);
                                 }
@@ -180,7 +180,7 @@ function search(req, res) {
                                 }
                                 else if (!ret_u) {
                                     req.user.user = null;
-                                    res.send({success: false, reason: "Invalid Account"});
+                                    res.send(JSON.stringify({success: false, reason: "Invalid Account"}));
                                 }
                                 else {
                                     let tmpMsgs = extractTags(ret_msgs, null);
@@ -193,7 +193,7 @@ function search(req, res) {
                                     }
                                     ret_u.term = init_term;
                                     ret_u.tint = 'u';
-                                    res.send({success: true, redirect: false, results: ret_u});
+                                    res.send(JSON.stringify({success: true, redirect: false, results: ret_u}));
                                     let endTime = new Date();
                                     log_entry("Search", false, startTime, endTime);
                                 }
@@ -211,7 +211,7 @@ function search(req, res) {
                             }
                             ret_u.term = init_term;
                             ret_u.tint = 'u';
-                            res.send({success: true, redirect: false, results: ret_u});
+                            res.send(JSON.stringify({success: true, redirect: false, results: ret_u}));
                             let endTime = new Date();
                             log_entry("Search", false, startTime, endTime);
                         }
@@ -240,7 +240,7 @@ function search(req, res) {
                                     peopleSearch(term);
                                 }
                                 else {
-                                    res.send({success: true, redirect: true, url: '/profile/'+ret_l.code});
+                                    res.send(JSON.stringify({success: true, redirect: true, url: '/profile/'+ret_l.code}));
                                 }
                             });
                         }
@@ -255,7 +255,7 @@ function search(req, res) {
                                         peopleSearch(term);
                                     }
                                     else {
-                                        res.send({success: true, redirect: true, url: '/profile/'+ret_o.username});
+                                        res.send(JSON.stringify({success: true, redirect: true, url: '/profile/'+ret_o.username}));
                                     }
                                 });
                             }
@@ -268,7 +268,7 @@ function search(req, res) {
                                         peopleSearch(term);
                                     }
                                     else {
-                                        res.send({success: true, redirect: true, url: '/profile/'+ret_j.username});
+                                        res.send(JSON.stringify({success: true, redirect: true, url: '/profile/'+ret_j.username}));
                                     }
                                 });
                             }
@@ -336,7 +336,7 @@ function search(req, res) {
                                                     }
                                                     else if (!ret_u) {
                                                         req.user.user = null;
-                                                        res.send({success: false, reason: "Invalid User"});
+                                                        res.send(JSON.stringify({success: false, reason: "Invalid User"}));
                                                     }
                                                     else {
                                                         ret_u = strip([ret_u], ['password', 'email', 'likes', 'dislikes'])[0];
@@ -345,7 +345,7 @@ function search(req, res) {
                                                         ret_u.term = init_term;
                                                         ret_u.tint = 'u';
                                                         ret_u.accounts = final_objs;
-                                                        res.send({success: true, redirect: false, results: ret_u});
+                                                        res.send(JSON.stringify({success: true, redirect: false, results: ret_u}));
                                                         let endTime = new Date();
                                                         log_entry("Search", false, startTime, endTime);
                                                     }
@@ -359,7 +359,7 @@ function search(req, res) {
                                                     }
                                                     else if (!ret_l) {
                                                         req.legislator.user = null;
-                                                        res.send({success: false, reason: "Invalid Account"});
+                                                        res.send(JSON.stringify({success: false, reason: "Invalid Account"}));
                                                     }
                                                     else {
                                                         ret_l = strip([ret_l], ['password', 'email', 'likes', 'dislikes'])[0];
@@ -368,7 +368,7 @@ function search(req, res) {
                                                         ret_l.term = init_term;
                                                         ret_l.tint = 'l';
                                                         ret_l.accounts = final_objs;
-                                                        res.send({success: true, redirect: false, results: ret_l});
+                                                        res.send(JSON.stringify({success: true, redirect: false, results: ret_l}));
                                                         let endTime = new Date();
                                                         log_entry("Search", false, startTime, endTime);
                                                     }
@@ -382,7 +382,7 @@ function search(req, res) {
                                                     }
                                                     else if (!ret_o) {
                                                         req.organisation.user = null;
-                                                        res.send({success: false, reason: "Invalid Account"});
+                                                        res.send(JSON.stringify({success: false, reason: "Invalid Account"}));
                                                     }
                                                     else {
                                                         ret_o = strip([ret_o], ['email', 'pub_email', 'password', 'pendingBeat', 'districts', 'journalists', 'pending_reqs', 'followers', 'likes', 'dislikes'])[0];
@@ -391,7 +391,7 @@ function search(req, res) {
                                                         ret_o.term = init_term;
                                                         ret_o.tint = 'o';
                                                         ret_o.accounts = final_objs;
-                                                        res.send({success: true, redirect: false, results: ret_o});
+                                                        res.send(JSON.stringify({success: true, redirect: false, results: ret_o}));
                                                         let endTime = new Date();
                                                         log_entry("Search", false, startTime, endTime);
                                                     }
@@ -405,7 +405,7 @@ function search(req, res) {
                                                     }
                                                     else if (!ret_j) {
                                                         req.journalist.user = null;
-                                                        res.send({success: false, reason: "Invalid Account"});
+                                                        res.send(JSON.stringify({success: false, reason: "Invalid Account"}));
                                                     }
                                                     else {
                                                         ret_j = strip([ret_j], ['email', 'password', 'account', 'orientation', 'rejected', 'likes', 'dislikes', 'followers'])[0];
@@ -414,7 +414,7 @@ function search(req, res) {
                                                         ret_j.term = init_term;
                                                         ret_j.tint = 'j';
                                                         ret_j.accounts = final_objs;
-                                                        res.send({success: true, redirect: false, results: ret_j});
+                                                        res.send(JSON.stringify({success: true, redirect: false, results: ret_j}));
                                                         let endTime = new Date();
                                                         log_entry("Search", false, startTime, endTime);
                                                     }
@@ -427,7 +427,7 @@ function search(req, res) {
                                                 ret_u.term = init_term;
                                                 ret_u.tint = 'u';
                                                 ret_u.accounts = final_objs;
-                                                res.send({success: true, redirect: false, results: ret_u});
+                                                res.send(JSON.stringify({success: true, redirect: false, results: ret_u}));
                                                 let endTime = new Date();
                                                 log_entry("Search", false, startTime, endTime);
                                             }
@@ -503,7 +503,7 @@ function search(req, res) {
                                                         }
                                                         else if (!ret_l) {
                                                             req.legislator.user = null;
-                                                            res.send({success: false, reason: "Invalid Account"});
+                                                            res.send(JSON.stringify({success: false, reason: "Invalid Account"}));
                                                         }
                                                         else {
                                                             ret_l = strip([ret_l], ['password', 'email', 'likes', 'dislikes'])[0];
@@ -514,7 +514,7 @@ function search(req, res) {
                                                             ret_l.term = init_term;
                                                             ret_l.tint = 'l';
                                                             ret_l.accounts = final_objs;
-                                                            res.send({success: true, redirect: false, results: ret_l});
+                                                            res.send(JSON.stringify({success: true, redirect: false, results: ret_l}));
                                                             let endTime = new Date();
                                                             log_entry("Search", false, startTime, endTime);
                                                         }
@@ -528,7 +528,7 @@ function search(req, res) {
                                                         }
                                                         else if (!ret_o) {
                                                             req.organisation.user = null;
-                                                            res.send({success: false, reason: "Invalid Account"});
+                                                            res.send(JSON.stringify({success: false, reason: "Invalid Account"}));
                                                         }
                                                         else {
                                                             let tmpMsgs = extractTags(ret_msgs, username);
@@ -539,7 +539,7 @@ function search(req, res) {
                                                             ret_o.term = init_term;
                                                             ret_o.tint = 'o';
                                                             ret_o.accounts = final_objs;
-                                                            res.send({success: true, redirect: false, results: ret_o});
+                                                            res.send(JSON.stringify({success: true, redirect: false, results: ret_o}));
                                                             let endTime = new Date();
                                                             log_entry("Search", false, startTime, endTime);
                                                         }
@@ -553,7 +553,7 @@ function search(req, res) {
                                                         }
                                                         else if (!ret_j) {
                                                             req.journalist.user = null;
-                                                            res.send({success: false, reason: "Invalid Account"});
+                                                            res.send(JSON.stringify({success: false, reason: "Invalid Account"}));
                                                         }
                                                         else {
                                                             let tmpMsgs = extractTags(ret_msgs, username);
@@ -564,7 +564,7 @@ function search(req, res) {
                                                             ret_j.term = init_term;
                                                             ret_j.tint = 'j';
                                                             ret_j.accounts = final_objs;
-                                                            res.send({success: true, redirect: false, results: ret_j});
+                                                            res.send(JSON.stringify({success: true, redirect: false, results: ret_j}));
                                                             let endTime = new Date();
                                                             log_entry("Search", false, startTime, endTime);
                                                         }
@@ -578,7 +578,7 @@ function search(req, res) {
                                                         }
                                                         else if (!ret_u) {
                                                             req.user.user = null;
-                                                            res.send({success: false, reason: "Invalid Account"});
+                                                            res.send(JSON.stringify({success: false, reason: "Invalid Account"}));
                                                         }
                                                         else {
                                                             let tmpMsgs = extractTags(ret_msgs, null);
@@ -589,7 +589,7 @@ function search(req, res) {
                                                             ret_u.term = init_term;
                                                             ret_u.tint = 'u';
                                                             ret_u.accounts = final_objs;
-                                                            res.send({success: true, redirect: false, results: ret_u});
+                                                            res.send(JSON.stringify({success: true, redirect: false, results: ret_u}));
                                                             let endTime = new Date();
                                                             log_entry("Search", false, startTime, endTime);
                                                         }
@@ -604,7 +604,7 @@ function search(req, res) {
                                                     ret_u.term = init_term;
                                                     ret_u.tint = 'u';
                                                     ret_u.accounts = final_objs;
-                                                    res.send({success: true, redirect: false, results: ret_u});
+                                                    res.send(JSON.stringify({success: true, redirect: false, results: ret_u}));
                                                     let endTime = new Date();
                                                     log_entry("Search", false, startTime, endTime);
                                                 }

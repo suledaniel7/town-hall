@@ -12,7 +12,7 @@ function check(req, res){
             if(ret_user != null){
                 found = true;
             }
-            res.send({found: found});
+            res.send(JSON.stringify({found: found}));
         }
     });
 }

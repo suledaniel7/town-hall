@@ -17,7 +17,7 @@ function profileRender(req, res) {
         }
         else {
             if (!user) {
-                res.send({success: false, reason: "Invalid Account"});
+                res.send(JSON.stringify({success: false, reason: "Invalid Account"}));
             }
             else if (user.pendingBeat.status) {
                 let journo = user.pendingBeat.username;
@@ -87,14 +87,14 @@ function profileRender(req, res) {
                                                     let tmpJMsgs = extractTags(ret_jMsgs, null);
                                                     user.j_msgs = extractMentions(tmpJMsgs);
         
-                                                    res.send({success: true, item: user});
+                                                    res.send(JSON.stringify({success: true, item: user}));
                                                     let end_time = new Date();
                                                     log_entry("Render Organisation profile", false, start_time, end_time);
                                                 }
                                             });
                                         }
                                         else {
-                                            res.send({success: true, item: user});
+                                            res.send(JSON.stringify({success: true, item: user}));
                                             let end_time = new Date();
                                             log_entry("Render Organisation profile", false, start_time, end_time);
                                         }

@@ -17,7 +17,7 @@ function render_home(req, res){
                 statesArr.push(state);
             });
 
-            res.send({success: true, states: statesArr, keys: keysArr});
+            res.send(JSON.stringify({success: true, states: statesArr, keys: keysArr}));
         }
     });
 }

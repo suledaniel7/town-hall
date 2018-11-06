@@ -19,11 +19,11 @@ function renderProfile(req, res) {
         }
         else if (!ret_u) {
             req.user.user = null;
-            res.send({success: false, reason: "Invalid Account"});
+            res.send(JSON.stringify({success: false, reason: "Invalid Account"}));
         }
         else {
             if (req.user.user.password !== ret_u.password) {
-                res.send({success: false, reason: "Some information changed since your last login. Please enter your details again"});
+                res.send(JSON.stringify({success: false, reason: "Some information changed since your last login. Please enter your details again"}));
             }
             else {
                 ret_u.password = null;
@@ -35,7 +35,7 @@ function renderProfile(req, res) {
                     else if (!rep) {
                         console.log("A significant error occured finding the rep,", ret_u.fed_const, "for user,", ret_u.username);
                         req.user.user = null;
-                        res.send({success: false, reason: "An error occured on our end. Please try again later."});
+                        res.send(JSON.stringify({success: false, reason: "An error occured on our end. Please try again later."}));
                     }
                     else {
                         legislators.findOne({ code: ret_u.sen_dist }, (err, sen) => {
@@ -45,7 +45,7 @@ function renderProfile(req, res) {
                             else if (!sen) {
                                 console.log("A significant error occured finding the sen,", ret_u.sen_dist, "for user,", ret_u.username);
                                 req.user.user = null;
-                                res.send({success: false, reason: "An error occured on our end. Please try again later."});
+                                res.send(JSON.stringify({success: false, reason: "An error occured on our end. Please try again later."}));
                             }
                             else {
                                 ret_u.rep = strip([rep], ['password', 'email', 'likes', 'dislikes'])[0];
@@ -68,7 +68,7 @@ function renderProfile(req, res) {
                                                     ret_msgs = extractTags(ret_msgs, null);
                                                     ret_msgs = extractMentions(ret_msgs);
                                                     ret_u.messages = ret_msgs;
-                                                    res.send({success: true, item: ret_u});
+                                                    res.send(JSON.stringify({success: true, item: ret_u}));
                                                     let end_time = new Date();
                                                     log_entry("Render User Profile", false, start_time, end_time);
                                                 }
@@ -154,7 +154,7 @@ function renderProfile(req, res) {
                                                         else {
                                                             let tmpMsgs = extractTags(ret_msgs, null);
                                                             ret_u.messages = extractMentions(tmpMsgs);
-                                                            res.send({success: true, item: ret_u});
+                                                            res.send(JSON.stringify({success: true, item: ret_u}));
                                                             let end_time = new Date();
                                                             log_entry("Render User Profile", false, start_time, end_time);
                                                         }

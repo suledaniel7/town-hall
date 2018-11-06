@@ -10,11 +10,11 @@ function signin(req, res) {
             throw err;
         }
         else if (!user) {
-            res.send({success: false, reason: 'Please ensure that your email address was entered accurately'});
+            res.send(JSON.stringify({success: false, reason: 'Please ensure that your email address was entered accurately'}));
         }
         else {
             if (!hash.verify(password, user.password)) {
-                res.send({success: false, reason: 'Please ensure that your password was entered accurately'});
+                res.send(JSON.stringify({success: false, reason: 'Please ensure that your password was entered accurately'}));
             }
             else {
                 //set cookie
@@ -29,7 +29,7 @@ function signin(req, res) {
                 }
 
                 req.organisation.user = user;
-                res.send({success: true});
+                res.send(JSON.stringify({success: true}));
             }
         }
     });

@@ -13,7 +13,7 @@ function selectBeat(req, res){
                     throw err;
                 }
                 else if(!journo){
-                    res.send({success: false, reason: "Invalid Account"});
+                    res.send(JSON.stringify({success: false, reason: "Invalid Account"}));
                 }
                 else {
                     districts.findOne({ code: beat }, (err, ret_dist) => {
@@ -22,7 +22,7 @@ function selectBeat(req, res){
                         }
                         else {
                             if (!ret_dist) {
-                                res.send({success: false, reason: "Invalid District Selected"});
+                                res.send(JSON.stringify({success: false, reason: "Invalid District Selected"}));
                             }
                             else {
                                 if (journo.account.type == 'freelance' && journo.beat == '') {
@@ -37,12 +37,12 @@ function selectBeat(req, res){
                                             throw err;
                                         }
                                         else {
-                                            res.send({success: true});
+                                            res.send(JSON.stringify({success: true}));
                                         }
                                     });
                                 }
                                 else {
-                                    res.send({success: false, reason: "Only Freelance Journalists who have not selected a District may do so"});
+                                    res.send(JSON.stringify({success: false, reason: "Only Freelance Journalists who have not selected a District may do so"}));
                                 }
                             }
                         }
@@ -51,11 +51,11 @@ function selectBeat(req, res){
             });
         }
         else {
-            res.send({success: false, reason: "Invalid Credentials"});
+            res.send(JSON.stringify({success: false, reason: "Invalid Credentials"}));
         }
     }
     else {
-        res.send({success: false, reason: "Invalid Credentials"});
+        res.send(JSON.stringify({success: false, reason: "Invalid Credentials"}));
     }
 }
 

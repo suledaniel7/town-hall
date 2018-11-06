@@ -7,7 +7,7 @@ function render_dists(req, res){
             throw err;
         }
         else {
-            res.send({districts: ret_dists});
+            res.send(JSON.stringify({districts: ret_dists}));
         }
     });
 }

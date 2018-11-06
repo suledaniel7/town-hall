@@ -10,7 +10,7 @@ function signup(req, res) {
         return wsp.test(str);
     }
     if (test(name) || test(username) || test(email) || test(email_corr) || test(password)) {
-        res.render('org-signup', { error: "All fields marked * are required" });
+        res.send(JSON.stringify({success: false, reason: 'All fields excpt for your verification ID are required'}));
     }
     else {
         username = username.toLowerCase();
@@ -39,10 +39,10 @@ function signup(req, res) {
             }
             else if (ret_g) {
                 if (ret_g.username == username) {
-                    res.send({success: false, reason: 'A user exists with that username. Please choose another'});
+                    res.send(JSON.stringify({success: false, reason: 'A user exists with that username. Please choose another'}));
                 }
                 else {
-                    res.send({success: false, reason: 'A user exists with that Email Address. Please choose another'});
+                    res.send(JSON.stringify({success: false, reason: 'A user exists with that Email Address. Please choose another'}));
                 }
             }
             else {
@@ -52,7 +52,7 @@ function signup(req, res) {
                         throw err;
                     }
                     else if (ret_o) {
-                        res.send({success: false, reason: 'A user exists with that Correspondence Email Address. Please choose another'});
+                        res.send(JSON.stringify({success: false, reason: 'A user exists with that Correspondence Email Address. Please choose another'}));
                     }
                     else {
                         const newOrg = new orgSchema({
@@ -80,7 +80,7 @@ function signup(req, res) {
 
                         newOrg.save((err) => {
                             if (err) {
-                                res.send({success: false, reason: 'A user exists with that username. Please choose another'});
+                                res.send(JSON.stringify({success: false, reason: 'A user exists with that username. Please choose another'}));
                                 throw err;
                             }
                             else {
@@ -103,7 +103,7 @@ function signup(req, res) {
 
                                         user.password = null;
                                         req.organisation.user = user;
-                                        res.send({success: true});
+                                        res.send(JSON.stringify({success: true}));
                                     }
                                 });
                             }

@@ -9,7 +9,7 @@ function renderJ(req, res, username, user){
             throw err;
         }
         else if(!ret_j){
-            res.send({success: false, reason: "Invalid Account"});//should lead to error page stating that the journo wasn't found
+            res.send(JSON.stringify({success: false, reason: "Invalid Account"}));//should lead to error page stating that the journo wasn't found
         }
         else {
             //journo exists. render after parsing user info
@@ -43,7 +43,7 @@ function renderJ(req, res, username, user){
                 else {
                     let tmpMsgs = extractTags(ret_msgs, null);
                     ret_j.messages = extractMentions(tmpMsgs);
-                    res.send({success: true, item: ret_j});
+                    res.send(JSON.stringify({success: true, item: ret_j}));
                 }
             });
         }

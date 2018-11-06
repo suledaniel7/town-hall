@@ -13,7 +13,7 @@ function assignBeat(req, res){
         }
         else {
             if(!ret_org){
-                res.send({success: false, reason: "Invalid Account"});
+                res.send(JSON.stringify({success: false, reason: "Invalid Account"}));
             }
             else {
                 //check j
@@ -23,7 +23,7 @@ function assignBeat(req, res){
                     }
                     else {
                         if(!ret_j){
-                            res.send({success: false, reason: "Invalid Journalist Account"});
+                            res.send(JSON.stringify({success: false, reason: "Invalid Journalist Account"}));
                         }
                         else {
                             districts.findOne({code: code}, (err, ret_dist)=>{
@@ -32,7 +32,7 @@ function assignBeat(req, res){
                                 }
                                 else {
                                     if(!ret_dist){
-                                        res.send({success: false, reason: "Invalid District"});
+                                        res.send(JSON.stringify({success: false, reason: "Invalid District"}));
                                     }
                                     else {
                                         //go on. Assign journo, imp in org, also in j. Redirect
@@ -94,7 +94,7 @@ function assignBeat(req, res){
                                                         throw err;
                                                     }
                                                     else {
-                                                        res.send({success: true});
+                                                        res.send(JSON.stringify({success: true}));
                                                     }
                                                 });
                                             }

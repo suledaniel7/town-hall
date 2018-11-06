@@ -14,12 +14,12 @@ function selectOrg(req, res) {
             }
             else {
                 if (!journo) {
-                    res.send({success: false, reason: "Invalid Account"});
+                    res.send(JSON.stringify({success: false, reason: "Invalid Account"}));
                 }
                 else {
                     if (journo.account.status) {
                         //has already been org-anised
-                        res.send({success: false, reason: "Only Journalists who are not currently assigned to an Organisation or are pending approval from an Organisation may do this"});
+                        res.send(JSON.stringify({success: false, reason: "Only Journalists who are not currently assigned to an Organisation or are pending approval from an Organisation may do this"}));
                     }
                     else {
                         //passed all checks
@@ -31,7 +31,7 @@ function selectOrg(req, res) {
                             else {
                                 if (!org) {
                                     //org doesn't exist
-                                    res.send({success: false, reason: "The selected Organisation Account is invalid"});
+                                    res.send(JSON.stringify({success: false, reason: "The selected Organisation Account is invalid"}));
                                 }
                                 else {
                                     org.pending_reqs.push(journo);
@@ -51,7 +51,7 @@ function selectOrg(req, res) {
                                                 }
                                                 else {
                                                     //updated both
-                                                    res.send({success: true});
+                                                    res.send(JSON.stringify({success: true}));
                                                 }
                                             });
                                         }
@@ -65,7 +65,7 @@ function selectOrg(req, res) {
         });
     }
     else {
-        res.send({success: false, reason: "Invalid Credentials"});
+        res.send(JSON.stringify({success: false, reason: "Invalid Credentials"}));
     }
 }
 

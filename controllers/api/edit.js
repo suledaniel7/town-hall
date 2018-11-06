@@ -119,11 +119,11 @@ function edit(req, res) {
                                 throw err;
                             }
                             else {
-                                res.send({
+                                res.send(JSON.stringify({
                                     success: true,
                                     message: newMessage,
                                     originator: true
-                                });
+                                }));
                             }
                         });
                     }
@@ -169,11 +169,11 @@ function edit(req, res) {
                                 throw err;
                             }
                             else {
-                                res.send({
+                                res.send(JSON.stringify({
                                     success: true,
                                     comment: newComment,
                                     username: username
-                                });
+                                }));
                             }
                         });
                     }

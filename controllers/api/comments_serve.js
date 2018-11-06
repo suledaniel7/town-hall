@@ -90,7 +90,7 @@ function serveComments(req, res) {
                                 verified: verified
                             }
                         }
-                        res.send({ success: true, message: ret_m, comments: ret_cs, user: user, username: username });
+                        res.send(JSON.stringify({ success: true, message: ret_m, comments: ret_cs, user: user, username: username }));
                     }
                 });
             }

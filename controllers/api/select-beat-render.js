@@ -36,7 +36,7 @@ function beatSelect(req, res){
                 states.push(the_state);
             });
             let username = req.journalist.user.username;
-            res.send({success: true, states: states, username: username});
+            res.send(JSON.stringify({success: true, states: states, username: username}));
         }
     });
 }

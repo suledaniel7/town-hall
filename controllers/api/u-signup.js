@@ -25,10 +25,10 @@ function signup(req, res) {
         }
         else if (ret_g) {
             if (ret_g.email == email) {
-                res.send({ success: false, reason: 'A user exists with that email address' });
+                res.send(JSON.stringify({ success: false, reason: 'A user exists with that email address' }));
             }
             else {
-                res.send({ success: false, reason: 'A user exists with that username' });
+                res.send(JSON.stringify({ success: false, reason: 'A user exists with that username' }));
             }
         }
         else {
@@ -37,7 +37,7 @@ function signup(req, res) {
                     throw err;
                 }
                 else if (!ret_f_const) {
-                    res.send({ success: false, reason: 'We ran into a problem. Please try that again' });
+                    res.send(JSON.stringify({ success: false, reason: 'We ran into a problem. Please try that again' }));
                 }
                 else {
                     legislators.findOne({ code: fed_const }, (err, ret_rep) => {
@@ -45,7 +45,7 @@ function signup(req, res) {
                             throw err;
                         }
                         else if (!ret_rep) {
-                            res.send({ success: false, reason: 'We ran into a problem. Please try that again' });
+                            res.send(JSON.stringify({ success: false, reason: 'We ran into a problem. Please try that again' }));
                         }
                         else {
                             districts.findOne({ code: sen_dist }, (err, ret_sen_dist) => {
@@ -53,7 +53,7 @@ function signup(req, res) {
                                     throw err;
                                 }
                                 else if (!ret_sen_dist) {
-                                    res.send({ success: false, reason: 'We ran into a problem. Please try that again' });
+                                    res.send(JSON.stringify({ success: false, reason: 'We ran into a problem. Please try that again' }));
                                 }
                                 else {
                                     legislators.findOne({ code: sen_dist }, (err, ret_sen) => {
@@ -61,7 +61,7 @@ function signup(req, res) {
                                             throw err;
                                         }
                                         else if (!ret_sen) {
-                                            res.send({ success: false, reason: 'We ran into a problem. Please try that again' });
+                                            res.send(JSON.stringify({ success: false, reason: 'We ran into a problem. Please try that again' }));
                                         }
                                         else {
                                             ret_f_const.const_num++;
@@ -129,7 +129,7 @@ function signup(req, res) {
                                                                                             }
                                                                                             //all went well, set session
                                                                                             req.user.user = newUser
-                                                                                            res.send({ success: true });
+                                                                                            res.send(JSON.stringify({ success: true }));
                                                                                         }
                                                                                     });
                                                                                 }

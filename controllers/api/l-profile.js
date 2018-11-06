@@ -8,7 +8,7 @@ function profileRender(req, res){
     let email = req.legislator.user.email;
     if(!email){
         req.legislator.user = null;
-        res.send({success: false, reason: "Invalid Account"});
+        res.send(JSON.stringify({success: false, reason: "Invalid Account"}));
     }
     else {
         legis.findOne({email: email}, (err, ret_l)=>{
@@ -20,11 +20,11 @@ function profileRender(req, res){
             else {
                 if(!ret_l){
                     req.legislator.user = null;
-                    res.send({success: false, reason: "Invalid Account"});
+                    res.send(JSON.stringify({success: false, reason: "Invalid Account"}));
                 }
                 else if(ret_l.password !== req.legislator.user.password){
                     req.legislator.user = null;
-                    res.send({success: false, reason: "Invalid Credentials"});
+                    res.send(JSON.stringify({success: false, reason: "Invalid Credentials"}));
                 }
                 else {
                     let code = ret_l.code;
@@ -34,7 +34,7 @@ function profileRender(req, res){
                         }
                         else if(!ret_dist){
                             req.legislator.user = null;
-                            res.send({success: false, reason: "Invalid District"});
+                            res.send(JSON.stringify({success: false, reason: "Invalid District"}));
                         }
                         else {
                             ret_l.password = null;
@@ -66,7 +66,7 @@ function profileRender(req, res){
                                                     let tmpMMsgs = extractTags(ret_ms, code);
                                                     ret_l.mentions = extractMentions(tmpMMsgs);
 
-                                                    res.send({success: true, item: ret_l});
+                                                    res.send(JSON.stringify({success: true, item: ret_l}));
                                                 }
                                             });
                                         }

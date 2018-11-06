@@ -16,7 +16,7 @@ function follow(req, res) {
                 throw err;
             }
             else if (!ret_u) {
-                res.send({success: false, reason: "Invalid User Account"});
+                res.send(JSON.stringify({success: false, reason: "Invalid User Account"}));
             }
             else {
                 async function next() {
@@ -26,7 +26,7 @@ function follow(req, res) {
                     //then res.send. AJAX proceedings next
                     if (!target_type || target_type == 'user') {
                         //user doesn't exist
-                        res.send({success: false, reason: "Invalid User Account"});
+                        res.send(JSON.stringify({success: false, reason: "Invalid User Account"}));
                     }
                     else if (target_type == 'legislator') {
                         //add only to user's sources
@@ -35,7 +35,7 @@ function follow(req, res) {
                                 throw err;
                             }
                             else if (!ret_l) {
-                                res.send({success: false, reason: "Invalid Legislator Account"});
+                                res.send(JSON.stringify({success: false, reason: "Invalid Legislator Account"}));
                             }
                             else {
                                 if (ret_u.sources.indexOf(f_username) == -1 && ret_u.fed_const != f_username && ret_u.sen_dist != f_username) {
@@ -49,12 +49,12 @@ function follow(req, res) {
                                             throw err;
                                         }
                                         else {
-                                            res.send({ success: true });
+                                            res.send(JSON.stringify({ success: true }));
                                         }
                                     });
                                 }
                                 else {
-                                    res.send({success: false, reason: "You are already following this Account"});
+                                    res.send(JSON.stringify({success: false, reason: "You are already following this Account"}));
                                 }
                             }
                         });
@@ -66,7 +66,7 @@ function follow(req, res) {
                                 throw err;
                             }
                             else if (!ret_j) {
-                                res.send({success: false, reason: "Invalid J-Account"});
+                                res.send(JSON.stringify({success: false, reason: "Invalid J-Account"}));
                             }
                             else {
                                 //j exists, add to sources post integrity check
@@ -89,14 +89,14 @@ function follow(req, res) {
                                                     throw err;
                                                 }
                                                 else {
-                                                    res.send({ success: true });
+                                                    res.send(JSON.stringify({ success: true }));
                                                 }
                                             });
                                         }
                                     });
                                 }
                                 else {
-                                    res.send({success: false, reason: "You are already following this Account"});
+                                    res.send(JSON.stringify({success: false, reason: "You are already following this Account"}));
                                 }
                             }
                         });
@@ -108,7 +108,7 @@ function follow(req, res) {
                                 throw err;
                             }
                             else if(!ret_o){
-                                res.send({success: false, reason: "Invalid Organisation Account"});
+                                res.send(JSON.stringify({success: false, reason: "Invalid Organisation Account"}));
                             }
                             else {
                                 if(ret_u.sources.indexOf(f_username) == -1 && ret_o.followers.indexOf(username) == -1){
@@ -129,20 +129,20 @@ function follow(req, res) {
                                                     throw err;
                                                 }
                                                 else {
-                                                    res.send({success: true});
+                                                    res.send(JSON.stringify({success: true}));
                                                 }
                                             });
                                         }
                                     });
                                 }
                                 else {
-                                    res.send({success: false, reason: "You are already following this Account"});
+                                    res.send(JSON.stringify({success: false, reason: "You are already following this Account"}));
                                 }
                             }
                         });
                     }
                     else {
-                        res.send({success: false, reason: "Invalid User Account"});
+                        res.send(JSON.stringify({success: false, reason: "Invalid User Account"}));
                     }
                 }
                 next();
@@ -156,7 +156,7 @@ function follow(req, res) {
                 throw err;
             }
             else if (!ret_j) {
-                res.send({success: false, reason: "Invalid User Account"});
+                res.send(JSON.stringify({success: false, reason: "Invalid User Account"}));
             }
             else {
                 async function next() {
@@ -166,7 +166,7 @@ function follow(req, res) {
                     //then res.send. AJAX proceedings next
                     if (!target_type || target_type == 'user') {
                         //user doesn't exist
-                        res.send({success: false, reason: "Invalid User Account"});
+                        res.send(JSON.stringify({success: false, reason: "Invalid User Account"}));
                     }
                     else if (target_type == 'legislator') {
                         //add only to user's sources
@@ -175,7 +175,7 @@ function follow(req, res) {
                                 throw err;
                             }
                             else if (!ret_l) {
-                                res.send({success: false, reason: "Invalid Legislator Account"});
+                                res.send(JSON.stringify({success: false, reason: "Invalid Legislator Account"}));
                             }
                             else {
                                 if(ret_j.sources.indexOf(f_username) == -1 && ret_j.beat != '' && ret_j.beat != f_username){
@@ -186,12 +186,12 @@ function follow(req, res) {
                                             throw err;
                                         }
                                         else {
-                                            res.send({success: true});
+                                            res.send(JSON.stringify({success: true}));
                                         }
                                     });
                                 }
                                 else {
-                                    res.send({success: false, reason: "You are already following this Account"});
+                                    res.send(JSON.stringify({success: false, reason: "You are already following this Account"}));
                                 }
                             }
                         });
@@ -203,7 +203,7 @@ function follow(req, res) {
                                 throw err;
                             }
                             else if(!ret_f_j){
-                                res.send({success: false, reason: "Invalid J-Account"});
+                                res.send(JSON.stringify({success: false, reason: "Invalid J-Account"}));
                             }
                             else {
                                 if(ret_j.sources.indexOf(f_username) == -1 && ret_f_j.followers.indexOf(username) == -1 && username != f_username){
@@ -221,14 +221,14 @@ function follow(req, res) {
                                                     throw err;
                                                 }
                                                 else{
-                                                    res.send({success: true});
+                                                    res.send(JSON.stringify({success: true}));
                                                 }
                                             });
                                         }
                                     });
                                 }
                                 else {
-                                    res.send({success: false, reason: "You are already following this Account"});
+                                    res.send(JSON.stringify({success: false, reason: "You are already following this Account"}));
                                 }
                             }
                         });
@@ -240,7 +240,7 @@ function follow(req, res) {
                                 throw err;
                             }
                             else if(!ret_o){
-                                res.send({success: false, reason: "Invalid Organisation Account"});
+                                res.send(JSON.stringify({success: false, reason: "Invalid Organisation Account"}));
                             }
                             else {
                                 if(ret_j.sources.indexOf(f_username) == -1 && ret_o.followers.indexOf(username) == -1 && ret_j.organisation != f_username){
@@ -258,20 +258,20 @@ function follow(req, res) {
                                                     throw err;
                                                 }
                                                 else {
-                                                    res.send({success: true});
+                                                    res.send(JSON.stringify({success: true}));
                                                 }
                                             });
                                         }
                                     });
                                 }
                                 else {
-                                    res.send({success: false, reason: "You are already following this Account"});
+                                    res.send(JSON.stringify({success: false, reason: "You are already following this Account"}));
                                 }
                             }
                         });
                     }
                     else {
-                        res.send({success: false, reason: "Invalid User Account"});
+                        res.send(JSON.stringify({success: false, reason: "Invalid User Account"}));
                     }
                 }
                 next();
@@ -279,7 +279,7 @@ function follow(req, res) {
         });
     }
     else {
-        res.send({success: false, reason: "You cannot follow other accounts"});
+        res.send(JSON.stringify({success: false, reason: "You cannot follow other accounts"}));
     }
 }
 

@@ -13,7 +13,7 @@ function renderOrgs(req, res){
                 username: username,
                 organisations: orgs
             }
-            res.send({success: true, item: compObj});
+            res.send(JSON.stringify({success: true, item: compObj}));
         }
     });
 }

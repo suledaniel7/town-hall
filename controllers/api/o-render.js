@@ -9,7 +9,7 @@ function renderProfile(req, res, username, user){
             throw err;
         }
         else if(!ret_o){
-            res.send({success: false, reason: "Invalid Account"});//redirect to error page explaining what happened
+            res.send(JSON.stringify({success: false, reason: "Invalid Account"}));//redirect to error page explaining what happened
         }
         else {
             if(user){
@@ -40,7 +40,7 @@ function renderProfile(req, res, username, user){
                 else {
                     let tmpMsgs = extractTags(ret_msgs, null);
                     ret_o.messages = extractMentions(tmpMsgs);
-                    res.send({success: true, item: ret_o});
+                    res.send(JSON.stringify({success: true, item: ret_o}));
                 }
             });
         }

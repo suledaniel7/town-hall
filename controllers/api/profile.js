@@ -83,7 +83,7 @@ function profile(req, res){
                 }
                 else {
                     console.log("An error occured with the general, username:", username);
-                    res.send({success: false, reason: "Invalid Account"});
+                    res.send(JSON.stringify({success: false, reason: "Invalid Account"}));
                 }
             }
         });

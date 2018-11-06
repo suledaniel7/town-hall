@@ -17,7 +17,7 @@ function render_signup(req, res){
                 statesArr.push(state);
             });
 
-            res.send({states: statesArr, keys: keysArr});
+            res.send(JSON.stringify({states: statesArr, keys: keysArr}));
         }
     });
 }

@@ -31,7 +31,7 @@ function deleteHandler(req, res){
                     throw err;
                 }
                 else if(!ret_c){
-                    res.send({success: false, reason: "Invalid Comment"});
+                    res.send(JSON.stringify({success: false, reason: "Invalid Comment"}));
                 }
                 else {
                     messages.findOne({m_timestamp: ret_c.m_timestamp}, (err, ret_m)=>{
@@ -39,7 +39,7 @@ function deleteHandler(req, res){
                             throw err;
                         }
                         else if(!ret_m){
-                            res.send({success: false, reason: "Invalid Message"});
+                            res.send(JSON.stringify({success: false, reason: "Invalid Message"}));
                         }
                         else {
                             ret_m.comments_no--;
@@ -53,7 +53,7 @@ function deleteHandler(req, res){
                                             throw err;
                                         }
                                         else {
-                                            res.send({success: true, m_timestamp: ret_c.m_timestamp});
+                                            res.send(JSON.stringify({success: true, m_timestamp: ret_c.m_timestamp}));
                                         }
                                     });
                                 }
@@ -69,7 +69,7 @@ function deleteHandler(req, res){
                     throw err;
                 }
                 else if(!ret_m){
-                    res.send({success: false, reason: "Invalid Message"});
+                    res.send(JSON.stringify({success: false, reason: "Invalid Message"}));
                 }
                 else {
                     function removeMessage(){
@@ -83,7 +83,7 @@ function deleteHandler(req, res){
                                         throw err;
                                     }
                                     else {
-                                        res.send({success: true});
+                                        res.send(JSON.stringify({success: true}));
                                     }
                                 });
                             }
@@ -95,7 +95,7 @@ function deleteHandler(req, res){
                                 throw err;
                             }
                             else if(!ret_l){
-                                res.send({success: false, reason: "Invalid Account"});
+                                res.send(JSON.stringify({success: false, reason: "Invalid Account"}));
                             }
                             else {
                                 ret_l.messages_no--;
@@ -116,7 +116,7 @@ function deleteHandler(req, res){
                                 throw err;
                             }
                             else if(!ret_o){
-                                res.send({success: false, reason: "Invalid Account"});
+                                res.send(JSON.stringify({success: false, reason: "Invalid Account"}));
                             }
                             else {
                                 ret_o.messages_no--;
@@ -137,7 +137,7 @@ function deleteHandler(req, res){
                                 throw err;
                             }
                             else if(!ret_j){
-                                res.send({success: false, reason: "Invalid Account"});
+                                res.send(JSON.stringify({success: false, reason: "Invalid Account"}));
                             }
                             else {
                                 ret_j.messages_no--;

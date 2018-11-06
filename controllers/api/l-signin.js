@@ -8,11 +8,11 @@ function login(req, res) {
             throw err;
         }
         else if (!leg) {
-            res.send({success: false, reason: 'Please ensure that your email address is accurate'});
+            res.send(JSON.stringify({success: false, reason: 'Please ensure that your email address is accurate'}));
         }
         else {
             if (!hash.verify(password, leg.password)) {
-                res.send({success: false, reason: 'Please ensure that your password is accurate'});
+                res.send(JSON.stringify({success: false, reason: 'Please ensure that your password is accurate'}));
             }
             else {
                 //set session
@@ -27,7 +27,7 @@ function login(req, res) {
                 }
 
                 req.legislator.user = leg;
-                res.send({success: true});
+                res.send(JSON.stringify({success: true}));
             }
         }
     });

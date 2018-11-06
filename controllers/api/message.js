@@ -110,7 +110,7 @@ function messageHandler(req, res) {
                                         res.sendStatus(403);
                                     }
                                     else {
-                                        res.send({ message: message, originator: true });
+                                        res.send(JSON.stringify({ message: message, originator: true }));
                                     }
                                 });
                             }
@@ -173,7 +173,7 @@ function messageHandler(req, res) {
                                             res.sendStatus(403);
                                         }
                                         else {
-                                            res.send({ message: message, originator: true });
+                                            res.send(JSON.stringify({ message: message, originator: true }));
                                         }
                                     });
                                 }
@@ -184,7 +184,7 @@ function messageHandler(req, res) {
                                             res.sendStatus(403);
                                         }
                                         else {
-                                            res.send({ message: message, originator: true });
+                                            res.send(JSON.stringify({ message: message, originator: true }));
                                         }
                                     });
                                 }
@@ -246,7 +246,7 @@ function messageHandler(req, res) {
                                         res.sendStatus(403);
                                     }
                                     else {
-                                        res.send({ message: message, originator: true });
+                                        res.send(JSON.stringify({ message: message, originator: true }));
                                     }
                                 });
                             }

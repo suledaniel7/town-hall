@@ -19,7 +19,7 @@ function autofill(req, res) {
                 sent_is = ret_is;
             }
 
-            res.send({ data: sent_is });
+            res.send(JSON.stringify({ data: sent_is }));
         }
     });
 }

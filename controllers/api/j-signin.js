@@ -10,11 +10,11 @@ function login(req, res) {
             throw err;
         }
         else if (!ret_j) {
-            res.send({success: false, reason: "Please ensure that your email address is accurate"});
+            res.send(JSON.stringify({success: false, reason: "Please ensure that your email address is accurate"}));
         }
         else {
             if (!hash.verify(password, ret_j.password)) {
-                res.send({success: false, reason: "Please ensure that your password is accurate"});
+                res.send(JSON.stringify({success: false, reason: "Please ensure that your password is accurate"}));
             }
             else {
                 //sign out of everywhere else
@@ -30,7 +30,7 @@ function login(req, res) {
 
                 ret_j.password = null;
                 req.journalist.user = ret_j;
-                res.send({success: true});
+                res.send(JSON.stringify({success: true}));
             }
         }
     });

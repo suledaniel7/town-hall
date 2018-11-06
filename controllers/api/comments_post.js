@@ -136,7 +136,7 @@ function postComment(req, res) {
                                     throw err;
                                 }
                                 else {
-                                    res.send({ success: true, comment: newComment, username: username });
+                                    res.send(JSON.stringify({ success: true, comment: newComment, username: username }));
                                 }
                             });
                         }

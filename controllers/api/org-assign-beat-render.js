@@ -13,11 +13,11 @@ function assignBeat(req, res, journo) {
                     throw err;
                 }
                 else if (!ret_j) {
-                    res.send({success: false, reason: "Invalid Account"});
+                    res.send(JSON.stringify({success: false, reason: "Invalid Account"}));
                 }
                 else {
                     if (ret_j.organisation != username) {
-                        res.send({success: false, reason: "Invalid Account"});
+                        res.send(JSON.stringify({success: false, reason: "Invalid Account"}));
                     }
                     else {
                         //render beats
@@ -57,7 +57,7 @@ function assignBeat(req, res, journo) {
                                     states.push(the_state);
                                 });
                                 let j_name = ret_j.f_name + ' ' + ret_j.l_name;
-                                return(res.send({ success: true, states: states, o_username: o_username, j_username: j_username, j_name: j_name }));
+                                return(res.send(JSON.stringify({ success: true, states: states, o_username: o_username, j_username: j_username, j_name: j_name })));
                             }
                         })
                     }
@@ -65,11 +65,11 @@ function assignBeat(req, res, journo) {
             });
         }
         else {
-            res.send({success: false, reason: "Invalid Account"});
+            res.send(JSON.stringify({success: false, reason: "Invalid Account"}));
         }
     }
     else {
-        res.send({success: false, reason: "Invalid Account"});
+        res.send(JSON.stringify({success: false, reason: "Invalid Account"}));
     }
 }
 

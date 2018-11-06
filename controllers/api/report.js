@@ -24,7 +24,7 @@ function reportHandler(req, res){
         username = req.organisation.user.username;
     }
     else {
-        res.send({success: false, reason: "You must be logged in to Report"});
+        res.send(JSON.stringify({success: false, reason: "You must be logged in to Report"}));
     }
 
     if(m_type == 'c'){
@@ -33,7 +33,7 @@ function reportHandler(req, res){
                 throw err;
             }
             else if(!ret_c){
-                res.send({success: false, reason: "Invalid Comment"});
+                res.send(JSON.stringify({success: false, reason: "Invalid Comment"}));
             }
             else {
                 reportage(ret_c);
@@ -46,7 +46,7 @@ function reportHandler(req, res){
                 throw err;
             }
             else if(!ret_m){
-                res.send({success: false, reason: "Invalid Message"});
+                res.send(JSON.stringify({success: false, reason: "Invalid Message"}));
             }
             else {
                 reportage(ret_m);
@@ -54,7 +54,7 @@ function reportHandler(req, res){
         });
     }
     else {
-        res.send({success: false});
+        res.send(JSON.stringify({success: false}));
     }
     function reportage(message){
         reports.findOne({m_timestamp: m_timestamp}, (err, ret_r)=>{
@@ -77,7 +77,7 @@ function reportHandler(req, res){
                         throw err;
                     }
                     else {
-                        res.send({success: true});
+                        res.send(JSON.stringify({success: true}));
                     }
                 });
             }
@@ -90,7 +90,7 @@ function reportHandler(req, res){
                         throw err;
                     }
                     else {
-                        res.send({success: true});
+                        res.send(JSON.stringify({success: true}));
                     }
                 });
             }

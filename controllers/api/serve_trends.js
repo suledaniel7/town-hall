@@ -6,7 +6,7 @@ function serve_trends(req, res){
             throw err;
         }
         else {
-            res.send({trends: trends});
+            res.send(JSON.stringify({trends: trends}));
         }
     });
 }

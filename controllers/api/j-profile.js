@@ -19,7 +19,7 @@ function renderProfile(req, res) {
         }
         else {
             if (!journalist) {
-                res.send({success: false, reason: "Invalid Account"});
+                res.send(JSON.stringify({success: false, reason: "Invalid Account"}));
             }
             else {
                 //there are different types of j's: freelance, and formal. Freelance need to choose their beats
@@ -67,7 +67,7 @@ function renderProfile(req, res) {
             else if (!ret_l && code) {
                 req.journalist.user = null;
                 console.log("Error obtaining legislator on j_beat:", code, "journalist:", init_username);
-                res.send({success: false, reason: "An error occured on our side. Please try again later"});
+                res.send(JSON.stringify({success: false, reason: "An error occured on our side. Please try again later"}));
             }
             else {
                 if(ret_l){
@@ -105,7 +105,7 @@ function renderProfile(req, res) {
                                         let tmpOrgMsgs = extractTags(org_msgs, null);
                                         journalist.org_msgs = extractMentions(tmpOrgMsgs);
                                         
-                                        res.send({success: true, item: journalist})
+                                        res.send(JSON.stringify({success: true, item: journalist}));
                                         let end_time = new Date();
                                         log_entry("Render Journalist profile", false, start_time, end_time);
                                     }

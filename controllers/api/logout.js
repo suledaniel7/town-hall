@@ -2,10 +2,10 @@ function logout(req, res){
     let ac_type = req.params.type;
     
     function bluff(){
-        res.send({success: false, reason: "Invalid Account"});
+        res.send(JSON.stringify({success: false, reason: "Invalid Account"}));
     }
     function redirect(){
-        res.send({success: true});
+        res.send(JSON.stringify({success: true}));
     }
 
     if(!ac_type){

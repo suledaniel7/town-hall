@@ -28,10 +28,10 @@ function signup(req, res) {
         else if (ret_user) {
             //error
             if (ret_user.email == email) {
-                res.send({success: false, reason: "A user exists with that email address"});
+                res.send(JSON.stringify({success: false, reason: "A user exists with that email address"}));
             }
             else {
-                res.send({success: false, reason: "A user exists with that username. Please choose another"});
+                res.send(JSON.stringify({success: false, reason: "A user exists with that username. Please choose another"}));
             }
         }
         else {
@@ -92,7 +92,7 @@ function signup(req, res) {
 
                             newJourno.password = null;
                             req.journalist.user = newJourno;
-                            res.send({success: true});
+                            res.send(JSON.stringify({success: true}));
                         }
                     });
                 }

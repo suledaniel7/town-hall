@@ -15,18 +15,18 @@ function reqHandler(req, res) {
                 throw err;
             }
             else if (!ret_org) {
-                res.send({success: false, reason: "Invalid Request"}); //fake req
+                res.send(JSON.stringify({success: false, reason: "Invalid Request"})); //fake req
             }
             else {
                 //check for whether org is signed in
                 if (!req.organisation) {
-                    res.send({success: false, reason: "Insufficient Permissions"});
+                    res.send(JSON.stringify({success: false, reason: "Insufficient Permissions"}));
                 }
                 else if (!req.organisation.user) {
-                    res.send({success: false, reason: "Insufficient Permissions"});
+                    res.send(JSON.stringify({success: false, reason: "Insufficient Permissions"}));
                 }
                 else if (req.organisation.user.username != username) {
-                    res.send({success: false, reason: "Insufficient Permissions"});
+                    res.send(JSON.stringify({success: false, reason: "Insufficient Permissions"}));
                 }
                 else {
                     //check journo targeted
@@ -36,7 +36,7 @@ function reqHandler(req, res) {
                         }
                         else {
                             if (!ret_j) {
-                                res.send({success: false, reason: "Invalid Journalist Account"});
+                                res.send(JSON.stringify({success: false, reason: "Invalid Journalist Account"}));
                             }
                             else {
                                 ret_j.organisation = '';
@@ -66,7 +66,7 @@ function reqHandler(req, res) {
                                                 throw err;
                                             }
                                             else {
-                                                res.send({success: true});
+                                                res.send(JSON.stringify({success: true}));
                                             }
                                         });
                                     }

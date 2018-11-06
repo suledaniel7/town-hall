@@ -10,7 +10,7 @@ function renderProfile(req, res, code, user){
             throw err;
         }
         else if(!ret_l){
-            res.send({success: false, reason: "Invalid Account"});//explain what happened
+            res.send(JSON.stringify({success: false, reason: "Invalid Account"}));//explain what happened
         }
         else {
             if(user){
@@ -36,7 +36,7 @@ function renderProfile(req, res, code, user){
                 }
                 else if (!ret_d){
                     console.log("Significant error. Cannot find district for legislator bearing code:", code);
-                    res.send({success: false, reason: "Invalid Account District"});
+                    res.send(JSON.stringify({success: false, reason: "Invalid Account District"}));
                 }
                 else {
                     ret_l.const_num = ret_d.const_num;
@@ -48,7 +48,7 @@ function renderProfile(req, res, code, user){
                         else {
                             let tmpMsgs = extractTags(ret_msgs, null);
                             ret_l.messages = extractMentions(tmpMsgs);
-                            res.send({success: true, item: ret_l});
+                            res.send(JSON.stringify({success: true, item: ret_l}));
                         }
                     });
                 }

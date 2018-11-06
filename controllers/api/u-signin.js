@@ -9,11 +9,11 @@ function signin(req, res){
             throw err;
         }
         else if(!ret_u){
-            res.send({success: false, reason: 'Please ensure that your email address is accurate'});
+            res.send(JSON.stringify({success: false, reason: 'Please ensure that your email address is accurate'}));
         }
         else {
             if(!hash.verify(password, ret_u.password)){
-                res.send({success: false, reason: 'Please ensure that your password is accurate'});
+                res.send(JSON.stringify({success: false, reason: 'Please ensure that your password is accurate'}));
             }
             else {
                 //set session
@@ -28,7 +28,7 @@ function signin(req, res){
                 }
 
                 req.user.user = ret_u;
-                res.send({success: true});
+                res.send(JSON.stringify({success: true}));
             }
         }
     });
