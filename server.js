@@ -15,7 +15,7 @@ app.engine('.hbs', exphbs({extname: '.hbs', defaultLayout: 'main'}));
 app.set('view engine', '.hbs');
 
 app.use('/', router);
-app.use('/api', router);
+app.use('/api', api);
 
 app.listen(8080, ()=>{
     console.log("Server running at http://127.0.0.1:8080");

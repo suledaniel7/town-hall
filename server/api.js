@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const sessions = require('client-sessions');
-const multer = require('multer');
+// const multer = require('multer');
 
 const home = require('../controllers/api/home');
 const org_signup = require('../controllers/api/org-signup');
@@ -33,11 +33,13 @@ const serve_comments = require('../controllers/api/comments_serve');
 const edit = require('../controllers/api/edit');
 const deleteFn = require('../controllers/api/delete');
 const reportFn = require('../controllers/api/report');
+const signin = require('../controllers/api/signin');
+const signedIn = require('../controllers/api/signed_in');
 
 const router = express.Router();
-const logos = multer({dest: 'public/logos/'});
-const u_avatars = multer({dest: 'public/u_avatars/'});
-const j_avatars = multer({dest: 'public/j_avatars/'});
+// const logos = multer({dest: 'public/logos/'});
+// const u_avatars = multer({dest: 'public/u_avatars/'});
+// const j_avatars = multer({dest: 'public/j_avatars/'});
 
 router.use(sessions({
     cookieName: 'notifications',
@@ -73,7 +75,11 @@ router.use(bodyParser.urlencoded({extended: true}));
 
 router.get('/', home);
 
-router.post('/organisations/signup', logos.single('logo'), org_signup);
+router.post('/signin', signin);
+
+router.get('/signed-in', signedIn);
+
+router.post('/organisations/signup', org_signup);
 
 router.post('/organisations/signin', org_signin);
 
@@ -132,7 +138,7 @@ router.post('/report/:m_type/:timestamp', reportFn);
 router.get('/logout/:type', logout);
 
 router.all('*', (req, res)=>{
-    res.send(JSON.stringify({server_response: 'Invalid Route'}));
+    res.send(JSON.stringify({server_response: 'Invalid API Route'}));
 });
 
 module.exports = router;

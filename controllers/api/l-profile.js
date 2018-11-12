@@ -6,6 +6,9 @@ const extractMentions = require('./extractMentions');
 
 function profileRender(req, res){
     let email = req.legislator.user.email;
+    let item = {};
+    item.u_type = 'l';
+
     if(!email){
         req.legislator.user = null;
         res.send(JSON.stringify({success: false, reason: "Invalid Account"}));
@@ -45,7 +48,7 @@ function profileRender(req, res){
                                 }
                                 else {
                                     let tmpMsgs = extractTags(ret_msgs, code);
-                                    ret_l.messages = extractMentions(tmpMsgs);
+                                    item.messages = extractMentions(tmpMsgs);
 
                                     messages.find({beat: code}).sort({timestamp: -1}).exec((err, ret_d_msgs)=>{
                                         if(err){
@@ -53,7 +56,7 @@ function profileRender(req, res){
                                         }
                                         else {
                                             let tmpDMsgs = extractTags(ret_d_msgs, code);
-                                            ret_l.dist_posts = extractMentions(tmpDMsgs);
+                                            item.dist_posts = extractMentions(tmpDMsgs);
 
                                             //mentions
                                             let full_name = ret_l.type_exp + ret_l.full_name;
@@ -64,9 +67,10 @@ function profileRender(req, res){
                                                 }
                                                 else {
                                                     let tmpMMsgs = extractTags(ret_ms, code);
-                                                    ret_l.mentions = extractMentions(tmpMMsgs);
+                                                    item.mentions = extractMentions(tmpMMsgs);
+                                                    item.user = ret_l;
 
-                                                    res.send(JSON.stringify({success: true, item: ret_l}));
+                                                    res.send(JSON.stringify({success: true, item: item}));
                                                 }
                                             });
                                         }

@@ -12,6 +12,8 @@ function renderProfile(req, res) {
     let start_time = new Date();
     let init_user = req.journalist.user;
     let init_username = init_user.username;
+    let item = {};
+    item.u_type = 'j';
 
     journalists.findOne({ username: init_username }, (err, journalist) => {
         if (err) {
@@ -33,10 +35,10 @@ function renderProfile(req, res) {
                         //organised journo
                         let wsp = /^\s*$/;
                         if (!journalist.verified || wsp.test(journalist.beat)) {
-                            journalist.free = false;
+                            item.free = false;
                         }
                         else {
-                            journalist.free = true;
+                            item.free = true;
                         }
                         // Compile messages
                         compileMessages(journalist);
@@ -49,7 +51,7 @@ function renderProfile(req, res) {
                     }
                     else {
                         //beat journo
-                        journalist.free = true;
+                        item.free = true;
                         // Compile messages
                         compileMessages(journalist);
                     }
@@ -71,7 +73,7 @@ function renderProfile(req, res) {
             }
             else {
                 if(ret_l){
-                    journalist.rep = strip([ret_l], ['password', 'email', 'likes', 'dislikes']);
+                    item.rep = strip([ret_l], ['password', 'email', 'likes', 'dislikes']);
                 }
                 
                 messages.find({ sender: init_username }).sort({ timestamp: -1 }).exec((err, ret_msgs) => {
@@ -80,7 +82,7 @@ function renderProfile(req, res) {
                     }
                     else {
                         let tmpMsgs = extractTags(ret_msgs, init_username);
-                        journalist.messages = extractMentions(tmpMsgs);
+                        item.messages = extractMentions(tmpMsgs);
                         let j_beat = journalist.beat;
 
                         messages.find({ beat: j_beat }).sort({ timestamp: -1 }).exec((err, beat_msgs) => {
@@ -94,7 +96,7 @@ function renderProfile(req, res) {
                                     tmpBeatMsgs.push(beat_msg);
                                 });
                                 tmpBeatMsgs = extractTags(beat_msgs, init_username);
-                                journalist.beat_msgs = extractMentions(tmpBeatMsgs);
+                                item.beat_msgs = extractMentions(tmpBeatMsgs);
                                 let j_org = journalist.organisation;
 
                                 messages.find({ sender: j_org }).sort({ timestamp: -1 }).exec((err, org_msgs) => {
@@ -103,9 +105,10 @@ function renderProfile(req, res) {
                                     }
                                     else {
                                         let tmpOrgMsgs = extractTags(org_msgs, null);
-                                        journalist.org_msgs = extractMentions(tmpOrgMsgs);
+                                        item.org_msgs = extractMentions(tmpOrgMsgs);
+                                        item.user = journalist;
                                         
-                                        res.send(JSON.stringify({success: true, item: journalist}));
+                                        res.send(JSON.stringify({success: true, item: item}));
                                         let end_time = new Date();
                                         log_entry("Render Journalist profile", false, start_time, end_time);
                                     }

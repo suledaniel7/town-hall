@@ -13,6 +13,9 @@ const eventEmitter = events.EventEmitter;
 
 function renderProfile(req, res) {
     let start_time = new Date();
+    let item = {};
+    item.u_type = 'u';
+    
     users.findOne({ username: req.user.user.username }, (err, ret_u) => {
         if (err) {
             throw err;
@@ -48,8 +51,8 @@ function renderProfile(req, res) {
                                 res.send(JSON.stringify({success: false, reason: "An error occured on our end. Please try again later."}));
                             }
                             else {
-                                ret_u.rep = strip([rep], ['password', 'email', 'likes', 'dislikes'])[0];
-                                ret_u.sen = strip([sen], ['password', 'email', 'likes', 'dislikes'])[0];
+                                item.rep = strip([rep], ['password', 'email', 'likes', 'dislikes'])[0];
+                                item.sen = strip([sen], ['password', 'email', 'likes', 'dislikes'])[0];
 
                                 if (!ret_u.sourceSel) {
                                     organisations.find({ $or: [{ districts: ret_u.fed_const }, { districts: ret_u.sen_dist }] }, (err, ret_orgs) => {
@@ -58,7 +61,7 @@ function renderProfile(req, res) {
                                         }
                                         else {
                                             ret_orgs = strip(ret_orgs, ['email', 'pub_email', 'password', 'pendingBeat', 'districts', 'journalists', 'pending_reqs', 'followers', 'likes', 'dislikes'])[0];
-                                            ret_u.suggested_orgs = ret_orgs;
+                                            item.suggested_orgs = ret_orgs;
                                             
                                             messages.find({$or: [{sender: ret_u.fed_const}, {sender: ret_u.sen_dist}]}, (err, ret_msgs)=>{
                                                 if(err){
@@ -67,8 +70,9 @@ function renderProfile(req, res) {
                                                 else {
                                                     ret_msgs = extractTags(ret_msgs, null);
                                                     ret_msgs = extractMentions(ret_msgs);
-                                                    ret_u.messages = ret_msgs;
-                                                    res.send(JSON.stringify({success: true, item: ret_u}));
+                                                    item.messages = ret_msgs;
+                                                    item.user = ret_u;
+                                                    res.send(JSON.stringify({success: true, item: item}));
                                                     let end_time = new Date();
                                                     log_entry("Render User Profile", false, start_time, end_time);
                                                 }
@@ -153,8 +157,9 @@ function renderProfile(req, res) {
                                                         }
                                                         else {
                                                             let tmpMsgs = extractTags(ret_msgs, null);
-                                                            ret_u.messages = extractMentions(tmpMsgs);
-                                                            res.send(JSON.stringify({success: true, item: ret_u}));
+                                                            item.messages = extractMentions(tmpMsgs);
+                                                            item.user = ret_u;
+                                                            res.send(JSON.stringify({success: true, item: item}));
                                                             let end_time = new Date();
                                                             log_entry("Render User Profile", false, start_time, end_time);
                                                         }

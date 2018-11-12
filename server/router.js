@@ -165,8 +165,4 @@ router.post('/report/:m_type/:timestamp', reportFn);
 
 router.get('/logout/:type', logout);
 
-router.all('*', (req, res)=>{
-    res.send({server_response: 'Invalid Route'});
-});
-
 module.exports = router;
