@@ -2,6 +2,7 @@ const hash = require('password-hash');
 // const fPath = require('./uploadFilePathConversion');
 const general = require('../schemas/general');
 const orgSchema = require('../schemas/organisations');
+const save_auth = require('./save_auth');
 
 function signup(req, res) {
     let { name, username, email, email_corr, password, id } = req.body;
@@ -89,21 +90,8 @@ function signup(req, res) {
                                         throw err;//implement rollback
                                     }
                                     else {
-                                        if (req.user) {
-                                            req.user.user = null;
-                                        }
-                                        if (req.journalist) {
-                                            req.journalist.user = null;
-                                        }
-                                        if (req.legislator) {
-                                            req.legislator.user = null;
-                                        }
-
                                         var user = newOrg;
-
-                                        user.password = null;
-                                        req.organisation.user = user;
-                                        res.send(JSON.stringify({success: true}));
+                                        save_auth(req, res, user.username, 'o');
                                     }
                                 });
                             }

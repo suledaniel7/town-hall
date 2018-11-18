@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const sessions = require('client-sessions');
 // const multer = require('multer');
 
+const auth = require('../controllers/api/authenticate');
 const home = require('../controllers/api/home');
 const org_signup = require('../controllers/api/org-signup');
 const org_signin = require('../controllers/api/org-signin');
@@ -73,11 +74,11 @@ router.use(sessions({
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: true}));
 
-router.get('/', home);
+router.get('/', auth, home);
 
 router.post('/signin', signin);
 
-router.get('/signed-in', signedIn);
+router.get('/signed-in', auth, signedIn);
 
 router.post('/organisations/signup', org_signup);
 
@@ -103,39 +104,39 @@ router.post('/users/signup', u_signup);
 
 router.post('/users/signin', u_signin);
 
-router.get('/select-beat/:username/:beat', select_f_beat);
+router.get('/select-beat/:username/:beat', auth, select_f_beat);
 
-router.get('/organisations/request/:organisation/:username', select_org);
+router.get('/organisations/request/:organisation/:username', auth, select_org);
 
-router.get('/organisations/j-requests/:type/:username/:j_username', handleJReq);
+router.get('/organisations/j-requests/:type/:username/:j_username', auth, handleJReq);
 
-router.get('/organisations/select-beat/:o_username/:j_username/:code', assignOrgBeat);
+router.get('/organisations/select-beat/:o_username/:j_username/:code', auth, assignOrgBeat);
 
-router.post('/messages/:type', m_handler);
+router.post('/messages/:type', auth, m_handler);
 
-router.post('/follow/:username', follow);
+router.post('/follow/:username', auth, follow);
 
-router.post('/unfollow/:username', unfollow);
+router.post('/unfollow/:username', auth, unfollow);
 
-router.get('/search/:type/:term', search);
+router.get('/search/:type/:term', auth, search);
 
-router.get('/profile/:username', profile);
+router.get('/profile/:username', auth, profile);
 
 router.post('/autofill', autofill);
 
 router.post('/request-trends', serve_trends);
 
-router.post('/comments/post', post_comment);
+router.post('/comments/post', auth, post_comment);
 
-router.post('/request-comments', serve_comments);
+router.post('/request-comments', auth, serve_comments);
 
-router.post('/edit/:m_type/:timestamp', edit);
+router.post('/edit/:m_type/:timestamp', auth, edit);
 
-router.post('/delete/:m_type/:timestamp', deleteFn);
+router.post('/delete/:m_type/:timestamp', auth, deleteFn);
 
-router.post('/report/:m_type/:timestamp', reportFn);
+router.post('/report/:m_type/:timestamp', auth, reportFn);
 
-router.get('/logout/:type', logout);
+router.get('/logout', logout);
 
 router.all('*', (req, res)=>{
     res.send(JSON.stringify({server_response: 'Invalid API Route'}));

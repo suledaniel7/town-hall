@@ -5,6 +5,7 @@ const districts = require('../schemas/districts');
 const legislators = require('../schemas/legislators');
 const convertPath = require('./uploadFilePathConversion');
 const dateFn = require('./dateFn');
+const save_auth = require('./save_auth');
 
 function signup(req, res) {
     let { f_name, username, email, password, gender, sen_dist, fed_const } = req.body;
@@ -118,18 +119,7 @@ function signup(req, res) {
                                                                                             throw err;
                                                                                         }
                                                                                         else {
-                                                                                            if (req.organisation) {
-                                                                                                req.organisation.user = null;
-                                                                                            }
-                                                                                            if (req.journalist) {
-                                                                                                req.journalist.user = null;
-                                                                                            }
-                                                                                            if (req.legislator) {
-                                                                                                req.legislator.user = null;
-                                                                                            }
-                                                                                            //all went well, set session
-                                                                                            req.user.user = newUser
-                                                                                            res.send(JSON.stringify({ success: true }));
+                                                                                            save_auth(req, res, newUser.username, 'u');
                                                                                         }
                                                                                     });
                                                                                 }

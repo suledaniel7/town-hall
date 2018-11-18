@@ -7,12 +7,21 @@ function fullSearch() {
 
     //for suggestions
     let sActive = false;
+    let barActive = false;
+
+    bar2.addEventListener('mouseover', ()=>{
+        barActive = true;
+    });
+    bar2.addEventListener('mouseout', ()=> {
+        barActive = false;
+    });
+
     searchBar.addEventListener('blur', () => {
         if (!sActive) {
             document.getElementById('suggs').classList += ' hidden';
         }
         if (bar2) {
-            if (active !== 1) {
+            if (active !== 1 && !barActive) {
                 bar1.className = 'tabBar';
                 bar2.classList += ' hidden';
                 active = 1;

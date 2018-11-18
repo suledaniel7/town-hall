@@ -16,8 +16,12 @@ function render_signup(req, res){
                 keysArr.push(String(ret_state.state_code));
                 statesArr.push(state);
             });
+            let item = {
+                states: statesArr,
+                keys: keysArr
+            }
 
-            res.send(JSON.stringify({states: statesArr, keys: keysArr}));
+            res.send(JSON.stringify({success: true, item: item}));
         }
     });
 }

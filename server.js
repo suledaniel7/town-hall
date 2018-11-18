@@ -1,11 +1,13 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const router = require('./server/router');
 const api = require('./server/api');
 
 const app = express();
+app.use(cors());
 
 mongoose.connect('mongodb://127.0.0.1/town_hall');
 

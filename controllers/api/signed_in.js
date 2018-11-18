@@ -6,7 +6,7 @@ const findActive = require('./findActive');
 
 function signedIn(req, res){
     let curr_user = findActive(req, res);
-
+    
     if(curr_user == 'user'){
         let username = req.user.user.username;
         users.findOne({username: username}, (err, ret_u)=>{
@@ -17,7 +17,7 @@ function signedIn(req, res){
                 res.send(JSON.stringify({active: false}));
             }
             else {
-                res.send(JSON.stringify({active: true}));
+                res.send(JSON.stringify({active: true, u_type: 'u'}));
             }
         });
     }
@@ -31,7 +31,7 @@ function signedIn(req, res){
                 res.send(JSON.stringify({active: false}));
             }
             else {
-                res.send(JSON.stringify({active: true}));
+                res.send(JSON.stringify({active: true, u_type: 'o'}));
             }
         });
     }
@@ -45,7 +45,7 @@ function signedIn(req, res){
                 res.send(JSON.stringify({active: false}));
             }
             else {
-                res.send(JSON.stringify({active: true}));
+                res.send(JSON.stringify({active: true, u_type: 'j'}));
             }
         });
     }
@@ -59,7 +59,7 @@ function signedIn(req, res){
                 res.send(JSON.stringify({active: false}));
             }
             else {
-                res.send(JSON.stringify({active: true}));
+                res.send(JSON.stringify({active: true, u_type: 'l'}));
             }
         });
     }

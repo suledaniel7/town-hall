@@ -473,3 +473,164 @@ Mon Nov 12 2018 08:28:14 GMT+0100 (W. Central Africa Standard Time): Render Orga
 Mon Nov 12 2018 08:58:07 GMT+0100 (W. Central Africa Standard Time): Render Organisation profile query took 0.43 seconds
 Mon Nov 12 2018 09:40:32 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.38 seconds
 Mon Nov 12 2018 10:25:51 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 1.053 seconds
+Mon Nov 12 2018 14:31:12 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 1.612 seconds
+Mon Nov 12 2018 15:20:21 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 1.199 seconds
+Mon Nov 12 2018 15:20:51 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.02 seconds
+Mon Nov 12 2018 15:30:30 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.047 seconds
+Mon Nov 12 2018 15:32:26 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.02 seconds
+Mon Nov 12 2018 19:32:50 GMT+0100 (W. Central Africa Standard Time): Render Organisation profile query took 28.287 seconds
+Mon Nov 12 2018 21:17:17 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.2 seconds
+Mon Nov 12 2018 21:19:26 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.044 seconds
+Mon Nov 12 2018 21:21:15 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.017 seconds
+Mon Nov 12 2018 21:35:39 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.027 seconds
+Mon Nov 12 2018 21:42:44 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.115 seconds
+Mon Nov 12 2018 21:42:44 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.02 seconds
+Mon Nov 12 2018 21:42:45 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.016 seconds
+Mon Nov 12 2018 21:43:16 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.035 seconds
+Mon Nov 12 2018 21:46:37 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.021 seconds
+Tue Nov 13 2018 08:06:12 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.494 seconds
+Tue Nov 13 2018 08:06:14 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.011 seconds
+Tue Nov 13 2018 08:09:10 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.017 seconds
+Tue Nov 13 2018 08:09:25 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.017 seconds
+Tue Nov 13 2018 08:09:42 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.014 seconds
+Tue Nov 13 2018 09:34:32 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.051 seconds
+Tue Nov 13 2018 09:37:35 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.044 seconds
+Tue Nov 13 2018 09:54:20 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.077 seconds
+Tue Nov 13 2018 09:56:40 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.04 seconds
+Tue Nov 13 2018 10:00:46 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.044 seconds
+Tue Nov 13 2018 10:01:48 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.128 seconds
+Tue Nov 13 2018 10:02:43 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.036 seconds
+Tue Nov 13 2018 10:03:56 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.021 seconds
+Tue Nov 13 2018 10:04:51 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.016 seconds
+Tue Nov 13 2018 10:04:55 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.251 seconds
+Tue Nov 13 2018 10:07:23 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.016 seconds
+Tue Nov 13 2018 10:09:45 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.204 seconds
+Tue Nov 13 2018 10:09:59 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.019 seconds
+Tue Nov 13 2018 10:10:17 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.021 seconds
+Tue Nov 13 2018 10:10:20 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.023 seconds
+Tue Nov 13 2018 10:12:46 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.017 seconds
+Tue Nov 13 2018 10:13:19 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.231 seconds
+Tue Nov 13 2018 10:15:43 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.072 seconds
+Tue Nov 13 2018 10:16:00 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.089 seconds
+Tue Nov 13 2018 10:16:58 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.026 seconds
+Tue Nov 13 2018 10:17:19 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.061 seconds
+Tue Nov 13 2018 10:18:03 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.019 seconds
+Tue Nov 13 2018 10:20:28 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.021 seconds
+Tue Nov 13 2018 10:28:15 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.019 seconds
+Tue Nov 13 2018 10:28:25 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.04 seconds
+Tue Nov 13 2018 10:29:05 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.017 seconds
+Tue Nov 13 2018 10:29:55 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.015 seconds
+Tue Nov 13 2018 10:33:36 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.013 seconds
+Tue Nov 13 2018 10:34:09 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.014 seconds
+Tue Nov 13 2018 10:34:15 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.034 seconds
+Tue Nov 13 2018 10:34:16 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.014 seconds
+Tue Nov 13 2018 10:34:59 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.014 seconds
+Tue Nov 13 2018 10:36:11 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.016 seconds
+Tue Nov 13 2018 10:39:18 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.015 seconds
+Tue Nov 13 2018 10:39:21 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.01 seconds
+Tue Nov 13 2018 10:40:58 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.014 seconds
+Tue Nov 13 2018 10:41:07 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.015 seconds
+Tue Nov 13 2018 10:41:13 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.014 seconds
+Tue Nov 13 2018 10:52:02 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.045 seconds
+Tue Nov 13 2018 10:52:06 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.03 seconds
+Tue Nov 13 2018 10:53:28 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.057 seconds
+Tue Nov 13 2018 10:53:37 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.024 seconds
+Tue Nov 13 2018 20:00:30 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 1.621 seconds
+Tue Nov 13 2018 20:47:00 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.154 seconds
+Tue Nov 13 2018 20:55:16 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.049 seconds
+Tue Nov 13 2018 20:56:53 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.044 seconds
+Tue Nov 13 2018 20:57:55 GMT+0100 (W. Central Africa Standard Time): Render Mobile Organisation profile query took 0.021 seconds
+Tue Nov 13 2018 20:58:32 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.213 seconds
+Tue Nov 13 2018 20:59:07 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.039 seconds
+Tue Nov 13 2018 21:03:36 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.041 seconds
+Tue Nov 13 2018 21:03:48 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.047 seconds
+Tue Nov 13 2018 21:03:48 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.122 seconds
+Tue Nov 13 2018 21:04:10 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.036 seconds
+Tue Nov 13 2018 21:04:13 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.039 seconds
+Tue Nov 13 2018 21:41:03 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.288 seconds
+Tue Nov 13 2018 21:44:34 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.076 seconds
+Tue Nov 13 2018 21:56:12 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.118 seconds
+Tue Nov 13 2018 21:56:21 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.02 seconds
+Tue Nov 13 2018 21:56:45 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.036 seconds
+Tue Nov 13 2018 21:58:22 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.081 seconds
+Tue Nov 13 2018 22:00:42 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.098 seconds
+Tue Nov 13 2018 22:03:32 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.089 seconds
+Tue Nov 13 2018 22:03:35 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.02 seconds
+Tue Nov 13 2018 22:03:48 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.047 seconds
+Tue Nov 13 2018 22:04:13 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.156 seconds
+Tue Nov 13 2018 22:06:33 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.095 seconds
+Tue Nov 13 2018 22:06:37 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.021 seconds
+Wed Nov 14 2018 05:50:25 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.788 seconds
+Wed Nov 14 2018 05:51:24 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.02 seconds
+Wed Nov 14 2018 06:20:26 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.038 seconds
+Wed Nov 14 2018 06:25:00 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.15 seconds
+Wed Nov 14 2018 06:25:19 GMT+0100 (W. Central Africa Standard Time): Render Organisation profile query took 0.12 seconds
+Wed Nov 14 2018 06:25:33 GMT+0100 (W. Central Africa Standard Time): Render Organisation profile query took 0.04 seconds
+Wed Nov 14 2018 06:25:59 GMT+0100 (W. Central Africa Standard Time): Render Journalist profile query took 0.105 seconds
+Wed Nov 14 2018 06:34:07 GMT+0100 (W. Central Africa Standard Time): Render Journalist profile query took 0.154 seconds
+Wed Nov 14 2018 06:34:32 GMT+0100 (W. Central Africa Standard Time): Search query took 0.842 seconds
+Wed Nov 14 2018 06:35:33 GMT+0100 (W. Central Africa Standard Time): Render Journalist profile query took 0.032 seconds
+Wed Nov 14 2018 06:36:49 GMT+0100 (W. Central Africa Standard Time): Render Journalist profile query took 0.066 seconds
+Wed Nov 14 2018 06:37:04 GMT+0100 (W. Central Africa Standard Time): Search query took 0.299 seconds
+Wed Nov 14 2018 06:40:06 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.019 seconds
+Wed Nov 14 2018 06:41:04 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.039 seconds
+Wed Nov 14 2018 06:41:40 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.031 seconds
+Wed Nov 14 2018 06:41:47 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.017 seconds
+Wed Nov 14 2018 06:42:10 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.04 seconds
+Wed Nov 14 2018 06:46:28 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.029 seconds
+Wed Nov 14 2018 06:50:37 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.014 seconds
+Wed Nov 14 2018 11:43:54 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.036 seconds
+Wed Nov 14 2018 11:43:58 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.018 seconds
+Wed Nov 14 2018 11:47:18 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.073 seconds
+Wed Nov 14 2018 11:47:23 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.022 seconds
+Wed Nov 14 2018 11:50:39 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.045 seconds
+Wed Nov 14 2018 11:50:54 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.019 seconds
+Wed Nov 14 2018 11:55:00 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.152 seconds
+Wed Nov 14 2018 11:55:04 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.018 seconds
+Wed Nov 14 2018 11:55:22 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.018 seconds
+Wed Nov 14 2018 11:55:59 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.073 seconds
+Wed Nov 14 2018 11:56:04 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.015 seconds
+Wed Nov 14 2018 11:58:01 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.063 seconds
+Wed Nov 14 2018 20:35:11 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 1.242 seconds
+Wed Nov 14 2018 20:42:09 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.02 seconds
+Wed Nov 14 2018 20:47:51 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.075 seconds
+Wed Nov 14 2018 20:48:51 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.019 seconds
+Wed Nov 14 2018 20:49:10 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.041 seconds
+Wed Nov 14 2018 20:49:27 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.036 seconds
+Wed Nov 14 2018 20:52:27 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.086 seconds
+Wed Nov 14 2018 20:54:49 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.061 seconds
+Wed Nov 14 2018 20:55:06 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.062 seconds
+Wed Nov 14 2018 20:55:59 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.069 seconds
+Wed Nov 14 2018 20:56:04 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.017 seconds
+Wed Nov 14 2018 20:56:15 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.053 seconds
+Wed Nov 14 2018 20:56:58 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.025 seconds
+Wed Nov 14 2018 20:57:29 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.076 seconds
+Wed Nov 14 2018 20:58:27 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.047 seconds
+Wed Nov 14 2018 21:02:40 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.068 seconds
+Wed Nov 14 2018 21:02:52 GMT+0100 (W. Central Africa Standard Time): Render Journalist profile query took 0.069 seconds
+Wed Nov 14 2018 21:03:06 GMT+0100 (W. Central Africa Standard Time): Render Journalist profile query took 0.04 seconds
+Wed Nov 14 2018 21:18:47 GMT+0100 (W. Central Africa Standard Time): Render Journalist profile query took 0.134 seconds
+Wed Nov 14 2018 21:21:36 GMT+0100 (W. Central Africa Standard Time): Render Journalist profile query took 0.021 seconds
+Wed Nov 14 2018 21:27:31 GMT+0100 (W. Central Africa Standard Time): Render Journalist profile query took 0.016 seconds
+Wed Nov 14 2018 21:29:08 GMT+0100 (W. Central Africa Standard Time): Render Journalist profile query took 0.038 seconds
+Wed Nov 14 2018 21:34:41 GMT+0100 (W. Central Africa Standard Time): Render Journalist profile query took 0.017 seconds
+Wed Nov 14 2018 21:34:46 GMT+0100 (W. Central Africa Standard Time): Render Journalist profile query took 0.036 seconds
+Wed Nov 14 2018 21:34:50 GMT+0100 (W. Central Africa Standard Time): Render Journalist profile query took 0.029 seconds
+Wed Nov 14 2018 21:36:10 GMT+0100 (W. Central Africa Standard Time): Render Journalist profile query took 0.019 seconds
+Wed Nov 14 2018 21:36:19 GMT+0100 (W. Central Africa Standard Time): Render Journalist profile query took 0.026 seconds
+Wed Nov 14 2018 21:36:28 GMT+0100 (W. Central Africa Standard Time): Render Journalist profile query took 0.019 seconds
+Wed Nov 14 2018 21:39:48 GMT+0100 (W. Central Africa Standard Time): Render Journalist profile query took 0.018 seconds
+Wed Nov 14 2018 21:39:53 GMT+0100 (W. Central Africa Standard Time): Render Journalist profile query took 0.027 seconds
+Wed Nov 14 2018 21:39:55 GMT+0100 (W. Central Africa Standard Time): Render Journalist profile query took 0.032 seconds
+Sun Nov 18 2018 16:01:50 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.079 seconds
+Sun Nov 18 2018 16:01:54 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.019 seconds
+Sun Nov 18 2018 16:02:35 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.023 seconds
+Sun Nov 18 2018 16:02:54 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.206 seconds
+Sun Nov 18 2018 16:04:57 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.018 seconds
+Sun Nov 18 2018 16:05:15 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.155 seconds
+Sun Nov 18 2018 16:05:19 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.075 seconds
+Sun Nov 18 2018 16:05:44 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.041 seconds
+Sun Nov 18 2018 16:05:48 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.015 seconds
+Sun Nov 18 2018 16:06:13 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.023 seconds
+Sun Nov 18 2018 16:06:17 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.016 seconds
+Sun Nov 18 2018 16:06:47 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.041 seconds

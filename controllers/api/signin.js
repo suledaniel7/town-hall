@@ -5,6 +5,8 @@ const journalists = require('../schemas/journalists');
 const organisations = require('../schemas/organisations');
 const legislators = require('../schemas/legislators');
 
+const save_auth = require('./save_auth');
+
 function signin(req, res){
     let {email, password} = req.body;
 
@@ -55,55 +57,17 @@ function signin(req, res){
         if(hash.verify(password, u_p)){
             //valid
             if(u_type == 'u'){
-                if (req.organisation) {
-                    req.organisation.user = null;
-                }
-                if (req.journalist) {
-                    req.journalist.user = null;
-                }
-                if (req.legislator) {
-                    req.legislator.user = null;
-                }
-                req.user.user = user;
+                save_auth(req, res, user.username, 'u');
             }
             else if(u_type == 'j'){
-                if (req.organisation) {
-                    req.organisation.user = null;
-                }
-                if (req.user) {
-                    req.user.user = null;
-                }
-                if (req.legislator) {
-                    req.legislator.user = null;
-                }
-                req.journalist.user = user;
+                save_auth(req, res, user.username, 'j');
             }
             else if(u_type == 'o'){
-                if (req.user) {
-                    req.user.user = null;
-                }
-                if (req.journalist) {
-                    req.journalist.user = null;
-                }
-                if (req.legislator) {
-                    req.legislator.user = null;
-                }
-                req.organisation.user = user;
+                save_auth(req, res, user.username, 'o');
             }
             else if(u_type == 'l'){
-                if (req.organisation) {
-                    req.organisation.user = null;
-                }
-                if (req.journalist) {
-                    req.journalist.user = null;
-                }
-                if (req.user) {
-                    req.user.user = null;
-                }
-                req.legislator.user = user;
+                save_auth(req, res, user.email, 'l');
             }
-
-            res.send(JSON.stringify({success: true}));
         }
         else {
             res.send(JSON.stringify({success: false, reason: 'Incorrect Password'}));

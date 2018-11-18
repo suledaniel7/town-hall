@@ -63,9 +63,6 @@ function renderProfile(req, res) {
 
     function compileMessages(journalist) {
         let code = journalist.beat;
-        let j_org = journalist.organisation;
-        let j_beat = journalist.beat;
-
         legislators.findOne({ code: code }, (err, ret_l) => {
             if (err) {
                 throw err;
@@ -79,61 +76,51 @@ function renderProfile(req, res) {
                 if(ret_l){
                     item.rep = strip([ret_l], ['password', 'email', 'likes', 'dislikes']);
                 }
+                
+                //journo messages
+                messages.find({ sender: init_username }).sort({ timestamp: -1 }).exec((err, ret_msgs) => {
+                    if (err) {
+                        throw err;
+                    }
+                    else {
+                        let tmpMsgs = extractTags(ret_msgs, init_username);
+                        item.messages = extractMentions(tmpMsgs);
+                        let j_beat = journalist.beat;
 
-                if(page == 'home'){
-                    messages.find({ beat: j_beat }).sort({ timestamp: -1 }).exec((err, beat_msgs) => {
-                        if (err) {
-                            throw err;
-                        }
-                        else {
-                            let tmpBeatMsgs = [];
-                            beat_msgs.forEach(beat_msg => {
-                                beat_msg.className = 'beatMsg';
-                                tmpBeatMsgs.push(beat_msg);
-                            });
-                            tmpBeatMsgs = extractTags(beat_msgs, init_username);
-                            item.beat_msgs = extractMentions(tmpBeatMsgs);
-                            
-                            res.send(JSON.stringify({success: true, item: item}));
-                            let end_time = new Date();
-                            log_entry("Render Journalist profile", false, start_time, end_time);
-                        }
-                    });
-                }
-                else if(page == 'org'){
-                    messages.find({ sender: j_org }).sort({ timestamp: -1 }).exec((err, org_msgs) => {
-                        if (err) {
-                            throw err;
-                        }
-                        else {
-                            let tmpOrgMsgs = extractTags(org_msgs, null);
-                            item.org_msgs = extractMentions(tmpOrgMsgs);
-                            
-                            res.send(JSON.stringify({success: true, item: item}));
-                            let end_time = new Date();
-                            log_entry("Render Journalist profile", false, start_time, end_time);
-                        }
-                    });
-                }
-                else if(page == 'profile'){
-                    messages.find({ sender: init_username }).sort({ timestamp: -1 }).exec((err, ret_msgs) => {
-                        if (err) {
-                            throw err;
-                        }
-                        else {
-                            let tmpMsgs = extractTags(ret_msgs, init_username);
-                            item.messages = extractMentions(tmpMsgs);
-                            item.user = journalist;
+                        //beat messages
+                        messages.find({ beat: j_beat }).sort({ timestamp: -1 }).exec((err, beat_msgs) => {
+                            if (err) {
+                                throw err;
+                            }
+                            else {
+                                let tmpBeatMsgs = [];
+                                beat_msgs.forEach(beat_msg => {
+                                    beat_msg.className = 'beatMsg';
+                                    tmpBeatMsgs.push(beat_msg);
+                                });
+                                tmpBeatMsgs = extractTags(beat_msgs, init_username);
+                                item.beat_msgs = extractMentions(tmpBeatMsgs);
+                                let j_org = journalist.organisation;
 
-                            res.send(JSON.stringify({success: true, item: item}));
-                            let end_time = new Date();
-                            log_entry("Render Journalist profile", false, start_time, end_time);
-                        }
-                    });
-                }
-                else {
-                    res.send(JSON.stringify({success: false, reason: "Invalid Page Request"}));
-                }
+                                //org messages
+                                messages.find({ sender: j_org }).sort({ timestamp: -1 }).exec((err, org_msgs) => {
+                                    if (err) {
+                                        throw err;
+                                    }
+                                    else {
+                                        let tmpOrgMsgs = extractTags(org_msgs, null);
+                                        item.org_msgs = extractMentions(tmpOrgMsgs);
+                                        item.user = journalist;
+                                        
+                                        res.send(JSON.stringify({success: true, item: item}));
+                                        let end_time = new Date();
+                                        log_entry("Render Journalist profile", false, start_time, end_time);
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
             }
         });
 

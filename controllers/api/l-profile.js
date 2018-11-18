@@ -8,6 +8,7 @@ function profileRender(req, res){
     let email = req.legislator.user.email;
     let item = {};
     item.u_type = 'l';
+    let page = req.query.pg;
 
     if(!email){
         req.legislator.user = null;
@@ -42,41 +43,37 @@ function profileRender(req, res){
                         else {
                             ret_l.password = null;
 
-                            messages.find({sender: code}).sort({timestamp: -1}).exec((err, ret_msgs)=>{
-                                if(err){
-                                    throw err;
-                                }
-                                else {
-                                    let tmpMsgs = extractTags(ret_msgs, code);
-                                    item.messages = extractMentions(tmpMsgs);
+                            if (page == 'home'){
+                                messages.find({beat: code}).sort({timestamp: -1}).exec((err, ret_d_msgs)=>{
+                                    if(err){
+                                        throw err;
+                                    }
+                                    else {
+                                        let tmpDMsgs = extractTags(ret_d_msgs, code);
+                                        item.dist_posts = extractMentions(tmpDMsgs);
 
-                                    messages.find({beat: code}).sort({timestamp: -1}).exec((err, ret_d_msgs)=>{
-                                        if(err){
-                                            throw err;
-                                        }
-                                        else {
-                                            let tmpDMsgs = extractTags(ret_d_msgs, code);
-                                            item.dist_posts = extractMentions(tmpDMsgs);
+                                        res.send(JSON.stringify({success: true, item: item}));
+                                    }
+                                });
+                            }
+                            else if(page == 'profile'){
+                                messages.find({sender: code}).sort({timestamp: -1}).exec((err, ret_msgs)=>{
+                                    if(err){
+                                        throw err;
+                                    }
+                                    else {
+                                        let tmpMsgs = extractTags(ret_msgs, code);
+                                        item.messages = extractMentions(tmpMsgs);
+                                        item.user = ret_l;
+                                        item.district = ret_dist;
 
-                                            //mentions
-                                            let full_name = ret_l.type_exp + ret_l.full_name;
-                                            full_name = RegExp(full_name);
-                                            messages.find({message: full_name}).sort({timestamp: -1}).exec((err, ret_ms)=>{
-                                                if(err){
-                                                    throw err;
-                                                }
-                                                else {
-                                                    let tmpMMsgs = extractTags(ret_ms, code);
-                                                    item.mentions = extractMentions(tmpMMsgs);
-                                                    item.user = ret_l;
-
-                                                    res.send(JSON.stringify({success: true, item: item}));
-                                                }
-                                            });
-                                        }
-                                    });
-                                }
-                            });
+                                        res.send(JSON.stringify({success: true, item: item}));
+                                    }
+                                });
+                            }
+                            else {
+                                res.send(JSON.stringify({success: false, reason: "Invalid Page Request"}));
+                            }
                         }
                     });
                 }

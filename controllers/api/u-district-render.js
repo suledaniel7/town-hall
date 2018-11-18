@@ -7,7 +7,22 @@ function render_dists(req, res){
             throw err;
         }
         else {
-            res.send(JSON.stringify({districts: ret_dists}));
+            let sen_dists = [];
+            let fed_consts = [];
+            
+            ret_dists.forEach(dist => {
+                if(dist.type == 'sen'){
+                    sen_dists.push(dist);
+                }
+                else {
+                    fed_consts.push(dist);
+                }
+            })
+            let item = {
+                fed_consts: fed_consts,
+                sen_dists: sen_dists
+            }
+            res.send(JSON.stringify({success: true, item: item}));
         }
     });
 }

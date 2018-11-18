@@ -1,6 +1,7 @@
 const hash = require('password-hash');
 const journo = require('../schemas/journalists');
 const general = require('../schemas/general');
+const save_auth = require('./save_auth');
 
 function signup(req, res) {
     let { f_name, l_name, username, email, password, ac_type } = req.body;
@@ -78,21 +79,7 @@ function signup(req, res) {
                             throw err;//implement rollback for error
                         }
                         else {
-                            //set session
-                            ///log out of everywhere else
-                            if (req.user) {
-                                req.user.user = null;
-                            }
-                            if (req.organisation) {
-                                req.organisation.user = null;
-                            }
-                            if (req.legislator) {
-                                req.legislator.user = null;
-                            }
-
-                            newJourno.password = null;
-                            req.journalist.user = newJourno;
-                            res.send(JSON.stringify({success: true}));
+                            save_auth(req, res, newJourno.username, 'j');
                         }
                     });
                 }

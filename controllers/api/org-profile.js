@@ -82,6 +82,19 @@ function profileRender(req, res) {
                 }
                 else if (page == 'profile') {
                     //profile info and org messages
+                    messages.find({ sender: username }).sort({ timestamp: -1 }).exec((err, ret_msgs) => {
+                        if (err) {
+                            throw err;
+                        }
+                        else {
+                            let tmp_msgs = extractTags(ret_msgs, username);
+                            item.messages = extractMentions(tmp_msgs);
+                            item.user = user;
+                            res.send(JSON.stringify({success: true, item: item}));
+                            let end_time = new Date();
+                            log_entry("Render Mobile Organisation profile", false, start_time, end_time);
+                        }
+                    });            
                 }
                 else if (page == 'compose'){
                     //district info
@@ -91,6 +104,7 @@ function profileRender(req, res) {
                         }
                         else {
                             let st_arr = [];
+                            let b_arr = [];
                             ret_ds.forEach(ret_d => {
                                 let input_index = st_arr.length;
                                 for(let i=0; i<st_arr.length; i++){
@@ -112,9 +126,15 @@ function profileRender(req, res) {
                                         districts: [{name: ret_d.name, code: ret_d.code, d_type: d_type}]
                                     }
                                 }
+                                b_arr.push({
+                                    name: ret_d.name,
+                                    code: ret_d.code,
+                                    type: d_type
+                                });
                             });
                             
                             item.beats = st_arr;
+                            item.b_arr = b_arr;
                             res.send(JSON.stringify({success: true, item: item}));
                             let end_time = new Date();
                             log_entry("Render Mobile Organisation profile", false, start_time, end_time);
