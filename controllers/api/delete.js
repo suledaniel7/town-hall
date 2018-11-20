@@ -20,8 +20,8 @@ function deleteHandler(req, res){
     else if(u_type == 'journalist'){
         username = req.journalist.user.username;
     }
-    else {
-        res.sendStatus(403);
+    else if(u_type == 'user'){
+        username = req.user.user.username;
     }
     
     if(username){

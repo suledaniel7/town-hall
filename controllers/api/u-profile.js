@@ -1,4 +1,3 @@
-const events = require('events');
 const strip = require('./strip');
 const extractTags = require('./extractTags');
 const extractMentions = require('./extractMentions');
@@ -8,8 +7,6 @@ const organisations = require('../schemas/organisations');
 const legislators = require('../schemas/legislators');
 const journalists = require('../schemas/journalists');
 const messages = require('../schemas/messages');
-
-const eventEmitter = events.EventEmitter;
 
 function renderProfile(req, res) {
     let start_time = new Date();
@@ -74,6 +71,7 @@ function renderProfile(req, res) {
                                                         ret_msgs = extractMentions(ret_msgs);
                                                         item.messages = ret_msgs;
                                                         item.user = ret_u;
+                                                        item.sourceSelNull = true;
                                                         res.send(JSON.stringify({ success: true, item: item }));
                                                         let end_time = new Date();
                                                         log_entry("Render User Profile", false, start_time, end_time);

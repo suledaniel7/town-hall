@@ -17,6 +17,7 @@ const journo = new Schema({
     followersNo: { type: Number, required: true },
     messages_no: {type: Number, default: 0},
     rejected: {type: Object, required: true},
+    bio: {type: String, default: ''},
     organisation: String,
     orgName: String,
     beat: String,
