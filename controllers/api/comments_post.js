@@ -16,6 +16,20 @@ function postComment(req, res) {
     let c_type = req.body.c_type;
     let u_type = findActive(req, res);
 
+    let u_type_abr = '';
+    if(u_type == 'user'){
+        u_type_abr = 'u';
+    }
+    else if(u_type == 'organisation'){
+        u_type_abr = 'o';
+    }
+    else if(u_type == 'journalist'){
+        u_type_abr = 'j';
+    }
+    else if(u_type == 'legislator'){
+        u_type_abr = 'l';
+    }
+
     //extract tags
     let tags = [];
     let unRefTags = [];
@@ -119,6 +133,7 @@ function postComment(req, res) {
                         m_timestamp: m_timestamp,
                         c_timestamp: `${username}-${c_timestamp}`,
                         c_type: c_type,
+                        ac_type: u_type_abr,
                         comments_no: 0,
                         tags: tags,
                         date_created: dateFn(today, true),

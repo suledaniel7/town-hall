@@ -28,6 +28,7 @@ function profileRender(req, res) {
                 assignBeat(req, res, journo);
             }
             else {
+                item.user = user;
                 if (page == 'home') {
                     //only journo messages
                     journalists.find({ organisation: username, beat: /^[^\s$]/ }, (err, journos) => {
@@ -135,6 +136,7 @@ function profileRender(req, res) {
                             
                             item.beats = st_arr;
                             item.b_arr = b_arr;
+                            item.avatar = user.logo;
                             res.send(JSON.stringify({success: true, item: item}));
                             let end_time = new Date();
                             log_entry("Render Mobile Organisation profile", false, start_time, end_time);

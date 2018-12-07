@@ -15,6 +15,7 @@ const legislatorSchema = new Schema({
     district_code: {type: String, required: true},
     const_num: {type: Number, required: true},
     followersNo: {type: Number, default: 0},
+    ac_type: {type: String, default: 'l'},
     type: {type: String, required: true},
     type_exp: {type: String, required: true},//Type expatiated: Sen. or Rep.
     state: {type: String, required: true},

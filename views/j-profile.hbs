@@ -70,6 +70,10 @@
                     <div class="postDiv">
                         <textarea maxlength="360" name="post" id="post" class="post" placeholder="Enter message here"></textarea>
                     </div>
+                    <div class="center">
+                        News <input type="radio" name="m_type" id="mType" value="n">
+                        Opinion <input type="radio" name="m_type" id="mType" value="o" checked="checked">
+                    </div>
                 </form>
                 <br>
                 <div class="postAcc">
@@ -307,6 +311,18 @@
         $('#postBtn').on('click', (event) => {
             event.preventDefault();
             let text = document.getElementById('post').value;
+            let rads = document.getElementsByName('m_type');
+            let selIndex = 1;
+            for(let i=0; i<rads.length; i++){
+                if(rads[i].checked){
+                    selIndex = i;
+                }
+            }
+            let mType = 'o';
+            if(selIndex == 0){
+                mType = 'n';
+            }
+            
             if (!wsp.test(text)) {
                 //text isn't empty. Do stuff w/ it
                 let priorP = document.getElementById('no-prior');
@@ -319,7 +335,7 @@
                 $.ajax({
                     url: '/messages/j',
                     method: 'POST',
-                    data: { mBody: text },
+                    data: { mBody: text, m_type: mType },
                     error: () => {
                         alert("An error occured trying to send your message. Please check your connection and try again");
                     },

@@ -54,7 +54,7 @@ function reportHandler(req, res){
         });
     }
     else {
-        res.send(JSON.stringify({success: false}));
+        res.send(JSON.stringify({success: false, reason: "Invalid Message Type"}));
     }
     function reportage(message){
         reports.findOne({m_timestamp: m_timestamp}, (err, ret_r)=>{

@@ -3,7 +3,8 @@ const messages = require('../schemas/messages');
 const extractTags = require('./extractTags');
 const extractMentions = require('./extractMentions');
 
-function renderProfile(req, res, username, user){
+function renderProfile(req, res, username, user, c_username){
+    let item = {};
     organisations.findOne({username: username}, (err, ret_o)=>{
         if(err){
             throw err;
@@ -13,14 +14,14 @@ function renderProfile(req, res, username, user){
         }
         else {
             if(user){
-                ret_o.canFollow = true;
+                item.canFollow = true;
                 let flag = false;
                 user.sources.forEach(source => {
                     if(source == ret_o.username){
                         flag = true;
                     }
                 });
-                ret_o.following = flag;
+                item.following = flag;
             }
             ret_o.journalists = null;
             ret_o.districts = null;
@@ -39,8 +40,10 @@ function renderProfile(req, res, username, user){
                 }
                 else {
                     let tmpMsgs = extractTags(ret_msgs, null);
-                    ret_o.messages = extractMentions(tmpMsgs);
-                    res.send(JSON.stringify({success: true, item: ret_o}));
+                    item.messages = extractMentions(tmpMsgs);
+                    item.user = ret_o;
+                    item.username = c_username;
+                    res.send(JSON.stringify({success: true, item: item}));
                 }
             });
         }

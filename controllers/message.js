@@ -65,12 +65,14 @@ function messageHandler(req, res) {
             }
             else {
                 let username = req.journalist.user.username;
+                let mType = req.body.m_type;
                 let message = new messages({
                     sender: username,
                     message: mText,
                     ac_type: m_type,
                     comments_no: comments_no,
                     timestamp: timestamp,
+                    m_type: mType,
                     m_timestamp: username + '-' + timestamp,
                     tags: tags,
                     mentions: mentions,

@@ -3,7 +3,8 @@ const messages = require('../schemas/messages');
 const extractTags = require('./extractTags');
 const extractMentions = require('./extractMentions');
 
-function renderJ(req, res, username, user){
+function renderJ(req, res, username, user, c_username){
+    let item = {};
     journalists.findOne({username: username}, (err, ret_j)=>{
         if(err){
             throw err;
@@ -14,21 +15,21 @@ function renderJ(req, res, username, user){
         else {
             //journo exists. render after parsing user info
             if(user){
-                ret_j.canFollow = true;
+                item.canFollow = true;
                 let flag = false;
                 user.sources.forEach(source => {
-                    if(source == ret_j.username || source == ret_j.organisation){
+                    if(source == ret_j.username){
                         flag = true;
                     }
                 });
                 if(user.dislikes.indexOf(ret_j.username) != -1){
                     flag = false;
                 }
-                ret_j.following = flag;
+                item.following = flag;
             }
             //if journo hasn't selected a beat or an org
             if(!ret_j.account.status){
-                ret_j.canFollow = false;
+                item.canFollow = false;
             }
             ret_j.password = null;
             ret_j.likes = null;
@@ -42,8 +43,10 @@ function renderJ(req, res, username, user){
                 }
                 else {
                     let tmpMsgs = extractTags(ret_msgs, null);
-                    ret_j.messages = extractMentions(tmpMsgs);
-                    res.send(JSON.stringify({success: true, item: ret_j}));
+                    item.messages = extractMentions(tmpMsgs);
+                    item.user = ret_j;
+                    item.username = c_username;
+                    res.send(JSON.stringify({success: true, item: item}));
                 }
             });
         }

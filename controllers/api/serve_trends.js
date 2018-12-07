@@ -6,7 +6,22 @@ function serve_trends(req, res){
             throw err;
         }
         else {
-            res.send(JSON.stringify({trends: trends}));
+            let fin_trends = [];
+            for(let i=0; i<trends.length; i++){
+                let n_trend = {
+                    tag: trends[i].tag,
+                    mentions: trends[i].mentions
+                }
+                let num = trends[i].mentions;
+                if(num > 1){
+                    n_trend.people = "people";
+                }
+                else {
+                    n_trend.people = "person";
+                }
+                fin_trends.push(n_trend);
+            }
+            res.send(JSON.stringify({success: true, trends: fin_trends}));
         }
     });
 }

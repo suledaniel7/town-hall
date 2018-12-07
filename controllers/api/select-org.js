@@ -2,12 +2,12 @@ let journalists = require('../schemas/journalists');
 let organisations = require('../schemas/organisations');
 
 function selectOrg(req, res) {
-    let username = req.params.username;
-    let org_name = req.params.organisation;
+    let org_name = req.body.organisation;
 
-    if (req.journalist.user.username == username) {
+    if (req.journalist.user && req.journalist.user.username) {
         //first authentication passed
         //check whether the j is organised
+        let username = req.journalist.user.username;
         journalists.findOne({ username: username }, (err, journo) => {
             if (err) {
                 throw err;

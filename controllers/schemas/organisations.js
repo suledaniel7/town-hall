@@ -14,6 +14,7 @@ const orgSchema = new Schema({
     pendingBeat: { type: Object, required: true },
     journo_num: {type: Number, default: 0},
     bio: {type: String, default: ''},
+    ac_type: {type: String, default: 'o'},
     districts: Array,
     journalists: Array,
     pending_reqs: Array,

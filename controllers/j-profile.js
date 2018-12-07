@@ -32,7 +32,7 @@ function renderProfile(req, res) {
                     else {
                         //organised journo
                         let wsp = /^\s*$/;
-                        if (!journalist.verified || wsp.test(journalist.beat)) {
+                        if (wsp.test(journalist.beat)) {
                             journalist.free = false;
                         }
                         else {
@@ -83,7 +83,7 @@ function renderProfile(req, res) {
                         journalist.messages = extractMentions(tmpMsgs);
                         let j_beat = journalist.beat;
 
-                        messages.find({ beat: j_beat }).sort({ timestamp: -1 }).exec((err, beat_msgs) => {
+                        messages.find({ beats: j_beat }).sort({ timestamp: -1 }).exec((err, beat_msgs) => {
                             if (err) {
                                 throw err;
                             }

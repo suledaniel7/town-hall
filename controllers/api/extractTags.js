@@ -8,6 +8,9 @@ function extractTags(messages, username){
         }
         //identify tags and messily give 'em html
         let mText = ret_m.message;
+        if(!mText){
+            mText = ret_m.comment;
+        }
         let mTextArr = mText.split(/\s/);
         let finalTextArr = [];
         mTextArr.forEach(element => {

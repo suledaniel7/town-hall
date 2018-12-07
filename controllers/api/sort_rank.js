@@ -2,13 +2,15 @@
 
 function sort_rank(ranked_objs){
     ranked_objs.sort((a, b)=>{
-        return a.rank > b.rank;
+        return a.user.rank > b.user.rank;
     });
 
     let final_objs = [];
 
     ranked_objs.forEach((obj)=>{
-        final_objs.push(obj.r_obj);
+        let t_obj = obj;
+        t_obj.user = obj.user.r_obj;
+        final_objs.push(t_obj);
     });
     
     return final_objs;

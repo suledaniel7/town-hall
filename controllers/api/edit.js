@@ -23,7 +23,7 @@ function edit(req, res) {
                 throw err;
             }
             else if (!ret_u) {
-                res.sendStatus(403);
+                res.send({success: false, reason: "Invalid Account"});
             }
             else {
                 editMessage(username);
@@ -37,7 +37,7 @@ function edit(req, res) {
                 throw err;
             }
             else if (!ret_o) {
-                res.sendStatus(403);
+                res.send({success: false, reason: "Invalid Account"});
             }
             else {
                 editMessage(username);
@@ -51,7 +51,7 @@ function edit(req, res) {
                 throw err;
             }
             else if (!ret_l) {
-                res.sendStatus(403);
+                res.send({success: false, reason: "Invalid Account"});
             }
             else {
                 editMessage(code);
@@ -65,7 +65,7 @@ function edit(req, res) {
                 throw err;
             }
             else if (!ret_j) {
-                res.sendStatus(403);
+                res.send({success: false, reason: "Invalid Account"});
             }
             else {
                 editMessage(username);
@@ -84,12 +84,20 @@ function edit(req, res) {
                     throw err;
                 }
                 else if (!ret_m) {
-                    res.sendStatus(403);
+                    res.send({success: false, reason: "Invalid Account"});
                 }
                 else if (ret_m.sender != username) {
-                    res.sendStatus(403);
+                    res.send({success: false, reason: "Access Denied"});
                 }
                 else {
+                    let beats = ret_m.beats;
+                    let m_type = ret_m.ac_type;
+                    if(ret_m.ac_type == 'o'){
+                        beats = req.body.recepients;
+                    }
+                    else if(ret_m.ac_type == 'j'){
+                        m_type = req.body.post_type;
+                    }
                     let m_obj = refineMessage(m_text, timestamp);
                     if (m_obj) {
                         m_text = m_obj.message;
@@ -101,10 +109,10 @@ function edit(req, res) {
                             sender_name: ret_m.sender_name,
                             sender_position: ret_m.sender_position,
                             sender_avatar: ret_m.sender_avatar,
-                            beat: ret_m.beat,
+                            beats: beats,
                             verified: ret_m.verified,
                             message: m_text,
-                            ac_type: ret_m.m_type,
+                            ac_type: ret_m.ac_type,
                             comments_no: ret_m.comments_no,
                             timestamp: ret_m.timestamp,
                             m_timestamp: ret_m.m_timestamp,
@@ -114,15 +122,17 @@ function edit(req, res) {
                             time_created: timeFn(new Date())
                         }
 
+                        if(m_type){
+                            newMessage.m_type = m_type;
+                        }
+
                         messages.findOneAndUpdate({ m_timestamp: timestamp }, newMessage, (err) => {
                             if (err) {
                                 throw err;
                             }
                             else {
                                 res.send(JSON.stringify({
-                                    success: true,
-                                    message: newMessage,
-                                    originator: true
+                                    success: true
                                 }));
                             }
                         });
@@ -136,10 +146,10 @@ function edit(req, res) {
                     throw err;
                 }
                 else if (!ret_c) {
-                    res.sendStatus(403);
+                    res.send({success: false, reason: "Invalid Account"});
                 }
                 else if (ret_c.sender != username) {
-                    res.sendStatus(403);
+                    res.send({success: false, reason: "Access Denied"});
                 }
                 else {
                     let c_obj = refineComment(m_text);
@@ -170,9 +180,7 @@ function edit(req, res) {
                             }
                             else {
                                 res.send(JSON.stringify({
-                                    success: true,
-                                    comment: newComment,
-                                    username: username
+                                    success: true
                                 }));
                             }
                         });

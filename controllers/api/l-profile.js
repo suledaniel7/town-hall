@@ -42,9 +42,9 @@ function profileRender(req, res){
                         }
                         else {
                             ret_l.password = null;
-
+                            item.user = ret_l;
                             if (page == 'home'){
-                                messages.find({beat: code}).sort({timestamp: -1}).exec((err, ret_d_msgs)=>{
+                                messages.find({beats: code}).sort({timestamp: -1}).exec((err, ret_d_msgs)=>{
                                     if(err){
                                         throw err;
                                     }

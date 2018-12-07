@@ -18,6 +18,7 @@ const journo = new Schema({
     messages_no: {type: Number, default: 0},
     rejected: {type: Object, required: true},
     bio: {type: String, default: ''},
+    ac_type: {type: String, default: 'j'},
     organisation: String,
     orgName: String,
     beat: String,

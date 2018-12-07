@@ -47,7 +47,7 @@ function profileRender(req, res){
                                     let tmpMsgs = extractTags(ret_msgs, code);
                                     ret_l.messages = extractMentions(tmpMsgs);
 
-                                    messages.find({beat: code}).sort({timestamp: -1}).exec((err, ret_d_msgs)=>{
+                                    messages.find({beats: code}).sort({timestamp: -1}).exec((err, ret_d_msgs)=>{
                                         if(err){
                                             throw err;
                                         }

@@ -463,7 +463,7 @@ function deleteMessage(timestamp, m_type) {
 }
 
 function reportMessage(timestamp, m_type){
-    let confirmed = confirm("Are you sure you want to report this message for a Community violation?");
+    let confirmed = confirm("Do you want to report this message for a Community violation?");
     if(confirmed){
         $.ajax({
             url: '/report/'+m_type+'/'+timestamp,
@@ -473,7 +473,7 @@ function reportMessage(timestamp, m_type){
             },
             success: (data)=>{
                 if(data.success){
-                    setErr("Message reported successfully. We'll review it and take any necessary actions. Thanks");
+                    setErr("We appreciate you taking out time to report this message. Our Community Moderators will have a look at it and take action where necessary. Thank you.");
                 }
                 else {
                     setErr("An error occured in reporting the message. Please refresh your feed");

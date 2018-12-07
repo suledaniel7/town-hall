@@ -10,6 +10,7 @@ let userSchema = new Schema({
     fed_const: {type: String, required: true},
     sen_dist: {type: String, required: true},
     sources: {type: Array, required: true},
+    ac_type: {type: String, default: 'u'},
     // sug_sources: Array,
     avatar: {type: String, required: true},
     sourceSel: Boolean,

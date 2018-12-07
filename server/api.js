@@ -36,6 +36,10 @@ const deleteFn = require('../controllers/api/delete');
 const reportFn = require('../controllers/api/report');
 const signin = require('../controllers/api/signin');
 const signedIn = require('../controllers/api/signed_in');
+const sel_org_render = require('../controllers/api/select-org-render');
+const sel_beat_render = require('../controllers/api/select-beat-render');
+const load_images = require('../controllers/api/load-images');
+const msg_req = require('../controllers/api/message_req');
 
 const router = express.Router();
 // const logos = multer({dest: 'public/logos/'});
@@ -88,6 +92,10 @@ router.post('/journalists/signin', j_signin);
 
 router.post('/journalists/signup', j_signup);
 
+router.get('/journalists/orgs/', sel_org_render);
+
+router.get('/journalists/beats/', sel_beat_render);
+
 router.post('/legislators/signin', l_signin);
 
 router.get('/users/signup', render_u_signup);
@@ -104,9 +112,9 @@ router.post('/users/signup', u_signup);
 
 router.post('/users/signin', u_signin);
 
-router.get('/select-beat/:username/:beat', auth, select_f_beat);
+router.post('/select-beat/', auth, select_f_beat);
 
-router.get('/organisations/request/:organisation/:username', auth, select_org);
+router.post('/organisations/request/', auth, select_org);
 
 router.get('/organisations/j-requests/:type/:username/:j_username', auth, handleJReq);
 
@@ -136,10 +144,15 @@ router.post('/delete/:m_type/:timestamp', auth, deleteFn);
 
 router.post('/report/:m_type/:timestamp', auth, reportFn);
 
+router.get('/img-load', auth, load_images);
+
+router.get('/req-msg/:m_type/:timestamp', auth, msg_req);
+
 router.get('/logout', logout);
 
 router.all('*', (req, res)=>{
-    res.send(JSON.stringify({server_response: 'Invalid API Route'}));
+    res.send(JSON.stringify({success: false, reason: 'Invalid API Route', route: `${req.url}`, server_response: 'Invalid API Route'}));
+    console.log("Invalid API Route:", req.url);
 });
 
 module.exports = router;

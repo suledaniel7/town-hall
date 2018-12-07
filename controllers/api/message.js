@@ -58,13 +58,17 @@ function messageHandler(req, res) {
         if (m_type == 'j') {
             //journo
             if (!req.journalist) {
-                res.sendStatus(403);//forbidden
+                res.send({success: false, reason: "Invalid Journalist Account"});
             }
             else if (!req.journalist.user) {
-                res.sendStatus(403);//forbidden
+                res.send({success: false, reason: "Invalid Journalist Account"});
             }
             else {
                 let username = req.journalist.user.username;
+                let post_type = req.body.post_type;
+                if(!post_type){
+                    post_type = 'o';
+                }
                 let message = new messages({
                     sender: username,
                     message: mText,
@@ -74,6 +78,7 @@ function messageHandler(req, res) {
                     m_timestamp: username + '-' + timestamp,
                     tags: tags,
                     mentions: mentions,
+                    m_type: post_type,
                     date_created: dateFn(new Date(), true),
                     time_created: timeFn(new Date())
                 });
@@ -85,7 +90,7 @@ function messageHandler(req, res) {
                         throw err;
                     }
                     else if (!ret_j) {
-                        res.sendStatus(403);
+                        res.send({success: false, reason: "Invalid Credentials"});
                     }
                     else {
                         //j exists, send message finally
@@ -107,10 +112,10 @@ function messageHandler(req, res) {
                                 message.beats = [ret_j.beat];
                                 message.save((err) => {
                                     if (err) {
-                                        res.sendStatus(403);
+                                        res.send({success: false, reason: "An error occured in saving your message. Please try again later"});
                                     }
                                     else {
-                                        res.send(JSON.stringify({ message: message, originator: true }));
+                                        res.send({success: true});
                                     }
                                 });
                             }
@@ -122,10 +127,10 @@ function messageHandler(req, res) {
         else if (m_type == 'o') {
             let beats = req.body.recepients;
             if (!req.organisation) {
-                res.sendStatus(403);
+                res.send({success: false, reason: "Invalid Credentials"});
             }
             else if (!req.organisation.user) {
-                res.sendStatus(403);
+                res.send({success: false, reason: "Invalid Credentials"});
             }
             else {
                 //user exists
@@ -150,7 +155,7 @@ function messageHandler(req, res) {
                         throw err;
                     }
                     else if (!ret_o) {
-                        res.sendStatus(403);
+                        res.send({success: false, reason: "Invalid Organisation Account"});
                     }
                     else {
                         //org exists
@@ -170,10 +175,10 @@ function messageHandler(req, res) {
                                     message.beats = 'all';
                                     message.save((err) => {
                                         if (err) {
-                                            res.sendStatus(403);
+                                            res.send({success: false, reason: "An error occured in saving your message. Please try again later"});
                                         }
                                         else {
-                                            res.send(JSON.stringify({ message: message, originator: true }));
+                                            res.send({success: true});
                                         }
                                     });
                                 }
@@ -181,10 +186,10 @@ function messageHandler(req, res) {
                                     message.beats = beats;
                                     message.save((err) => {
                                         if (err) {
-                                            res.sendStatus(403);
+                                            res.send({success: false, reason: "An error occured in saving your message. Please try again later"});
                                         }
                                         else {
-                                            res.send(JSON.stringify({ message: message, originator: true }));
+                                            res.send({success: true});
                                         }
                                     });
                                 }
@@ -196,10 +201,10 @@ function messageHandler(req, res) {
         }
         else if (m_type == 'l') {
             if (!req.legislator) {
-                res.sendStatus(403);
+                res.send({success: false, reason: "Invalid Credentials"});
             }
             else if (!req.legislator.user) {
-                res.sendStatus(403);
+                res.send({success: false, reason: "Invalid Credentials"});
             }
             else {
                 //user exists
@@ -226,7 +231,7 @@ function messageHandler(req, res) {
                         throw err;
                     }
                     else if (!ret_l) {
-                        res.sendStatus(403);
+                        res.send({success: false, reason: "Invalid Legislator Account"});
                     }
                     else {
                         //leg exists
@@ -243,10 +248,10 @@ function messageHandler(req, res) {
                                 message.sender_avatar = ret_l.avatar;
                                 message.save((err) => {
                                     if (err) {
-                                        res.sendStatus(403);
+                                        res.send({success: false, reason: "An error occured in saving your message. Please try again later"});
                                     }
                                     else {
-                                        res.send(JSON.stringify({ message: message, originator: true }));
+                                        res.send({success: true});
                                     }
                                 });
                             }

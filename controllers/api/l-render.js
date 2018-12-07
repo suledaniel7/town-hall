@@ -4,7 +4,8 @@ const messages = require('../schemas/messages');
 const extractTags = require('./extractTags');
 const extractMentions = require('./extractMentions');
 
-function renderProfile(req, res, code, user){
+function renderProfile(req, res, code, user, c_username){
+    let item = {};
     legislators.findOne({code: code}, (err, ret_l)=>{
         if(err){
             throw err;
@@ -14,7 +15,7 @@ function renderProfile(req, res, code, user){
         }
         else {
             if(user){
-                ret_l.canFollow = true;
+                item.canFollow = true;
                 let flag = false;
                 user.sources.forEach(source => {
                     if(source == ret_l.code){
@@ -24,7 +25,7 @@ function renderProfile(req, res, code, user){
                 if(user.districts.indexOf(code) != -1){
                     flag = true;
                 }
-                ret_l.following = flag;
+                item.following = flag;
             }
             ret_l.likes = null;
             ret_l.dislikes = null;
@@ -39,7 +40,7 @@ function renderProfile(req, res, code, user){
                     res.send(JSON.stringify({success: false, reason: "Invalid Account District"}));
                 }
                 else {
-                    ret_l.const_num = ret_d.const_num;
+                    item.const_num = ret_d.const_num;
 
                     messages.find({sender: code}).sort({timestamp: -1}).exec((err, ret_msgs)=>{
                         if(err){
@@ -47,8 +48,10 @@ function renderProfile(req, res, code, user){
                         }
                         else {
                             let tmpMsgs = extractTags(ret_msgs, null);
-                            ret_l.messages = extractMentions(tmpMsgs);
-                            res.send(JSON.stringify({success: true, item: ret_l}));
+                            item.messages = extractMentions(tmpMsgs);
+                            item.user = ret_l;
+                            item.username = c_username;
+                            res.send(JSON.stringify({success: true, item: item}));
                         }
                     });
                 }

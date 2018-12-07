@@ -9,12 +9,14 @@ function fullSearch() {
     let sActive = false;
     let barActive = false;
 
-    bar2.addEventListener('mouseover', ()=>{
-        barActive = true;
-    });
-    bar2.addEventListener('mouseout', ()=> {
-        barActive = false;
-    });
+    if (bar2) {
+        bar2.addEventListener('mouseover', () => {
+            barActive = true;
+        });
+        bar2.addEventListener('mouseout', () => {
+            barActive = false;
+        });
+    }
 
     searchBar.addEventListener('blur', () => {
         if (!sActive) {

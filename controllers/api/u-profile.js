@@ -51,7 +51,7 @@ function renderProfile(req, res) {
                             else {
                                 item.rep = strip([rep], ['password', 'email', 'likes', 'dislikes'])[0];
                                 item.sen = strip([sen], ['password', 'email', 'likes', 'dislikes'])[0];
-
+                                item.user = ret_u;
                                 if (page == 'home') {
                                     if (!ret_u.sourceSel) {
                                         organisations.find({ $or: [{ districts: ret_u.fed_const }, { districts: ret_u.sen_dist }] }, (err, ret_orgs) => {
@@ -59,8 +59,25 @@ function renderProfile(req, res) {
                                                 throw err;
                                             }
                                             else {
-                                                ret_orgs = strip(ret_orgs, ['email', 'pub_email', 'password', 'pendingBeat', 'districts', 'journalists', 'pending_reqs', 'followers', 'likes', 'dislikes'])[0];
-                                                item.suggested_orgs = ret_orgs;
+                                                strip(ret_orgs, ['email', 'pub_email', 'password', 'pendingBeat', 'districts', 'journalists', 'pending_reqs', 'followers', 'likes', 'dislikes'])[0];
+                                                let suggested_orgs = [];
+                                                if(ret_orgs.length > 0){
+                                                    ret_orgs.forEach(ret_org => {
+                                                        let sug_org = {
+                                                            name: ret_org.name,
+                                                            avatar: ret_org.logo,
+                                                            bio: "Media Organisation",
+                                                            tint: 'o',
+                                                            username: ret_org.username
+                                                        }
+                                                        suggested_orgs.push(sug_org);
+                                                    });
+                                                    item.noOrgs = false;
+                                                }
+                                                else {
+                                                    item.noOrgs = true;
+                                                }
+                                                item.suggested_orgs = suggested_orgs;
 
                                                 messages.find({ $or: [{ sender: ret_u.fed_const }, { sender: ret_u.sen_dist }] }, (err, ret_msgs) => {
                                                     if (err) {

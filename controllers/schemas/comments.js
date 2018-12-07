@@ -12,6 +12,7 @@ let commentSchema = new Schema({
     m_timestamp: {type: String, required: true},
     c_timestamp: {type: String, unique: true, required: true},
     c_type: {type: String, required: true},
+    ac_type: {type: String, required: true},
     comments_no: {type: Number, required: true},
     date_created: {type: String, required: true},
     time_created: {type: String, required: true},

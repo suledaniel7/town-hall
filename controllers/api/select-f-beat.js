@@ -2,11 +2,11 @@ const journalists = require('../schemas/journalists');
 const districts = require('../schemas/districts');
 
 function selectBeat(req, res){
-    let username = req.params.username;
-    let beat = req.params.beat;
+    let beat = req.body.beat;
     
     if(req.journalist){
-        if(req.journalist.user && req.journalist.user.username == username){
+        if(req.journalist.user && req.journalist.user.username){
+            let username = req.journalist.user.username;
             //all is well-ish, second parameter of authentication
             journalists.findOne({username: username}, (err, journo)=>{
                 if(err){

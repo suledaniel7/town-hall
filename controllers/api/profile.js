@@ -13,9 +13,11 @@ function profile(req, res){
     let referee = req.headers.referer;
 
     let u_type = findActive(req, res);
+    let curr_username = '';
     let user = null;
     if(u_type == 'user'){
         let username = req.user.user.username;
+        curr_username = username;
         users.findOne({username: username}, (err, ret_u)=>{
             if(err){
                 req.user.user = null;
@@ -37,10 +39,12 @@ function profile(req, res){
         });
     }
     else if(u_type == 'organisation'){
+        curr_username = req.organisation.user.username;
         findGen(null);
     }
     else if(u_type == 'journalist'){
         let username = req.journalist.user.username;
+        curr_username = username;
         journalists.findOne({username: username}, (err, ret_j)=>{
             if(err){
                 req.journalist.user = null;
@@ -62,6 +66,7 @@ function profile(req, res){
         });
     }
     else if(u_type == 'legislator'){
+        curr_username = req.legislator.user.code;
         findGen(null);
     }
     
@@ -71,15 +76,15 @@ function profile(req, res){
                 throw err;
             }
             else if(!ret_g){
-                l_render(req, res, username, user);
+                l_render(req, res, username, user, curr_username);
             }
             else {
                 let user_type = ret_g.identifier;
                 if(user_type == 'j'){
-                    j_render(req, res, username, user);
+                    j_render(req, res, username, user, curr_username);
                 }
                 else if(user_type == 'o'){
-                    o_render(req, res, username, user);
+                    o_render(req, res, username, user, curr_username);
                 }
                 else {
                     console.log("An error occured with the general, username:", username);

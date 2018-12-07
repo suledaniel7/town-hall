@@ -1,8 +1,6 @@
 const journalists = require('../schemas/journalists');
 const legislators = require('../schemas/legislators');
 const messages = require('../schemas/messages');
-const beatSelect = require('./select-beat-render');
-const orgSelect = require('./select-org-render');
 const extractTags = require('./extractTags');
 const extractMentions = require('./extractMentions');
 const log_entry = require('./log_entry');
@@ -22,7 +20,7 @@ function renderProfile(req, res) {
         }
         else {
             if (!journalist) {
-                res.send(JSON.stringify({success: false, reason: "Invalid Account"}));
+                res.send(JSON.stringify({ success: false, reason: "Invalid Account" }));
             }
             else {
                 //there are different types of j's: freelance, and formal. Freelance need to choose their beats
@@ -30,31 +28,51 @@ function renderProfile(req, res) {
                 if (journalist.account.type == 'formal') {
                     if (!journalist.account.status) {
                         //un-organised journo
-                        orgSelect(req, res);
+                        if (page == 'verify') {
+                            res.send({ complete: false, redirectTo: 'm' });
+                        }
+                        else {
+                            res.send({ success: false, reason: "Incomplete Account Registration" });
+                        }
                     }
                     else {
                         //organised journo
-                        let wsp = /^\s*$/;
-                        if (!journalist.verified || wsp.test(journalist.beat)) {
-                            item.free = false;
+                        if (page == 'verify') {
+                            res.send({ complete: true, redirectTo: 'm' });
                         }
                         else {
-                            item.free = true;
+                            let wsp = /^\s*$/;
+                            if (wsp.test(journalist.beat)) {
+                                item.free = false;
+                            }
+                            else {
+                                item.free = true;
+                            }
+                            // Compile messages
+                            compileMessages(journalist);
                         }
-                        // Compile messages
-                        compileMessages(journalist);
                     }
                 }
                 else {
                     if (!journalist.account.status) {
                         //un-beat journo
-                        beatSelect(req, res);
+                        if (page == 'verify') {
+                            res.send({ complete: false, redirectTo: 'l' });
+                        }
+                        else {
+                            res.send({ success: false, reason: "Incomplete Account Registration" });
+                        }
                     }
                     else {
                         //beat journo
-                        item.free = true;
-                        // Compile messages
-                        compileMessages(journalist);
+                        if (page == 'verify') {
+                            res.send({ complete: true, redirectTo: 'l' });
+                        }
+                        else {
+                            item.free = true;
+                            // Compile messages
+                            compileMessages(journalist);
+                        }
                     }
                 }
             }
@@ -73,15 +91,15 @@ function renderProfile(req, res) {
             else if (!ret_l && code) {
                 req.journalist.user = null;
                 console.log("Error obtaining legislator on j_beat:", code, "journalist:", init_username);
-                res.send(JSON.stringify({success: false, reason: "An error occured on our side. Please try again later"}));
+                res.send(JSON.stringify({ success: false, reason: "An error occured on our side. Please try again later" }));
             }
             else {
-                if(ret_l){
+                if (ret_l) {
                     item.rep = strip([ret_l], ['password', 'email', 'likes', 'dislikes']);
                 }
-
-                if(page == 'home'){
-                    messages.find({ beat: j_beat }).sort({ timestamp: -1 }).exec((err, beat_msgs) => {
+                item.user = journalist;
+                if (page == 'home') {
+                    messages.find({ beats: j_beat }).sort({ timestamp: -1 }).exec((err, beat_msgs) => {
                         if (err) {
                             throw err;
                         }
@@ -93,14 +111,15 @@ function renderProfile(req, res) {
                             });
                             tmpBeatMsgs = extractTags(beat_msgs, init_username);
                             item.beat_msgs = extractMentions(tmpBeatMsgs);
-                            
-                            res.send(JSON.stringify({success: true, item: item}));
+                            item.user = journalist;
+
+                            res.send(JSON.stringify({ success: true, item: item }));
                             let end_time = new Date();
                             log_entry("Render Journalist profile", false, start_time, end_time);
                         }
                     });
                 }
-                else if(page == 'org'){
+                else if (page == 'org') {
                     messages.find({ sender: j_org }).sort({ timestamp: -1 }).exec((err, org_msgs) => {
                         if (err) {
                             throw err;
@@ -108,14 +127,14 @@ function renderProfile(req, res) {
                         else {
                             let tmpOrgMsgs = extractTags(org_msgs, null);
                             item.org_msgs = extractMentions(tmpOrgMsgs);
-                            
-                            res.send(JSON.stringify({success: true, item: item}));
+
+                            res.send(JSON.stringify({ success: true, item: item }));
                             let end_time = new Date();
                             log_entry("Render Journalist profile", false, start_time, end_time);
                         }
                     });
                 }
-                else if(page == 'profile'){
+                else if (page == 'profile') {
                     messages.find({ sender: init_username }).sort({ timestamp: -1 }).exec((err, ret_msgs) => {
                         if (err) {
                             throw err;
@@ -125,14 +144,14 @@ function renderProfile(req, res) {
                             item.messages = extractMentions(tmpMsgs);
                             item.user = journalist;
 
-                            res.send(JSON.stringify({success: true, item: item}));
+                            res.send(JSON.stringify({ success: true, item: item }));
                             let end_time = new Date();
                             log_entry("Render Journalist profile", false, start_time, end_time);
                         }
                     });
                 }
                 else {
-                    res.send(JSON.stringify({success: false, reason: "Invalid Page Request"}));
+                    res.send(JSON.stringify({ success: false, reason: "Invalid Page Request" }));
                 }
             }
         });
