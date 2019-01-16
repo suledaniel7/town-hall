@@ -34,10 +34,10 @@ function selectOrg(req, res) {
                                     res.send(JSON.stringify({success: false, reason: "The selected Organisation Account is invalid"}));
                                 }
                                 else {
-                                    org.pending_reqs.push(journo);
                                     journo.account.status = true;
                                     journo.organisation = org_name;
                                     journo.orgName = org.name;
+                                    org.pending_reqs.push(journo);
                                     //update organisation then journo
 
                                     organisations.findOneAndUpdate({ username: org_name }, org, (err) => {

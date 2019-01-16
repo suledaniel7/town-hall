@@ -5,7 +5,7 @@ const orgSchema = require('./schemas/organisations');
 function signin(req, res) {
     let { email, password } = req.body;
 
-    orgSchema.findOne({ email: email }, (err, user) => {
+    orgSchema.findOne({$or:[{email: email}, {username: email}]}, (err, user) => {
         if (err) {
             throw err;
         }

@@ -1,0 +1,10 @@
+<div class="uk-card uk-card-default uk-width-1-4">
+    <div class="uk-card-header">
+        <img src="/{{avatar}}{{logo}}" class="avatar" alt="{{f_name}}{{name}}'s Avatar">
+    </div>
+    <div class="uk-card-body center">
+        <p class="bold"><a href="/profile/{{username}}{{code}}">{{full_name}}{{name}}</a>{{#if verification}}{{#verification}}{{#if verified}}<img src="/img/img-1/success.png" class="verified" title="Verified Account" alt="Verified Account">{{/if}}{{/verification}}{{/if}}{{#if verified}}<img src="/img/img-1/success.png" class="verified" title="Verified Account" alt="Verified Account">{{/if}}</p>
+        <p>@{{username}}{{code}}</p>
+        <p class="grey">{{description}}</p>
+    </div>
+</div>

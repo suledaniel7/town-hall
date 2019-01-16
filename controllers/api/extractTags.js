@@ -8,7 +8,9 @@ function extractTags(messages, username){
         }
         //identify tags and messily give 'em html
         let mText = ret_m.message;
+        let t = 'm';
         if(!mText){
+            t = 'c';
             mText = ret_m.comment;
         }
         let mTextArr = mText.split(/\s/);
@@ -25,13 +27,19 @@ function extractTags(messages, username){
                     hold_elem += part_elem.slice(0, end);
                 }
 
-                hold_elem = `<span><a href="/search/tag/${part_elem}" class="tag">${hold_elem}</a></span>`;
+                hold_elem = `<a class="tag" href="javascript:render_tag('${part_elem}')">${hold_elem}</a>`;
                 element = hold_elem;
             }
             finalTextArr.push(element);
         });
 
-        ret_m.message = finalTextArr.join(' ');//doesn't use the same char as was used to separate
+        //doesn't use the same char as was used to separate
+        if(t == 'm'){
+            ret_m.message = finalTextArr.join(' ');
+        }
+        else {
+            ret_m.comment = finalTextArr.join(' ');
+        }
     });
     return messages;
 }

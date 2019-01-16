@@ -13,7 +13,7 @@ body {
 }
 
 .error, .errorDiv {
-    color: red;
+    color: #1e87f0;
     text-align: center;
 }
 
@@ -37,7 +37,7 @@ input {
 }
 
 button {
-    background-color: rgb(59, 120, 212);
+    background-color: #1e87f0;
     border: transparent;
     color: white;
     width: 100px;
@@ -46,29 +46,29 @@ button {
 
 button:hover {
     cursor: pointer;
-    background-color: rgb(70, 163, 250);
+    background-color: #4099f1;
 }
 
 .l-button {
-    background-color: rgb(146, 25, 25);
+    background-color: #1e87f0;
 }
 
 .l-button:hover {
-    background-color: rgb(253, 43, 43);
+    background-color: #4099f1;
 }
 
 .j-button {
-    background-color: rgb(120, 2, 255);
+    background-color: #1e87f0;
 }
 
 .j-button:hover {
-    background-color: rgb(160, 80, 252);
+    background-color: #4099f1;
 }
 
 .u-button {
-    background-color: rgb(32, 145, 153);
+    background-color: #1e87f0;
 }
 
 .u-button:hover {
-    background-color: rgb(48, 210, 221);
+    background-color: #4099f1;
 }

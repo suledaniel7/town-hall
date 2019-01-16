@@ -1,0 +1,38 @@
+<head>
+    <title>{{name}}'s Followers | Town Hall</title>
+    <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/uikit/css/uikit.css">
+    <link rel="stylesheet" href="/css/followers.css">
+    <script src="/js/jquery-3.3.1.js"></script>
+    <script src="/uikit/js/uikit.js"></script>
+    <script src="/uikit/js/uikit-icons.js"></script>
+</head>
+
+<body>
+    <div class="main">
+        <div id="home" class="uk-width-1-1">
+            <a href="/">Back to Home</a>
+        </div>
+        <div class="uk-width-1-1 center">
+            <h4>{{name}}'s Followers</h4>
+        </div>
+        <div class="uk-child-width-1-4@m uk-grid-small uk-grid-match" uk-grid>
+            {{#if followers}}
+            {{#each followers}}
+            <div class="uk-card uk-card-default uk-card-hover">
+                <div class="uk-card-header">
+                    <img src="/{{avatar}}" class="avatar" alt="{{f_name}}'s Avatar">
+                </div>
+                <div class="uk-card-body center">
+                    <p class="bold"><a href="/profile/{{username}}">{{full_name}}</a></p>
+                    <p>@{{username}}</p>
+                    <p class="grey">{{description}}</p>
+                </div>
+            </div>
+            {{/each}}
+            {{else}}
+            <h4 class="grey center uk-width-1-1">No Followers</h4>
+            {{/if}}
+        </div>
+    </div>
+</body>

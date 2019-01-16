@@ -16,7 +16,7 @@ function follow(req, res) {
                 throw err;
             }
             else if (!ret_u) {
-                res.send({success: false, text: "Invalid User Account"});
+                res.send({ success: false, text: "Invalid User Account" });
             }
             else {
                 async function next() {
@@ -26,35 +26,45 @@ function follow(req, res) {
                     //then res.send. AJAX proceedings next
                     if (!target_type || target_type == 'user') {
                         //user doesn't exist
-                        res.send({success: false, text: "Invalid User Account"});
+                        res.send({ success: false, text: "Invalid User Account" });
                     }
                     else if (target_type == 'legislator') {
-                        //add only to user's sources
+                        //add to user's sources and legislators followers
                         legislators.findOne({ code: f_username }, (err, ret_l) => {
                             if (err) {
                                 throw err;
                             }
                             else if (!ret_l) {
-                                res.send({success: false, text: "Invalid Legislator Account"});
+                                res.send({ success: false, text: "Invalid Legislator Account" });
                             }
                             else {
                                 if (ret_u.sources.indexOf(f_username) == -1 && ret_u.fed_const != f_username && ret_u.sen_dist != f_username) {
                                     //not following
                                     ret_u.sources.push(f_username);
-                                    if(!ret_u.sourceSel){
-                                        ret_u.sourceSel = true;
-                                    }
-                                    users.findOneAndUpdate({ username: username }, ret_u, (err) => {
+
+                                    ret_l.followers.push(username);
+
+                                    ret_l.followersNo++;
+
+                                    legislators.findOneAndUpdate({ code: f_username }, ret_l, (err) => {
                                         if (err) {
                                             throw err;
                                         }
                                         else {
-                                            res.send({ success: true });
+                                            users.findOneAndUpdate({ username: username }, ret_u, (err) => {
+                                                if (err) {
+                                                    throw err;
+                                                }
+                                                else {
+                                                    res.send({ success: true });
+                                                }
+                                            });
                                         }
                                     });
+
                                 }
                                 else {
-                                    res.send({success: false, text: "You are already following this Account"});
+                                    res.send({ success: false, text: "You are already following this Account" });
                                 }
                             }
                         });
@@ -66,14 +76,14 @@ function follow(req, res) {
                                 throw err;
                             }
                             else if (!ret_j) {
-                                res.send({success: false, text: "Invalid J-Account"});
+                                res.send({ success: false, text: "Invalid J-Account" });
                             }
                             else {
                                 //j exists, add to sources post integrity check
                                 if (ret_u.sources.indexOf(f_username) == -1 && ret_j.account.status) {
                                     //j is verified, and isn't already in sources
                                     ret_u.sources.push(f_username);
-                                    if(!ret_u.sourceSel){
+                                    if (!ret_u.sourceSel) {
                                         ret_u.sourceSel = true;
                                     }
                                     ret_j.followersNo++;
@@ -96,53 +106,53 @@ function follow(req, res) {
                                     });
                                 }
                                 else {
-                                    res.send({success: false, text: "You are already following this Account"});
+                                    res.send({ success: false, text: "You are already following this Account" });
                                 }
                             }
                         });
                     }
                     else if (target_type == 'organisation') {
                         //add to user's sources, update org's followers
-                        organisations.findOne({username: f_username}, (err, ret_o)=>{
-                            if(err){
+                        organisations.findOne({ username: f_username }, (err, ret_o) => {
+                            if (err) {
                                 throw err;
                             }
-                            else if(!ret_o){
-                                res.send({success: false, text: "Invalid Organisation Account"});
+                            else if (!ret_o) {
+                                res.send({ success: false, text: "Invalid Organisation Account" });
                             }
                             else {
-                                if(ret_u.sources.indexOf(f_username) == -1 && ret_o.followers.indexOf(username) == -1){
-                                    if(!ret_u.sourceSel){
+                                if (ret_u.sources.indexOf(f_username) == -1 && ret_o.followers.indexOf(username) == -1) {
+                                    if (!ret_u.sourceSel) {
                                         ret_u.sourceSel = true;
                                     }
                                     ret_u.sources.push(f_username);
                                     ret_o.followers.push(username);
                                     ret_o.followersNo++;
 
-                                    organisations.findOneAndUpdate({username: f_username}, ret_o, (err)=>{
-                                        if(err){
+                                    organisations.findOneAndUpdate({ username: f_username }, ret_o, (err) => {
+                                        if (err) {
                                             throw err;
                                         }
                                         else {
-                                            users.findOneAndUpdate({username: username}, ret_u, (err)=>{
-                                                if(err){
+                                            users.findOneAndUpdate({ username: username }, ret_u, (err) => {
+                                                if (err) {
                                                     throw err;
                                                 }
                                                 else {
-                                                    res.send({success: true});
+                                                    res.send({ success: true });
                                                 }
                                             });
                                         }
                                     });
                                 }
                                 else {
-                                    res.send({success: false, text: "You are already following this Account"});
+                                    res.send({ success: false, text: "You are already following this Account" });
                                 }
                             }
                         });
                     }
                     else {
-                        res.send({success: false, text: "Invalid User Account"});
+                        res.send({ success: false, text: "Invalid User Account" });
                     }
                 }
                 next();
@@ -156,7 +166,7 @@ function follow(req, res) {
                 throw err;
             }
             else if (!ret_j) {
-                res.send({success: false, text: "Invalid User Account"});
+                res.send({ success: false, text: "Invalid User Account" });
             }
             else {
                 async function next() {
@@ -166,112 +176,122 @@ function follow(req, res) {
                     //then res.send. AJAX proceedings next
                     if (!target_type || target_type == 'user') {
                         //user doesn't exist
-                        res.send({success: false, text: "Invalid User Account"});
+                        res.send({ success: false, text: "Invalid User Account" });
                     }
                     else if (target_type == 'legislator') {
-                        //add only to user's sources
+                        //add to user's sources and to leg's followers
                         legislators.findOne({ code: f_username }, (err, ret_l) => {
                             if (err) {
                                 throw err;
                             }
                             else if (!ret_l) {
-                                res.send({success: false, text: "Invalid Legislator Account"});
+                                res.send({ success: false, text: "Invalid Legislator Account" });
                             }
                             else {
-                                if(ret_j.sources.indexOf(f_username) == -1 && ret_j.beat != '' && ret_j.beat != f_username){
+                                if (ret_j.sources.indexOf(f_username) == -1 && ret_j.beat != '' && ret_j.beat != f_username) {
                                     ret_j.sources.push(f_username);
+                                    ret_l.followersNo++;
+                                    ret_l.followers.push(username);
 
-                                    journalists.findOneAndUpdate({username: username}, ret_j, (err)=>{
-                                        if(err){
+                                    legislators.findOneAndUpdate({ code: f_username }, ret_l, (err) => {
+                                        if (err) {
                                             throw err;
                                         }
                                         else {
-                                            res.send({success: true});
+                                            journalists.findOneAndUpdate({ username: username }, ret_j, (err) => {
+                                                if (err) {
+                                                    throw err;
+                                                }
+                                                else {
+                                                    res.send({ success: true });
+                                                }
+                                            });
                                         }
                                     });
+
                                 }
                                 else {
-                                    res.send({success: false, text: "You are already following this Account"});
+                                    res.send({ success: false, text: "You are already following this Account" });
                                 }
                             }
                         });
                     }
                     else if (target_type == 'journalist') {
                         //add to user's sources, update independent j's followers
-                        journalists.findOne({username: f_username}, (err, ret_f_j)=>{
-                            if(err){
+                        journalists.findOne({ username: f_username }, (err, ret_f_j) => {
+                            if (err) {
                                 throw err;
                             }
-                            else if(!ret_f_j){
-                                res.send({success: false, text: "Invalid J-Account"});
+                            else if (!ret_f_j) {
+                                res.send({ success: false, text: "Invalid J-Account" });
                             }
                             else {
-                                if(ret_j.sources.indexOf(f_username) == -1 && ret_f_j.followers.indexOf(username) == -1 && username != f_username){
+                                if (ret_j.sources.indexOf(f_username) == -1 && ret_f_j.followers.indexOf(username) == -1 && username != f_username) {
                                     ret_j.sources.push(f_username);
                                     ret_f_j.followers.push(username);
                                     ret_f_j.followersNo++;
 
-                                    journalists.findOneAndUpdate({username: f_username}, ret_f_j, (err)=>{
-                                        if(err){
+                                    journalists.findOneAndUpdate({ username: f_username }, ret_f_j, (err) => {
+                                        if (err) {
                                             throw err;
                                         }
                                         else {
-                                            journalists.findOneAndUpdate({username: username}, ret_j, (err)=>{
-                                                if(err){
+                                            journalists.findOneAndUpdate({ username: username }, ret_j, (err) => {
+                                                if (err) {
                                                     throw err;
                                                 }
-                                                else{
-                                                    res.send({success: true});
+                                                else {
+                                                    res.send({ success: true });
                                                 }
                                             });
                                         }
                                     });
                                 }
                                 else {
-                                    res.send({success: false, text: "You are already following this Account"});
+                                    res.send({ success: false, text: "You are already following this Account" });
                                 }
                             }
                         });
                     }
                     else if (target_type == 'organisation') {
                         //add to user's sources, update org's followers
-                        organisations.findOne({username: f_username}, (err, ret_o)=>{
-                            if(err){
+                        organisations.findOne({ username: f_username }, (err, ret_o) => {
+                            if (err) {
                                 throw err;
                             }
-                            else if(!ret_o){
-                                res.send({success: false, text: "Invalid Organisation Account"});
+                            else if (!ret_o) {
+                                res.send({ success: false, text: "Invalid Organisation Account" });
                             }
                             else {
-                                if(ret_j.sources.indexOf(f_username) == -1 && ret_o.followers.indexOf(username) == -1 && ret_j.organisation != f_username){
+                                if (ret_j.sources.indexOf(f_username) == -1 && ret_o.followers.indexOf(username) == -1) {
                                     ret_j.sources.push(f_username);
                                     ret_o.followers.push(username);
                                     ret_o.followersNo++;
 
-                                    organisations.findOneAndUpdate({username: f_username}, ret_o, (err)=>{
-                                        if(err){
+                                    organisations.findOneAndUpdate({ username: f_username }, ret_o, (err) => {
+                                        if (err) {
                                             throw err;
                                         }
                                         else {
-                                            journalists.findOneAndUpdate({username: username}, ret_j, (err)=>{
-                                                if(err){
+                                            journalists.findOneAndUpdate({ username: username }, ret_j, (err) => {
+                                                if (err) {
                                                     throw err;
                                                 }
                                                 else {
-                                                    res.send({success: true});
+                                                    res.send({ success: true });
                                                 }
                                             });
                                         }
                                     });
                                 }
                                 else {
-                                    res.send({success: false, text: "You are already following this Account"});
+                                    res.send({ success: false, text: "You are already following this Account" });
                                 }
                             }
                         });
                     }
                     else {
-                        res.send({success: false, text: "Invalid User Account"});
+                        res.send({ success: false, text: "Invalid User Account" });
                     }
                 }
                 next();
@@ -279,7 +299,7 @@ function follow(req, res) {
         });
     }
     else {
-        res.send({success: false, text: "You cannot follow other accounts"});
+        res.send({ success: false, text: "You cannot follow other accounts" });
     }
 }
 

@@ -1,43 +1,60 @@
 .error {
-    color: red;
+    color: #1e87f0;
     font-size: 16pt;
 }
 
 .content {
-    float: left;
-    height: 648px;
+    height: 100vh;
 }
 
 #leftBar {
-    width: 19%;
-    padding: 0.5%;
-    background-color: rgb(32, 145, 153);
+    padding-top: 1%;
+    background-color: #1e87f0;
+}
+
+#leftContent {
+    padding: 10px;
+    height: 90%;
+}
+
+#rightContent {
+    padding: 10px;
+    height: 99%;
+    overflow-y: auto;
 }
 
 #centerBar {
-    width: 59%;
-    padding: 0.5%;
+    padding: 1%;
+    padding-top: 0%;
     overflow-y: auto;
 }
 
 #rightBar {
-    width: 19%;
-    padding: 0.5%;
-    background-color: rgb(32, 145, 153);
+    padding: 1%;
+    background-color: #1e87f0;
 }
 
 .avatar {
     height: 5em;
+    max-height: 100%;
     display: block;
     margin: 0 auto;
-    border: 2px solid rgb(48, 210, 221);
+    border: 2px solid white;
     border-radius: 50%;
     padding: 0.5%;
 }
 
+#avatarFig {
+    height: 10%;
+}
+
 .sug-content {
-    height: 16em;
+    height: 90%;
     overflow-y: auto;
+}
+
+.suggestions p {
+    border-bottom: 2px solid #4099f1;
 }
 
 #leftBar a, #rightBar a {
@@ -50,11 +67,11 @@
 }
 
 #centerBar a {
-    color: rgb(32, 145, 153);
+    color: #1e87f0;
 }
 
 #centerBar a:hover {
-    color: rgb(48, 210, 221);
+    color: #4099f1;
 }
 
 #search {
@@ -65,7 +82,7 @@
     width: 90%;
     height: 2.5em;
     border-radius: 10px;
-    border: 2px solid rgb(32, 145, 153);
+    border: 2px solid #1e87f0;
     padding: 5px;
     margin-bottom: 20px;
     font-size: 12pt;
@@ -105,7 +122,7 @@
 }
 
 .trend {
-    border: 2px solid rgb(48, 210, 221);
+    border: 2px solid #4099f1;
     height: 4.5em;
     border-radius: 10px;
     margin-bottom: 10px;
@@ -131,5 +148,5 @@ a {
 }
 
 #tr-err {
-    color: black;
+    color: white;
 }

@@ -1,5 +1,4 @@
 const journalists = require('./schemas/journalists');
-const organisations = require('./schemas/organisations');
 const districts = require('./schemas/districts');
 
 function assignBeat(req, res, journo) {
@@ -22,7 +21,7 @@ function assignBeat(req, res, journo) {
                     else {
                         //render beats
                         let j_username = ret_j.username;
-                        districts.find((err, ret_dists) => {
+                        districts.find().sort({state: 1, name: 1}).exec((err, ret_dists) => {
                             if (err) {
                                 throw err;
                             }

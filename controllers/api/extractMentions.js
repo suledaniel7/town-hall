@@ -3,6 +3,11 @@ function extractMentions(messages, arr){
     messages.forEach(ret_m => {
         //identify tags and messily give 'em html
         let mText = ret_m.message;
+        let t = 'm';
+        if(!mText){
+            mText = ret_m.comment;
+            t = 'c';
+        }
         let mTextArr = mText.split(/\s/);
         let finalTextArr = [];
         mTextArr.forEach(element => {
@@ -21,17 +26,23 @@ function extractMentions(messages, arr){
                 }
                 m_arr.push(part_elem);
                 if(rest_elem){
-                    hold_elem = `<span><a href="/search/people/${part_elem}" class="tag">${hold_elem}</a></span>${rest_elem}`;
+                    hold_elem = `<a class="tag" href="javascript:blind_profile('${part_elem}')">${hold_elem}</a>${rest_elem}`;
                 }
                 else {
-                    hold_elem = `<span><a href="/search/people/${part_elem}" class="tag">${hold_elem}</a></span>`;
+                    hold_elem = `<a class="tag" href="javascript:blind_profile('${part_elem}')">${hold_elem}</a>`;
                 }
                 element = hold_elem;
             }
             finalTextArr.push(element);
         });
 
-        ret_m.message = finalTextArr.join(' ');//doesn't use the same char as was used to separate
+        //doesn't use the same char as was used to separate
+        if(t == 'm'){
+            ret_m.message = finalTextArr.join(' ');
+        }
+        else {
+            ret_m.comment = finalTextArr.join(' ');
+        }
     });
     if(arr){
         return {

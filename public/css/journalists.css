@@ -1,19 +1,6 @@
 body {
     margin: 0;
     font-family: sans-serif;
-    background-color: #F5F5F5;
-}
-
-.center {
-    text-align: center;
-}
-
-.right {
-    text-align: right;
-}
-
-.center-block {
-    margin: 0 auto;
 }
 
 .errorDiv {
@@ -24,61 +11,30 @@ body {
 }
 
 nav {
-    border-bottom: 2px solid rgb(120, 2, 255);
-    padding: 10px;
-    font-size: 16pt;
+    height: 5vh;
 }
 
-nav a {
-    text-decoration: none;
-    color: black;
-}
-
-nav .nav-head, nav .nav-items {
-    display: inline;
-}
-
-.nav-head {
-    padding: 10px;
-}
-
-nav .nav-items {
-    float: right;
+.content {
+    min-height: 100vh;
+    overflow-y: auto;
     margin: 0;
 }
 
-.nav-items li {
-    display: inline;
-    padding: 11px;
-    margin-right: 10px;
-}
-
-.nav-item:hover {
-    cursor: pointer;
-    background-color: rgb(120, 2, 255);
-    color: white;
-}
-
 .main {
-    width: 68%;
     padding: 1%;
-    float: left;
-    /* background-color: #eee; */
-    /* background-color: #0F1626;
-    color: white; */
     height: 100%;
-    /* background-image: linear-gradient(to top, white, #d4adff); */
+}
+
+#lgP{
+    font-size: 14pt;
 }
 
 .form {
-    width: 28%;
     padding: 1%;
-    float: left;
-    background-color: white;
 }
 
 .main a {
-    color: rgb(160, 80, 252);
+    color: #1e87f0;
 }
 
 .pitch {
@@ -112,22 +68,4 @@ input:focus {
     margin: 20px;
     font-weight: bold;
     font-size: 11pt;
-}
-
-.button {
-    margin: 40px;
-}
-
-#submit {
-    padding: 10px;
-    background-color: transparent;
-    border: 2px solid rgb(120, 2, 255);
-    border-radius: 10px;
-    font-weight: bold;
-}
-
-#submit:hover {
-    background-color: rgb(120, 2, 255);
-    color: white;
-    cursor: pointer;
 }

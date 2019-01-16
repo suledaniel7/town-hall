@@ -22,8 +22,21 @@ a:hover {
     margin: 0 auto;
 }
 
+.result figure {
+    height: 10em;
+}
+
+.result figure p {
+    max-height: 3.2em;
+    overflow: hidden;
+}
+
 .j-avatar {
-    height: 7em;
+    height: 5em;
+    width: 5em;
+    padding: 2px;
+    border: 2px solid #1e87f0;
+    border-radius: 50%;
 }
 
 .verified {
@@ -46,62 +59,14 @@ a:hover {
     cursor: pointer;
 }
 
-.o-border {
-    border: 2px solid rgb(13, 118, 150);
+.border {
+    border: 2px solid #1e87f0;
 }
 
-.o-button {
-    background-color: rgb(13, 118, 150);
+.result a {
+    color: #1e87f0;
 }
 
-.o-button:hover {
-    background-color: rgb(21, 176, 223);
-}
-
-.o-a {
-    color: rgb(13, 118, 150);
-}
-
-.o-a:hover {
-    color: rgb(21, 176, 223);
-}
-
-.j-border {
-    border: 2px solid rgb(112, 146, 190);
-}
-
-.j-button {
-    background-color: rgb(112, 146, 190);
-}
-
-.j-button:hover {
-    background-color: rgb(151, 195, 253);
-}
-
-.j-a {
-    color: rgb(112, 146, 190);
-}
-
-.j-a:hover {
-    color: rgb(151, 195, 253);
-}
-
-.l-border {
-    border: 2px solid rgb(146, 25, 25);
-}
-
-.l-button {
-    background-color: rgb(146, 25, 25);
-}
-
-.l-button:hover {
-    background-color: rgb(253, 43, 43);
-}
-
-.l-a {
-    color: rgb(146, 25, 25);
-}
-
-.l-a:hover {
-    color: rgb(253, 43, 43);
+.result a:hover {
+    color: #4099f1;
 }

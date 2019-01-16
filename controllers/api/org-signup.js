@@ -70,6 +70,7 @@ function signup(req, res) {
                             },
                             followers: [],
                             followersNo: 0,
+                            description: "Media Organisation",
                             logo: logo
                         });
 

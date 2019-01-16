@@ -5,7 +5,7 @@ function login(req, res) {
     let email = req.body.email;
     let password = req.body.password;
 
-    journo.findOne({ email: email }, (err, ret_j) => {
+    journo.findOne({$or:[{email: email}, {username: email}]}, (err, ret_j) => {
         if (err) {
             throw err;
         }

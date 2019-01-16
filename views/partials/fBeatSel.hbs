@@ -1,0 +1,16 @@
+<div id="beatSelModal" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body" uk-overflow-auto>
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <div class="beatSelDiv center">
+            <h4>Switch from covering your current District to another</h4>
+            <p>
+                {{#each beats}}
+                <h4>{{name}} State</h4>
+                {{#each districts}}
+                {{name}} ({{d_type}})<input type="radio" class="uk-radio" name="beat" value="{{code}}" id="beatBox"><br>
+                {{/each}}
+                {{/each}}
+            </p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,214 @@
+<head>
+    <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/uikit/css/uikit.css">
+    <link rel="stylesheet" href="/css/settings.css">
+    <script src="/js/jquery-3.3.1.js"></script>
+    <script src="/uikit/js/uikit.js"></script>
+    <script src="/uikit/js/uikit-icons.js"></script>
+    <title>Account Settings | Town Hall</title>
+</head>
+
+<body>
+    <div class="main" uk-grid>
+        <div class="sect center uk-width-1-2@m uk-width-1-1@s" id="left">
+            <h6 class="center notif" id="notif">{{notif}}</h6>
+            <form action="/update/j/bio" enctype="multipart/form-data" method="post">
+                <div class="avatarDiv">
+                    <a href="/"><img id="avatar" class="avatar" src="/{{avatar}}" alt="Your Avatar"></a>
+                    <div uk-form-custom>
+                        <input type="file" name="avatar" id="avatarInp">
+                        <span class="uk-link">Change Avatar</span>
+                    </div>
+                </div>
+                <div class="larger black-txt">
+                    {{full_name}}
+                </div>
+                <div class="larger black-txt">
+                    @{{username}}
+                </div>
+                <br>
+                <div class="larger">Bio</div>
+
+                <textarea name="bio" id="bioTxt" maxlength="500" class="uk-textarea" placeholder="Let the Community know about you">{{bio}}</textarea>
+                <div>
+                    <span id="counter"></span>/500 characters
+                </div>
+                <div class="right">
+                    <button type="submit" id="bioBtn" class="button">Save Changes</button>
+                </div>
+            </form>
+        </div>
+        <div class="sect uk-width-1-2@m uk-width-1-1@s" id="right">
+            <h3 class="center">Account Details</h3>
+            <div class="formDiv">
+                <form class="uk-grid uk-form-stacked">
+                    <div class="uk-width-1-2@m uk-width-1-1@s">
+                        <label for="name">First Name</label>
+                        <input type="text" name="f_name" id="f_name" required="required" class="uk-input" value="{{f_name}}">
+                    </div>
+                    <div class="uk-width-1-2@m uk-width-1-1@s">
+                        <label for="name">Last Name</label>
+                        <input type="text" name="l_name" id="l_name" required="required" class="uk-input" value="{{l_name}}">
+                    </div>
+
+                    <div class="uk-width-1-2@m uk-width-1-1@s">
+                        <label for="username">Username</label>
+                        <input type="text" name="username" id="username" required="required" class="uk-input" value="{{username}}">
+                    </div>
+                    <div class="uk-width-1-2@m uk-width-1-1@s">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="email" required="required" class="uk-input" value="{{email}}">
+                    </div>
+
+                    <div class="uk-width-1-1">
+                        <label for="password">Current Password</label>
+                        <input type="password" name="password" id="password" class="uk-input">
+                    </div>
+
+                    <div class="uk-width-1-2@m uk-width-1-1@s">
+                        <label for="n_pass">New Password</label>
+                        <input type="password" name="n_pass" id="n_pass" class="uk-input">
+                    </div>
+                    <div class="uk-width-1-2@m uk-width-1-1@s">
+                        <label for="n_pass_c">Confirm New Password</label>
+                        <input type="password" id="n_pass_c" class="uk-input">
+                    </div>
+
+                    {{#if formal}}
+                    <div class="uk-width-1-1 center">
+                        {{orgName}}: <input type="radio" class="uk-radio" checked="checked" name="org" value="{{organisation}}">
+                        Change Organisation: <input type="radio" class="uk-radio" name="org" uk-toggle="target: #orgSelModal">
+                        {{>orgSel}}
+                    </div>
+                    {{else}}
+                    <div class="uk-width-1-1 center">
+                        {{beatName}}: <input type="radio" class="uk-radio" checked="checked" name="beat" value="{{beat}}">
+                        Change Beat: <input type="radio" class="uk-radio" name="beat" uk-toggle="target: #beatSelModal">
+                        {{>fBeatSel}}
+                    </div>
+                    {{/if}}
+                    <div class="right uk-width-1-1">
+                        <button id="saveBtn" class="button">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('saveBtn').addEventListener('click', (event) => {
+            event.preventDefault();
+            validate();
+        });
+
+        document.getElementById('bioTxt').addEventListener('input', count);
+        let field = document.getElementById('bioTxt');
+        let counter = document.getElementById('counter');
+        function count() {
+            let lt = field.value.length;
+            counter.textContent = String(lt);
+        }
+        counter.textContent = String(field.value.length);
+
+        function clearNotif() {
+            setTimeout(() => {
+                document.getElementById('notif').textContent = '';
+            }, 6000);
+        }
+
+        function setNotif(notification) {
+            document.getElementById('notif').textContent = notification;
+            clearNotif();
+        }
+
+        function validate() {
+            let f_name = document.getElementById('f_name').value;
+            let l_name = document.getElementById('l_name').value;
+            let username = document.getElementById('username').value;
+            let email = document.getElementById('email').value;
+            let password = document.getElementById('password').value;
+            let n_pass = document.getElementById('n_pass').value;
+            let n_pass_c = document.getElementById('n_pass_c').value;
+            let org = null;
+            let beat = null;
+
+            let wsp = /^\s*$/;
+            let orgs = document.getElementsByName('org');
+            let isOrg = true;
+            if (orgs.length === 0) {
+                orgs = document.getElementsByName('beat');
+                isOrg = false;
+            }
+            let selected = -1;
+            for (let i = 0; i < orgs.length; i++) {
+                let org = orgs[i];
+                if (org.checked) {
+                    selected = i;
+                }
+            }
+
+            if (orgs[0].checked) {
+                selected = 0;
+            }
+
+            for (let j = 0; j < orgs.length; j++) {
+                if (j !== selected) {
+                    orgs[j].checked = false;
+                }
+            }
+            if (isOrg) {
+                org = orgs[selected].value;
+            }
+            else {
+                beat = orgs[selected].value;
+            }
+            if (wsp.test(f_name) || wsp.test(l_name) || wsp.test(username) || wsp.test(email)) {
+                setNotif("First Name, Last Name, Username and Email are required");
+            }
+            else if (!wsp.test(password) || !wsp.test(n_pass)) {
+                if (wsp.test(password) || wsp.test(n_pass) || wsp.test(n_pass_c)) {
+                    setNotif("All password fields are compulsory");
+                }
+                else if (n_pass !== n_pass_c) {
+                    setNotif("New password and confirmation do not match");
+                }
+                else {
+                    update(f_name, l_name, username, email, password, n_pass, org, beat);
+                }
+            }
+            else {
+                update(f_name, l_name, username, email, password, n_pass, org, beat);
+            }
+        }
+
+        function update(f_name, l_name, username, email, password, n_pass, org, beat) {
+            $.ajax({
+                url: '/update/j/dets',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    f_name: f_name,
+                    l_name: l_name,
+                    username: username,
+                    email: email,
+                    password: password,
+                    n_pass: n_pass,
+                    org: org,
+                    beat: beat
+                }),
+                error: () => {
+                    setNotif("An error occured connecting to the server. Please check your connection and try again");
+                },
+                success: (data) => {
+                    if (data.success) {
+                        location.reload(true);
+                    }
+                    else {
+                        setNotif(data.reason);
+                    }
+                }
+            });
+        }
+
+        clearNotif();
+    </script>
+</body>

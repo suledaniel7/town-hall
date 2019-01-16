@@ -65,6 +65,7 @@ function signup(req, res) {
 
                 },
                 organisation: '',
+                description: 'Journalist',
                 beat: ''
             });
 

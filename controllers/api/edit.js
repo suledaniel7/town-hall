@@ -103,6 +103,11 @@ function edit(req, res) {
                         m_text = m_obj.message;
                         let mentions = m_obj.mentions;
                         let tags = m_obj.tags;
+                        let previous = ret_m.previous;
+                        previous.push({
+                            timestamp: ret_m.timestamp,
+                            text: ret_m.message
+                        });
 
                         let newMessage = {
                             sender: ret_m.sender,
@@ -118,6 +123,8 @@ function edit(req, res) {
                             m_timestamp: ret_m.m_timestamp,
                             tags: tags,
                             mentions: mentions,
+                            previous: previous,
+                            modified: true,
                             date_created: dateFn(new Date(), true),
                             time_created: timeFn(new Date())
                         }

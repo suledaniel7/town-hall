@@ -1,10 +1,8 @@
 .left-bar {
-    width: 18%;
     padding: 1%;
-    height: 700px;
-    background-color: rgb(13, 118, 150);
+    height: 100vh;
+    background-color: #1e87f0;
     color: white;
-    float: left;
 }
 
 .tabs {
@@ -19,30 +17,28 @@
 }
 
 .tab:hover {
-    background-color: rgb(13, 118, 150);
+    background-color: #1e87f0;
     cursor: pointer;
     color: white;
 }
 
 .active {
-    border-bottom: 2px solid rgb(13, 118, 150);
+    border-bottom: 2px solid #1e87f0;
 }
 
 .main {
-    width: 58%;
     padding: 1%;
-    height: 620px;
+    height: 100vh;
     overflow-y: auto;
     padding-top: 1%;
-    float: left;
 }
 
 .main a, .tag {
-    color: rgb(13, 118, 150);
+    color: #1e87f0;
 }
 
 .main a:hover, .tag:hover {
-    color: rgb(21, 176, 223);
+    color: #4099f1;
 }
 
 #search {
@@ -55,7 +51,7 @@
     width: 95%;
     height: 2.5em;
     border-radius: 10px;
-    border: 2px solid rgb(32, 145, 153);
+    border: 2px solid #1e87f0;
     padding: 5px;
     font-size: 12pt;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -89,7 +85,7 @@
 }
 
 .trend {
-    border: 2px solid rgb(48, 210, 221);
+    border: 2px solid #4099f1;
     height: 4.5em;
     border-radius: 10px;
     margin-bottom: 10px;
@@ -98,12 +94,10 @@
 }
 
 .right-bar {
-    width: 18%;
-    height: 700px;
-    background-color: rgb(13, 118, 150);
+    height: 100vh;
+    background-color: #1e87f0;
     color: white;
     padding: 1%;
-    float: left;
 }
 
 .right-bar a {
@@ -116,8 +110,6 @@
 }
 
 .beatSect {
-    /* height: 550px; */
-    /* overflow-y: auto; */
     padding: 1%;
 }
 
@@ -165,7 +157,7 @@
     width: 100px;
     margin-right: 20%;
     height: 2.5em;
-    background-color: rgb(13, 118, 150);
+    background-color: #1e87f0;
     border: none;
     border-radius: 5px;
     color: white;
@@ -176,14 +168,6 @@
 }
 
 .postBtn:hover {
-    background-color: rgb(21, 176, 223);
+    background-color: #4099f1;
     cursor: pointer;
-}
-
-footer {
-    position: absolute;
-    width: 58%;
-    bottom: 0;
-    text-align: center;
-    border-top: 2px solid black;
 }

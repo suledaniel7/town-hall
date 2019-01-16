@@ -61,7 +61,7 @@ function search(req, res) {
                     throw err;
                 }
                 else {
-                    actual_search();
+                    getSuggestions();
                 }
             });
         }
@@ -73,11 +73,30 @@ function search(req, res) {
                     throw err;
                 }
                 else {
-                    actual_search();
+                    getSuggestions();
                 }
             });
         }
-        function actual_search() {
+        function getSuggestions() {
+            instants.find().sort({ mentions: -1 }).limit(10).exec((err, ret_is) => {
+                if (err) {
+                    throw err;
+                }
+                else {
+                    for (let i = 0; i < ret_is.length; i++) {
+                        let inst = ret_is[i];
+                        if (inst.type === 'tag') {
+                            inst.s_type = '#';
+                        }
+                        else if (inst.type === 'people') {
+                            inst.s_type = '@';
+                        }
+                    }
+                    actual_search(ret_is);
+                }
+            });
+        }
+        function actual_search(suggestions) {
             if (type == 'tag' || init_term[0] == '#') {
                 let term = '';
                 if (init_term[0] == '#') {
@@ -112,6 +131,7 @@ function search(req, res) {
                                     }
                                     ret_l.term = init_term;
                                     ret_l.tint = 'l';
+                                    ret_l.suggestions = suggestions;
                                     res.render('search-res', ret_l);
                                     let endTime = new Date();
                                     log_entry("Search", false, startTime, endTime);
@@ -139,6 +159,7 @@ function search(req, res) {
                                     }
                                     ret_o.term = init_term;
                                     ret_o.tint = 'o';
+                                    ret_o.suggestions = suggestions;
                                     res.render('search-res', ret_o);
                                     let endTime = new Date();
                                     log_entry("Search", false, startTime, endTime);
@@ -166,6 +187,7 @@ function search(req, res) {
                                     }
                                     ret_j.term = init_term;
                                     ret_j.tint = 'j';
+                                    ret_j.suggestions = suggestions;
                                     res.render('search-res', ret_j);
                                     let endTime = new Date();
                                     log_entry("Search", false, startTime, endTime);
@@ -193,6 +215,7 @@ function search(req, res) {
                                     }
                                     ret_u.term = init_term;
                                     ret_u.tint = 'u';
+                                    ret_u.suggestions = suggestions;
                                     res.render('search-res', ret_u);
                                     let endTime = new Date();
                                     log_entry("Search", false, startTime, endTime);
@@ -211,6 +234,7 @@ function search(req, res) {
                             }
                             ret_u.term = init_term;
                             ret_u.tint = 'u';
+                            ret_u.suggestions = suggestions;
                             res.render('search-res', ret_u);
                             let endTime = new Date();
                             log_entry("Search", false, startTime, endTime);
@@ -231,44 +255,60 @@ function search(req, res) {
                         peopleSearch(term);
                     }
                     else {
-                        if(!ret_g){
-                            legislators.findOne({code: term}, (err, ret_l)=>{
-                                if(err){
-                                    peopleSearch(term);
-                                }
-                                else if(!ret_l){
-                                    peopleSearch(term);
-                                }
-                                else {
-                                    res.redirect('/profile/'+ret_l.code);
-                                }
-                            });
+                        if (!ret_g) {
+                            peopleSearch(term);
                         }
                         else {
                             let p_type = ret_g.identifier;
-                            if(p_type == 'o'){
-                                organisations.findOne({username: term}, (err, ret_o)=>{
-                                    if(err){
+                            if (p_type == 'o') {
+                                organisations.findOne({ username: term }, (err, ret_o) => {
+                                    if (err) {
                                         peopleSearch(term);
                                     }
-                                    else if(!ret_o){
+                                    else if (!ret_o) {
                                         peopleSearch(term);
                                     }
                                     else {
-                                        res.redirect('/profile/'+ret_o.username);
+                                        res.redirect('/profile/' + ret_o.username);
                                     }
                                 });
                             }
-                            else if(p_type == 'j'){
-                                journalists.findOne({username: term}, (err, ret_j)=>{
-                                    if(err){
+                            else if (p_type == 'j') {
+                                journalists.findOne({ username: term }, (err, ret_j) => {
+                                    if (err) {
                                         peopleSearch(term);
                                     }
-                                    else if(!ret_j){
+                                    else if (!ret_j) {
                                         peopleSearch(term);
                                     }
                                     else {
-                                        res.redirect('/profile/'+ret_j.username);
+                                        res.redirect('/profile/' + ret_j.username);
+                                    }
+                                });
+                            }
+                            else if (p_type == 'l') {
+                                legislators.findOne({ code: term }, (err, ret_l) => {
+                                    if (err) {
+                                        peopleSearch(term);
+                                    }
+                                    else if (!ret_l) {
+                                        peopleSearch(term);
+                                    }
+                                    else {
+                                        res.redirect('/profile/' + ret_l.code);
+                                    }
+                                });
+                            }
+                            else if (p_type == 'u') {
+                                users.findOne({ username: term }, (err, ret_u) => {
+                                    if (err) {
+                                        throw err;
+                                    }
+                                    else if (!ret_u) {
+                                        peopleSearch(term);
+                                    }
+                                    else {
+                                        res.redirect('/profile/' + ret_u.username);
                                     }
                                 });
                             }
@@ -290,149 +330,169 @@ function search(req, res) {
                                     throw err;
                                 }
                                 else {
-                                    organisations.find({ $or: [{ username: term }, { lc_name: term }] }, (err, ret_os) => {
+                                    users.find({ $or: [{ username: term }, { lc_f_name: term }] }, (err, ret_us) => {
                                         if (err) {
                                             throw err;
                                         }
                                         else {
-                                            let final_objs = [];
-                                            ret_ls = strip(ret_ls, ['password', 'email', 'likes', 'dislikes']);
-                                            ret_js = strip(ret_js, ['email', 'password', 'account', 'orientation', 'rejected', 'likes', 'dislikes', 'followers']);
-                                            ret_os = strip(ret_os, ['email', 'pub_email', 'password', 'pendingBeat', 'districts', 'journalists', 'pending_reqs', 'followers', 'likes', 'dislikes']);
+                                            organisations.find({ $or: [{ username: term }, { lc_name: term }] }, (err, ret_os) => {
+                                                if (err) {
+                                                    throw err;
+                                                }
+                                                else {
+                                                    let final_objs = [];
+                                                    ret_ls = strip(ret_ls, ['password', 'email', 'likes', 'dislikes']);
+                                                    ret_js = strip(ret_js, ['email', 'password', 'account', 'orientation', 'rejected', 'likes', 'dislikes', 'followers']);
+                                                    ret_us = strip(ret_us, ['email', 'password', 'sources', 'likes', 'dislikes', 'gender', 'state', 'state_code', 'fed_const', 'sen_dist', 'sourceSel']);
+                                                    ret_os = strip(ret_os, ['email', 'pub_email', 'password', 'pendingBeat', 'districts', 'journalists', 'pending_reqs', 'followers', 'likes', 'dislikes']);
 
-                                            //rank results
-                                            let prelim_objs = [];
-                                            ret_ls.forEach(ret_l => {
-                                                ret_l = rank(ret_l, term, ['lc_name', 'lc_f_name', 'lc_l_name', 'lc_district', 'lc_state']);
-                                                ret_l.r_obj.verified = true;
-                                                ret_l.r_obj.tint = 'l';
-                                                prelim_objs.push(ret_l);
-                                            });
-                                            ret_os.forEach(ret_o => {
-                                                ret_o = rank(ret_o, term, ['username', 'lc_name']);
-                                                ret_o.r_obj.verified = ret_o.r_obj.verification.verified;
-                                                ret_o.r_obj.tint = 'o';
-                                                prelim_objs.push(ret_o);
-                                            });
-                                            ret_js.forEach(ret_j => {
-                                                ret_j = rank(ret_j, term, ['lc_f_name', 'lc_l_name', 'username']);
-                                                ret_j.r_obj.tint = 'j';
-                                                prelim_objs.push(ret_j);
-                                            });
+                                                    //rank results
+                                                    let prelim_objs = [];
+                                                    ret_ls.forEach(ret_l => {
+                                                        ret_l = rank(ret_l, term, ['lc_name', 'lc_f_name', 'lc_l_name', 'lc_district', 'lc_state']);
+                                                        ret_l.r_obj.verified = true;
+                                                        ret_l.r_obj.tint = 'l';
+                                                        prelim_objs.push(ret_l);
+                                                    });
+                                                    ret_os.forEach(ret_o => {
+                                                        ret_o = rank(ret_o, term, ['username', 'lc_name']);
+                                                        ret_o.r_obj.verified = ret_o.r_obj.verification.verified;
+                                                        ret_o.r_obj.tint = 'o';
+                                                        prelim_objs.push(ret_o);
+                                                    });
+                                                    ret_us.forEach(ret_u => {
+                                                        ret_u = rank(ret_u, term, ['username', 'lc_f_name']);
+                                                        ret_u.r_obj.verified = false;
+                                                        ret_u.r_obj.tint = 'u';
+                                                        prelim_objs.push(ret_u);
+                                                    });
+                                                    ret_js.forEach(ret_j => {
+                                                        ret_j = rank(ret_j, term, ['lc_f_name', 'lc_l_name', 'username']);
+                                                        ret_j.r_obj.tint = 'j';
+                                                        prelim_objs.push(ret_j);
+                                                    });
 
-                                            final_objs = sort_rank(prelim_objs);
-                                            let results = false;
-                                            let error = "No accounts were found matching your search criteria";
-                                            if (final_objs.length > 0) {
-                                                results = true;
-                                                error = null;
-                                            }
-
-                                            if (user == 'user') {
-                                                let username = req.user.user.username;
-                                                users.findOne({ username: username }, (err, ret_u) => {
-                                                    if (err) {
-                                                        throw err;
+                                                    final_objs = sort_rank(prelim_objs);
+                                                    let results = false;
+                                                    let error = "No accounts were found matching your search criteria";
+                                                    if (final_objs.length > 0) {
+                                                        results = true;
+                                                        error = null;
                                                     }
-                                                    else if (!ret_u) {
-                                                        req.user.user = null;
-                                                        res.redirect('/');
+
+                                                    if (user == 'user') {
+                                                        let username = req.user.user.username;
+                                                        users.findOne({ username: username }, (err, ret_u) => {
+                                                            if (err) {
+                                                                throw err;
+                                                            }
+                                                            else if (!ret_u) {
+                                                                req.user.user = null;
+                                                                res.redirect('/');
+                                                            }
+                                                            else {
+                                                                ret_u = strip([ret_u], ['password', 'email', 'likes', 'dislikes'])[0];
+                                                                ret_u.results = results;
+                                                                ret_u.error = error;
+                                                                ret_u.term = init_term;
+                                                                ret_u.tint = 'u';
+                                                                ret_u.accounts = final_objs;
+                                                                ret_u.suggestions = suggestions;
+                                                                res.render('search-res', ret_u);
+                                                                let endTime = new Date();
+                                                                log_entry("Search", false, startTime, endTime);
+                                                            }
+                                                        });
+                                                    }
+                                                    else if (user == 'legislator') {
+                                                        let code = req.legislator.user.code;
+                                                        legislators.findOne({ code: code }, (err, ret_l) => {
+                                                            if (err) {
+                                                                throw err;
+                                                            }
+                                                            else if (!ret_l) {
+                                                                req.legislator.user = null;
+                                                                res.redirect('/');
+                                                            }
+                                                            else {
+                                                                ret_l = strip([ret_l], ['password', 'email', 'likes', 'dislikes'])[0];
+                                                                ret_l.results = results;
+                                                                ret_l.error = error;
+                                                                ret_l.term = init_term;
+                                                                ret_l.tint = 'l';
+                                                                ret_l.accounts = final_objs;
+                                                                ret_l.suggestions = suggestions;
+                                                                res.render('search-res', ret_l);
+                                                                let endTime = new Date();
+                                                                log_entry("Search", false, startTime, endTime);
+                                                            }
+                                                        });
+                                                    }
+                                                    else if (user == 'organisation') {
+                                                        let username = req.organisation.user.username;
+                                                        organisations.findOne({ username: username }, (err, ret_o) => {
+                                                            if (err) {
+                                                                throw err;
+                                                            }
+                                                            else if (!ret_o) {
+                                                                req.organisation.user = null;
+                                                                res.redirect('/');
+                                                            }
+                                                            else {
+                                                                ret_o = strip([ret_o], ['email', 'pub_email', 'password', 'pendingBeat', 'districts', 'journalists', 'pending_reqs', 'followers', 'likes', 'dislikes'])[0];
+                                                                ret_o.results = results;
+                                                                ret_o.error = error;
+                                                                ret_o.term = init_term;
+                                                                ret_o.tint = 'o';
+                                                                ret_o.accounts = final_objs;
+                                                                ret_o.suggestions = suggestions;
+                                                                res.render('search-res', ret_o);
+                                                                let endTime = new Date();
+                                                                log_entry("Search", false, startTime, endTime);
+                                                            }
+                                                        });
+                                                    }
+                                                    else if (user == 'journalist') {
+                                                        let username = req.journalist.user.username;
+                                                        journalists.findOne({ username: username }, (err, ret_j) => {
+                                                            if (err) {
+                                                                throw err;
+                                                            }
+                                                            else if (!ret_j) {
+                                                                req.journalist.user = null;
+                                                                res.redirect('/');
+                                                            }
+                                                            else {
+                                                                ret_j = strip([ret_j], ['email', 'password', 'account', 'orientation', 'rejected', 'likes', 'dislikes', 'followers'])[0];
+                                                                ret_j.results = results;
+                                                                ret_j.error = error;
+                                                                ret_j.term = init_term;
+                                                                ret_j.tint = 'j';
+                                                                ret_j.accounts = final_objs;
+                                                                ret_j.suggestions = suggestions;
+                                                                res.render('search-res', ret_j);
+                                                                let endTime = new Date();
+                                                                log_entry("Search", false, startTime, endTime);
+                                                            }
+                                                        });
                                                     }
                                                     else {
-                                                        ret_u = strip([ret_u], ['password', 'email', 'likes', 'dislikes'])[0];
+                                                        let ret_u = {};
                                                         ret_u.results = results;
                                                         ret_u.error = error;
                                                         ret_u.term = init_term;
                                                         ret_u.tint = 'u';
                                                         ret_u.accounts = final_objs;
+                                                        ret_u.suggestions = suggestions;
                                                         res.render('search-res', ret_u);
                                                         let endTime = new Date();
                                                         log_entry("Search", false, startTime, endTime);
                                                     }
-                                                });
-                                            }
-                                            else if (user == 'legislator') {
-                                                let code = req.legislator.user.code;
-                                                legislators.findOne({ code: code }, (err, ret_l) => {
-                                                    if (err) {
-                                                        throw err;
-                                                    }
-                                                    else if (!ret_l) {
-                                                        req.legislator.user = null;
-                                                        res.redirect('/');
-                                                    }
-                                                    else {
-                                                        ret_l = strip([ret_l], ['password', 'email', 'likes', 'dislikes'])[0];
-                                                        ret_l.results = results;
-                                                        ret_l.error = error;
-                                                        ret_l.term = init_term;
-                                                        ret_l.tint = 'l';
-                                                        ret_l.accounts = final_objs;
-                                                        res.render('search-res', ret_l);
-                                                        let endTime = new Date();
-                                                        log_entry("Search", false, startTime, endTime);
-                                                    }
-                                                });
-                                            }
-                                            else if (user == 'organisation') {
-                                                let username = req.organisation.user.username;
-                                                organisations.findOne({ username: username }, (err, ret_o) => {
-                                                    if (err) {
-                                                        throw err;
-                                                    }
-                                                    else if (!ret_o) {
-                                                        req.organisation.user = null;
-                                                        res.redirect('/');
-                                                    }
-                                                    else {
-                                                        ret_o = strip([ret_o], ['email', 'pub_email', 'password', 'pendingBeat', 'districts', 'journalists', 'pending_reqs', 'followers', 'likes', 'dislikes'])[0];
-                                                        ret_o.results = results;
-                                                        ret_o.error = error;
-                                                        ret_o.term = init_term;
-                                                        ret_o.tint = 'o';
-                                                        ret_o.accounts = final_objs;
-                                                        res.render('search-res', ret_o);
-                                                        let endTime = new Date();
-                                                        log_entry("Search", false, startTime, endTime);
-                                                    }
-                                                });
-                                            }
-                                            else if (user == 'journalist') {
-                                                let username = req.journalist.user.username;
-                                                journalists.findOne({ username: username }, (err, ret_j) => {
-                                                    if (err) {
-                                                        throw err;
-                                                    }
-                                                    else if (!ret_j) {
-                                                        req.journalist.user = null;
-                                                        res.redirect('/');
-                                                    }
-                                                    else {
-                                                        ret_j = strip([ret_j], ['email', 'password', 'account', 'orientation', 'rejected', 'likes', 'dislikes', 'followers'])[0];
-                                                        ret_j.results = results;
-                                                        ret_j.error = error;
-                                                        ret_j.term = init_term;
-                                                        ret_j.tint = 'j';
-                                                        ret_j.accounts = final_objs;
-                                                        res.render('search-res', ret_j);
-                                                        let endTime = new Date();
-                                                        log_entry("Search", false, startTime, endTime);
-                                                    }
-                                                });
-                                            }
-                                            else {
-                                                let ret_u = {};
-                                                ret_u.results = results;
-                                                ret_u.error = error;
-                                                ret_u.term = init_term;
-                                                ret_u.tint = 'u';
-                                                ret_u.accounts = final_objs;
-                                                res.render('search-res', ret_u);
-                                                let endTime = new Date();
-                                                log_entry("Search", false, startTime, endTime);
-                                            }
+                                                }
+                                            });
                                         }
-                                    });
+                                    })
+
                                 }
                             });
                         }
@@ -447,171 +507,191 @@ function search(req, res) {
                         throw err;
                     }
                     else {
-                        journalists.find({ $or: [{ lc_f_name: term }, { lc_l_name: term }, { username: term }, { organisation: term}] }, (err, ret_js) => {
+                        journalists.find({ $or: [{ lc_f_name: term }, { lc_l_name: term }, { username: term }, { organisation: term }] }, (err, ret_js) => {
                             if (err) {
                                 throw err;
                             }
                             else {
-                                organisations.find({ $or: [{ username: term }, { lc_name: term }] }, (err, ret_os) => {
+                                users.find({ $or: [{ username: term }, { lc_f_name: term }] }, (err, ret_us) => {
                                     if (err) {
                                         throw err;
                                     }
                                     else {
-                                        let final_objs = [];
-                                        ret_ls = strip(ret_ls, ['password', 'email', 'likes', 'dislikes']);
-                                        ret_js = strip(ret_js, ['email', 'password', 'account', 'orientation', 'rejected', 'likes', 'dislikes', 'followers']);
-                                        ret_os = strip(ret_os, ['email', 'pub_email', 'password', 'pendingBeat', 'districts', 'journalists', 'pending_reqs', 'followers', 'likes', 'dislikes']);
-                                        //rank results
-                                        let prelim_objs = [];
-                                        ret_ls.forEach(ret_l => {
-                                            ret_l = rank(ret_l, term, ['lc_name', 'lc_f_name', 'lc_l_name', 'lc_district', 'lc_state']);
-                                            ret_l.r_obj.verified = true;
-                                            ret_l.r_obj.tint = 'l';
-                                            prelim_objs.push(ret_l);
-                                        });
-                                        ret_os.forEach(ret_o => {
-                                            ret_o = rank(ret_o, term, ['username', 'lc_name']);
-                                            ret_o.r_obj.verified = ret_o.r_obj.verification.verified;
-                                            ret_o.r_obj.tint = 'o';
-                                            prelim_objs.push(ret_o);
-                                        });
-                                        ret_js.forEach(ret_j => {
-                                            ret_j = rank(ret_j, term, ['lc_f_name', 'lc_l_name', 'username']);
-                                            ret_j.r_obj.tint = 'j';
-                                            prelim_objs.push(ret_j);
-                                        });
-
-                                        final_objs = sort_rank(prelim_objs);
-
-                                        //getting messages
-                                        messages.find({ $or: [{ tags: term }, { message: term }, { sender: term }, { sender_name: term }] }).sort({ timestamp: -1 }).exec((err, ret_msgs) => {
+                                        organisations.find({ $or: [{ username: term }, { lc_name: term }] }, (err, ret_os) => {
                                             if (err) {
                                                 throw err;
                                             }
                                             else {
-                                                let results = false;
-                                                let error = "No results were found matching your search criteria";
-                                                if (ret_msgs.length > 0 || final_objs.length > 0) {
-                                                    results = true;
-                                                    error = null;
-                                                }
-                                                if (user == 'legislator') {
-                                                    let code = req.legislator.user.code;
-                                                    legislators.findOne({ code: code }, (err, ret_l) => {
-                                                        if (err) {
-                                                            throw err;
+                                                let final_objs = [];
+                                                ret_ls = strip(ret_ls, ['password', 'email', 'likes', 'dislikes']);
+                                                ret_js = strip(ret_js, ['email', 'password', 'account', 'orientation', 'rejected', 'likes', 'dislikes', 'followers']);
+                                                ret_us = strip(ret_us, ['email', 'password', 'sources', 'likes', 'dislikes', 'gender', 'state', 'state_code', 'fed_const', 'sen_dist', 'sourceSel']);
+                                                ret_os = strip(ret_os, ['email', 'pub_email', 'password', 'pendingBeat', 'districts', 'journalists', 'pending_reqs', 'followers', 'likes', 'dislikes']);
+                                                //rank results
+                                                let prelim_objs = [];
+                                                ret_ls.forEach(ret_l => {
+                                                    ret_l = rank(ret_l, term, ['lc_name', 'lc_f_name', 'lc_l_name', 'lc_district', 'lc_state']);
+                                                    ret_l.r_obj.verified = true;
+                                                    ret_l.r_obj.tint = 'l';
+                                                    prelim_objs.push(ret_l);
+                                                });
+                                                ret_os.forEach(ret_o => {
+                                                    ret_o = rank(ret_o, term, ['username', 'lc_name']);
+                                                    ret_o.r_obj.verified = ret_o.r_obj.verification.verified;
+                                                    ret_o.r_obj.tint = 'o';
+                                                    prelim_objs.push(ret_o);
+                                                });
+                                                ret_us.forEach(ret_u => {
+                                                    ret_u = rank(ret_u, term, ['username', 'lc_f_name']);
+                                                    ret_u.r_obj.verified = false;
+                                                    ret_u.r_obj.tint = 'u';
+                                                    prelim_objs.push(ret_u);
+                                                });
+                                                ret_js.forEach(ret_j => {
+                                                    ret_j = rank(ret_j, term, ['lc_f_name', 'lc_l_name', 'username']);
+                                                    ret_j.r_obj.tint = 'j';
+                                                    prelim_objs.push(ret_j);
+                                                });
+
+                                                final_objs = sort_rank(prelim_objs);
+
+                                                //getting messages
+                                                messages.find({ $or: [{ tags: term }, { message: term }, { sender: term }, { sender_name: term }] }).sort({ timestamp: -1 }).exec((err, ret_msgs) => {
+                                                    if (err) {
+                                                        throw err;
+                                                    }
+                                                    else {
+                                                        let results = false;
+                                                        let error = "No results were found matching your search criteria";
+                                                        if (ret_msgs.length > 0 || final_objs.length > 0) {
+                                                            results = true;
+                                                            error = null;
                                                         }
-                                                        else if (!ret_l) {
-                                                            req.legislator.user = null;
-                                                            res.redirect('/');
+                                                        if (user == 'legislator') {
+                                                            let code = req.legislator.user.code;
+                                                            legislators.findOne({ code: code }, (err, ret_l) => {
+                                                                if (err) {
+                                                                    throw err;
+                                                                }
+                                                                else if (!ret_l) {
+                                                                    req.legislator.user = null;
+                                                                    res.redirect('/');
+                                                                }
+                                                                else {
+                                                                    ret_l = strip([ret_l], ['password', 'email', 'likes', 'dislikes'])[0];
+                                                                    let tmpMsgs = extractTags(ret_msgs, code);
+                                                                    ret_l.messages = extractMentions(tmpMsgs);
+                                                                    ret_l.results = results;
+                                                                    ret_l.error = error;
+                                                                    ret_l.term = init_term;
+                                                                    ret_l.tint = 'l';
+                                                                    ret_l.accounts = final_objs;
+                                                                    ret_l.suggestions = suggestions;
+                                                                    res.render('search-res', ret_l);
+                                                                    let endTime = new Date();
+                                                                    log_entry("Search", false, startTime, endTime);
+                                                                }
+                                                            });
+                                                        }
+                                                        else if (user == 'organisation') {
+                                                            let username = req.organisation.user.username;
+                                                            organisations.findOne({ username: username }, (err, ret_o) => {
+                                                                if (err) {
+                                                                    throw err;
+                                                                }
+                                                                else if (!ret_o) {
+                                                                    req.organisation.user = null;
+                                                                    res.redirect('/');
+                                                                }
+                                                                else {
+                                                                    let tmpMsgs = extractTags(ret_msgs, username);
+                                                                    ret_o.messages = extractMentions(tmpMsgs);
+                                                                    ret_o = strip([ret_o], ['email', 'pub_email', 'password', 'pendingBeat', 'districts', 'journalists', 'pending_reqs', 'followers', 'likes', 'dislikes'])[0];
+                                                                    ret_o.results = results;
+                                                                    ret_o.error = error;
+                                                                    ret_o.term = init_term;
+                                                                    ret_o.tint = 'o';
+                                                                    ret_o.accounts = final_objs;
+                                                                    ret_o.suggestions = suggestions;
+                                                                    res.render('search-res', ret_o);
+                                                                    let endTime = new Date();
+                                                                    log_entry("Search", false, startTime, endTime);
+                                                                }
+                                                            });
+                                                        }
+                                                        else if (user == 'journalist') {
+                                                            let username = req.journalist.user.username;
+                                                            journalists.findOne({ username: username }, (err, ret_j) => {
+                                                                if (err) {
+                                                                    throw err;
+                                                                }
+                                                                else if (!ret_j) {
+                                                                    req.journalist.user = null;
+                                                                    res.redirect('/');
+                                                                }
+                                                                else {
+                                                                    let tmpMsgs = extractTags(ret_msgs, username);
+                                                                    ret_j.messages = extractMentions(tmpMsgs);
+                                                                    ret_j = strip([ret_j], ['email', 'password', 'account', 'orientation', 'rejected', 'likes', 'dislikes', 'followers'])[0];
+                                                                    ret_j.results = results;
+                                                                    ret_j.error = error;
+                                                                    ret_j.term = init_term;
+                                                                    ret_j.tint = 'j';
+                                                                    ret_j.accounts = final_objs;
+                                                                    ret_j.suggestions = suggestions;
+                                                                    res.render('search-res', ret_j);
+                                                                    let endTime = new Date();
+                                                                    log_entry("Search", false, startTime, endTime);
+                                                                }
+                                                            });
+                                                        }
+                                                        else if (user == 'user') {
+                                                            let username = req.user.user.username;
+                                                            users.findOne({ username: username }, (err, ret_u) => {
+                                                                if (err) {
+                                                                    throw err;
+                                                                }
+                                                                else if (!ret_u) {
+                                                                    req.user.user = null;
+                                                                    res.redirect('/');
+                                                                }
+                                                                else {
+                                                                    let tmpMsgs = extractTags(ret_msgs, null);
+                                                                    ret_u.messages = extractMentions(tmpMsgs);
+                                                                    ret_u = strip([ret_u], ['password', 'email', 'likes', 'dislikes'])[0];
+                                                                    ret_u.results = results;
+                                                                    ret_u.error = error;
+                                                                    ret_u.term = init_term;
+                                                                    ret_u.tint = 'u';
+                                                                    ret_u.accounts = final_objs;
+                                                                    ret_u.suggestions = suggestions;
+                                                                    res.render('search-res', ret_u);
+                                                                    let endTime = new Date();
+                                                                    log_entry("Search", false, startTime, endTime);
+                                                                }
+                                                            });
                                                         }
                                                         else {
-                                                            ret_l = strip([ret_l], ['password', 'email', 'likes', 'dislikes'])[0];
-                                                            let tmpMsgs = extractTags(ret_msgs, code);
-                                                            ret_l.messages = extractMentions(tmpMsgs);
-                                                            ret_l.results = results;
-                                                            ret_l.error = error;
-                                                            ret_l.term = init_term;
-                                                            ret_l.tint = 'l';
-                                                            ret_l.accounts = final_objs;
-                                                            res.render('search-res', ret_l);
-                                                            let endTime = new Date();
-                                                            log_entry("Search", false, startTime, endTime);
-                                                        }
-                                                    });
-                                                }
-                                                else if (user == 'organisation') {
-                                                    let username = req.organisation.user.username;
-                                                    organisations.findOne({ username: username }, (err, ret_o) => {
-                                                        if (err) {
-                                                            throw err;
-                                                        }
-                                                        else if (!ret_o) {
-                                                            req.organisation.user = null;
-                                                            res.redirect('/');
-                                                        }
-                                                        else {
-                                                            let tmpMsgs = extractTags(ret_msgs, username);
-                                                            ret_o.messages = extractMentions(tmpMsgs);
-                                                            ret_o = strip([ret_o], ['email', 'pub_email', 'password', 'pendingBeat', 'districts', 'journalists', 'pending_reqs', 'followers', 'likes', 'dislikes'])[0];
-                                                            ret_o.results = results;
-                                                            ret_o.error = error;
-                                                            ret_o.term = init_term;
-                                                            ret_o.tint = 'o';
-                                                            ret_o.accounts = final_objs;
-                                                            res.render('search-res', ret_o);
-                                                            let endTime = new Date();
-                                                            log_entry("Search", false, startTime, endTime);
-                                                        }
-                                                    });
-                                                }
-                                                else if (user == 'journalist') {
-                                                    let username = req.journalist.user.username;
-                                                    journalists.findOne({ username: username }, (err, ret_j) => {
-                                                        if (err) {
-                                                            throw err;
-                                                        }
-                                                        else if (!ret_j) {
-                                                            req.journalist.user = null;
-                                                            res.redirect('/');
-                                                        }
-                                                        else {
-                                                            let tmpMsgs = extractTags(ret_msgs, username);
-                                                            ret_j.messages = extractMentions(tmpMsgs);
-                                                            ret_j = strip([ret_j], ['email', 'password', 'account', 'orientation', 'rejected', 'likes', 'dislikes', 'followers'])[0];
-                                                            ret_j.results = results;
-                                                            ret_j.error = error;
-                                                            ret_j.term = init_term;
-                                                            ret_j.tint = 'j';
-                                                            ret_j.accounts = final_objs;
-                                                            res.render('search-res', ret_j);
-                                                            let endTime = new Date();
-                                                            log_entry("Search", false, startTime, endTime);
-                                                        }
-                                                    });
-                                                }
-                                                else if (user == 'user') {
-                                                    let username = req.user.user.username;
-                                                    users.findOne({ username: username }, (err, ret_u) => {
-                                                        if (err) {
-                                                            throw err;
-                                                        }
-                                                        else if (!ret_u) {
-                                                            req.user.user = null;
-                                                            res.redirect('/');
-                                                        }
-                                                        else {
+                                                            let ret_u = {};
                                                             let tmpMsgs = extractTags(ret_msgs, null);
                                                             ret_u.messages = extractMentions(tmpMsgs);
-                                                            ret_u = strip([ret_u], ['password', 'email', 'likes', 'dislikes'])[0];
                                                             ret_u.results = results;
                                                             ret_u.error = error;
                                                             ret_u.term = init_term;
                                                             ret_u.tint = 'u';
                                                             ret_u.accounts = final_objs;
+                                                            ret_u.suggestions = suggestions;
                                                             res.render('search-res', ret_u);
                                                             let endTime = new Date();
                                                             log_entry("Search", false, startTime, endTime);
                                                         }
-                                                    });
-                                                }
-                                                else {
-                                                    let ret_u = {};
-                                                    let tmpMsgs = extractTags(ret_msgs, null);
-                                                    ret_u.messages = extractMentions(tmpMsgs);
-                                                    ret_u.results = results;
-                                                    ret_u.error = error;
-                                                    ret_u.term = init_term;
-                                                    ret_u.tint = 'u';
-                                                    ret_u.accounts = final_objs;
-                                                    res.render('search-res', ret_u);
-                                                    let endTime = new Date();
-                                                    log_entry("Search", false, startTime, endTime);
-                                                }
+                                                    }
+                                                });
                                             }
                                         });
                                     }
                                 });
+
                             }
                         });
                     }
@@ -619,6 +699,6 @@ function search(req, res) {
             }
         }
     });
-    //otherwise user.accounts is true
 }
+
 module.exports = search;

@@ -1,0 +1,59 @@
+<head>
+    <title>{{f_name}} | Town Hall User</title>
+    <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/css/u-render.css">
+    <link rel="stylesheet" href="/uikit/css/uikit.css">
+    <script src="/js/jquery-3.3.1.js"></script>
+    <script src="/uikit/js/uikit.js"></script>
+    <script src="/uikit/js/uikit-icons.js"></script>
+    <script src="/js/trends.js"></script>
+</head>
+
+<body uk-grid>
+    <section class="content center uk-width-3-4@m" id="leftBar">
+        <div id="leftContent" class="uk-width-1-1">
+            <div class="left">
+                <a href="/">Back to Home</a>
+            </div>
+            <figure>
+                <img id="avatar" class="avatar" src="/{{avatar}}" alt="{{f_name}}'s Avatar">
+                <p id="name_p">{{f_name}}</p>
+                <p>@{{username}}</p>
+            </figure>
+        </div>
+        <div class="uk-width-1-1" id="leftContent2" uk-grid>
+            <div id="bioDiv" class="uk-width-1-2">
+                <h4>Bio</h4>
+                <p>
+                    {{bio}}
+                </p>
+            </div>
+            <div id="detsDiv" class="uk-width-1-2">
+                <h4>Details</h4>
+                <span class="bold">Name:</span> {{f_name}}
+                <br>
+                <span class="bold">Username: </span> @{{username}}
+                <br>
+                <span class="bold">State: </span> {{state}} State
+                <br>
+                <a href="/profile/{{fed_const}}"><span class="bold">Federal Constituency: </span> {{f_c_name}}</a>
+                <br>
+                <a href="/profile/{{sen_dist}}"><span class="bold">Senatorial District: </span> {{s_d_name}}</a>
+                <br>
+                <span class="bold">Joined on: </span> {{date_joined}}
+            </div>
+        </div>
+    </section>
+    <section class="content center uk-width-1-4@m uk-visible@m" id="rightBar">
+        <div class="center" id="rightContent">
+            <h4><a href="javascript:void();" title="Click to view more" class="white">Trending Now</a></h4>
+            <div id="tr-err"></div>
+            <div class="trends" id="trends">
+
+            </div>
+        </div>
+    </section>
+    <script>
+        reqTrends();
+    </script>
+</body>

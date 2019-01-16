@@ -1,12 +1,14 @@
 <head>
     <link rel="stylesheet" href="/css/suggestions.css">
-    <link rel="stylesheet" href="/css/j-profile.css">
-    <link rel="stylesheet" href="/css/messages.css">
     <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/css/j-profile.css">
     <link rel="stylesheet" href="/uikit/css/uikit.css">
+    <link rel="stylesheet" href="/css/messages.css">
     <script src="/js/jquery-3.3.1.js"></script>
     <script src="/uikit/js/uikit.js"></script>
+    <script src="/uikit/js/uikit-icons.js"></script>
     <script src="/js/conversation.js"></script>
+    <script src="/js/map_char.js"></script>
     <script src="/js/extract_tags_render.js"></script>
     <script src="/js/trends.js"></script>
     <script src="/js/append.js"></script>
@@ -14,8 +16,8 @@
     <title>{{f_name}}'s J-Account | Town Hall</title>
 </head>
 
-<body>
-    <section class="left-bar">
+<body uk-grid>
+    <section class="left-bar content center uk-width-1-5@m uk-width-1-3@s">
         <figure class="avatar center block-center">
             <div class="avatarDiv">
                 <img id="avatar" src="/{{avatar}}" alt="{{f_name}}'s Avatar">
@@ -36,16 +38,24 @@
                 {{orgName}}
             </div>
             {{/if}}
-            <br />
-            <br />
             <div>
-                <span class="bold">Followers: </span>
-                <span>{{followersNo}}</span>
+                <a href="/followers/{{username}}" class="white">
+                    <span>Followers: </span>
+                    <span>{{followersNo}}</span>
+                </a>
+            </div>
+            <br>
+            <div>
+                <a href="/settings/{{username}}" class="white">Settings</a>
+            </div>
+            <br>
+            <div>
+                <a href="/logout/j" class="white">Log out</a>
             </div>
         </div>
     </section>
-    <section class="main">
-        <div class="errDiv">
+    <section class="main content center uk-width-3-5@m uk-width-2-3@s">
+        <div>
             <div class="errorDiv" id="errorDiv"></div>
         </div>
         <div class="tabs">
@@ -56,7 +66,7 @@
             {{/if}}
         </div>
         <form action="javascript:search();" id="search" autocomplete="off" method="get">
-            <input type="search" maxlength="100" name="term" class="search br" id="searchBox" placeholder="Search Town Hall">
+            <input type="search" maxlength="100" name="term" class="search" id="searchBox" placeholder="Search Town Hall">
             <div id="suggs" class="searchSuggs hidden">
                 <div id="searchSugg" class="searchSugg">
 
@@ -70,9 +80,10 @@
                     <div class="postDiv">
                         <textarea maxlength="360" name="post" id="post" class="post" placeholder="Enter message here"></textarea>
                     </div>
+                    <br>
                     <div class="center">
-                        News <input type="radio" name="m_type" id="mType" value="n">
-                        Opinion <input type="radio" name="m_type" id="mType" value="o" checked="checked">
+                        News <input type="radio" class="uk-radio" name="m_type" id="mType" value="n">
+                        Opinion <input type="radio" class="uk-radio" name="m_type" id="mType" value="o" checked="checked">
                     </div>
                 </form>
                 <br>
@@ -110,21 +121,9 @@
                 {{/if}}
                 {{>modal}}
             </div>
-            <footer>
-                <a href="/logout/j">Log out</a>
-            </footer>
         </div>
         <div id="oYB" class="fYB beatSect hidden">
             <div class="messagesDiv" id="beatMsgs">
-                <div class="sort right" id="sort">
-                    Sort By:
-                    <select name="sortSel" id="sortSel">
-                        <option value="a">All</option>
-                        <option value="j">Journalists</option>
-                        <option value="l">Legislators</option>
-                        <option value="o">Media Organisations</option>
-                    </select>
-                </div>
                 {{#if beat_msgs}}
                 {{#each beat_msgs}}
                 {{>messages}}
@@ -148,7 +147,7 @@
         </div>
         {{/if}}
     </section>
-    <section class="right-bar">
+    <section class="right-bar content center uk-width-1-5@m uk-visible@m">
         <section class="tabBar">
             {{#rep}}
             <div class="rep">
@@ -220,7 +219,7 @@
         }
 
         //sort messages
-        $('#sortSel').on('change', () => {
+        {{!-- $('#sortSel').on('change', () => {
             let currIndex = document.getElementById('sortSel').selectedIndex;
             //0-all 1-j 2-l 3-m
             if (currIndex == 0) {
@@ -305,7 +304,7 @@
                     });
                 }
             }
-        });
+        }); --}}
 
         //message sender
         $('#postBtn').on('click', (event) => {

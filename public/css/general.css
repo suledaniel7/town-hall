@@ -47,6 +47,10 @@ body {
     margin: 0 auto;
 }
 
+.center-block {
+    margin: 0 auto;
+}
+
 .main {
     position: relative;
 }
@@ -67,4 +71,23 @@ body {
     text-align: center;
     margin-bottom: 10px;
     width: 100%;
+}
+
+.notif {
+    font-size: 12pt;
+    font-weight: bold;
+    color: rgb(30, 135, 240);
+}
+
+:disabled {
+    cursor: not-allowed;
+}
+
+a.white, a.white:hover {
+    color: white;
+}
+
+.full-length {
+    height: 100vh;
+    overflow-y: auto;
 }

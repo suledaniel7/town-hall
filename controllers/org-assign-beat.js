@@ -37,6 +37,7 @@ function assignBeat(req, res){
                                     else {
                                         //go on. Assign journo, imp in org, also in j. Redirect
                                         ret_j.beat = ret_dist.code;
+                                        ret_j.beatName = ret_dist.name;
                                         ret_j.beatDets = {
                                             state: ret_dist.state,
                                             state_code: ret_dist.state_code,

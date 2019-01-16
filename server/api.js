@@ -40,6 +40,14 @@ const sel_org_render = require('../controllers/api/select-org-render');
 const sel_beat_render = require('../controllers/api/select-beat-render');
 const load_images = require('../controllers/api/load-images');
 const msg_req = require('../controllers/api/message_req');
+const send_type = require('../controllers/api/send_type');
+const settings = require('../controllers/api/settings');
+const update = require('../controllers/api/update');
+const orgReassignBeat = require('../controllers/api/org-reassign-beat');
+const orgReassignBeatRender = require('../controllers/api/org-reassign-beat-render');
+const removeJ = require('../controllers/api/remove_journo');
+const reqJs = require('../controllers/api/req_js');
+const followers = require('../controllers/api/followers');
 
 const router = express.Router();
 // const logos = multer({dest: 'public/logos/'});
@@ -147,6 +155,22 @@ router.post('/report/:m_type/:timestamp', auth, reportFn);
 router.get('/img-load', auth, load_images);
 
 router.get('/req-msg/:m_type/:timestamp', auth, msg_req);
+
+router.get('/req-type/:username', send_type);
+
+router.get('/settings/:username', settings);
+
+router.post('/update/:u_type/:upd_type', update);
+
+router.get('/organisations/reassign/:j_username', orgReassignBeatRender);
+
+router.post('/organisations/req-js/:r_type', reqJs);
+
+router.get('/organisations/reassign-beat/:o_username/:j_username/:code', orgReassignBeat);
+
+router.get('/organisations/remove_j/:username', removeJ);
+
+router.get('/followers/:username', followers);
 
 router.get('/logout', logout);
 

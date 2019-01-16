@@ -1,0 +1,13 @@
+<div id="orgSelModal" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body" uk-overflow-auto>
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <div class="beatSelDiv center">
+            <h4>Switch from your current Organisation to another</h4>
+            <p>
+                {{#each organisations}}
+                {{name}} <input type="radio" class="uk-radio" name="org" value="{{username}}"><br>
+                {{/each}}
+            </p>
+        </div>
+    </div>
+</div>

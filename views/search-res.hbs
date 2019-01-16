@@ -3,19 +3,20 @@
     <link rel="stylesheet" href="/css/search-res.css">
     <link rel="stylesheet" href="/css/search-result.css">
     <link rel="stylesheet" href="/css/general.css">
-    <link rel="stylesheet" href="/css/messages.css">
     <link rel="stylesheet" href="/uikit/css/uikit.css">
+    <link rel="stylesheet" href="/css/messages.css">
     <script src="/js/jquery-3.3.1.js"></script>
     <script src="/uikit/js/uikit.js"></script>
+    <script src="/uikit/js/uikit-icons.js"></script>
     <script src="/js/extract_tags_render.js"></script>
     <script src="/js/conversation.js"></script>
     <script src="/js/map_char.js"></script>
     <script src="/js/trends.js"></script>
 </head>
-<body class="{{tint}}">
-    <section class="content b" id="leftBar">
+<body uk-grid>
+    <section class="content center uk-width-1-5@m uk-width-1-4@s" id="leftBar">
         <div class="center" id="leftContent">
-            <figure>
+            <figure id="avatarFig">
                 {{#if avatar}}
                 <a href="/"><img src="/{{avatar}}{{logo}}" class="avatar br" title="{{f_name}}'s Avatar" alt="{{f_name}}'s Avatar"></a>
                 {{/if}}
@@ -24,24 +25,27 @@
                 {{/if}}
             </figure>
             <div class="sug-content" id="suggestions">
+                {{#if suggestions}}
                 <h4>Search suggestions</h4>
-                <div class="suggestions left">
-                    <p><a href="javascript:void()">Something to search perhaps</a></p>
+                <div class="suggestions">
+                    {{#each suggestions}}
+                    <a href="{{href}}"><p>{{s_type}}{{name}}</p></a>
+                    {{/each}}
                 </div>
-            </div>
-            <div class="sug-content" id="previous">
-                <h4>Previous searches</h4>
-                <div class="suggestions left">
-                    <p><a href="javascript:void()">Something to search perhaps</a></p>
-                    <p class="center small" id="clear"><a href="javascript:void()">Clear History</a></p>
-                </div>
+                {{else}}
+                <h4>No available suggestions</h4>
+                {{/if}}
             </div>
         </div>
     </section>
-    <section class="content" id="centerBar">
-        <div class="errDiv">
+    <section class="content center uk-width-3-5@m uk-width-3-4@s" id="centerBar">
+        <div>
             <div class="errorDiv" id="errorDiv"></div>
         </div>
+        <div class="left">
+            <a href="/">Back to Home</a>
+        </div>
+        <br>
         <div class="center" id="main">
             <form action="javascript:search();" id="search" autocomplete="off" method="get">
                 <input type="search" maxlength="100" name="term" class="search br" id="searchBox" value="{{term}}" placeholder="Search Town Hall">
@@ -55,10 +59,13 @@
             <div class="results left">
                 {{#if accounts}}
                 <div class="accounts">
+                    {{#each accounts}}
                     {{>search-result}}
+                    {{/each}}
                 </div>
                 {{/if}}
                 {{#if messages}}
+                <br>
                 <div class="messages">
                     {{#each messages}}
                     {{>messages}}
@@ -71,7 +78,7 @@
             {{/if}}
         </div>
     </section>
-    <section class="content b" id="rightBar">
+    <section class="content center uk-width-1-5@m uk-visible@m" id="rightBar">
         <div class="center" id="rightContent">
             <h4><a href="javascript:void();" title="Click to view more">Trending Now</a></h4>
             <div id="tr-err"></div>

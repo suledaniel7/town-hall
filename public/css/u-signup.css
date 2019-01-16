@@ -18,7 +18,7 @@ body {
 
 .error {
     font-weight: bold;
-    color: red;
+    color: #1e87f0;
 }
 
 form {
@@ -54,13 +54,13 @@ select {
 #submit {
     padding: 10px;
     background-color: transparent;
-    border: 2px solid rgb(32, 145, 153);
+    border: 2px solid #1e87f0;
     border-radius: 10px;
     font-weight: bold;
 }
 
 #submit:hover {
-    background-color: rgb(32, 145, 153);
+    background-color: #1e87f0;
     color: white;
     cursor: pointer;
 }

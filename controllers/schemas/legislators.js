@@ -22,11 +22,13 @@ const legislatorSchema = new Schema({
     lc_state: {type: String, required: true},
     state_code: {type: String, required: true},
     messages_no: {type: Number, default: 0},
+    description: {type: String, required: true},
     bio: {type: String, default: ''},
     gender: {type: String, required: true},
     code: {type: String, unique: true, required: true},
     avatar: {type: String, required: true},
     sources: Array,
+    followers: Array,
     likes: Array,
     dislikes: Array
 });

@@ -1,19 +1,21 @@
 .notif {
     text-align: center;
-    color: red;
+    color: #1e87f0;
     padding: 10px;
     font-weight: bold;
 }
 
+.content {
+    height: 100vh;
+    overflow-y: auto;
+}
+
 .sidebar {
-    width: 18%;
-    padding: 1%;
-    float: left;
     text-align: center;
     font-size: 14pt;
-    height: 650px;
+    padding-top: 20px;
     color: white;
-    background-color: rgb(13, 118, 150);
+    background-color: #1e87f0;
 }
 
 .sidebar a, .right-sect a {
@@ -27,30 +29,22 @@
 }
 
 .main {
-    width: 58%;
-    /* margin-top: 0.5%; */
-    padding: 1%;
-    float: left;
+    padding: 10px;
     overflow-y: auto;
-    /* border-bottom: 2px solid black; */
-    height: 620px;
 }
 
 .main a, .tag {
-    color: rgb(13, 118, 150);
+    color: #1e87f0;
 }
 
 .main a:hover, .tag:hover {
-    color: rgb(21, 176, 223);
+    color: #4099f1;
 }
 
 .right-sect {
-    width: 18%;
-    padding: 1%;
-    float: left;
-    height: 650px;
     color: white;
-    background-color: rgb(13, 118, 150);
+    background-color: #1e87f0;
+    padding: 10px;
 }
 
 .tabs {
@@ -65,47 +59,21 @@
 }
 
 .tab:hover {
-    /* background-color: rgb(244, 247, 72); */
-    background-color: rgb(13, 118, 150);
-    /* color: white; */
+    background-color: #1e87f0;
     cursor: pointer;
     color: white;
 }
 
 .active {
-    /* border-bottom: 2px solid rgb(244, 247, 72); */
-    border-bottom: 2px solid rgb(13, 118, 150);
+    border-bottom: 2px solid #1e87f0;
 }
 
-#beatBtn {
-    height: 2em;
-    width: 120px;
-    border: none;
-    border-radius: 5px;
-    background-color: rgb(231, 45, 20);
-    color: white;
-}
-
-#beatBtn:hover {
-    background-color: rgb(253, 50, 23);
-    cursor: pointer;
-}
-
-.table {
-    width: 100%;
-}
-
-.td {
-    width: 50%;
-    padding: 2%;
-}
-
-.table-link {
-    color: white;
+.tab-content {
+    margin: 0 auto;
+    width: 90%;
 }
 
 .postDiv {
-    /* margin: 0 auto; */
     text-align: center;
 }
 
@@ -127,14 +95,14 @@
     width: 100px;
     margin-right: 20%;
     height: 2.5em;
-    background-color: rgb(13, 118, 150);
+    background-color: #1e87f0;
     border: none;
     border-radius: 5px;
     color: white;
 }
 
 .postBtn:hover {
-    background-color: rgb(21, 176, 223);
+    background-color: #4099f1;
     cursor: pointer;
 }
 
@@ -145,14 +113,10 @@
     width: 75%;
 }
 
-hr {
-    border: 0.5px solid grey;
-}
-
-.posts {
+/* .posts {
     margin: 0 auto;
-    width: 85%;
-}
+    width: 90%;
+} */
 
 .journo {
     border: 2px solid black;
@@ -172,15 +136,6 @@ hr {
     width: 100%;
 }
 
-footer {
-    position: absolute;
-    width: 58%;
-    bottom: 0;
-    /* padding: 0.25%; */
-    text-align: center;
-    border-top: 2px solid black;
-}
-
 .table-link a{
     color: #eee;
 }
@@ -189,7 +144,7 @@ footer {
     color: black;
 }
 
-.j-table {
+.j-req-table {
     width: 100%;
 }
 
@@ -213,4 +168,8 @@ td img {
 
 .btn-img:hover {
     cursor: pointer;
+}
+
+#j_table th {
+    text-align: center;
 }

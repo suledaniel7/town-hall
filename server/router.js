@@ -6,9 +6,9 @@ const multer = require('multer');
 const home = require('../controllers/home');
 const admin = require('../controllers/admin');
 const admin_render = require('../controllers/admin-render');
+const signin = require('../controllers/signin');
 const org_signup = require('../controllers/org-signup');
 const org_signin = require('../controllers/org-signin');
-const render_u_signup = require('../controllers/u-signup-render');
 const render_u_dists = require('../controllers/u-district-render');
 const check_username = require('../controllers/check-username');
 const check_email = require('../controllers/check-email');
@@ -35,6 +35,13 @@ const serve_comments = require('../controllers/comments_serve');
 const edit = require('../controllers/edit');
 const deleteFn = require('../controllers/delete');
 const reportFn = require('../controllers/report');
+const settings = require('../controllers/settings');
+const update = require('../controllers/update');
+const orgReassignBeat = require('../controllers/org-reassign-beat');
+const orgReassignBeatRender = require('../controllers/org-reassign-beat-render');
+const removeJ = require('../controllers/remove_journo');
+const reqJs = require('../controllers/req_js');
+const followers = require('../controllers/followers');
 
 const router = express.Router();
 const logos = multer({dest: 'public/logos/'});
@@ -79,12 +86,14 @@ router.get('/admin', admin_render);
 
 router.post('/admin', admin);
 
+router.post('/login', signin);
+
 router.get('/organisations', (req, res)=>{
     res.render('organisations');
 });
 
 router.get('/organisations/signup', (req, res)=>{
-    res.render('org-signup');
+    res.render('organisations');
 });
 
 router.post('/organisations/signup', logos.single('logo'), org_signup);
@@ -112,8 +121,6 @@ router.get('/legislators', (req, res)=>{
 });
 
 router.post('/legislators/signin', l_signin);
-
-router.get('/users/signup', render_u_signup);
 
 router.get('/users/signin', (req, res)=>{
     res.render('u-signin');
@@ -162,6 +169,20 @@ router.post('/edit/:m_type/:timestamp', edit);
 router.post('/delete/:m_type/:timestamp', deleteFn);
 
 router.post('/report/:m_type/:timestamp', reportFn);
+
+router.get('/settings/:username', settings);
+
+router.post('/update/:u_type/:upd_type', update);
+
+router.get('/organisations/reassign/:j_username', orgReassignBeatRender);
+
+router.post('/organisations/req-js/:r_type', reqJs);
+
+router.get('/organisations/reassign-beat/:o_username/:j_username/:code', orgReassignBeat);
+
+router.get('/organisations/remove_j/:username', removeJ);
+
+router.get('/followers/:username', followers);
 
 router.get('/logout/:type', logout);
 

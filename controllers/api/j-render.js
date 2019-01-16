@@ -1,7 +1,7 @@
 const journalists = require('../schemas/journalists');
 const messages = require('../schemas/messages');
-const extractTags = require('./extractTags');
-const extractMentions = require('./extractMentions');
+// const extractTags = require('./extractTags');
+// const extractMentions = require('./extractMentions');
 
 function renderJ(req, res, username, user, c_username){
     let item = {};
@@ -42,11 +42,12 @@ function renderJ(req, res, username, user, c_username){
                     throw err;
                 }
                 else {
-                    let tmpMsgs = extractTags(ret_msgs, null);
-                    item.messages = extractMentions(tmpMsgs);
+                    // let tmpMsgs = extractTags(ret_msgs, null);
+                    // item.messages = extractMentions(tmpMsgs);
+                    item.messages = ret_msgs;
                     item.user = ret_j;
                     item.username = c_username;
-                    res.send(JSON.stringify({success: true, item: item}));
+                    res.send(JSON.stringify({success: true, ac_type: 'j', item: item}));
                 }
             });
         }

@@ -1,17 +1,14 @@
-{{#each accounts}}
-<div class="{{tint}}-border result center">
+<div class="border result center">
     <figure class="center-block">
         <img src="/{{logo}}{{avatar}}" class="j-avatar" title="{{name}}{{type_exp}} {{f_name}} {{l_name}}'s Avatar" alt="{{name}}{{type_exp}} {{f_name}} {{l_name}}'s Avatar">
         {{#if username}}
-        <figcaption><a class="{{tint}}-a" href="/profile/{{username}}{{code}}">{{name}}{{type_exp}} {{f_name}} {{l_name}}</a> {{#if verified}}<img src="/img/img-1/success.png" class="verified" title="Verified Account" alt="Verified Account">{{/if}}</figcaption>
-        <br>
+        <p title="{{name}}{{type_exp}} {{f_name}} {{l_name}}"><a href="/profile/{{username}}{{code}}">{{name}}{{type_exp}} {{f_name}} {{l_name}}</a> {{#if verified}}<img src="/img/img-1/success.png" class="verified" title="Verified Account" alt="Verified Account">{{/if}}</p>
         | @{{username}} |
         {{else}}
-        <br><br>
-        <figcaption><a class="{{tint}}-a" href="/profile/{{username}}{{code}}">{{name}}{{type_exp}} {{f_name}} {{l_name}}</a> {{#if verified}}<img src="/img/img-1/success.png" class="verified" title="Verified Account" alt="Verified Account">{{/if}}</figcaption>
+        <p title="{{name}}{{type_exp}} {{f_name}} {{l_name}}"><a href="/profile/{{username}}{{code}}">{{name}}{{type_exp}} {{f_name}} {{l_name}}</a> {{#if verified}}<img src="/img/img-1/success.png" class="verified" title="Verified Account" alt="Verified Account">{{/if}}</p>
+        | @{{code}} |
         {{/if}}
     </figure>
-    <p class="deep-grey-text">{{const_num}}{{followersNo}} Followers</p>
-    {{!-- <a href="/follow/:type/:{{tint}}/:{{username}}{{code}}"><button class="follow {{tint}}-button">Follow</button></a> --}}
+    <br>
+    <p class="deep-grey-text">{{description}}</p>
 </div>
-{{/each}}

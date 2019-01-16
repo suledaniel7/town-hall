@@ -3,29 +3,25 @@
 }
 
 .sidebar {
-    width: 18%;
     padding: 1%;
-    height: 700px;
-    float: left;
-    background-color: rgb(32, 145, 153);
+    height: 100vh;
+    overflow-y: auto;
+    background-color: #1e87f0;
     color: white;
 }
 
 .main {
-    width: 58%;
     padding: 1%;
-    height: 620px;
+    height: 100vh;
     overflow-y: auto;
-    float: left;
 }
 
 .rightBar {
-    width: 18%;
-    height: 700px;
+    height: 100vh;
     padding: 1%;
-    float: left;
+    overflow-y: auto;
     color: white;
-    background-color: rgb(32, 145, 153);
+    background-color: #1e87f0;
 }
 
 .main-content {
@@ -34,11 +30,11 @@
 }
 
 .main a, .tag {
-    color: rgb(32, 145, 153);
+    color: #1e87f0;
 }
 
 .main a:hover, .tag:hover {
-    color: rgb(48, 210, 221);
+    color: #4099f1;
 }
 
 .tabs {
@@ -46,7 +42,6 @@
 }
 
 .tab-content {
-    height: 550px;
     overflow-y: auto;
 }
 
@@ -70,7 +65,7 @@
 
 .tabBtn:hover {
     color: white;
-    background-color: rgb(32, 145, 153);
+    background-color: #1e87f0;
     cursor: pointer;
 }
 
@@ -79,7 +74,7 @@
 }
 
 .active {
-    border-bottom: 2px solid rgb(32, 145, 153);
+    border-bottom: 2px solid #1e87f0;
 }
 
 .hidden {
@@ -105,14 +100,14 @@
     width: 100px;
     margin-right: 20%;
     height: 2.5em;
-    background-color: rgb(32, 145, 153);
+    background-color: #1e87f0;
     border: none;
     border-radius: 5px;
     color: white;
 }
 
 .postBtn:hover {
-    background-color: rgb(48, 210, 221);
+    background-color: #4099f1;
     cursor: pointer;
 }
 

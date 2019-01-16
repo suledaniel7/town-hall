@@ -6,30 +6,30 @@
     <link rel="stylesheet" href="/uikit/css/uikit.css">
     <script src="/js/jquery-3.3.1.js"></script>
     <script src="/uikit/js/uikit.js"></script>
+    <script src="/uikit/js/uikit-icons.js"></script>
     <script src="/js/extract_tags_render.js"></script>
     <script src="/js/conversation.js"></script>
+    <script src="/js/trends.js"></script>
     <script src="/js/follow.js"></script>
 </head>
-<body class="j">
-    <section class="content center b" id="leftBar">
-         <figure class="">
-            <div class="avatarDiv">
+
+<body uk-grid>
+    <section class="content center uk-width-1-5@m uk-width-1-3@s" id="leftBar">
+        <div>
+            <figure>
                 <img id="avatar" class="avatar" src="/{{avatar}}" alt="{{f_name}}'s Avatar">
-            </div>
-        </figure>
-        <br>
-        <div id="avatarText" class="center">
-            {{f_name}} {{l_name}}
+                <br><br>
+                <figcaption>{{full_name}}</figcaption>
+            </figure>
         </div>
-        <br />
-        <div class="info">
+        <div class="dets">
             {{#beatDets}}
             <div class="bold">Reporting on {{name}} {{type_name}}</div>
             {{/beatDets}}
             <br>
             {{#if organisation}}
             <div>
-                <a href="/profile/{{organisation}}">{{orgName}}</a> Journalist
+                <a href="/profile/{{organisation}}" class="white">{{orgName}}</a> Journalist
             </div>
             {{else}}
             <div>
@@ -44,22 +44,26 @@
                 <button id="unfollowBtn" class="followBtn" onclick="unfollow('{{username}}');">Unfollow</button>
                 {{else}}
                 <button id="followBtn" class="followBtn" onclick="follow('{{username}}');">Follow</button>
-                {{!-- AJAX-ify all follow and unfollow btn clicks, on success, update btn to have unfollow and attrs as well as num of followers --}}
+
                 {{/if}}
                 {{/if}}
             </div>
             <br>
             <div>
-                <span class="bold">Followers: </span>
-                <span id="follCount">{{followersNo}}</span>
+                <a href="/followers/{{username}}" class="white">
+                    <span class="bold">Followers: </span>
+                    <span id="follCount">{{followersNo}}</span>
+                </a>
             </div>
         </div>
     </section>
-    <section class="content center" id="main">
-        <div class="errDiv">
+    <section class="content center uk-width-3-5@m uk-width-2-3@s" id="main">
+        <div class="left uk-visible@s">
+            <a href="/">Back to Home</a>
+        </div>
+        <div>
             <div class="errorDiv" id="errorDiv"></div>
         </div>
-        <h3 class="center">{{f_name}} {{l_name}}'s Posts</h3>
         {{#if messages}}
         {{#each messages}}
         {{>messages}}
@@ -69,4 +73,16 @@
         {{/if}}
         {{>modal}}
     </section>
+    <section class="content center uk-width-1-5@m uk-visible@m" id="rightBar">
+        <div class="center" id="rightContent">
+            <h4><a href="javascript:void();" title="Click to view more" class="white">Trending Now</a></h4>
+            <div id="tr-err"></div>
+            <div class="trends" id="trends">
+
+            </div>
+        </div>
+    </section>
+    <script>
+        reqTrends();
+    </script>
 </body>

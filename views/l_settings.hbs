@@ -1,0 +1,143 @@
+<head>
+    <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/uikit/css/uikit.css">
+    <link rel="stylesheet" href="/css/settings.css">
+    <script src="/js/jquery-3.3.1.js"></script>
+    <script src="/uikit/js/uikit.js"></script>
+    <script src="/uikit/js/uikit-icons.js"></script>
+    <title>Account Settings | Town Hall</title>
+</head>
+
+<body>
+    <div class="main" uk-grid>
+        <div class="sect center uk-width-1-2@m uk-width-1-1@s" id="left">
+            <h6 class="center notif" id="notif">{{notif}}</h6>
+            <form action="/update/l/bio" enctype="multipart/form-data" method="post">
+                <div class="avatarDiv">
+                    <a href="/"><img id="avatar" class="avatar" src="/{{avatar}}" alt="Your Avatar"></a>
+                    <div uk-form-custom>
+                        <input type="file" name="avatar" id="avatarInp">
+                        <span class="uk-link">Change Avatar</span>
+                    </div>
+                </div>
+                <div class="larger black-txt">
+                    {{full_name}}
+                </div>
+                <div class="larger black-txt">
+                    @{{code}}
+                </div>
+                <br>
+                <div class="larger">Bio</div>
+
+                <textarea name="bio" id="bioTxt" maxlength="500" class="uk-textarea" placeholder="Let the Community know about you">{{bio}}</textarea>
+                <div>
+                    <span id="counter"></span>/500 characters
+                </div>
+                <div class="right">
+                    <button type="submit" id="bioBtn" class="button">Save Changes</button>
+                </div>
+            </form>
+        </div>
+        <div class="sect uk-width-1-2@m uk-width-1-1@s" id="right">
+            <h3 class="center">Account Details</h3>
+            <div class="formDiv">
+                <form action="/update/l/dets" method="post" onsubmit="return validate();" class="uk-grid uk-form-stacked">
+                    <div class="uk-width-1-2@m uk-width-1-1@s">
+                        <label for="f_name">First Name</label>
+                        <input type="text" name="f_name" required="required" id="f_name" class="uk-input" value="{{f_name}}">
+                    </div>
+                    <div class="uk-width-1-2@m uk-width-1-1@s">
+                        <label for="l_name">Last Name</label>
+                        <input type="text" name="l_name" required="required" id="l_name" class="uk-input" value="{{l_name}}">
+                    </div>
+
+                    <div class="uk-width-1-2@m uk-width-1-1@s">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" required="required" id="email" class="uk-input" value="{{email}}">
+                    </div>
+                    <div class="uk-width-1-2@m uk-width-1-1@s">
+                        <label for="password">Current Password</label>
+                        <input type="password" name="password" id="password" class="uk-input">
+                    </div>
+
+                    <div class="uk-width-1-2@m uk-width-1-1@s">
+                        <label for="n_pass">New Password</label>
+                        <input type="password" name="n_pass" id="n_pass" class="uk-input">
+                    </div>
+                    <div class="uk-width-1-2@m uk-width-1-1@s">
+                        <label for="n_pass_c">Confirm New Password</label>
+                        <input type="password" id="n_pass_c" class="uk-input">
+                    </div>
+
+                    <div class="uk-width-1-1 center">
+                        <label for="gender">Gender</label>
+                        <select name="gender" required="required" id="genderSel">
+                            <option value="f">Female</option>
+                            <option value="m">Male</option>
+                        </select>
+                    </div>
+
+                    <div class="right uk-width-1-1">
+                        <button type="submit" id="bioBtn" class="button">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('bioTxt').addEventListener('input', count);
+        let field = document.getElementById('bioTxt');
+        let counter = document.getElementById('counter');
+        function count() {
+            let lt = field.value.length;
+            counter.textContent = String(lt);
+        }
+        counter.textContent = String(field.value.length);
+
+        function clearNotif() {
+            setTimeout(() => {
+                document.getElementById('notif').textContent = '';
+            }, 6000);
+        }
+
+        function setNotif(notification) {
+            document.getElementById('notif').textContent = notification;
+            clearNotif();
+        }
+
+        function validate() {
+            let password = document.getElementById('password').value;
+            let n_pass = document.getElementById('n_pass').value;
+            let n_pass_c = document.getElementById('n_pass_c').value;
+
+            let wsp = /^\s*$/;
+
+            if (!wsp.test(password) || !wsp.test(n_pass)) {
+                if (wsp.test(password) || wsp.test(n_pass) || wsp.test(n_pass_c)) {
+                    setNotif("All password fields are compulsory");
+                    return false;
+                }
+                else if (n_pass !== n_pass_c) {
+                    setNotif("New password and confirmation do not match");
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            }
+            else {
+                return true;
+            }
+        }
+
+        let gender = '{{gender}}';
+        if(gender === 'f'){
+            document.getElementById('genderSel').selectedIndex = 0;
+        }
+        else {
+            document.getElementById('genderSel').selectedIndex = 1;
+        }
+
+        clearNotif();
+    </script>
+</body>

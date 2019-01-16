@@ -10,7 +10,7 @@ function signup(req, res) {
         return wsp.test(str);
     }
     if (test(name) || test(username) || test(email) || test(email_corr) || test(password)) {
-        res.render('org-signup', { error: "All fields marked * are required" });
+        res.render('organisations', { error: "All fields marked * are required" });
     }
     else {
         username = username.toLowerCase();
@@ -46,10 +46,10 @@ function signup(req, res) {
             }
             else if (ret_g) {
                 if (ret_g.username == username) {
-                    res.render('org-signup', { error: 'A user exists with that username. Please choose another' });
+                    res.render('organisations', { error: 'A user exists with that username. Please choose another' });
                 }
                 else {
-                    res.render('org-signup', { error: 'A user exists with that Email Address. Please choose another' });
+                    res.render('organisations', { error: 'A user exists with that Email Address. Please choose another' });
                 }
             }
             else {
@@ -59,7 +59,7 @@ function signup(req, res) {
                         throw err;
                     }
                     else if (ret_o) {
-                        res.render('org-signup', { error: 'A user exists with that Correspondence Email Address. Please choose another' });
+                        res.render('organisations', { error: 'A user exists with that Correspondence Email Address. Please choose another' });
                     }
                     else {
                         const newOrg = new orgSchema({
@@ -76,6 +76,7 @@ function signup(req, res) {
                             },
                             followers: [],
                             followersNo: 0,
+                            description: "Media Organisation",
                             logo: logo
                         });
 
@@ -87,7 +88,7 @@ function signup(req, res) {
 
                         newOrg.save((err) => {
                             if (err) {
-                                res.render('org-signup', { error: 'A user exists with that username. Please choose another' });
+                                res.render('organisations', { error: 'A user exists with that username. Please choose another' });
                                 throw err;
                             }
                             else {

@@ -4,7 +4,7 @@ const strip = require('./strip');
 function renderOrgs(req, res){
     let username = req.journalist.user.username;
     
-    organisations.find((err, orgs)=>{
+    organisations.find().sort({name: 1}).exec((err, orgs)=>{
         if(err){
             throw err;
         }

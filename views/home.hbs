@@ -1,39 +1,53 @@
 <head>
-    <link rel="stylesheet" href="/css/general.css">
     <link rel="stylesheet" href="/uikit/css/uikit.css">
-    {{!-- <link rel="stylesheet" href="/css/u-signup.css"> --}}
+    <link rel="stylesheet" href="/css/general.css">
     <link rel="stylesheet" href="/css/home.css">
     <script src="/js/jquery-3.3.1.js"></script>
+    {{!-- <script src="/uikit/js/uikit-icons.js"></script> --}}
     <script src="/uikit/js/uikit.js"></script>
     <title>Town Hall | Promoting Accountability</title>
 </head>
 
 <body>
-    <nav class="uk-navbar-container uk-margin" uk-navbar>
+    <nav class="uk-navbar-container uk-width-1-1" uk-navbar>
+        <div class="uk-navbar-left uk-hidden@m">
+            <a class="uk-navbar-toggle" uk-navbar-toggle-icon uk-toggle="target: #offcanvas-nav"></a>
+        </div>
         <div class="uk-navbar-center">
             <div>
                 <div class="uk-navbar-nav">
-                    <a class="uk-active uk-navbar-item uk-logo" href="javascript:void();">Town Hall</a>
+                    <a class="uk-active uk-navbar-item uk-logo" href="/">Town Hall</a>
                 </div>
             </div>
         </div>
-        <div class="uk-navbar-right">
+        <div class="uk-navbar-right uk-visible@m">
             <div>
                 <ul class="uk-navbar-nav">
+                    <li><a href="/legislators">Legislators</a></li>
                     <li><a href="/journalists">Journalists</a></li>
                     <li><a href="/organisations">Media Organisations</a></li>
                 </ul>
             </div>
         </div>
     </nav>
-    <div class="errorDiv uk-form-danger" id="errorDiv">{{error}}{{notif}}</div>
+    <div id="offcanvas-nav" uk-offcanvas="overlay: true">
+        <div class="uk-offcanvas-bar">
+            <ul class="uk-nav uk-nav-primary">
+                <li><a href="/legislators">Legislators</a></li>
+                <li><a href="/journalists">Journalists</a></li>
+                <li><a href="/organisations">Media Organisations</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="errorDiv uk-form-danger">{{notif}}</div>
     <div class="main" uk-grid>
         <div class="uk-width-2-3@l uk-width-1-1@m">
             <div class="block-center uk-width-1-2@m uk-width-1-2@s">
                 <div class="uk-width-1-1 uk-card uk-card-hover uk-card-default uk-card-body">
                     <h3 class="uk-card-title center">Log in to Your Account</h3>
+                    <div class="errorDiv uk-form-danger" id="err-lgn">{{error-lgn}}</div>
                     <form action="/login" onsubmit="return validateLogin();" class="center" method="post">
-                        <input type="text" name="username" title="Username or Email" id="username-lgn" class="uk-input" placeholder="Enter your username or email address">
+                        <input type="text" name="email" title="Username or Email" id="username-lgn" class="uk-input" placeholder="Enter your username or email address">
                         <input type="password" name="password" title="Password" id="password-lgn" class="uk-input" placeholder="Enter your password">
                         <button class="button-lgn">Log in</button>
                         <p class="center"><a href="#signup">Don't have an Account? Sign Up</a></p>
@@ -41,7 +55,7 @@
                 </div>
             </div>
             <div id="about" class="uk-width-1-1">
-                <div class="uk-width-2-3@l uk-width-1-2@s block-center uk-card uk-card-secondary uk-card-body">
+                <div class="uk-width-2-3@l uk-width-1-2@s block-center uk-card uk-card-primary uk-card-body">
                     <h3 class="uk-card-title center">About Town Hall</h3>
                     <p class="uk-card-body">
                         Town Hall exists to inform the most important part of our democracy
@@ -60,8 +74,8 @@
         <div id="signup" class="uk-width-1-3@l uk-width-1-1@m">
             <div class="uk-width-1-1@l uk-width-1-2@s block-center uk-card uk-card-hover uk-card-default uk-card-body">
                 <h3 class="uk-card-title center">Create a User Account</h3>
+                <div class="errorDiv uk-form-danger" id="errorDiv">{{error}}</div>
                 <form class="center" id="form" onsubmit="return validate();" action="/users/signup" enctype="multipart/form-data" method="post">
-                    <div class="error" id="error">{{error}}</div>
                     <input type="text" class="uk-input" name="f_name" id="f_name" placeholder="Enter your First Name" title="First Name">
                     <input type="text" class="uk-input" name="username" id="username" placeholder="Create a Town Hall Username" title="Username">
                     <input type="email" class="uk-input" name="email" id="email" placeholder="Enter your Email Address" title="Email">
@@ -252,7 +266,7 @@
         let wsp = /^\s*$/;
 
         if(wsp.test(u_name) || wsp.test(pass)){
-            setErr("All fields are required");
+            setErrLgn("All fields are required");
             return false;
         }
         else {
@@ -266,11 +280,24 @@
         clearErr();
     }
 
+    function setErrLgn(text){
+        window.scrollTo(0, 0);
+        document.getElementById('err-lgn').innerText = text;
+        clearErrLgn();
+    }
+
     function clearErr() {
         setTimeout(() => {
             document.getElementById('errorDiv').innerText = '';
         }, 5000);
     }
 
+    function clearErrLgn() {
+        setTimeout(() => {
+            document.getElementById('err-lgn').innerText = '';
+        }, 5000);
+    }
+
     clearErr();
+    clearErrLgn();
 </script>

@@ -1,8 +1,8 @@
 const legis = require('../schemas/legislators');
 const districts = require('../schemas/districts');
 const messages = require('../schemas/messages');
-const extractTags = require('./extractTags');
-const extractMentions = require('./extractMentions');
+// const extractTags = require('./extractTags');
+// const extractMentions = require('./extractMentions');
 
 function profileRender(req, res){
     let email = req.legislator.user.email;
@@ -49,8 +49,9 @@ function profileRender(req, res){
                                         throw err;
                                     }
                                     else {
-                                        let tmpDMsgs = extractTags(ret_d_msgs, code);
-                                        item.dist_posts = extractMentions(tmpDMsgs);
+                                        // let tmpDMsgs = extractTags(ret_d_msgs, code);
+                                        // item.dist_posts = extractMentions(tmpDMsgs);
+                                        item.dist_posts = ret_d_msgs;
 
                                         res.send(JSON.stringify({success: true, item: item}));
                                     }
@@ -62,8 +63,9 @@ function profileRender(req, res){
                                         throw err;
                                     }
                                     else {
-                                        let tmpMsgs = extractTags(ret_msgs, code);
-                                        item.messages = extractMentions(tmpMsgs);
+                                        // let tmpMsgs = extractTags(ret_msgs, code);
+                                        // item.messages = extractMentions(tmpMsgs);
+                                        item.messages = ret_msgs;
                                         item.user = ret_l;
                                         item.district = ret_dist;
 

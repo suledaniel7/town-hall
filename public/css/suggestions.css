@@ -45,37 +45,37 @@ h4 {
 }
 
 .j-text {
-    color: rgb(112, 146, 190);
+    color: #1e87f0;
 }
 
 .j-text:hover {
-    color: rgb(151, 195, 253);
+    color: #4099f1;
 }
 
 .j-border {
-    border: 2px solid rgb(112, 146, 190);
+    border: 2px solid #1e87f0;
 }
 
 .o-text {
-    color: rgb(13, 118, 150);
+    color: #1e87f0;
 }
 
 .o-text:hover {
-    color: rgb(21, 176, 223);
+    color: #4099f1;
 }
 
 .o-border {
-    border: 2px solid rgb(13, 118, 150);
+    border: 2px solid #1e87f0;
 }
 
 .l-text {
-    color: rgb(146, 25, 25);
+    color: #1e87f0;
 }
 
 .l-text:hover {
-    color: rgb(253, 43, 43);
+    color: #4099f1;
 }
 
 .l-border {
-    border: 2px solid rgb(146, 25, 25);
+    border: 2px solid #1e87f0;
 }

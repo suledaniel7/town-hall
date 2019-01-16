@@ -1,55 +1,181 @@
 <head>
+    <link rel="stylesheet" href="/uikit/css/uikit.css">
+    <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/css/home.css">
     <link rel="stylesheet" href="/css/organisations.css">
     <script src="/js/jquery-3.3.1.js"></script>
+    <script src="/uikit/js/uikit.js"></script>
     <title>Media Organisations | Town Hall</title>
 </head>
 
 <body>
-    <main>
-        <h1 class="center">Town Hall Media Organisations</h1>
-        <section id="buttons">
-            <button id="signup" class="button">Sign Up</button>
-            <button id="signin" class="button">Log in</button>
-        </section>
-    </main>
-    <section class="lower">
-        <article class="center-box background-white">
-            Our core belief at Town Hall is that guiding every democracy: that the government of the people be done for and by the people.
-            The only way to truly enforce that tenet is through the established Fourth Estate of government. The men and women whose jobs
-            it is to keep the electorate informed. The men and women that consist of your organisation.
-            <br><br>
-            Informing the people, as you already know, is no easy task because the questions of relevance and association come into play.
-            Using the remarkable power of the Internet, Town Hall exists to connect individuals with their lawmakers, elected to represent
-            their interests.
-            <br><br>
-            That task is near impossible without you and the journalists working for your organisation.
-            With you, we can together make our democracy work for all parties involved.
-            You bring the news, bucketfuls of it, and we'll provide a platform for the appropriate news to get to the appropriate audience.
-            <br><br>
-            Together, we can ensure that the people our democracy was created to serve get a say in the matters shaping their lives.
-            <br><br>
-            <div class="center">
-                <a href="/organisations/signup">Welcome on board!</a>
+    <nav class="uk-navbar-container uk-width-1-1" uk-navbar>
+        <div class="uk-navbar-left uk-hidden@m">
+            <a class="uk-navbar-toggle" uk-navbar-toggle-icon uk-toggle="target: #offcanvas-nav"></a>
+        </div>
+        <div class="uk-navbar-center">
+            <div>
+                <div class="uk-navbar-nav">
+                    <a class="uk-active uk-navbar-item uk-logo" href="/">Town Hall</a>
+                </div>
             </div>
-            <br><br>
-            <div class="right italic">The Town Hall Team</div>
-        </article>
-    </section>
-    <footer class="nav">
-        <nav class="nav">
-            <ul>
-                <li class="nav-item"><a href="/">Home</a></li>
-                <li class="nav-item"><a href="/journalists">Journalists</a></li>
-                <li class="nav-item"><a href="/legislators">Legislators</a></li>
+        </div>
+        <div class="uk-navbar-right uk-visible@m">
+            <div>
+                <ul class="uk-navbar-nav">
+                    <li><a href="/">Users</a></li>
+                    <li><a href="/legislators">Legislators</a></li>
+                    <li><a href="/journalists">Journalists</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="offcanvas-nav" uk-offcanvas="overlay: true">
+        <div class="uk-offcanvas-bar">
+            <ul class="uk-nav uk-nav-primary">
+                <li><a href="/">Users</a></li>
+                <li><a href="/legislators">Legislators</a></li>
+                <li><a href="/journalists">Journalists</a></li>
             </ul>
-        </nav>
-    </footer>
+        </div>
+    </div>
+    <section class="lower" uk-grid>
+        <section class="main content uk-width-2-3@m uk-width-1-2@s uk-width-1-1@xs">
+            <div id="snDiv" class="right">
+                <p id="lgP"><a title="Log in to your Organisation Account" href="/organisations/signin">Already have an Organisation Account? Log in</a></p>
+            </div>
+            <div class="uk-width-1-1">
+                <div class="uk-width-2-3@l uk-width-1-2@m uk-width-1-1@s block-center uk-card uk-card-primary uk-card-body">
+                    <h3 class="uk-card-title center">Town Hall Media Organisations</h3>
+                    <p class="uk-card-body">
+                        Our core belief at Town Hall is that guiding every democracy: that the government of the people
+                        be done for and by the people.
+                        The only way to truly enforce that tenet is through the established Fourth Estate of
+                        government. The men and women whose jobs
+                        it is to keep the electorate informed. The men and women that consist of your organisation.
+                        <br><br>
+                        Informing the people, as you already know, is no easy task because the question of relevance
+                        comes into play.
+                        Using the remarkable power of the Internet, Town Hall exists to connect individuals with their
+                        lawmakers elected to represent their interests.
+                        <br><br>
+                        That task is near impossible without you and the journalists working for your organisation.
+                        With you, we can together make our democracy work for all parties involved.
+                        You bring the news, and we'll provide a platform for the appropriate news to
+                        get to the appropriate audience.
+                        <br><br>
+                        Together, we can ensure that the people our democracy was created to serve get a say in the
+                        matters shaping their lives.
+                        <br><br>
+                        Welcome on board!
+                    </p>
+                    <p class="uk-card-footer center">
+                        Town Hall... Promoting Accountability.
+                    </p>
+                </div>
+            </div>
+        </section>
+        <section class="form content center uk-width-1-3@m uk-width-1-2@s uk-width-1-1@xs">
+            <div class="block-center uk-card uk-card-hover uk-card-default uk-card-body">
+                <h3 class="uk-card-title center">Create a Town Hall Organisation Account</h3>
+                <div class="errorDiv uk-form-danger" id="errorDiv">{{error}}</div>
+                <form class="center" action="/organisations/signup" onsubmit="return validate();" enctype="multipart/form-data"
+                    method="post">
+                    <input type="text" class="uk-input" name="name" id="name" placeholder="*Organisation Name">
+                    <input type="text" class="uk-input" name="username" id="username" placeholder="*Username">
+                    <input type="email" class="uk-input" name="email" id="email" class="input" placeholder="*Email Address">
+                    <input type="email" class="uk-input" name="email_corr" id="email-corr" class="input" placeholder="*Correspondence Email Address">
+                    <input type="password" class="uk-input" name="password" id="password" placeholder="*Password" class="input">
+                    <input type="password" class="uk-input" id="pass1" placeholder="*Confirm Password" class="input">
+                    <input type="text" class="uk-input" name="id" id="id" placeholder="Enter NUJ ID number">
+                    <h4>Upload Organisation Logo</h4>
+                    <input type="file" class="uk-placeholder" name="logo" id="logo">
+                    <button class="button" type="submit" id="submit">Create Account</button>
+                </form>
+            </div>
+        </section>
+    </section>
     <script>
-        $('#signup').on('click', ()=>{
-            location.assign('/organisations/signup');
+        let wsp = /^\s*$/;
+
+        function validate(){
+            let o_name = document.getElementById('name').value;
+            let username = document.getElementById('username').value;
+            let email = document.getElementById('email').value;
+            let email_c = document.getElementById('email-corr').value;
+            let password = document.getElementById('password').value;
+            let pass1 = document.getElementById('pass1').value;
+            
+            if(wsp.test(o_name) || wsp.test(username) || wsp.test(email) || wsp.test(email_c) || wsp.test(password) || wsp.test(pass1)){
+                throwErr("All fields marked * are required");
+                return false;
+            }
+            else if(password !== pass1){
+                throwErr("Your passwords do not match");
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+
+        let clearErr = () => {
+            setTimeout(() => {
+                document.getElementById('errorDiv').textContent = '';
+            }, 5000);
+        }
+
+        let throwErr = (err) => {
+            window.scrollTo(0, 0);
+            document.getElementById('errorDiv').textContent = err;
+            clearErr();
+        }
+
+        $('#username').on('blur', ()=>{
+            let username = document.getElementById('username').value;
+            if(!wsp.test(username)){
+                $.ajax({
+                    url: '/users/check/'+username,
+                    method: 'GET',
+                    success: (found)=>{
+                        if(found){
+                            throwErr("The username entered is already in use. Please select another");
+                        }
+                    }
+                });
+            }
         });
-        $('#signin').on('click', ()=>{
-            location.assign('/organisations/signin');
+
+        $('#email').on('blur', ()=>{
+            let email = document.getElementById('email').value;
+            if(!wsp.test(email)){
+                $.ajax({
+                    url: '/users/checkEmail/'+email,
+                    method: 'GET',
+                    success: (found)=>{
+                        if(found){
+                            throwErr("The email address entered is already in use. Please select another");
+                        }
+                    }
+                });
+            }
         });
+
+        $('#email-corr').on('blur', ()=>{
+            let email = document.getElementById('email-corr').value;
+            if(!wsp.test(email)){
+                $.ajax({
+                    url: '/users/checkCorrEmail/'+email,
+                    method: 'GET',
+                    success: (found)=>{
+                        if(found){
+                            throwErr("The correspondence email address entered is already in use. Please select another");
+                        }
+                    }
+                });
+            }
+        });
+
+        clearErr();
     </script>
 </body>

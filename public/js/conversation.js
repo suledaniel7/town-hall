@@ -41,6 +41,16 @@ function appendCMessage(message, user) {
     m_text_div.setAttribute('class', 'm-text');
     extractTags(m_text_div, m_text, message.tags.length);
 
+    let m_text_table = document.createElement('table');
+    let m_text_tr = document.createElement('tr');
+    let m_text_td = document.createElement('td');
+    m_text_td.setAttribute('class', 'mTextTD');
+
+    //appending for the table
+    m_text_td.appendChild(m_text_div);
+    m_text_tr.appendChild(m_text_td);
+    m_text_table.appendChild(m_text_tr);
+
     let u_username = null;
     let u_name = null;
     let u_avatar = null;
@@ -48,7 +58,7 @@ function appendCMessage(message, user) {
 
     //combining message
     let messageDiv = document.createElement('div');
-    messageDiv.setAttribute('class', 'message');
+    messageDiv.setAttribute('class', 'message uk-width-1-1 uk-card uk-card-default  uk-card-hover uk-card-body');
     let m_avatar_div = document.createElement('div');
     m_avatar_div.setAttribute('class', 'm-avatar');
     let m_avatar_img = document.createElement('img');
@@ -76,7 +86,17 @@ function appendCMessage(message, user) {
     m_info_span.setAttribute('class', 'item grey');
 
     let m_sender_node = document.createTextNode(m_sender_name);
+
+    if (m_sender_position) {
+        if (message.isNews) {
+            m_sender_position = `News | ${message.sender_position}`;
+        }
+        else {
+            m_sender_position = `Opinion | ${message.sender_position}`;
+        }
+    }
     let m_sender_position_node = document.createTextNode(m_sender_position);
+
     let m_info_node = document.createTextNode(m_time + ' | ' + m_date);
 
     m_avatar_div.appendChild(m_avatar_img);
@@ -96,7 +116,7 @@ function appendCMessage(message, user) {
 
     messageDiv.appendChild(m_avatar_div);
     messageDiv.appendChild(m_sender_div);
-    messageDiv.appendChild(m_text_div);
+    messageDiv.appendChild(m_text_table);
     messageDiv.appendChild(m_info_div);
 
     mDiv.appendChild(messageDiv);
@@ -172,8 +192,17 @@ function prependComment(comment, first, username) {
     c_text_div.setAttribute('id', `c-text-${c_timestamp}`);
     extractTags(c_text_div, c_text, comment.tags.length);
 
+    let c_text_td = document.createElement('td');
+    c_text_td.setAttribute('class', 'cTextTD');
+    let c_text_tr = document.createElement('tr');
+    let c_text_table = document.createElement('table');
+
+    c_text_td.appendChild(c_text_div);
+    c_text_tr.appendChild(c_text_td);
+    c_text_table.appendChild(c_text_tr);
+
     let c_div = document.createElement('div');
-    c_div.setAttribute('class', 'comment');
+    c_div.setAttribute('class', 'comment uk-width-1-1 uk-card uk-card-default  uk-card-hover uk-card-body');
     c_div.setAttribute('id', c_timestamp);
     let c_avatar_div = document.createElement('div');
     c_avatar_div.setAttribute('class', 'c-avatar');
@@ -189,7 +218,7 @@ function prependComment(comment, first, username) {
     c_sender_name_a.setAttribute('href', '/profile/' + c_sender);
     //c-text
     let c_info_div = document.createElement('div');
-    c_info_div.setAttribute('class', 'c-info right');
+    c_info_div.setAttribute('class', 'c-info');
     let c_info_span = document.createElement('span');
     c_info_span.setAttribute('class', 'item grey');
     let c_edit_span = document.createElement('span');
@@ -211,38 +240,52 @@ function prependComment(comment, first, username) {
     c_delete_img.setAttribute('title', 'Delete');
     c_delete_img.setAttribute('onclick', `deleteMessage('${c_timestamp}', 'c')`);
     let c_report_img = document.createElement('img');
-    c_report_img.setAttribute('src', '/img/img-1/flag.png');
+    c_report_img.setAttribute('src', '/img/img-1/flag-3.png');
     c_report_img.setAttribute('alt', 'Report');
     c_report_img.setAttribute('title', 'Report');
     c_report_img.setAttribute('onclick', `reportMessage('${c_timestamp}', 'c')`);
     let c_info_node = document.createTextNode(time_created + ' | ' + date_created);
 
     c_avatar_div.appendChild(c_avatar_img);
-    if (!isUser) {
-        c_sender_name_a.appendChild(c_sender_node);
-        c_sender_name_div.appendChild(c_sender_name_a);
-    }
-    else {
-        c_sender_name_div.appendChild(c_sender_node);
-    }
+    c_sender_name_a.appendChild(c_sender_node);
+    c_sender_name_div.appendChild(c_sender_name_a);
+
+    //create info table and row
+    let c_info_table = document.createElement('table');
+    let c_info_tr = document.createElement('tr');
 
     if (username == c_sender) {
         c_edit_span.appendChild(c_edit_img);
+        let c_edit_td = document.createElement('td');
+        c_edit_td.setAttribute('class', 'uk-width-1-4 center');
+        c_edit_td.appendChild(c_edit_span);
         c_delete_span.appendChild(c_delete_img);
-        c_info_div.appendChild(c_edit_span);
-        c_info_div.appendChild(c_delete_span);
+        let c_delete_td = document.createElement('td');
+        c_delete_td.setAttribute('class', 'uk-width-1-4 center');
+        c_delete_td.appendChild(c_delete_span);
+        c_info_tr.appendChild(c_edit_td);
+        c_info_tr.appendChild(c_delete_td);
     }
     else {
         c_report_span.appendChild(c_report_img);
-        c_info_div.appendChild(c_report_span);
+        let c_report_td = document.createElement('td');
+        c_report_td.setAttribute('class', 'uk-width-1-4 center');
+        c_report_td.appendChild(c_report_span);
+        c_info_tr.appendChild(c_report_td);
     }
     c_sender_div.appendChild(c_sender_name_div);
     c_info_span.appendChild(c_info_node);
-    c_info_div.appendChild(c_info_span);
+    let c_info_td = document.createElement('td');
+    c_info_td.setAttribute('class', 'uk-width-1-4 right');
+    c_info_td.appendChild(c_info_span);
+    c_info_tr.appendChild(c_info_td);
+
+    c_info_table.appendChild(c_info_tr);
+    c_info_div.appendChild(c_info_table);
 
     c_div.appendChild(c_avatar_div);
     c_div.appendChild(c_sender_div);
-    c_div.appendChild(c_text_div);
+    c_div.appendChild(c_text_table);
     c_div.appendChild(c_info_div);
 
     cDiv.appendChild(c_div);
@@ -434,7 +477,11 @@ function updateMessage(timestamp, message) {
 }
 
 function deleteMessage(timestamp, m_type) {
-    let confirmed = confirm("Are you sure you want to delete this Post?");
+    let confMessage = "Are you sure you want to delete this Post?";
+    if (m_type === 'c') {
+        confMessage = "Are you sure you want to delete this Comment?";
+    }
+    let confirmed = confirm(confMessage);
     if (confirmed) {
         $.ajax({
             url: '/delete/' + m_type + '/' + timestamp,
@@ -462,17 +509,21 @@ function deleteMessage(timestamp, m_type) {
     }
 }
 
-function reportMessage(timestamp, m_type){
-    let confirmed = confirm("Do you want to report this message for a Community violation?");
-    if(confirmed){
+function reportMessage(timestamp, m_type) {
+    let confMessage = "Do you want to report this Message for a Community violation?";
+    if (m_type === 'c') {
+        confMessage = "Do you want to report this Comment for a Community violation?"
+    }
+    let confirmed = confirm(confMessage);
+    if (confirmed) {
         $.ajax({
-            url: '/report/'+m_type+'/'+timestamp,
+            url: '/report/' + m_type + '/' + timestamp,
             method: 'POST',
-            error: ()=>{
+            error: () => {
                 setErr("An error occured in reporting the message. Please check your Internet connection");
             },
-            success: (data)=>{
-                if(data.success){
+            success: (data) => {
+                if (data.success) {
                     setErr("We appreciate you taking out time to report this message. Our Community Moderators will have a look at it and take action where necessary. Thank you.");
                 }
                 else {

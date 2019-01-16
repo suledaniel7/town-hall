@@ -34,10 +34,10 @@ function selectOrg(req, res) {
                                     res.redirect('/');
                                 }
                                 else {
-                                    org.pending_reqs.push(journo);
                                     journo.account.status = true;
                                     journo.organisation = org_name;
                                     journo.orgName = org.name;
+                                    org.pending_reqs.push(journo);
                                     //update organisation then journo
 
                                     organisations.findOneAndUpdate({ username: org_name }, org, (err) => {

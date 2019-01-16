@@ -3,7 +3,7 @@ const legis = require('./schemas/legislators');
 
 function login(req, res) {
     let { email, password } = req.body;
-    legis.findOne({ email: email }, (err, leg) => {
+    legis.findOne({$or:[{email: email}, {code: email}]}, (err, leg) => {
         if (err) {
             throw err;
         }

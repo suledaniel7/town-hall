@@ -1,7 +1,7 @@
 const states = require('../schemas/states');
 
 function render_home(req, res){
-    states.find((err, ret_states)=>{
+    states.find().sort({name: 1}).exec((err, ret_states)=>{
         if(err){
             throw err;
         }

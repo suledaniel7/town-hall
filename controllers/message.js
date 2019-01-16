@@ -1,5 +1,4 @@
 const messages = require('./schemas/messages');
-const districts = require('./schemas/districts');
 const journalists = require('./schemas/journalists');
 const organisations = require('./schemas/organisations');
 const legislators = require('./schemas/legislators');
@@ -66,6 +65,14 @@ function messageHandler(req, res) {
             else {
                 let username = req.journalist.user.username;
                 let mType = req.body.m_type;
+                let isNews = false;
+                if(!mType){
+                    mType = 'o';
+                }
+                if(mType === 'n'){
+                    isNews = true;
+                }
+                
                 let message = new messages({
                     sender: username,
                     message: mText,
@@ -73,6 +80,7 @@ function messageHandler(req, res) {
                     comments_no: comments_no,
                     timestamp: timestamp,
                     m_type: mType,
+                    isNews: isNews,
                     m_timestamp: username + '-' + timestamp,
                     tags: tags,
                     mentions: mentions,
@@ -81,13 +89,15 @@ function messageHandler(req, res) {
                 });
 
                 saveTags(tags, username + '-' + timestamp);
+                let nonEmpty = /^.+$/;//pretty loose here
 
-                journalists.findOne({ username: username }, (err, ret_j) => {
+                journalists.findOne({ username: username, beat: nonEmpty }, (err, ret_j) => {
                     if (err) {
                         throw err;
                     }
                     else if (!ret_j) {
-                        res.sendStatus(403);
+                        req.journalist.user = null;
+                        res.redirect('/');
                     }
                     else {
                         //j exists, send message finally
@@ -103,7 +113,7 @@ function messageHandler(req, res) {
                                     message.sender_position = ret_j.orgName + ' Journalist';
                                 }
                                 else {
-                                    message.sender_position = null;
+                                    message.sender_position = "Freelance Journalist";
                                 }
                                 message.sender_avatar = ret_j.avatar;
                                 message.beats = [ret_j.beat];
@@ -123,6 +133,14 @@ function messageHandler(req, res) {
         }
         else if (m_type == 'o') {
             let beats = req.body.recepients;
+            let post_type = req.body.post_type;
+            let isNews = false;
+            if(!post_type){
+                post_type = 'o';
+            }
+            if(post_type === 'n'){
+                isNews = true;
+            }
             if (!req.organisation) {
                 res.sendStatus(403);
             }
@@ -136,6 +154,8 @@ function messageHandler(req, res) {
                     sender: username,
                     message: mText,
                     ac_type: m_type,
+                    m_type: post_type,
+                    isNews: isNews,
                     comments_no: comments_no,
                     timestamp: timestamp,
                     m_timestamp: username + '-' + timestamp,
@@ -212,6 +232,8 @@ function messageHandler(req, res) {
                     sender: code,
                     message: mText,
                     ac_type: m_type,
+                    m_type: 'n',
+                    isNews: true,
                     comments_no: comments_no,
                     timestamp: timestamp,
                     m_timestamp: code + '-' + timestamp,
@@ -264,18 +286,3 @@ function messageHandler(req, res) {
 }
 
 module.exports = messageHandler;
-
-/* 
-    A number of factors have to be considered in sending messages
-    First of all, the message should be able to detect links and stuff. This happens client-side
-    Second, messages cannot be empty. This validation happens both server and client-side
-    Also, the message should be classed under something, somehow, so we can categorise well
-    Trailing whitespace should be cleared. We'll figure out the rest as it goes on
-
-    As a failsafe, if AJAXification fails, it should start a full request (basically submit form) with the message
-    after notifying the user duly
-*/
-
-// Create distinctions between user types
-// Two things: sort out how messages are sent out, then enable following and unfollowing of sources
-// One last thing: AJAXify the message receipt procedure, and send procedure too

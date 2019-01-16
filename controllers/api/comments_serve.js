@@ -5,6 +5,8 @@ const journalists = require('../schemas/journalists');
 const organisations = require('../schemas/organisations');
 const legislators = require('../schemas/legislators');
 const findActive = require('./findActive');
+const extractMentions = require('./extractMentions');
+const extractTags = require('./extractTags');
 
 function serveComments(req, res) {
     let m_timestamp = req.body.m_timestamp;
@@ -90,6 +92,7 @@ function serveComments(req, res) {
                                 verified: verified
                             }
                         }
+                        
                         res.send(JSON.stringify({ success: true, message: ret_m, comments: ret_cs, user: user, username: username }));
                     }
                 });

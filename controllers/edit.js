@@ -95,13 +95,19 @@ function edit(req, res) {
                         m_text = m_obj.message;
                         let mentions = m_obj.mentions;
                         let tags = m_obj.tags;
+                        //edits, previous
+                        let previous = ret_m.previous;
+                        previous.push({
+                            timestamp: ret_m.timestamp,
+                            text: ret_m.message
+                        });
 
                         let newMessage = {
                             sender: ret_m.sender,
                             sender_name: ret_m.sender_name,
                             sender_position: ret_m.sender_position,
                             sender_avatar: ret_m.sender_avatar,
-                            beat: ret_m.beat,
+                            beats: ret_m.beat,
                             verified: ret_m.verified,
                             message: m_text,
                             ac_type: ret_m.m_type,
@@ -110,6 +116,8 @@ function edit(req, res) {
                             m_timestamp: ret_m.m_timestamp,
                             tags: tags,
                             mentions: mentions,
+                            previous: previous,
+                            modified: true,
                             date_created: dateFn(new Date(), true),
                             time_created: timeFn(new Date())
                         }

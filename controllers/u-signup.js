@@ -7,7 +7,7 @@ const convertPath = require('./uploadFilePathConversion');
 const dateFn = require('./dateFn');
 
 function signup(req, res) {
-    let { f_name, username, email, password, gender, state, sen_dist, fed_const } = req.body;
+    let { f_name, username, email, password, gender, sen_dist, fed_const } = req.body;
     username = username.toLowerCase();
     email = email.toLowerCase();
     if (req.file) {
@@ -76,11 +76,15 @@ function signup(req, res) {
                                             let newUser = new user({
                                                 username: username,
                                                 f_name: f_name,
+                                                lc_f_name: f_name.toLowerCase(),
                                                 email: email,
                                                 password: password,
+                                                gender: gender,
                                                 state: ret_f_const.state,
+                                                state_code: ret_f_const.state_code,
                                                 fed_const: fed_const,
                                                 sen_dist: sen_dist,
+                                                description: "Town Hall User",
                                                 avatar: fPath,
                                                 sourceSel: false,
                                                 date_joined: dateFn(new Date(), false)

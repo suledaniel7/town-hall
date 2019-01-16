@@ -1,7 +1,7 @@
 const districts = require('./schemas/districts');
 
 function beatSelect(req, res){
-    districts.find((err, ret_dists)=>{
+    districts.find().sort({state: 1, name: 1}).exec((err, ret_dists)=>{
         if(err){
             throw err;
         }

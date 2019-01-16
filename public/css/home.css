@@ -1,5 +1,6 @@
 body {
     background-color: #eee;
+    font-family: sans-serif;
 }
 
 .uk-navbar-container {
@@ -7,8 +8,20 @@ body {
 }
 
 .uk-navbar-container:not(.uk-navbar-transparent) {
-    /* background-color: rgb(30, 135, 240); */
-    background-color: black;
+    background-color: #1e87f0;
+}
+
+.uk-offcanvas-bar, .uk-navbar-toggle {
+    background-color: #1e87f0;
+    color: white;
+}
+
+.uk-offcanvas-bar .uk-nav-primary > li > a {
+    color: white;
+}
+
+.uk-navbar-toggle:hover {
+    color: #ccc;
 }
 
 .uk-navbar-item {
@@ -35,6 +48,10 @@ body {
 .uk-card-default .uk-card-title {
     color: rgb(30, 135, 240);
     /* color: black; */
+}
+
+.uk-card-primary .uk-card-body {
+    color: #eee;
 }
 
 .uk-input, .uk-select {
@@ -68,4 +85,8 @@ body {
 
 #about {
     margin-top: 20px;
+}
+
+#about p {
+    color: #eee;
 }

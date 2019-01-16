@@ -3,8 +3,8 @@ const orgSchema = require('../schemas/organisations');
 const districts = require('../schemas/districts');
 const journalists = require('../schemas/journalists');
 const messages = require('../schemas/messages');
-const extractTags = require('./extractTags');
-const extractMentions = require('./extractMentions');
+// const extractTags = require('./extractTags');
+// const extractMentions = require('./extractMentions');
 const log_entry = require('./log_entry');
 
 function profileRender(req, res) {
@@ -49,8 +49,9 @@ function profileRender(req, res) {
                                         throw err;
                                     }
                                     else {
-                                        let tmpJMsgs = extractTags(ret_jMsgs, null);
-                                        item.j_msgs = extractMentions(tmpJMsgs);
+                                        // let tmpJMsgs = extractTags(ret_jMsgs, null);
+                                        // item.j_msgs = extractMentions(tmpJMsgs);
+                                        item.j_msgs = ret_jMsgs;
                                         
                                         res.send(JSON.stringify({success: true, item: item}));
                                         let end_time = new Date();
@@ -88,8 +89,9 @@ function profileRender(req, res) {
                             throw err;
                         }
                         else {
-                            let tmp_msgs = extractTags(ret_msgs, username);
-                            item.messages = extractMentions(tmp_msgs);
+                            // let tmp_msgs = extractTags(ret_msgs, username);
+                            // item.messages = extractMentions(tmp_msgs);
+                            item.messages = ret_msgs;
                             item.user = user;
                             res.send(JSON.stringify({success: true, item: item}));
                             let end_time = new Date();

@@ -1,4 +1,3 @@
-const events = require('events');
 const strip = require('./strip');
 const extractTags = require('./extractTags');
 const extractMentions = require('./extractMentions');
@@ -8,8 +7,6 @@ const organisations = require('./schemas/organisations');
 const legislators = require('./schemas/legislators');
 const journalists = require('./schemas/journalists');
 const messages = require('./schemas/messages');
-
-const eventEmitter = events.EventEmitter;
 
 function renderProfile(req, res) {
     let start_time = new Date();
@@ -57,7 +54,7 @@ function renderProfile(req, res) {
                                             throw err;
                                         }
                                         else {
-                                            ret_orgs = strip(ret_orgs, ['email', 'pub_email', 'password', 'pendingBeat', 'districts', 'journalists', 'pending_reqs', 'followers', 'likes', 'dislikes'])[0];
+                                            ret_orgs = strip(ret_orgs, ['email', 'pub_email', 'password', 'pendingBeat', 'districts', 'journalists', 'pending_reqs', 'followers', 'likes', 'dislikes']);
                                             ret_u.suggested_orgs = ret_orgs;
                                             
                                             messages.find({$or: [{sender: ret_u.fed_const}, {sender: ret_u.sen_dist}]}, (err, ret_msgs)=>{
@@ -144,6 +141,15 @@ function renderProfile(req, res) {
                                                     finalJsArr.forEach(journo =>{
                                                         finalSearchArr.push({ sender: journo });
                                                     });
+                                                    
+                                                    for(let i=0; i<sources.length; i++){
+                                                        let username = sources[i];
+                                                        if (orgUsernames.indexOf(username) == -1) {
+                                                            //source isn't an org, carry on
+                                                            //orgs are only for beat posts, others are for general
+                                                            finalSearchArr.push({sender: username});
+                                                        }
+                                                    }
                                                     finalSearchArr.push({ sender: ret_u.fed_const });
                                                     finalSearchArr.push({ sender: ret_u.sen_dist });
 

@@ -9,7 +9,9 @@ const api = require('./server/api');
 const app = express();
 app.use(cors());
 
-mongoose.connect('mongodb://127.0.0.1/town_hall');
+mongoose.connect('mongodb://127.0.0.1/town_hall').catch((reason)=>{
+    console.log(`Couldn't connect to MongoDB. Reason: ${reason}`);
+});
 
 app.use(express.static(__dirname+'/public/'));
 
@@ -19,6 +21,6 @@ app.set('view engine', '.hbs');
 app.use('/', router);
 app.use('/api', api);
 
-app.listen(8080, ()=>{
-    console.log("Server running at http://127.0.0.1:8080");
+app.listen(8095, ()=>{
+    console.log("Server running at http://127.0.0.1:8095");
 });

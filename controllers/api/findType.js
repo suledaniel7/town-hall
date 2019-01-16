@@ -11,17 +11,7 @@ function findType(username) {
                 reject(err);
             }
             else if (!ret_g) {
-                legislators.findOne({ code: username }, (err, ret_l) => {
-                    if (err) {
-                        reject(err);
-                    }
-                    else if (!ret_l) {
-                        resolve(null);
-                    }
-                    else {
-                        resolve('legislator');
-                    }
-                });
+                resolve(null);
             }
             else {
                 let identifier = ret_g.identifier;
@@ -48,6 +38,19 @@ function findType(username) {
                         }
                         else {
                             resolve('journalist');
+                        }
+                    });
+                }
+                else if(identifier == 'l'){
+                    legislators.findOne({ code: username }, (err, ret_l) => {
+                        if (err) {
+                            reject(err);
+                        }
+                        else if (!ret_l) {
+                            resolve(null);
+                        }
+                        else {
+                            resolve('legislator');
                         }
                     });
                 }

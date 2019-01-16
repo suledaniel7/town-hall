@@ -1,246 +1,118 @@
 <head>
+    <link rel="stylesheet" href="/css/general.css">
     <link rel="stylesheet" href="/css/suggestions.css">
     <link rel="stylesheet" href="/css/u-profile.css">
-    <link rel="stylesheet" href="/css/messages.css">
-    <link rel="stylesheet" href="/css/general.css">
     <link rel="stylesheet" href="/uikit/css/uikit.css">
+    <link rel="stylesheet" href="/css/messages.css">
     <script src="/js/jquery-3.3.1.js"></script>
     <script src="/uikit/js/uikit.js"></script>
+    <script src="/uikit/js/uikit-icons.js"></script>
     <script src="/js/extract_tags_render.js"></script>
     <script src="/js/conversation.js"></script>
     <script src="/js/map_char.js"></script>
     <script src="/js/trends.js"></script>
+    <script src="/js/append.js"></script>
+    <script src="/js/search.js"></script>
     <script src="/js/follow.js"></script>
     <title>{{f_name}}'s Account | Town Hall</title>
 </head>
-<body>
-    <section class="left-bar center bold">
-        <figure class="avatar center block-center">
-            <div class="avatarDiv">
-                <img id="avatar" src="/{{avatar}}" alt="{{f_name}}'s Avatar">
+
+<body uk-grid>
+    <section class="left-bar center bold content sidebar uk-width-1-5@m uk-width-1-3@s">
+        <div id="leftContent">
+            <figure class="avatar center block-center">
+                <div class="avatarDiv">
+                    <img id="avatar" src="/{{avatar}}" alt="{{f_name}}'s Avatar">
+                </div>
+            </figure><br>
+            <div id="avatarText">
+                {{f_name}} | @{{username}}
             </div>
-        </figure><br>
-        <div id="avatarText">
-            {{f_name}} | @{{username}}
-        </div>
-        <br>
-        <div>
-            {{state}} State
-        </div>
-        <br>
-        <div>
-            <a href="/logout/u">Logout</a>
+            <br>
+            <div>
+                {{state}} State
+            </div>
+            <br>
+            <div>
+                <a href="/settings/{{username}}" class="white">Settings</a>
+            </div>
+            <br>
+            <div>
+                <a href="/logout/u" class="white">Logout</a>
+            </div>
         </div>
     </section>
-    <section class="main">
-        <div class="errDiv">
-            <div class="errorDiv" id="errorDiv"></div>
+    <section class="main content center uk-width-3-5@m uk-width-2-3@s">
+        <div id="mainContent">
+            <div>
+                <div class="errorDiv" id="errorDiv"></div>
+            </div>
+            <section id="feed" class="tabSect">
+                <form action="javascript:search();" id="search" autocomplete="off" method="get">
+                    <input type="search" maxlength="100" name="term" class="search br" id="searchBox" placeholder="Search Town Hall">
+                    <div id="suggs" class="searchSuggs hidden">
+                        <div id="searchSugg" class="searchSugg">
+
+                        </div>
+                    </div>
+                </form>
+                <div class="messagesDiv uk-width-1-1">
+                    {{>sources}}
+                </div>
+            </section>
         </div>
-        <section id="feed" class="tabSect">
-            <form action="javascript:search();" id="search" autocomplete="off" method="get">
-                <input type="search" maxlength="100" name="term" class="search br" id="searchBox" placeholder="Search Town Hall">
-                <div id="suggs" class="searchSuggs hidden">
-                    <div id="searchSugg" class="searchSugg">
-                        
+    </section>
+    <section class="right-bar content right-sect uk-width-1-5@m uk-visible@m">
+        <div id="rightContent">
+            <section class="tabBar">
+                <h4 class="center black">Your Representatives</h4>
+                {{#rep}}
+                <div class="rep">
+                    <figure>
+                        <img src="/{{avatar}}" alt="{{full_name}}'s Avatar" class="rep_avatar">
+                    </figure>
+                    <figcaption class="center">
+                        <a href="/profile/{{code}}">{{type_exp}} {{full_name}}</a>
+                    </figcaption>
+                </div>
+                {{/rep}}
+                <hr>
+                {{#sen}}
+                <div class="rep">
+                    <figure>
+                        <img src="/{{avatar}}" alt="{{full_name}}'s Avatar" class="rep_avatar">
+                    </figure>
+                    <figcaption class="center">
+                        <a href="/profile/{{code}}">{{type_exp}} {{full_name}}</a>
+                    </figcaption>
+                </div>
+                {{/sen}}
+            </section>
+            <section class="tabBar hidden">
+                <div class="center" id="rightContent">
+                    <h4><a href="javascript:void();" title="Click to view more">Trending Now</a></h4>
+                    <div id="tr-err"></div>
+                    <div class="trends" id="trends">
+
                     </div>
                 </div>
-            </form>
-            <div class="messagesDiv">
-                {{>sources}}
-            </div>
-        </section>
-    </section>
-    <section class="right-bar">
-        <section class="tabBar">
-            <h4 class="center black">Your Representatives</h4>
-            {{#rep}}
-            <div class="rep">
-                <figure>
-                    <img src="/{{avatar}}" alt="{{full_name}}'s Avatar" class="rep_avatar">
-                </figure>
-                <figcaption class="center">
-                    <a href="/profile/{{code}}">{{type_exp}} {{full_name}}</a>
-                </figcaption>
-            </div>
-            {{/rep}}
-            <hr>
-            {{#sen}}
-            <div class="rep">
-                <figure>
-                    <img src="/{{avatar}}" alt="{{full_name}}'s Avatar" class="rep_avatar">
-                </figure>
-                <figcaption class="center">
-                    <a href="/profile/{{code}}">{{type_exp}} {{full_name}}</a>
-                </figcaption>
-            </div>
-            {{/sen}}
-        </section>
-        <section class="tabBar hidden">
-            <div class="center" id="rightContent">
-                <h4><a href="javascript:void();" title="Click to view more">Trending Now</a></h4>
-                <div id="tr-err"></div>
-                <div class="trends" id="trends">
-                    
-                </div>
-            </div>
-        </section>
+            </section>
+        </div>
     </section>
     <script>
-        //changing tabs
-        let searchBar = document.getElementById('searchBox');
-        let bars = document.getElementsByClassName('tabBar');
-        let active = 1;
-        let bar1 = bars[0];
-        let bar2 = bars[1];
-
-        //for suggestions
-        let sActive = false;
-
-        searchBar.addEventListener('blur', ()=>{
-            if(!sActive){
-                document.getElementById('suggs').classList += ' hidden';
-            }
-            if (active !== 1){
-                bar1.className = 'tabBar';
-                bar2.classList += ' hidden';
-                active = 1;
-            }
-        });
-        searchBar.addEventListener('focus', ()=>{
-            document.getElementById('suggs').className = 'searchSuggs';
-            if(active !== 2){
-                bar2.className = 'tabBar';
-                bar1.classList += ' hidden';
-                active = 2;
-            }
-        });
-
-        document.getElementById('suggs').addEventListener('mouseover', ()=>{
-            sActive = true;
-        });
-        document.getElementById('suggs').addEventListener('mouseout', ()=>{
-            sActive = false;
-        });
-
-        //search suggestions
-        document.getElementById('searchBox').addEventListener('input', ()=>{
-            let text = $('#searchBox').val();
-            $.ajax({
-                url: '/autofill/',
-                method: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify({
-                    term: text
-                }),
-                success: (data)=>{
-                    autofill(data.data);
-                }
-            });
-        });
-
-        function autofill(data){
-            let searchSugg = document.getElementById('searchSugg');
-            searchSugg.innerHTML = '';
-            data.forEach(datum => {
-                let dataA = document.createElement('a');
-                dataA.setAttribute('href', datum.href);
-                dataA.setAttribute('class', 'sugg');
-                let d_type = datum.type;
-                let dataText = document.createTextNode(datum.name);
-                if(d_type == 'tag'){
-                    dataText = document.createTextNode('#'+datum.name);
-                }
-                else if(d_type == 'people'){
-                    dataText = document.createTextNode('@'+datum.name);
-                }
-
-                dataA.appendChild(dataText);
-                searchSugg.appendChild(dataA);
-                activeSugg = -1;
-            });
-        }
-
-        function search(){
-            let terms = document.getElementById('searchBox').value;
-            terms = terms.split('');
-            let fin_terms = [];
-            terms.forEach(term => {
-                fin_terms.push(mapChar(term));
-            });
-            terms = fin_terms.join('');
-            location.assign('/search/general/'+terms);
-        }
-
-        $('#close').on('click', ()=>{
+        $('#close').on('click', () => {
             document.getElementById('auto-sug').classList += ' hidden';
         });
 
-        $('#close-m').on('click', ()=>{
+        $('#close-m').on('click', () => {
             document.getElementById('sug-m').classList += ' hidden';
         });
 
-        $('#close-d').on('click', ()=>{
+        $('#close-d').on('click', () => {
             document.getElementById('sug-d').classList += ' hidden';
         });
 
-        function getSuggs(){
-            let suggArr = document.getElementsByClassName('sugg');
-            return suggArr;
-        }
-
-        let activeSugg = -1;
-        document.getElementById('searchBox').addEventListener('keydown', (ev) => {
-            if(ev.which == 40){
-                //down arrow
-                let suggs = getSuggs();
-                if(suggs.length > 0){
-                    activeSugg++;
-                    if(suggs[activeSugg]){
-                        for(let i=0; i < suggs.length; i++){
-                            suggs[i].className = 'sugg';
-                        }
-                        suggs[activeSugg].classList += ' activeSugg';
-                    }
-                    else {
-                        activeSugg--;
-                    }
-                }
-            }
-            else if(ev.which == 38){
-                //up arrow
-                let suggs = getSuggs();
-                if(suggs.length > 0){
-                    activeSugg--;
-                    if(suggs[activeSugg]){
-                        for(let i=0; i < suggs.length; i++){
-                            suggs[i].className = 'sugg';
-                        }
-                        suggs[activeSugg].classList += ' activeSugg';
-                    }
-                    else {
-                        activeSugg++;
-                    }
-                }
-            }
-            else if (ev.which == 13){
-                //enter key
-                ev.preventDefault();
-                let suggs = getSuggs();
-                if(suggs.length > 0 && suggs[activeSugg]){
-                    document.getElementById('searchBox').value = suggs[activeSugg].textContent;
-                    location.assign(suggs[activeSugg].href);
-                }
-                else {
-                    search();
-                }
-            }
-            else if(ev.which == 27){
-                //escape key
-                ev.preventDefault();
-                document.getElementById('searchSugg').classList += ' hidden';
-            }
-        });
-
+        fullSearch();
         reqTrends();
     </script>
 </body>

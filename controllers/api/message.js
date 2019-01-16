@@ -1,5 +1,4 @@
 const messages = require('../schemas/messages');
-const districts = require('../schemas/districts');
 const journalists = require('../schemas/journalists');
 const organisations = require('../schemas/organisations');
 const legislators = require('../schemas/legislators');
@@ -66,9 +65,14 @@ function messageHandler(req, res) {
             else {
                 let username = req.journalist.user.username;
                 let post_type = req.body.post_type;
+                let isNews = false;
                 if(!post_type){
                     post_type = 'o';
                 }
+                if(mType === 'n'){
+                    isNews = true;
+                }
+
                 let message = new messages({
                     sender: username,
                     message: mText,
@@ -79,13 +83,15 @@ function messageHandler(req, res) {
                     tags: tags,
                     mentions: mentions,
                     m_type: post_type,
+                    isNews: isNews,
                     date_created: dateFn(new Date(), true),
                     time_created: timeFn(new Date())
                 });
 
                 saveTags(tags, username + '-' + timestamp);
+                let nonEmpty = /^.+$/;//pretty loose here
 
-                journalists.findOne({ username: username }, (err, ret_j) => {
+                journalists.findOne({ username: username, beat: nonEmpty }, (err, ret_j) => {
                     if (err) {
                         throw err;
                     }
@@ -106,7 +112,7 @@ function messageHandler(req, res) {
                                     message.sender_position = ret_j.orgName + ' Journalist';
                                 }
                                 else {
-                                    message.sender_position = null;
+                                    message.sender_position = "Freelance Journalist";
                                 }
                                 message.sender_avatar = ret_j.avatar;
                                 message.beats = [ret_j.beat];
@@ -126,6 +132,14 @@ function messageHandler(req, res) {
         }
         else if (m_type == 'o') {
             let beats = req.body.recepients;
+            let post_type = req.body.post_type;
+            let isNews = false;
+            if(!post_type){
+                post_type = 'o';
+            }
+            if(post_type === 'n'){
+                isNews = true;
+            }
             if (!req.organisation) {
                 res.send({success: false, reason: "Invalid Credentials"});
             }
@@ -139,6 +153,8 @@ function messageHandler(req, res) {
                     sender: username,
                     message: mText,
                     ac_type: m_type,
+                    m_type: post_type,
+                    isNews: isNews,
                     comments_no: comments_no,
                     timestamp: timestamp,
                     m_timestamp: username + '-' + timestamp,
@@ -215,6 +231,8 @@ function messageHandler(req, res) {
                     sender: code,
                     message: mText,
                     ac_type: m_type,
+                    m_type: 'n',
+                    isNews: true,
                     comments_no: comments_no,
                     timestamp: timestamp,
                     m_timestamp: code + '-' + timestamp,

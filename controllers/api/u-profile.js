@@ -1,6 +1,6 @@
 const strip = require('./strip');
-const extractTags = require('./extractTags');
-const extractMentions = require('./extractMentions');
+// const extractTags = require('./extractTags');
+// const extractMentions = require('./extractMentions');
 const log_entry = require('./log_entry');
 const users = require('../schemas/users');
 const organisations = require('../schemas/organisations');
@@ -59,7 +59,7 @@ function renderProfile(req, res) {
                                                 throw err;
                                             }
                                             else {
-                                                strip(ret_orgs, ['email', 'pub_email', 'password', 'pendingBeat', 'districts', 'journalists', 'pending_reqs', 'followers', 'likes', 'dislikes'])[0];
+                                                ret_orgs = strip(ret_orgs, ['email', 'pub_email', 'password', 'pendingBeat', 'districts', 'journalists', 'pending_reqs', 'followers', 'likes', 'dislikes'])[0];
                                                 let suggested_orgs = [];
                                                 if(ret_orgs.length > 0){
                                                     ret_orgs.forEach(ret_org => {
@@ -84,8 +84,8 @@ function renderProfile(req, res) {
                                                         throw err;
                                                     }
                                                     else {
-                                                        ret_msgs = extractTags(ret_msgs, null);
-                                                        ret_msgs = extractMentions(ret_msgs);
+                                                        // ret_msgs = extractTags(ret_msgs, null);
+                                                        // ret_msgs = extractMentions(ret_msgs);
                                                         item.messages = ret_msgs;
                                                         item.user = ret_u;
                                                         item.sourceSelNull = true;
@@ -165,6 +165,16 @@ function renderProfile(req, res) {
                                                         finalJsArr.forEach(journo => {
                                                             finalSearchArr.push({ sender: journo });
                                                         });
+
+                                                        for(let i=0; i<sources.length; i++){
+                                                            let username = sources[i];
+                                                            if (orgUsernames.indexOf(username) == -1) {
+                                                                //source isn't an org, carry on
+                                                                //orgs are only for beat posts, others are for general
+                                                                finalSearchArr.push({sender: username});
+                                                            }
+                                                        }
+                                                        
                                                         finalSearchArr.push({ sender: ret_u.fed_const });
                                                         finalSearchArr.push({ sender: ret_u.sen_dist });
 
@@ -173,8 +183,9 @@ function renderProfile(req, res) {
                                                                 throw err;
                                                             }
                                                             else {
-                                                                let tmpMsgs = extractTags(ret_msgs, null);
-                                                                item.messages = extractMentions(tmpMsgs);
+                                                                // let tmpMsgs = extractTags(ret_msgs, null);
+                                                                // item.messages = extractMentions(tmpMsgs);
+                                                                item.messages = ret_msgs;
                                                                 item.user = ret_u;
                                                                 res.send(JSON.stringify({ success: true, item: item }));
                                                                 let end_time = new Date();

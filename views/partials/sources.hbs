@@ -1,44 +1,40 @@
 {{#if sourceSel}}
-    {{#if messages}}
-        {{#if auto_sug}}
-            <div id="auto-sug" class="sug-orgs">
-            <h4 class="center">Accounts you may want to follow</h4>
-            <div class="right"><span class="close" id="close">X</span></div>
-            {{#each sug_sources}}
-                {{#if organisation}}
-                    {{>sug-org}}
-                {{else}}
-                    {{>sug-j}}
-                {{/if}}
-            {{/each}}
-            </div>
-        {{/if}}
-        {{#each messages}}
-        {{>messages}}
-        {{/each}}
-    {{else}}
-        <div class="center grey">You have no posts from the Organisations you follow</div>
-    {{/if}}
-    {{>modal}}
+{{#if messages}}
+{{#if auto_sug}}
+<div id="auto-sug" class="sug-orgs">
+    <h4 class="center">Accounts you may want to follow</h4>
+    <div class="right"><span class="close" id="close">X</span></div>
+    {{#each sug_sources}}
+    {{>person}}
+    {{/each}}
+</div>
+{{/if}}
+{{#each messages}}
+{{>messages}}
+{{/each}}
 {{else}}
-    <div id="no-prior" class="center grey">Follow an organisation to keep up with your Legislators</div>
-    <h4 class="center">Organisations that report on your Legislators</h4>
-    {{#if suggested_orgs}}
-        {{!-- <div class="sug-orgs">
-        {{#each suggested_orgs}}
-            {{>sug-org}}
-        {{/each}}
-        </div> --}}
-        {{#each messages}}
-        {{>messages}}
-        {{/each}}
-    {{else}}
-        <div class="center grey bold">
-            Unfortunately, at this time, we have no Organisations that report on your Legislators.
-            <br><br>
-            We're working with more media organisations to ensure that you are duly informed.
-            <br><br>
-            We'll inform you when a news organisation begins covering your District.
-        </div>
-    {{/if}}
+<div class="center grey">You have no posts from the Organisations you follow</div>
+{{/if}}
+{{>modal}}
+{{else}}
+<h4 class="center">Organisations that report on your Legislators</h4>
+{{#if suggested_orgs}}
+<div class="sug-orgs uk-width-1-1">
+    {{#each suggested_orgs}}
+    {{>person}}
+    {{/each}}
+</div>
+{{#each messages}}
+{{>messages}}
+{{/each}}
+{{else}}
+<div class="center grey bold">
+    Unfortunately, at this time, we have no Organisations that report on your Legislators.
+    <br><br>
+    We're working with more media organisations to ensure that you are duly informed.
+    <br><br>
+    We'll inform you when a news organisation begins covering your District.
+</div>
+{{/if}}
+{{>modal}}
 {{/if}}

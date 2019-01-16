@@ -4,8 +4,8 @@ const users = require('../schemas/users');
 const journalists = require('../schemas/journalists');
 const organisations = require('../schemas/organisations');
 const legislators = require('../schemas/legislators');
-const extractTags = require('./extractTags');
-const extractMentions = require('./extractMentions');
+// const extractTags = require('./extractTags');
+// const extractMentions = require('./extractMentions');
 const findActive = require('./findActive');
 
 function msgReq(req, res){
@@ -25,7 +25,7 @@ function msgReq(req, res){
                         res.send({success: false, reason: "Invalid Account"});
                     }
                     else {
-                        retrieveMessage(username);
+                        retrieveMessage();
                     }
                 });
             }
@@ -49,7 +49,7 @@ function msgReq(req, res){
                         res.send({success: false, reason: "Invalid Account"});
                     }
                     else {
-                        retrieveMessage(username);
+                        retrieveMessage();
                     }
                 });
             }
@@ -73,7 +73,7 @@ function msgReq(req, res){
                         res.send({success: false, reason: "Invalid Account"});
                     }
                     else {
-                        retrieveMessage(username);
+                        retrieveMessage();
                     }
                 });
             }
@@ -97,7 +97,7 @@ function msgReq(req, res){
                         res.send({success: false, reason: "Invalid Account"});
                     }
                     else {
-                        retrieveMessage(email);
+                        retrieveMessage();
                     }
                 });
             }
@@ -113,7 +113,7 @@ function msgReq(req, res){
         res.send({success: false, reason: "Invalid User"});
     }
 
-    function retrieveMessage(username){
+    function retrieveMessage(){
         if(m_type == 'm'){
             messages.findOne({m_timestamp: timestamp}, (err, ret_m)=>{
                 if(err){
@@ -123,9 +123,8 @@ function msgReq(req, res){
                     res.send({success: false, reason: "Invalid Request"});
                 }
                 else {
-                    h_msg = extractTags([ret_m], username);
                     let item = {
-                        message: extractMentions(h_msg, false)[0]
+                        message: ret_m
                     }
                     res.send({success: true, item: item});
                 }
@@ -140,9 +139,8 @@ function msgReq(req, res){
                     res.send({success: false, reason: "Invalid Request"});
                 }
                 else {
-                    h_cmt = extractTags([ret_c], username);
                     let item = {
-                        comment: extractMentions(h_cmt, false)[0]
+                        comment: ret_c
                     }
                     res.send({success: true, item: item});
                 }

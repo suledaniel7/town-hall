@@ -3,6 +3,7 @@ const districts = require('./schemas/districts');
 const messages = require('./schemas/messages');
 const extractTags = require('./extractTags');
 const extractMentions = require('./extractMentions');
+const findUser = require('./findUser');
 
 function renderProfile(req, res, code, user){
     legislators.findOne({code: code}, (err, ret_l)=>{
@@ -48,7 +49,34 @@ function renderProfile(req, res, code, user){
                         else {
                             let tmpMsgs = extractTags(ret_msgs, null);
                             ret_l.messages = extractMentions(tmpMsgs);
-                            res.render('l-render', ret_l);
+                            
+                            retrieveReporting(code, ret_l);
+                            async function retrieveReporting(code, legis){
+                                let ret_user = await findUser(req);
+                                if(!ret_user){
+                                    res.redirect('/');
+                                }
+                                else {
+                                    let username = ret_user.username;
+                                    if(!username){
+                                        username = ret_user.code;
+                                    }
+
+                                    messages.find({$or:[{beats: code}, {mentions: code}]}).sort({timestamp: -1}).exec((err, ret_b_msgs)=>{
+                                        if(err){
+                                            throw err;
+                                        }
+                                        else {
+                                            let tmpBMsgs = extractTags(ret_b_msgs, username);
+                                            let b_msgs = extractMentions(tmpBMsgs, null);
+
+                                            legis.b_msgs = b_msgs;
+
+                                            res.render('l-render', legis);
+                                        }
+                                    });
+                                }
+                            }
                         }
                     });
                 }

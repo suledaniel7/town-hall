@@ -1,22 +1,77 @@
-<div id="{{m_timestamp}}" data-s_name="{{ac-type}}" class="message {{ac_type}} {{className}}">
+<div id="{{m_timestamp}}" data-s_name="{{ac-type}}" class="message uk-width-1-1 uk-card uk-card-default  uk-card-hover uk-card-body">
     <div class="m-avatar">
         <img src="/{{sender_avatar}}" class="m-avatar-img" alt="{{sender_name}}'s avatar">
     </div>
     <div class="m-sender">
         <div class="m-sender-line"><a href="/profile/{{sender}}">{{#if originator}}You{{else}}{{sender_name}}{{/if}}</a>{{#if verified}}<span class="verified"><img src="/img/img-1/success.png" title="Verified User" alt="Verified User"></span>{{/if}}</div>
-        <div class="m-sender-line">{{sender_position}}</div>
+        <div class="m-sender-line">{{#if isNews}}News{{else}}Opinion{{/if}} | {{sender_position}}</div>
     </div>
-    <div class="m-text" id="m-text-{{m_timestamp}}">
-    {{{message}}}
-    </div>
-    <div class="m-info center">
-        <img uk-toggle="target: #converse" onclick="conversation('{{m_timestamp}}');" src="/img/png/chat-1.png" class="item" title="Conversation" alt="Conversation"> <span id="comm-num-{{m_timestamp}}">{{comments_no}}</span>
-        {{#if originator}}
-        <img onclick="editMessage(true, '{{m_timestamp}}');" src="/img/png/edit.png" class="item" title="Edit" alt="Edit">
-        <img src="/img/png/garbage.png" onclick="deleteMessage('{{m_timestamp}}', 'm');" class="item" title="Delete" alt="Delete">
-        {{else}}
-        <img src="/img/img-1/flag.png" onclick="reportMessage('{{m_timestamp}}', 'm')" class="item" title="Report" alt="Report">
-        {{/if}}
-        <span class="item grey">{{time_created}} | {{date_created}}</span>
+    <table>
+        <tr>
+            <td class="mTextTD">
+                <div class="m-text" id="m-text-{{m_timestamp}}">
+                    {{{message}}}
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div class="m-info">
+        <table>
+            <tr>
+                {{#if originator}}
+                <td class="uk-width-1-4 center uk-visible@m">
+                    <img uk-toggle="target: #converse" onclick="conversation('{{m_timestamp}}');" src="/img/png/chat-1.png" class="item" title="Conversation" alt="Conversation"> <span class="comm-num" id="comm-num-{{m_timestamp}}">{{comments_no}}</span>
+                </td>
+                <td class="uk-width-1-4 center uk-visible@m">
+                    <img onclick="editMessage(true, '{{m_timestamp}}');" src="/img/png/edit.png" class="item" title="Edit" alt="Edit">
+                </td>
+                <td class="uk-width-1-4 center uk-visible@m">
+                    <img src="/img/png/garbage.png" onclick="deleteMessage('{{m_timestamp}}', 'm');" class="item" title="Delete" alt="Delete">
+                </td>
+                <td class="uk-width-1-4 right uk-visible@m">
+                    <span class="item grey">{{time_created}} | {{date_created}}</span>
+                </td>
+                <td class="uk-width-1-2 left uk-visible@xs uk-hidden@m">
+                    <span class="item grey">{{time_created}} | {{date_created}}</span>
+                </td>
+                <td class="uk-width-1-2 right uk-visible@xs uk-hidden@m">
+                    <div class="uk-inline">
+                        <span uk-icon="icon: more-vertical"></span>
+                        <div uk-dropdown="pos: top-right; mode: click">
+                            <ul class="uk-nav uk-dropdown-nav">
+                                <li uk-toggle="target: #converse" onclick="conversation('{{m_timestamp}}');">Conversation</li>
+                                <li onclick="editMessage(true, '{{m_timestamp}}');">Edit</li>
+                                <li onclick="deleteMessage('{{m_timestamp}}', 'm');">Delete</li>
+                            </ul>
+                        </div>
+                    </div>
+                </td>
+                {{else}}
+                <td class="uk-width-1-3 center uk-visible@m">
+                    <img uk-toggle="target: #converse" onclick="conversation('{{m_timestamp}}');" src="/img/png/chat-1.png" class="item" title="Conversation" alt="Conversation"> <span class="comm-num" id="comm-num-{{m_timestamp}}">{{comments_no}}</span>
+                </td>
+                <td class="uk-width-1-3 center uk-visible@m">
+                    <img src="/img/img-1/flag-3.png" onclick="reportMessage('{{m_timestamp}}', 'm')" class="item" title="Report" alt="Report">
+                </td>
+                <td class="uk-width-1-4 right uk-visible@m">
+                    <span class="item grey">{{time_created}} | {{date_created}}</span>
+                </td>
+                <td class="uk-width-1-2 left uk-visible@xs uk-hidden@m">
+                    <span class="item grey">{{time_created}} | {{date_created}}</span>
+                </td>
+                <td class="uk-width-1-2 right uk-visible@xs uk-hidden@m">
+                    <div class="uk-inline">
+                        <span uk-icon="icon: more-vertical"></span>
+                        <div uk-dropdown="pos: top-right; mode: click">
+                            <ul class="uk-nav uk-dropdown-nav">
+                                <li uk-toggle="target: #converse" onclick="conversation('{{m_timestamp}}');">Conversation</li>
+                                <li onclick="reportMessage('{{m_timestamp}}', 'm')">Report</li>
+                            </ul>
+                        </div>
+                    </div>
+                </td>
+                {{/if}}
+            </tr>
+        </table>
     </div>
 </div>

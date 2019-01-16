@@ -29,7 +29,18 @@ function selectBeat(req, res){
                                     //valid user and request
                                     journo.account.status = true;//assigned to a beat
                                     journo.beat = beat;
-                                    journo.beatDets = ret_dist;
+                                    journo.description = "Freelance Journalist";
+                                    journo.beatName = ret_dist.name;
+                                    journo.beatDets = {
+                                        state: ret_dist.state,
+                                        state_code: ret_dist.state_code,
+                                        const_num: ret_dist.const_num,
+                                        dist_code: ret_dist.dist_code,
+                                        type: ret_dist.type,
+                                        type_name: ret_dist.type_name,
+                                        name: ret_dist.name,
+                                        f_name: ret_dist.f_name
+                                    }
 
                                     //update, and send back to profile controller
                                     journalists.findOneAndUpdate({ username: username }, journo, (err) => {

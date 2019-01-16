@@ -7,7 +7,6 @@ function reqHandler(req, res) {
     let username = req.params.username;
     let j_username = req.params.j_username;
 
-    //we only decline, so perform checks, if there is a misspelling, reject
     if (type == 'decline') {
         //right param[0]
         organisations.findOne({ username: username }, (err, ret_org) => {
@@ -110,6 +109,7 @@ function reqHandler(req, res) {
                                 else {
                                     ret_j.verified = true;
                                 }
+                                ret_j.description = `${ret_org.name} Journalist`;
                                 journalists.findOneAndUpdate({ username: j_username }, ret_j, (err) => {
                                     if (err) {
                                         throw err;

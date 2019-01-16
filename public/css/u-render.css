@@ -1,0 +1,81 @@
+body {
+    font-family: sans-serif;
+}
+
+.content {
+    height: 100vh;
+    overflow-y: auto;
+}
+
+#main {
+    padding: 20px;
+}
+
+#leftContent, #leftContent2 {
+    padding: 20px;
+}
+
+#rightBar {
+    background-color: #1e87f0;
+    color: white;
+    padding: 30px;
+}
+
+.avatar {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+    padding: 5px;
+    border-radius: 50%;
+    border: 2px solid #1e87f0;
+    display: block;
+}
+
+a {
+    text-decoration: none;
+}
+
+a {
+    color: #1e87f0;
+}
+
+a:hover {
+    color: #4099f1;
+}
+
+.white {
+    color: white;
+}
+
+.white:hover {
+    color: white;
+}
+
+.trend {
+    border: 2px solid #4099f1;
+    height: 4.5em;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding: 10px;
+}
+
+.trend a {
+    color: white;
+}
+
+#rightBar a, #rightBar a:hover {
+    color: white;
+}
+
+#bioDiv, #detsDiv {
+    border: 2px dashed #1e87f0;
+    width: 40%;
+    height: 40vh;
+    padding: 10px;
+    margin: 0 auto;
+}
+
+#name_p {
+    font-size: 18pt;
+}

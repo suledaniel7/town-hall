@@ -4,7 +4,7 @@ const users = require('../schemas/users');
 function signin(req, res){
     let { email, password } = req.body;
 
-    users.findOne({email: email}, (err, ret_u)=>{
+    users.findOne({$or:[{email: email}, {username: email}]}, (err, ret_u)=>{
         if(err){
             throw err;
         }

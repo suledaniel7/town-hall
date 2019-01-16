@@ -10,22 +10,22 @@ const save_auth = require('./save_auth');
 function signin(req, res){
     let {email, password} = req.body;
 
-    users.findOne({email: email}, (err, ret_u)=>{
+    users.findOne({$or:[{email: email}, {username: email}]}, (err, ret_u)=>{
         if(err){
             throw err;
         }
         else if(!ret_u){
-            journalists.findOne({email: email}, (err, ret_j)=>{
+            journalists.findOne({$or:[{email: email}, {username: email}]}, (err, ret_j)=>{
                 if(err){
                     throw err;
                 }
                 else if(!ret_j){
-                    organisations.findOne({email: email}, (err, ret_o)=>{
+                    organisations.findOne({$or:[{email: email}, {username: email}]}, (err, ret_o)=>{
                         if(err){
                             throw err;
                         }
                         else if(!ret_o){
-                            legislators.findOne({email: email}, (err, ret_l)=>{
+                            legislators.findOne({$or:[{email: email}, {code: email}]}, (err, ret_l)=>{
                                 if(err){
                                     throw err;
                                 }

@@ -17,7 +17,7 @@ function renderJ(req, res, username, user){
                 ret_j.canFollow = true;
                 let flag = false;
                 user.sources.forEach(source => {
-                    if(source == ret_j.username || source == ret_j.organisation){
+                    if(source == ret_j.username){
                         flag = true;
                     }
                 });

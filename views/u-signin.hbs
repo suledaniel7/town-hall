@@ -1,26 +1,75 @@
 <head>
-    <link rel="stylesheet" href="/css/signup.css">
+    <link rel="stylesheet" href="/uikit/css/uikit.css">
+    <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/signin.css">
     <script src="/js/jquery-3.3.1.js"></script>
+    <script src="/uikit/js/uikit.js"></script>
+    <script src="/uikit/js/uikit-icons.js"></script>
     <title>Sign in | Town Hall Users</title>
 </head>
-<body>
-    <form action="/users/signin" onsubmit="return validate();" class="center-block center" method="post">
-        <h3 class="error">{{error}}</h3>
-        <h2 class="center">Sign in to your Town Hall User Account</h2>
-        <input type="text" name="email" id="email" placeholder="Email Address"> {{!-- or username --}}
-        <input type="password" name="password" id="password" placeholder="Password">
-        <button class="u-button" type="submit">Sign in</button>
+<body uk-grid>
+    <nav class="uk-navbar-container uk-width-1-1" uk-navbar>
+        <div class="uk-navbar-left uk-hidden@m">
+            <a class="uk-navbar-toggle" uk-navbar-toggle-icon uk-toggle="target: #offcanvas-nav"></a>
+        </div>
+        <div class="uk-navbar-center">
+            <div>
+                <div class="uk-navbar-nav">
+                    <a class="uk-active uk-navbar-item uk-logo" href="/">Town Hall</a>
+                </div>
+            </div>
+        </div>
+        <div class="uk-navbar-right uk-visible@m">
+            <div>
+                <ul class="uk-navbar-nav">
+                    <li><a href="/legislators">Legislators</a></li>
+                    <li><a href="/journalists">Journalists</a></li>
+                    <li><a href="/organisations">Media Organisations</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="offcanvas-nav" uk-offcanvas="overlay: true">
+        <div class="uk-offcanvas-bar">
+            <ul class="uk-nav uk-nav-primary">
+                <li><a href="/legislators">Legislators</a></li>
+                <li><a href="/journalists">Journalists</a></li>
+                <li><a href="/organisations">Media Organisations</a></li>
+            </ul>
+        </div>
+    </div>
+    <form action="/users/signin" onsubmit="return validate();" class="center-block center uk-width-1-2 uk-card uk-card-hover uk-card-default uk-card-body" method="post">
+        <h3 class="uk-card-title center">Sign in to your Town Hall User Account</h3>
+        <div class="errorDiv uk-form-danger" id="errorDiv">{{error}}</div>
+        <input type="text" class="uk-input uk-width-2-3" name="email" id="email" placeholder="Username or Email Address">
+        <input type="password" class="uk-input uk-width-2-3" name="password" id="password" placeholder="Password">
+        <br>
+        <button class="button" type="submit">Sign in</button>
     </form>
     <script>
         let wsp = /^\s*$/;
 
+        let clearErr = () => {
+            setTimeout(() => {
+                document.getElementById('errorDiv').textContent = '';
+            }, 5000);
+        }
+
+        let throwErr = (err) => {
+            document.getElementById('errorDiv').textContent = err;
+            clearErr();
+        }
+
         function validate(){
             if (wsp.test($('#email').val()) || wsp.test($('#password').val())){
+                throwErr("All fields are required");
                 return false;
             }
             else {
                 return true;
             }
         }
+        clearErr();
     </script>
 </body>

@@ -6,30 +6,42 @@
     <script src="/js/append.js"></script>
     <script src="/js/search.js"></script>
     <script src="/uikit/js/uikit.js"></script>
+    <script src="/uikit/js/uikit-icons.js"></script>
     <script src="/js/conversation.js"></script>
     <link rel="stylesheet" href="/uikit/css/uikit.css">
-    <link rel="stylesheet" href="/css/org-profile.css">
-    <link rel="stylesheet" href="/css/messages.css">
     <link rel="stylesheet" href="/css/general.css">
     <link rel="stylesheet" href="/css/search.css">
+    <link rel="stylesheet" href="/css/messages.css">
+    <link rel="stylesheet" href="/css/org-profile.css">
     <title>{{name}} | Town Hall</title>
 </head>
-<body>
-    <section class="sidebar">
+<body uk-grid>
+    <section class="content center sidebar uk-width-1-5@m uk-width-1-3@s">
         <div class="avatar">
             <img src="{{logo}}" alt="{{username}}'s Avatar" class="avatar-img"><br><br>
             {{name}}<br><br>
             @{{username}} <br><br>
             <div>
-                Followers: <a href="/followers/organisations/{{username}}">{{followersNo}}</a>
+                <div>
+                    <a href="/followers/{{username}}">
+                        <span>Followers: </span>
+                        <span>{{followersNo}}</span>
+                    </a>
+                </div>
                 <br><br>
-                <a href="/settings/{{username}}">Settings</a>
+                <p>
+                    <a href="/settings/{{username}}">Settings</a>
+                </p>
+                <br><br>
+                <p>
+                    <a href="/logout/o" class="white">Log out</a>
+                </p>
                 {{!-- Other stuff could go here --}}
             </div>
         </div>
     </section>
-    <section class="main">
-        <div class="errDiv">
+    <section class="content center main uk-width-3-5@m uk-width-2-3@s">
+        <div>
             <div class="errorDiv" id="errorDiv"></div>
         </div>
         <div class="tabs">
@@ -61,12 +73,20 @@
                     <textarea id="post" maxlength="360" class="post" placeholder="Type post"></textarea>
                 </form>
             </div>
+            <div class="center">
+                <p>
+                    Post Type:
+                    <br><br>
+                    Opinion: <input type="radio" name="post_type" class="uk-radio" id="postOp" checked="checked" value="o">
+                    News: <input type="radio" name="post_type" class="uk-radio" id="postNews" value="n">
+                </p>
+            </div>
             <div class="int-recs center">
                 <p>
                     Send to:
                     <br><br>
-                    All: <input type="radio" checked="checked" name="beat" id="beatRad" class="beatRad" value="all">
-                    Select Districts: <input type="radio" uk-toggle="target: #beatSelModal" name="beat" id="selBeat" class="beatRad">
+                    All: <input type="radio" checked="checked" name="beat" id="beatRad" class="beatRad uk-radio" value="all">
+                    Select Districts: <input type="radio" uk-toggle="target: #beatSelModal" name="beat" id="selBeat" class="beatRad uk-radio">
                 </p>
             </div>
             <div class="postAcc">
@@ -95,7 +115,7 @@
             <div class="j-reqs">
                 {{#if pending_reqs}}
                 <h3 class="center">Journalist Requests</h3>
-                <table class="j-table">
+                <table class="j-req-table">
                 <tbody>
                     {{#each pending_reqs}}
                     <tr class="j-tr" id="j-{{username}}">
@@ -111,24 +131,35 @@
             </div>
             <div class="center emp-heading" id="j-text-emp"></div>
             <div class="journos">
-                {{#each journos}}
-                <div id="j-text" class="journo">
-                    <figure class="javatar center">
-                        <img src="/{{avatar}}" alt="{{f_name}}'s Avatar'">
-                        <figcaption><h4><a href="/profile/{{username}}">{{f_name}} {{l_name}}</a></h4></figcaption>
-                    </figure>
-                    <div class="j-stats">
-                        <p>Followers: <a href="/followers/j/{{username}}">{{followersNo}}</a></p>
-                    </div>
-                </div>
-                {{/each}}
+                {{#if journos}}
+                <table id="j_table" class="uk-table uk-table-middle uk-table-divider uk-table-hover">
+                    <thead>
+                        <th>Name</th>
+                        <th>State</th>
+                        <th>Beat</th>
+                        <th>Last Posted</th>
+                        <th colspan="2">Actions</th>
+                    </thead>
+                    <tbody>
+                        {{#each journos}}
+                        <tr id="journo-{{username}}">
+                            <td><a href="/profile/{{username}}">{{full_name}}</a></td>
+                            <td>{{beatDets.state}}</td>
+                            <td>{{beatName}}</td>
+                            <td id="time_td-{{username}}">Loading...</td>
+                            <td><a href="/organisations/reassign/{{username}}">Change Beat</a></td>
+                            <td><a href="javascript:removeJ('{{username}}', '{{full_name}}')">Remove Journalist</a></td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+                {{else}}
+                <div class="center grey">You have no registered journalists</div>
+                {{/if}}
             </div>
         </section>
-        <footer>
-            <a href="/logout/o">Log out</a>
-        </footer>
     </section>
-    <section class="right-sect">
+    <section class="content center right-sect uk-width-1-5@m uk-visible@m">
         <section class="tabBar">
             <div class="center" id="rightContent">
                 <h4><a href="javascript:void();" title="Click to view more">Trending Now</a></h4>
@@ -189,6 +220,81 @@
             });
         }
 
+        //j message request and update
+        $.ajax({
+            url: '/organisations/req-js/usernames',
+            method: 'POST',
+            error: ()=>{
+                setErr("Unable to retrieve Journalist details. Please check your connection");
+            },
+            success: (data)=>{
+                if(data.journalists.length > 0){
+                    req_j_msgs(data.journalists);
+                }
+            }
+        });
+
+        function req_j_msgs(journalists){
+            for(let i=0; i<journalists.length; i++){
+                let j_username = journalists[i];
+                $.ajax({
+                    url: '/organisations/req-js/messages',
+                    method: 'POST',
+                    data: {username: j_username},
+                    error: ()=>{
+                        setErr("Unable to retrieve Journalist details. Please check your connection");
+                    },
+                    success: (data)=>{
+                        let found = data.msg;
+                        if(found){
+                            let m_time = data.time;
+                            let m_date = data.date;
+
+                            let timeTd = document.getElementById(`time_td-${j_username}`);
+
+                            if(timeTd){
+                                timeTd.innerHTML = `${m_time}<br>${m_date}`;
+                            }
+                        }
+                        else {
+                            let timeTd = document.getElementById(`time_td-${j_username}`);
+
+                            if(timeTd){
+                                timeTd.innerHTML = 'N/A';
+                            }
+                        }
+                    }
+                });
+            }
+        }
+        //remove j
+        function removeJ(username, full_name){
+            let confirmation = confirm(`Are you sure you want to remove ${full_name}?`);
+            if(confirmation){
+                $.ajax({
+                    url: `/organisations/remove_j/${username}`,
+                    method: 'GET',
+                    error: ()=>{
+                        setErr("Unable to retrieve Journalist details. Please check your connection");
+                    },
+                    success: (data)=>{
+                        if(data.success){
+                            let jTR = document.getElementById(`journo-${username}`);
+                            if(jTR){
+                                jTR.classList += ' hidden';
+                            }
+                            else {
+                                location.reload();
+                            }
+                        }
+                        else {
+                            setErr(data.reason);
+                        }
+                    }
+                })
+            }
+        }
+
         //send message
         $('#postBtn').on('click', (event)=>{
             let wsp = /^\s*$/;
@@ -223,6 +329,15 @@
                 else {
                     final_beats.push('all');
                 }
+
+                //news or op
+                let p_types = document.getElementsByName('post_type');
+                let sel_p = 'o';
+                for(let i=0; i<p_types.length; i++){
+                    if(p_types[i].checked){
+                        sel_p = p_types[i].value;
+                    }
+                }
                 
                 $.ajax({
                     url: '/messages/o',
@@ -230,7 +345,8 @@
                     contentType: 'application/json',
                     data: JSON.stringify({
                         mBody: text,
-                        recepients: final_beats
+                        recepients: final_beats,
+                        post_type: sel_p
                     }),
                     error: ()=>{
                         setErr("An error occured trying to send your message. Please check your connection and try again");
@@ -250,6 +366,6 @@
         fullSearch();
         reqTrends();
         clearErr();
-        $('#messaging').click();
+        {{!-- $('#journalists').click(); --}}
     </script>
 </body>

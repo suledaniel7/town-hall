@@ -1,8 +1,8 @@
 const journalists = require('../schemas/journalists');
 const legislators = require('../schemas/legislators');
 const messages = require('../schemas/messages');
-const extractTags = require('./extractTags');
-const extractMentions = require('./extractMentions');
+// const extractTags = require('./extractTags');
+// const extractMentions = require('./extractMentions');
 const log_entry = require('./log_entry');
 const strip = require('./strip');
 
@@ -109,8 +109,9 @@ function renderProfile(req, res) {
                                 beat_msg.className = 'beatMsg';
                                 tmpBeatMsgs.push(beat_msg);
                             });
-                            tmpBeatMsgs = extractTags(beat_msgs, init_username);
-                            item.beat_msgs = extractMentions(tmpBeatMsgs);
+                            // tmpBeatMsgs = extractTags(beat_msgs, init_username);
+                            // item.beat_msgs = extractMentions(tmpBeatMsgs);
+                            item.beat_msgs = beat_msgs;
                             item.user = journalist;
 
                             res.send(JSON.stringify({ success: true, item: item }));
@@ -125,8 +126,9 @@ function renderProfile(req, res) {
                             throw err;
                         }
                         else {
-                            let tmpOrgMsgs = extractTags(org_msgs, null);
-                            item.org_msgs = extractMentions(tmpOrgMsgs);
+                            // let tmpOrgMsgs = extractTags(org_msgs, null);
+                            // item.org_msgs = extractMentions(tmpOrgMsgs);
+                            item.org_msgs = org_msgs;
 
                             res.send(JSON.stringify({ success: true, item: item }));
                             let end_time = new Date();
@@ -140,8 +142,9 @@ function renderProfile(req, res) {
                             throw err;
                         }
                         else {
-                            let tmpMsgs = extractTags(ret_msgs, init_username);
-                            item.messages = extractMentions(tmpMsgs);
+                            // let tmpMsgs = extractTags(ret_msgs, init_username);
+                            // item.messages = extractMentions(tmpMsgs);
+                            item.messages = ret_msgs;
                             item.user = journalist;
 
                             res.send(JSON.stringify({ success: true, item: item }));

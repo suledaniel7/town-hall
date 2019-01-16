@@ -17,16 +17,18 @@ const journo = new Schema({
     followersNo: { type: Number, required: true },
     messages_no: {type: Number, default: 0},
     rejected: {type: Object, required: true},
+    description: {type: String, required: true},
     bio: {type: String, default: ''},
     ac_type: {type: String, default: 'j'},
     organisation: String,
     orgName: String,
     beat: String,
+    beatName: String,
     beatDets: Object,
     sources: Array,
     likes: Array,
     dislikes: Array,
-    followers: Array//nah
+    followers: Array
 });
 
 const journalist = mongoose.model('journalists', journo);

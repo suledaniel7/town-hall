@@ -1,0 +1,36 @@
+<div id="stateSelModal" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body" uk-overflow-auto>
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <div class="center">
+            <h4>Switch from your current State to another</h4>
+            <select name="state" id="state" class="uk-select">
+                <option selected="selected" value="{{state_code}}">{{state}}</option>
+                {{#each states}}
+                <option value="{{code}}">{{name}}</option>
+                {{/each}}
+            </select>
+        </div>
+        <div class="center">
+            <h4>Switch from your current Federal Constituency to another</h4>
+            <div id="fed_const_div">
+                <select name="fed_const" id="fed_const" class="uk-select">
+                    <option selected="selected" value="{{fed_const_code}}">{{u_fed_const}}</option>
+                    {{#each fed_consts}}
+                    <option value="{{code}}">{{name}}</option>
+                    {{/each}}
+                </select>
+            </div>
+        </div>
+        <div class="center">
+            <h4>Switch from your current Senatorial District to another</h4>
+            <div id="sen_dist_div">
+                <select name="sen_dist" id="sen_dist" class="uk-select">
+                    <option selected="selected" value="{{sen_dist_code}}">{{u_sen_dist}}</option>
+                    {{#each sen_dists}}
+                    <option value="{{code}}">{{name}}</option>
+                    {{/each}}
+                </select>
+            </div>
+        </div>
+    </div>
+</div>

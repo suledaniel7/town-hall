@@ -1,36 +1,43 @@
-html {
-    background-color: #eee;
-}
-
 body {
-    margin: 0 auto;
-    width: 80%;
     font-family: sans-serif;
 }
 
 .content {
-    float: left;
-    height: 648px;
+    height: 100vh;
+}
+
+#main {
+    padding: 20px;
+}
+
+.tab-content {
+    width: 95%;
+    margin: 0 auto;
 }
 
 #leftBar {
-    width: 19%;
-    padding: 0.5%;
-    color: black;
+    padding-top: 20px;
+    background-color: #1e87f0;
+    color: white;
 }
 
-#main {
-    width: 79%;
-    padding: 0.5%;
+#rightBar {
+    background-color: #1e87f0;
+    color: white;
+    padding: 10px;
 }
 
 .avatar {
-    width: 100%;
+    width: 60%;
+    height: 25vh;
     margin: 0 auto;
+    padding: 5px;
+    border-radius: 50%;
+    border: 2px solid white;
     display: block;
 }
 
-#main {
+#main, .errorDiv, .errDiv{
     background-color: white;
     overflow-y: auto;
 }
@@ -39,16 +46,12 @@ a {
     text-decoration: none;
 }
 
-.b {
-    background-color: rgb(13, 118, 150);
-}
-
 a, .tag {
-    color: rgb(13, 118, 150);
+    color: #1e87f0;
 }
 
 a:hover, .tag:hover {
-    color: rgb(21, 176, 223);
+    color: #4099f1;
 }
 
 .b a {
@@ -66,10 +69,66 @@ a:hover, .tag:hover {
     border: none;
     border-radius: 10px;
     color: white;
-    background-color: rgb(21, 176, 223);
+    background-color: #4099f1;
 }
 
 .followBtn:hover {
     text-decoration: underline;
     cursor: pointer;
+}
+
+.white {
+    color: white;
+}
+
+.white:hover {
+    color: white;
+}
+
+.trend {
+    border: 2px solid #4099f1;
+    height: 4.5em;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding: 10px;
+}
+
+.trend a {
+    color: white;
+}
+
+#rightBar a, #rightBar a:hover {
+    color: white;
+}
+
+.tabs {
+    margin-bottom: 10px;
+}
+
+.tabBtn {
+    margin-right: 2%;
+    height: 2.25em;
+    background-color: transparent;
+    border: none;
+    font-size: 13pt;
+    padding: 1%;
+}
+
+.tabBtn:hover {
+    color: white;
+    background-color: #1e87f0;
+    cursor: pointer;
+}
+
+.tabBtn:focus {
+    outline: none;
+}
+
+.active {
+    border-bottom: 2px solid #1e87f0;
+}
+
+.hidden {
+    display: none;
 }
