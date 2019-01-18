@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const sessions = require('client-sessions');
-// const multer = require('multer');
+const multer = require('multer');
 
 const auth = require('../controllers/api/authenticate');
 const home = require('../controllers/api/home');
@@ -48,10 +48,14 @@ const orgReassignBeatRender = require('../controllers/api/org-reassign-beat-rend
 const removeJ = require('../controllers/api/remove_journo');
 const reqJs = require('../controllers/api/req_js');
 const followers = require('../controllers/api/followers');
+const findMention = require('../controllers/api/findMention');
+const downloadFile = require('../controllers/api/downloadFile');
+const finalizeUpload = require('../controllers/api/finalizeUpload');
 
 const router = express.Router();
 // const logos = multer({dest: 'public/logos/'});
 // const u_avatars = multer({dest: 'public/u_avatars/'});
+const avs = multer({dest: 'public/tmp_avatars/'});
 // const j_avatars = multer({dest: 'public/j_avatars/'});
 
 router.use(sessions({
@@ -100,9 +104,9 @@ router.post('/journalists/signin', j_signin);
 
 router.post('/journalists/signup', j_signup);
 
-router.get('/journalists/orgs/', sel_org_render);
+router.get('/journalists/orgs/', auth, sel_org_render);
 
-router.get('/journalists/beats/', sel_beat_render);
+router.get('/journalists/beats/', auth, sel_beat_render);
 
 router.post('/legislators/signin', l_signin);
 
@@ -171,6 +175,12 @@ router.get('/organisations/reassign-beat/:o_username/:j_username/:code', orgReas
 router.get('/organisations/remove_j/:username', removeJ);
 
 router.get('/followers/:username', followers);
+
+router.post('/isUser', findMention);
+
+router.post('/upload_img', avs.single('avatar'), downloadFile);
+
+router.post('/upload_conf', auth, finalizeUpload);
 
 router.get('/logout', logout);
 

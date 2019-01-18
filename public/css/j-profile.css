@@ -124,6 +124,7 @@
 
 #avatar {
     width: 70%;
+    max-height: 30vh;
 }
 
 .pending {

@@ -52,6 +52,7 @@
 
 #avatar {
     width: 80%;
+    max-height: 30vh;
 }
 
 .tabBtn {
