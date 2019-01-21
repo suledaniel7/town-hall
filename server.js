@@ -2,6 +2,7 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const favicon = require('serve-favicon');
 
 const router = require('./server/router');
 const api = require('./server/api');
@@ -14,6 +15,7 @@ mongoose.connect('mongodb://127.0.0.1/town_hall').catch((reason)=>{
 });
 
 app.use(express.static(__dirname+'/public/'));
+app.use(favicon(__dirname+'/public/img/favicon.ico'));
 
 app.engine('.hbs', exphbs({extname: '.hbs', defaultLayout: 'main'}));
 app.set('view engine', '.hbs');
