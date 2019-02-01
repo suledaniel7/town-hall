@@ -23,10 +23,6 @@ function profileRender(req, res) {
             if (!user) {
                 res.send(JSON.stringify({ success: false, reason: "Invalid Account" }));
             }
-            else if (user.pendingBeat.status) {
-                let journo = user.pendingBeat.username;
-                assignBeat(req, res, journo);
-            }
             else {
                 item.user = user;
                 if (page == 'home') {
@@ -52,8 +48,8 @@ function profileRender(req, res) {
                                         // let tmpJMsgs = extractTags(ret_jMsgs, null);
                                         // item.j_msgs = extractMentions(tmpJMsgs);
                                         item.j_msgs = ret_jMsgs;
-                                        
-                                        res.send(JSON.stringify({success: true, item: item}));
+
+                                        res.send(JSON.stringify({ success: true, item: item }));
                                         let end_time = new Date();
                                         log_entry("Render Mobile Organisation profile", false, start_time, end_time);
                                     }
@@ -61,7 +57,7 @@ function profileRender(req, res) {
                             }
                             else {
                                 item.j_msgs = [];
-                                res.send(JSON.stringify({success: true, item: item}));
+                                res.send(JSON.stringify({ success: true, item: item }));
                                 let end_time = new Date();
                                 log_entry("Render Mobile Organisation profile", false, start_time, end_time);
                             }
@@ -69,16 +65,52 @@ function profileRender(req, res) {
                     });
                 }
                 else if (page == 'journos') {
+                    if(user.pending_reqs.length > 0){
+                        item.pending_reqs = true;
+                    }
                     //journo info
-                    journalists.find({ organisation: username, beat: /^[^\s$]/ }, (err, journos) => {
+                    journalists.find({ organisation: username, beat: /^[^\s$]/ }).sort({l_name: 1}).exec((err, journos) => {
                         if (err) {
                             throw err;
                         }
                         else {
-                            item.journos = journos;
-                            res.send(JSON.stringify({success: true, item: item}));
-                            let end_time = new Date();
-                            log_entry("Render Mobile Organisation profile", false, start_time, end_time);
+                            let obtain_dists = (o_js) => {
+                                return new Promise((resolve, reject) => {
+                                    let final = o_js.length - 1;
+                                    for (let i = 0; i < o_js.length; i++) {
+                                        districts.findOne({ code: o_js[i].beat }, (err, ret_d) => {
+                                            if (err) {
+                                                throw err;
+                                            }
+                                            else if (!ret_d) {
+                                                reject("Invalid District");
+                                            }
+                                            else {
+                                                if(ret_d.type === 'sen'){
+                                                    ret_d.type = "Sen. ";
+                                                }
+                                                else {
+                                                    ret_d.type = "Rep. ";
+                                                }
+                                                o_js[i].beatDets = ret_d;
+                                                if (final === -1 || i === final) {
+                                                    resolve(o_js);
+                                                }
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                            obtain_dists(journos).then((ret_journos) => {
+                                item.journos = ret_journos;
+                                res.send(JSON.stringify({ success: true, item: item }));
+                                let end_time = new Date();
+                                log_entry("Render Mobile Organisation profile", false, start_time, end_time);
+                            }).catch((reason)=>{
+                                res.send(JSON.stringify({success: false, reason: "An error occured in obtaining the districts for your Journalists"}));
+                                let end_time = new Date();
+                                log_entry("Render Mobile Organisation profile", false, start_time, end_time);
+                            });
                         }
                     });
                 }
@@ -92,17 +124,16 @@ function profileRender(req, res) {
                             // let tmp_msgs = extractTags(ret_msgs, username);
                             // item.messages = extractMentions(tmp_msgs);
                             item.messages = ret_msgs;
-                            item.user = user;
-                            res.send(JSON.stringify({success: true, item: item}));
+                            res.send(JSON.stringify({ success: true, item: item }));
                             let end_time = new Date();
                             log_entry("Render Mobile Organisation profile", false, start_time, end_time);
                         }
-                    });            
+                    });
                 }
-                else if (page == 'compose'){
+                else if (page == 'compose') {
                     //district info
-                    districts.find((err, ret_ds)=>{
-                        if(err){
+                    districts.find((err, ret_ds) => {
+                        if (err) {
                             throw err;
                         }
                         else {
@@ -110,23 +141,23 @@ function profileRender(req, res) {
                             let b_arr = [];
                             ret_ds.forEach(ret_d => {
                                 let input_index = st_arr.length;
-                                for(let i=0; i<st_arr.length; i++){
+                                for (let i = 0; i < st_arr.length; i++) {
                                     let st = st_arr[i];
-                                    if(st.name == ret_d.state){
+                                    if (st.name == ret_d.state) {
                                         input_index = i;
                                     }
                                 }
                                 let d_type = "Fed Const.";
-                                if(ret_d.type == 'sen'){
+                                if (ret_d.type == 'sen') {
                                     d_type = "Sen Dist."
                                 }
-                                if(st_arr[input_index]){
-                                    st_arr[input_index].districts.push({name: ret_d.name, code: ret_d.code, d_type: d_type});
+                                if (st_arr[input_index]) {
+                                    st_arr[input_index].districts.push({ name: ret_d.name, code: ret_d.code, d_type: d_type });
                                 }
                                 else {
                                     st_arr[input_index] = {
                                         name: ret_d.state,
-                                        districts: [{name: ret_d.name, code: ret_d.code, d_type: d_type}]
+                                        districts: [{ name: ret_d.name, code: ret_d.code, d_type: d_type }]
                                     }
                                 }
                                 b_arr.push({
@@ -135,15 +166,53 @@ function profileRender(req, res) {
                                     type: d_type
                                 });
                             });
-                            
+
                             item.beats = st_arr;
                             item.b_arr = b_arr;
                             item.avatar = user.logo;
-                            res.send(JSON.stringify({success: true, item: item}));
+                            res.send(JSON.stringify({ success: true, item: item }));
                             let end_time = new Date();
                             log_entry("Render Mobile Organisation profile", false, start_time, end_time);
                         }
                     });
+                }
+                else if(page === 'root'){
+                    if (user.pendingBeat.status) {
+                        let j_username = user.pendingBeat.username;
+                        journalists.findOne({username: j_username}, (err, ret_j)=>{
+                            if(err){
+                                throw err;
+                            }
+                            else if(!ret_j){
+                                //send error, remove pending beat, at ts, reload
+                                user.pendingBeat = {
+                                    status: false,
+                                    username: ""
+                                }
+                                for(let i=0; i<user.pending_reqs.length; i++){
+                                    let p_req = user.pending_reqs[i];
+                                    if(p_req.username === j_username){
+                                        user.pending_reqs.splice(i, 1);
+                                    }
+                                }
+                                orgSchema.findOneAndUpdate({username: username}, user, (err)=>{
+                                    if(err){
+                                        throw err;
+                                    }
+                                    else {
+                                        res.send(JSON.stringify({success : true, pending: false}));
+                                    }
+                                });
+                            }
+                            else {
+                                ret_j.password = null;
+                                res.send(JSON.stringify({success: true, pending: true, journo: ret_j, user: user}));
+                            }
+                        });
+                    }
+                    else {
+                        res.send(JSON.stringify({success: true, pending: false}));
+                    }
                 }
             }
         }

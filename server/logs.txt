@@ -672,3 +672,606 @@ Fri Jan 18 2019 20:36:20 GMT+0100 (W. Central Africa Standard Time): Render User
 Fri Jan 18 2019 20:36:44 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.027 seconds
 Fri Jan 18 2019 20:36:49 GMT+0100 (W. Central Africa Standard Time): Render User Profile query took 0.018 seconds
 Fri Jan 18 2019 21:15:26 GMT+0100 (W. Central Africa Standard Time): Render Journalist profile query took 1.328 seconds
+Sat Jan 26 2019 20:08:14 GMT+0100 (WAT): Render Organisation profile query took 0.191 seconds
+Sat Jan 26 2019 20:08:26 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.021 seconds
+Sat Jan 26 2019 20:08:30 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.015 seconds
+Sat Jan 26 2019 20:08:48 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.02 seconds
+Sat Jan 26 2019 20:08:55 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.036 seconds
+Sat Jan 26 2019 20:08:56 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.012 seconds
+Sun Jan 27 2019 07:10:58 GMT+0100 (WAT): Search query took 0.055 seconds
+Sun Jan 27 2019 07:11:02 GMT+0100 (WAT): Search query took 0.11 seconds
+Sun Jan 27 2019 07:13:11 GMT+0100 (WAT): Render Organisation profile query took 0.056 seconds
+Sun Jan 27 2019 07:31:47 GMT+0100 (WAT): Render Organisation profile query took 0.217 seconds
+Sun Jan 27 2019 07:32:20 GMT+0100 (WAT): Render Organisation profile query took 0.041 seconds
+Sun Jan 27 2019 07:33:08 GMT+0100 (WAT): Render Journalist profile query took 0.029 seconds
+Sun Jan 27 2019 07:33:13 GMT+0100 (WAT): Render Journalist profile query took 0.025 seconds
+Sun Jan 27 2019 07:34:04 GMT+0100 (WAT): Render Journalist profile query took 0.022 seconds
+Sun Jan 27 2019 07:34:51 GMT+0100 (WAT): Render Journalist profile query took 0.03 seconds
+Sun Jan 27 2019 07:36:09 GMT+0100 (WAT): Render User Profile query took 0.092 seconds
+Sun Jan 27 2019 07:36:47 GMT+0100 (WAT): Render User Profile query took 0.026 seconds
+Sun Jan 27 2019 15:02:58 GMT+0100 (WAT): Render User Profile query took 0.071 seconds
+Sun Jan 27 2019 15:03:07 GMT+0100 (WAT): Render User Profile query took 0.051 seconds
+Sun Jan 27 2019 15:05:21 GMT+0100 (WAT): Render User Profile query took 0.042 seconds
+Sun Jan 27 2019 15:22:23 GMT+0100 (WAT): Render User Profile query took 0.23 seconds
+Sun Jan 27 2019 15:34:30 GMT+0100 (WAT): Render User Profile query took 0.156 seconds
+Sun Jan 27 2019 15:34:41 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.089 seconds
+Sun Jan 27 2019 15:34:43 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.035 seconds
+Sun Jan 27 2019 15:35:07 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.02 seconds
+Sun Jan 27 2019 20:29:35 GMT+0100 (WAT): Render User Profile query took 1.629 seconds
+Mon Jan 28 2019 05:52:46 GMT+0100 (WAT): Render User Profile query took 0.259 seconds
+Mon Jan 28 2019 05:53:28 GMT+0100 (WAT): Render User Profile query took 0.047 seconds
+Mon Jan 28 2019 05:53:30 GMT+0100 (WAT): Render User Profile query took 0.027 seconds
+Mon Jan 28 2019 06:16:29 GMT+0100 (WAT): Render User Profile query took 0.19 seconds
+Mon Jan 28 2019 06:16:32 GMT+0100 (WAT): Render User Profile query took 0.029 seconds
+Mon Jan 28 2019 06:17:08 GMT+0100 (WAT): Render User Profile query took 0.039 seconds
+Mon Jan 28 2019 06:17:10 GMT+0100 (WAT): Render User Profile query took 0.051 seconds
+Mon Jan 28 2019 06:20:34 GMT+0100 (WAT): Render User Profile query took 0.054 seconds
+Mon Jan 28 2019 06:23:23 GMT+0100 (WAT): Render User Profile query took 0.042 seconds
+Mon Jan 28 2019 06:23:26 GMT+0100 (WAT): Render User Profile query took 0.063 seconds
+Mon Jan 28 2019 06:35:43 GMT+0100 (WAT): Render User Profile query took 0.083 seconds
+Mon Jan 28 2019 06:41:54 GMT+0100 (WAT): Render User Profile query took 0.588 seconds
+Mon Jan 28 2019 08:13:58 GMT+0100 (WAT): Render User Profile query took 0.286 seconds
+Mon Jan 28 2019 09:16:43 GMT+0100 (WAT): Render User Profile query took 0.041 seconds
+Mon Jan 28 2019 09:19:06 GMT+0100 (WAT): Render User Profile query took 0.058 seconds
+Mon Jan 28 2019 09:19:09 GMT+0100 (WAT): Render User Profile query took 0.035 seconds
+Mon Jan 28 2019 09:21:44 GMT+0100 (WAT): Render User Profile query took 0.046 seconds
+Mon Jan 28 2019 09:24:54 GMT+0100 (WAT): Render User Profile query took 0.042 seconds
+Mon Jan 28 2019 09:25:15 GMT+0100 (WAT): Render User Profile query took 0.036 seconds
+Mon Jan 28 2019 09:27:55 GMT+0100 (WAT): Render User Profile query took 0.571 seconds
+Mon Jan 28 2019 09:29:13 GMT+0100 (WAT): Render User Profile query took 0.034 seconds
+Mon Jan 28 2019 09:29:16 GMT+0100 (WAT): Render User Profile query took 0.052 seconds
+Mon Jan 28 2019 09:30:09 GMT+0100 (WAT): Render User Profile query took 0.065 seconds
+Mon Jan 28 2019 09:30:13 GMT+0100 (WAT): Render User Profile query took 0.033 seconds
+Mon Jan 28 2019 09:31:20 GMT+0100 (WAT): Render User Profile query took 0.036 seconds
+Mon Jan 28 2019 09:31:28 GMT+0100 (WAT): Render User Profile query took 0.028 seconds
+Mon Jan 28 2019 09:33:31 GMT+0100 (WAT): Render User Profile query took 0.068 seconds
+Mon Jan 28 2019 09:35:05 GMT+0100 (WAT): Render User Profile query took 0.025 seconds
+Mon Jan 28 2019 09:36:57 GMT+0100 (WAT): Render User Profile query took 0.032 seconds
+Mon Jan 28 2019 09:37:40 GMT+0100 (WAT): Render User Profile query took 0.042 seconds
+Mon Jan 28 2019 09:37:52 GMT+0100 (WAT): Render User Profile query took 0.035 seconds
+Mon Jan 28 2019 09:37:56 GMT+0100 (WAT): Render User Profile query took 0.018 seconds
+Mon Jan 28 2019 09:39:30 GMT+0100 (WAT): Render User Profile query took 0.032 seconds
+Mon Jan 28 2019 09:39:44 GMT+0100 (WAT): Render User Profile query took 0.023 seconds
+Mon Jan 28 2019 09:43:05 GMT+0100 (WAT): Render User Profile query took 0.07 seconds
+Mon Jan 28 2019 09:43:11 GMT+0100 (WAT): Render User Profile query took 0.039 seconds
+Mon Jan 28 2019 10:05:46 GMT+0100 (WAT): Render User Profile query took 0.68 seconds
+Mon Jan 28 2019 10:05:51 GMT+0100 (WAT): Render User Profile query took 0.027 seconds
+Mon Jan 28 2019 10:07:07 GMT+0100 (WAT): Render User Profile query took 0.036 seconds
+Mon Jan 28 2019 10:07:09 GMT+0100 (WAT): Render User Profile query took 0.029 seconds
+Mon Jan 28 2019 10:08:42 GMT+0100 (WAT): Render User Profile query took 0.027 seconds
+Mon Jan 28 2019 10:08:44 GMT+0100 (WAT): Render User Profile query took 0.019 seconds
+Mon Jan 28 2019 10:09:30 GMT+0100 (WAT): Render User Profile query took 0.072 seconds
+Mon Jan 28 2019 10:12:14 GMT+0100 (WAT): Render User Profile query took 0.032 seconds
+Mon Jan 28 2019 11:35:27 GMT+0100 (WAT): Render User Profile query took 0.21 seconds
+Mon Jan 28 2019 11:35:50 GMT+0100 (WAT): Render User Profile query took 0.04 seconds
+Mon Jan 28 2019 11:35:52 GMT+0100 (WAT): Render User Profile query took 0.056 seconds
+Mon Jan 28 2019 11:38:55 GMT+0100 (WAT): Render User Profile query took 0.45 seconds
+Mon Jan 28 2019 11:38:58 GMT+0100 (WAT): Render User Profile query took 0.019 seconds
+Mon Jan 28 2019 11:41:47 GMT+0100 (WAT): Render User Profile query took 0.025 seconds
+Mon Jan 28 2019 11:41:49 GMT+0100 (WAT): Render User Profile query took 0.019 seconds
+Mon Jan 28 2019 11:45:16 GMT+0100 (WAT): Render User Profile query took 0.074 seconds
+Mon Jan 28 2019 11:45:20 GMT+0100 (WAT): Render User Profile query took 0.016 seconds
+Mon Jan 28 2019 11:48:51 GMT+0100 (WAT): Render User Profile query took 0.029 seconds
+Mon Jan 28 2019 11:48:53 GMT+0100 (WAT): Render User Profile query took 0.021 seconds
+Mon Jan 28 2019 11:49:44 GMT+0100 (WAT): Render User Profile query took 0.055 seconds
+Mon Jan 28 2019 11:49:45 GMT+0100 (WAT): Render User Profile query took 0.026 seconds
+Mon Jan 28 2019 11:50:37 GMT+0100 (WAT): Render User Profile query took 0.032 seconds
+Mon Jan 28 2019 11:50:40 GMT+0100 (WAT): Render User Profile query took 0.019 seconds
+Mon Jan 28 2019 13:20:16 GMT+0100 (WAT): Render User Profile query took 0.028 seconds
+Mon Jan 28 2019 13:20:19 GMT+0100 (WAT): Render User Profile query took 0.023 seconds
+Mon Jan 28 2019 13:26:31 GMT+0100 (WAT): Render User Profile query took 0.041 seconds
+Mon Jan 28 2019 13:26:37 GMT+0100 (WAT): Render User Profile query took 0.023 seconds
+Mon Jan 28 2019 13:28:20 GMT+0100 (WAT): Render User Profile query took 0.037 seconds
+Mon Jan 28 2019 13:28:22 GMT+0100 (WAT): Render User Profile query took 0.02 seconds
+Mon Jan 28 2019 13:35:53 GMT+0100 (WAT): Render User Profile query took 0.039 seconds
+Mon Jan 28 2019 13:36:02 GMT+0100 (WAT): Render User Profile query took 0.023 seconds
+Mon Jan 28 2019 13:36:37 GMT+0100 (WAT): Render User Profile query took 0.03 seconds
+Mon Jan 28 2019 13:36:39 GMT+0100 (WAT): Render User Profile query took 0.025 seconds
+Mon Jan 28 2019 13:37:37 GMT+0100 (WAT): Render User Profile query took 0.036 seconds
+Mon Jan 28 2019 13:37:44 GMT+0100 (WAT): Render User Profile query took 0.018 seconds
+Mon Jan 28 2019 13:38:32 GMT+0100 (WAT): Render User Profile query took 0.033 seconds
+Mon Jan 28 2019 13:38:36 GMT+0100 (WAT): Render User Profile query took 0.017 seconds
+Mon Jan 28 2019 13:39:31 GMT+0100 (WAT): Render User Profile query took 0.031 seconds
+Mon Jan 28 2019 13:39:33 GMT+0100 (WAT): Render User Profile query took 0.016 seconds
+Mon Jan 28 2019 13:40:20 GMT+0100 (WAT): Render User Profile query took 0.03 seconds
+Mon Jan 28 2019 13:40:22 GMT+0100 (WAT): Render User Profile query took 0.023 seconds
+Mon Jan 28 2019 13:41:34 GMT+0100 (WAT): Render User Profile query took 0.036 seconds
+Mon Jan 28 2019 13:41:36 GMT+0100 (WAT): Render User Profile query took 0.028 seconds
+Mon Jan 28 2019 13:42:10 GMT+0100 (WAT): Render User Profile query took 0.034 seconds
+Mon Jan 28 2019 13:42:14 GMT+0100 (WAT): Render User Profile query took 0.022 seconds
+Mon Jan 28 2019 13:42:41 GMT+0100 (WAT): Render User Profile query took 0.039 seconds
+Mon Jan 28 2019 13:43:53 GMT+0100 (WAT): Render User Profile query took 0.037 seconds
+Mon Jan 28 2019 13:46:08 GMT+0100 (WAT): Render User Profile query took 0.052 seconds
+Mon Jan 28 2019 13:46:31 GMT+0100 (WAT): Render User Profile query took 0.031 seconds
+Mon Jan 28 2019 13:52:10 GMT+0100 (WAT): Render User Profile query took 0.039 seconds
+Mon Jan 28 2019 13:53:28 GMT+0100 (WAT): Render User Profile query took 0.04 seconds
+Mon Jan 28 2019 13:53:34 GMT+0100 (WAT): Render User Profile query took 0.025 seconds
+Mon Jan 28 2019 13:54:13 GMT+0100 (WAT): Render User Profile query took 0.058 seconds
+Mon Jan 28 2019 13:54:15 GMT+0100 (WAT): Render User Profile query took 0.018 seconds
+Mon Jan 28 2019 13:57:57 GMT+0100 (WAT): Render User Profile query took 0.042 seconds
+Mon Jan 28 2019 13:58:03 GMT+0100 (WAT): Render User Profile query took 0.021 seconds
+Mon Jan 28 2019 13:59:52 GMT+0100 (WAT): Render User Profile query took 0.046 seconds
+Mon Jan 28 2019 13:59:54 GMT+0100 (WAT): Render User Profile query took 0.021 seconds
+Mon Jan 28 2019 14:01:06 GMT+0100 (WAT): Render User Profile query took 0.045 seconds
+Mon Jan 28 2019 14:01:08 GMT+0100 (WAT): Render User Profile query took 0.028 seconds
+Mon Jan 28 2019 14:02:20 GMT+0100 (WAT): Render User Profile query took 0.051 seconds
+Mon Jan 28 2019 14:02:23 GMT+0100 (WAT): Render User Profile query took 0.018 seconds
+Mon Jan 28 2019 14:31:45 GMT+0100 (WAT): Render User Profile query took 0.096 seconds
+Mon Jan 28 2019 14:32:09 GMT+0100 (WAT): Render User Profile query took 0.039 seconds
+Mon Jan 28 2019 14:33:05 GMT+0100 (WAT): Render User Profile query took 0.063 seconds
+Mon Jan 28 2019 14:33:08 GMT+0100 (WAT): Render User Profile query took 0.043 seconds
+Mon Jan 28 2019 14:36:08 GMT+0100 (WAT): Render User Profile query took 0.032 seconds
+Mon Jan 28 2019 14:36:10 GMT+0100 (WAT): Render User Profile query took 0.025 seconds
+Mon Jan 28 2019 14:37:02 GMT+0100 (WAT): Search query took 0.169 seconds
+Mon Jan 28 2019 14:44:21 GMT+0100 (WAT): Render User Profile query took 0.063 seconds
+Mon Jan 28 2019 14:44:24 GMT+0100 (WAT): Render User Profile query took 0.022 seconds
+Mon Jan 28 2019 14:46:17 GMT+0100 (WAT): Render User Profile query took 0.037 seconds
+Mon Jan 28 2019 14:46:19 GMT+0100 (WAT): Render User Profile query took 0.023 seconds
+Mon Jan 28 2019 14:48:04 GMT+0100 (WAT): Render User Profile query took 0.044 seconds
+Mon Jan 28 2019 14:48:07 GMT+0100 (WAT): Render User Profile query took 0.046 seconds
+Mon Jan 28 2019 15:38:21 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.032 seconds
+Mon Jan 28 2019 15:38:26 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.014 seconds
+Mon Jan 28 2019 15:38:27 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.017 seconds
+Mon Jan 28 2019 20:36:53 GMT+0100 (WAT): Render User Profile query took 0.032 seconds
+Mon Jan 28 2019 20:37:07 GMT+0100 (WAT): Render Organisation profile query took 0.043 seconds
+Mon Jan 28 2019 20:45:41 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.018 seconds
+Mon Jan 28 2019 20:49:14 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.015 seconds
+Mon Jan 28 2019 20:49:24 GMT+0100 (WAT): Render User Profile query took 0.04 seconds
+Mon Jan 28 2019 20:49:26 GMT+0100 (WAT): Render User Profile query took 0.024 seconds
+Mon Jan 28 2019 20:50:16 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.013 seconds
+Mon Jan 28 2019 20:50:18 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.011 seconds
+Mon Jan 28 2019 21:05:35 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.441 seconds
+Mon Jan 28 2019 21:05:37 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.013 seconds
+Mon Jan 28 2019 21:06:41 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.024 seconds
+Mon Jan 28 2019 21:07:06 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.011 seconds
+Mon Jan 28 2019 21:11:58 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.023 seconds
+Mon Jan 28 2019 21:17:18 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.057 seconds
+Mon Jan 28 2019 21:22:37 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.026 seconds
+Mon Jan 28 2019 21:22:41 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.032 seconds
+Mon Jan 28 2019 21:24:10 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.027 seconds
+Mon Jan 28 2019 21:24:13 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.016 seconds
+Mon Jan 28 2019 21:30:27 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.036 seconds
+Mon Jan 28 2019 21:30:31 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.032 seconds
+Mon Jan 28 2019 21:31:02 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.077 seconds
+Mon Jan 28 2019 21:31:21 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.02 seconds
+Mon Jan 28 2019 21:31:24 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.02 seconds
+Mon Jan 28 2019 21:31:28 GMT+0100 (WAT): Render Organisation profile query took 0.047 seconds
+Mon Jan 28 2019 21:31:50 GMT+0100 (WAT): Render Organisation profile query took 0.05 seconds
+Mon Jan 28 2019 21:32:07 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.027 seconds
+Mon Jan 28 2019 21:32:10 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.038 seconds
+Mon Jan 28 2019 21:34:11 GMT+0100 (WAT): Render Organisation profile query took 0.057 seconds
+Tue Jan 29 2019 05:20:46 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.118 seconds
+Tue Jan 29 2019 05:21:51 GMT+0100 (WAT): Render Organisation profile query took 0.155 seconds
+Tue Jan 29 2019 05:22:05 GMT+0100 (WAT): Render Journalist profile query took 0.08 seconds
+Tue Jan 29 2019 05:22:19 GMT+0100 (WAT): Render Organisation profile query took 0.037 seconds
+Tue Jan 29 2019 05:22:28 GMT+0100 (WAT): Render Organisation profile query took 0.08 seconds
+Tue Jan 29 2019 05:22:39 GMT+0100 (WAT): Render Journalist profile query took 0.043 seconds
+Tue Jan 29 2019 10:53:32 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.283 seconds
+Tue Jan 29 2019 10:53:42 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.015 seconds
+Tue Jan 29 2019 10:55:07 GMT+0100 (WAT): Render Journalist profile query took 0.047 seconds
+Tue Jan 29 2019 10:55:10 GMT+0100 (WAT): Render Journalist profile query took 0.024 seconds
+Tue Jan 29 2019 10:58:46 GMT+0100 (WAT): Render Journalist profile query took 0.075 seconds
+Tue Jan 29 2019 10:58:50 GMT+0100 (WAT): Render Journalist profile query took 0.062 seconds
+Tue Jan 29 2019 10:59:15 GMT+0100 (WAT): Render Journalist profile query took 0.047 seconds
+Tue Jan 29 2019 10:59:18 GMT+0100 (WAT): Render Journalist profile query took 0.05 seconds
+Tue Jan 29 2019 11:00:27 GMT+0100 (WAT): Render Journalist profile query took 0.036 seconds
+Tue Jan 29 2019 11:00:37 GMT+0100 (WAT): Render Journalist profile query took 0.02 seconds
+Tue Jan 29 2019 11:02:45 GMT+0100 (WAT): Render Journalist profile query took 0.071 seconds
+Tue Jan 29 2019 11:03:01 GMT+0100 (WAT): Render Journalist profile query took 0.05 seconds
+Tue Jan 29 2019 11:03:03 GMT+0100 (WAT): Render Journalist profile query took 0.021 seconds
+Tue Jan 29 2019 11:04:34 GMT+0100 (WAT): Render Journalist profile query took 0.031 seconds
+Tue Jan 29 2019 11:04:42 GMT+0100 (WAT): Render Journalist profile query took 0.031 seconds
+Tue Jan 29 2019 11:10:08 GMT+0100 (WAT): Render Journalist profile query took 0.044 seconds
+Tue Jan 29 2019 11:10:11 GMT+0100 (WAT): Render Journalist profile query took 0.024 seconds
+Tue Jan 29 2019 11:13:53 GMT+0100 (WAT): Render Journalist profile query took 0.149 seconds
+Tue Jan 29 2019 11:13:59 GMT+0100 (WAT): Render Journalist profile query took 0.02 seconds
+Tue Jan 29 2019 11:15:30 GMT+0100 (WAT): Render Journalist profile query took 0.033 seconds
+Tue Jan 29 2019 11:15:32 GMT+0100 (WAT): Render Journalist profile query took 0.017 seconds
+Tue Jan 29 2019 13:46:26 GMT+0100 (WAT): Render Journalist profile query took 0.103 seconds
+Tue Jan 29 2019 13:46:33 GMT+0100 (WAT): Render Journalist profile query took 0.016 seconds
+Tue Jan 29 2019 13:48:29 GMT+0100 (WAT): Render Journalist profile query took 0.025 seconds
+Tue Jan 29 2019 13:48:33 GMT+0100 (WAT): Render Journalist profile query took 0.034 seconds
+Tue Jan 29 2019 13:56:32 GMT+0100 (WAT): Render Journalist profile query took 0.315 seconds
+Tue Jan 29 2019 13:56:37 GMT+0100 (WAT): Render Journalist profile query took 0.028 seconds
+Tue Jan 29 2019 13:57:39 GMT+0100 (WAT): Render Journalist profile query took 0.028 seconds
+Tue Jan 29 2019 13:57:54 GMT+0100 (WAT): Render Journalist profile query took 0.018 seconds
+Tue Jan 29 2019 13:58:45 GMT+0100 (WAT): Render Journalist profile query took 0.044 seconds
+Tue Jan 29 2019 13:58:50 GMT+0100 (WAT): Render Journalist profile query took 0.018 seconds
+Tue Jan 29 2019 14:02:57 GMT+0100 (WAT): Render Journalist profile query took 0.028 seconds
+Tue Jan 29 2019 14:03:16 GMT+0100 (WAT): Render Journalist profile query took 0.033 seconds
+Tue Jan 29 2019 14:25:34 GMT+0100 (WAT): Render Journalist profile query took 0.063 seconds
+Tue Jan 29 2019 14:25:36 GMT+0100 (WAT): Render Journalist profile query took 0.026 seconds
+Tue Jan 29 2019 14:26:53 GMT+0100 (WAT): Render Journalist profile query took 0.054 seconds
+Tue Jan 29 2019 14:29:20 GMT+0100 (WAT): Render Journalist profile query took 0.101 seconds
+Tue Jan 29 2019 14:57:30 GMT+0100 (WAT): Render Journalist profile query took 0.06 seconds
+Tue Jan 29 2019 14:57:49 GMT+0100 (WAT): Render Journalist profile query took 0.039 seconds
+Tue Jan 29 2019 14:59:41 GMT+0100 (WAT): Render Journalist profile query took 0.039 seconds
+Tue Jan 29 2019 14:59:45 GMT+0100 (WAT): Render Journalist profile query took 0.021 seconds
+Tue Jan 29 2019 15:00:58 GMT+0100 (WAT): Render Journalist profile query took 0.03 seconds
+Tue Jan 29 2019 15:01:08 GMT+0100 (WAT): Render Journalist profile query took 0.018 seconds
+Tue Jan 29 2019 15:03:09 GMT+0100 (WAT): Render Journalist profile query took 0.066 seconds
+Tue Jan 29 2019 15:03:15 GMT+0100 (WAT): Render Journalist profile query took 0.016 seconds
+Tue Jan 29 2019 15:03:32 GMT+0100 (WAT): Render Journalist profile query took 0.024 seconds
+Tue Jan 29 2019 15:03:34 GMT+0100 (WAT): Render Journalist profile query took 0.018 seconds
+Tue Jan 29 2019 15:04:40 GMT+0100 (WAT): Render Journalist profile query took 0.038 seconds
+Tue Jan 29 2019 15:04:43 GMT+0100 (WAT): Render Journalist profile query took 0.02 seconds
+Tue Jan 29 2019 15:06:35 GMT+0100 (WAT): Render Journalist profile query took 0.025 seconds
+Tue Jan 29 2019 15:08:14 GMT+0100 (WAT): Render Journalist profile query took 0.081 seconds
+Tue Jan 29 2019 15:08:16 GMT+0100 (WAT): Render Journalist profile query took 0.029 seconds
+Tue Jan 29 2019 15:13:17 GMT+0100 (WAT): Render Journalist profile query took 0.036 seconds
+Tue Jan 29 2019 15:13:26 GMT+0100 (WAT): Render Journalist profile query took 0.031 seconds
+Tue Jan 29 2019 15:15:16 GMT+0100 (WAT): Render Journalist profile query took 0.057 seconds
+Tue Jan 29 2019 15:15:19 GMT+0100 (WAT): Render Journalist profile query took 0.038 seconds
+Tue Jan 29 2019 15:17:17 GMT+0100 (WAT): Render Journalist profile query took 0.024 seconds
+Tue Jan 29 2019 15:17:21 GMT+0100 (WAT): Render Journalist profile query took 0.029 seconds
+Tue Jan 29 2019 15:18:42 GMT+0100 (WAT): Render Journalist profile query took 0.045 seconds
+Tue Jan 29 2019 15:18:45 GMT+0100 (WAT): Render Journalist profile query took 0.038 seconds
+Tue Jan 29 2019 15:20:43 GMT+0100 (WAT): Render Journalist profile query took 0.037 seconds
+Tue Jan 29 2019 15:20:47 GMT+0100 (WAT): Render Journalist profile query took 0.028 seconds
+Tue Jan 29 2019 15:22:31 GMT+0100 (WAT): Render Journalist profile query took 0.029 seconds
+Tue Jan 29 2019 15:22:40 GMT+0100 (WAT): Render Journalist profile query took 0.021 seconds
+Tue Jan 29 2019 15:26:35 GMT+0100 (WAT): Render Journalist profile query took 0.023 seconds
+Tue Jan 29 2019 15:28:48 GMT+0100 (WAT): Render Journalist profile query took 0.039 seconds
+Tue Jan 29 2019 15:28:51 GMT+0100 (WAT): Render Journalist profile query took 0.024 seconds
+Tue Jan 29 2019 15:30:44 GMT+0100 (WAT): Render Journalist profile query took 0.029 seconds
+Tue Jan 29 2019 15:30:47 GMT+0100 (WAT): Render Journalist profile query took 0.032 seconds
+Tue Jan 29 2019 15:33:07 GMT+0100 (WAT): Render Journalist profile query took 0.027 seconds
+Tue Jan 29 2019 15:33:10 GMT+0100 (WAT): Render Journalist profile query took 0.027 seconds
+Tue Jan 29 2019 15:37:44 GMT+0100 (WAT): Render Journalist profile query took 0.054 seconds
+Tue Jan 29 2019 15:37:50 GMT+0100 (WAT): Render Journalist profile query took 0.018 seconds
+Tue Jan 29 2019 15:41:27 GMT+0100 (WAT): Render Journalist profile query took 0.051 seconds
+Tue Jan 29 2019 15:42:12 GMT+0100 (WAT): Render Journalist profile query took 0.042 seconds
+Tue Jan 29 2019 15:43:39 GMT+0100 (WAT): Render Journalist profile query took 0.031 seconds
+Tue Jan 29 2019 15:44:46 GMT+0100 (WAT): Render Journalist profile query took 0.017 seconds
+Tue Jan 29 2019 15:46:15 GMT+0100 (WAT): Render Journalist profile query took 0.044 seconds
+Tue Jan 29 2019 15:48:48 GMT+0100 (WAT): Render Journalist profile query took 0.026 seconds
+Tue Jan 29 2019 15:51:52 GMT+0100 (WAT): Render Journalist profile query took 0.016 seconds
+Tue Jan 29 2019 15:52:54 GMT+0100 (WAT): Render Journalist profile query took 0.027 seconds
+Tue Jan 29 2019 15:52:56 GMT+0100 (WAT): Render Journalist profile query took 0.018 seconds
+Tue Jan 29 2019 15:53:19 GMT+0100 (WAT): Render Journalist profile query took 0.027 seconds
+Tue Jan 29 2019 15:53:22 GMT+0100 (WAT): Render Journalist profile query took 0.021 seconds
+Tue Jan 29 2019 16:38:26 GMT+0100 (WAT): Render Journalist profile query took 0.02 seconds
+Tue Jan 29 2019 16:38:29 GMT+0100 (WAT): Render Journalist profile query took 0.022 seconds
+Tue Jan 29 2019 19:53:21 GMT+0100 (WAT): Render Journalist profile query took 0.03 seconds
+Tue Jan 29 2019 19:53:23 GMT+0100 (WAT): Render Journalist profile query took 0.026 seconds
+Tue Jan 29 2019 19:54:03 GMT+0100 (WAT): Render Journalist profile query took 0.02 seconds
+Tue Jan 29 2019 19:54:06 GMT+0100 (WAT): Render Journalist profile query took 0.021 seconds
+Tue Jan 29 2019 19:57:34 GMT+0100 (WAT): Render Journalist profile query took 0.026 seconds
+Tue Jan 29 2019 19:57:36 GMT+0100 (WAT): Render Journalist profile query took 0.02 seconds
+Tue Jan 29 2019 20:02:33 GMT+0100 (WAT): Render Journalist profile query took 0.054 seconds
+Tue Jan 29 2019 20:02:36 GMT+0100 (WAT): Render Journalist profile query took 0.023 seconds
+Tue Jan 29 2019 20:02:58 GMT+0100 (WAT): Render Journalist profile query took 0.037 seconds
+Tue Jan 29 2019 20:03:03 GMT+0100 (WAT): Render Journalist profile query took 0.022 seconds
+Tue Jan 29 2019 20:03:04 GMT+0100 (WAT): Render Journalist profile query took 0.034 seconds
+Tue Jan 29 2019 20:09:44 GMT+0100 (WAT): Render Journalist profile query took 0.057 seconds
+Tue Jan 29 2019 20:30:15 GMT+0100 (WAT): Render Journalist profile query took 0.05 seconds
+Tue Jan 29 2019 20:30:18 GMT+0100 (WAT): Render Journalist profile query took 0.027 seconds
+Tue Jan 29 2019 20:40:07 GMT+0100 (WAT): Render User Profile query took 0.048 seconds
+Tue Jan 29 2019 20:40:10 GMT+0100 (WAT): Render User Profile query took 0.03 seconds
+Tue Jan 29 2019 20:41:02 GMT+0100 (WAT): Render User Profile query took 0.047 seconds
+Tue Jan 29 2019 20:41:04 GMT+0100 (WAT): Render User Profile query took 0.023 seconds
+Tue Jan 29 2019 20:46:50 GMT+0100 (WAT): Render User Profile query took 0.153 seconds
+Tue Jan 29 2019 20:47:52 GMT+0100 (WAT): Render User Profile query took 0.057 seconds
+Tue Jan 29 2019 20:48:49 GMT+0100 (WAT): Render User Profile query took 0.021 seconds
+Wed Jan 30 2019 05:32:27 GMT+0100 (WAT): Render Organisation profile query took 0.053 seconds
+Wed Jan 30 2019 05:32:38 GMT+0100 (WAT): Render Organisation profile query took 0.047 seconds
+Wed Jan 30 2019 05:33:43 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.037 seconds
+Wed Jan 30 2019 05:33:46 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.017 seconds
+Wed Jan 30 2019 05:35:10 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.014 seconds
+Wed Jan 30 2019 09:44:03 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.793 seconds
+Wed Jan 30 2019 09:44:22 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.014 seconds
+Wed Jan 30 2019 09:44:35 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.018 seconds
+Wed Jan 30 2019 09:44:37 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.023 seconds
+Wed Jan 30 2019 10:03:43 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.153 seconds
+Wed Jan 30 2019 10:03:47 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.027 seconds
+Wed Jan 30 2019 10:04:30 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.053 seconds
+Wed Jan 30 2019 10:04:32 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.037 seconds
+Wed Jan 30 2019 10:14:01 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.059 seconds
+Wed Jan 30 2019 10:14:16 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.036 seconds
+Wed Jan 30 2019 10:15:01 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.025 seconds
+Wed Jan 30 2019 10:15:05 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.042 seconds
+Wed Jan 30 2019 10:16:24 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.031 seconds
+Wed Jan 30 2019 10:16:27 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.028 seconds
+Wed Jan 30 2019 10:16:44 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.028 seconds
+Wed Jan 30 2019 10:16:46 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.036 seconds
+Wed Jan 30 2019 10:23:17 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.139 seconds
+Wed Jan 30 2019 10:23:28 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.031 seconds
+Wed Jan 30 2019 10:37:51 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.32 seconds
+Wed Jan 30 2019 10:37:53 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.028 seconds
+Wed Jan 30 2019 10:38:45 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.022 seconds
+Wed Jan 30 2019 10:38:52 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.031 seconds
+Wed Jan 30 2019 10:40:50 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.018 seconds
+Wed Jan 30 2019 10:40:53 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.045 seconds
+Wed Jan 30 2019 10:41:35 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.033 seconds
+Wed Jan 30 2019 10:41:40 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.031 seconds
+Wed Jan 30 2019 10:44:14 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.02 seconds
+Wed Jan 30 2019 10:44:18 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.042 seconds
+Wed Jan 30 2019 10:45:36 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.029 seconds
+Wed Jan 30 2019 10:45:40 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.018 seconds
+Wed Jan 30 2019 10:47:37 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.024 seconds
+Wed Jan 30 2019 10:47:41 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.021 seconds
+Wed Jan 30 2019 10:48:24 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.03 seconds
+Wed Jan 30 2019 10:48:35 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.027 seconds
+Wed Jan 30 2019 10:51:07 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.016 seconds
+Wed Jan 30 2019 10:51:10 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.02 seconds
+Wed Jan 30 2019 10:53:06 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.023 seconds
+Wed Jan 30 2019 10:53:09 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.025 seconds
+Wed Jan 30 2019 10:53:58 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.027 seconds
+Wed Jan 30 2019 10:54:07 GMT+0100 (WAT): Render Journalist profile query took 0.261 seconds
+Wed Jan 30 2019 10:54:29 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.034 seconds
+Wed Jan 30 2019 10:54:38 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.026 seconds
+Wed Jan 30 2019 10:55:03 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.025 seconds
+Wed Jan 30 2019 10:55:07 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.03 seconds
+Wed Jan 30 2019 13:59:32 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.015 seconds
+Wed Jan 30 2019 21:02:54 GMT+0100 (WAT): Render Organisation profile query took 0.151 seconds
+Wed Jan 30 2019 21:05:31 GMT+0100 (WAT): Render Journalist profile query took 0.091 seconds
+Wed Jan 30 2019 21:05:33 GMT+0100 (WAT): Render Journalist profile query took 0.043 seconds
+Wed Jan 30 2019 21:06:32 GMT+0100 (WAT): Render Journalist profile query took 0.023 seconds
+Wed Jan 30 2019 21:06:43 GMT+0100 (WAT): Render Journalist profile query took 0.02 seconds
+Wed Jan 30 2019 21:08:11 GMT+0100 (WAT): Render Journalist profile query took 0.026 seconds
+Wed Jan 30 2019 21:12:15 GMT+0100 (WAT): Render Journalist profile query took 0.409 seconds
+Wed Jan 30 2019 21:27:43 GMT+0100 (WAT): Render Journalist profile query took 0.11 seconds
+Wed Jan 30 2019 21:28:05 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.083 seconds
+Wed Jan 30 2019 21:28:08 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.038 seconds
+Wed Jan 30 2019 21:28:40 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.065 seconds
+Wed Jan 30 2019 21:29:40 GMT+0100 (WAT): Render Journalist profile query took 0.028 seconds
+Wed Jan 30 2019 21:29:47 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.028 seconds
+Wed Jan 30 2019 21:30:58 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.094 seconds
+Wed Jan 30 2019 21:31:05 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.023 seconds
+Wed Jan 30 2019 21:32:27 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.03 seconds
+Wed Jan 30 2019 21:32:31 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.031 seconds
+Wed Jan 30 2019 21:33:14 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.035 seconds
+Wed Jan 30 2019 21:33:18 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.025 seconds
+Wed Jan 30 2019 21:35:36 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.06 seconds
+Wed Jan 30 2019 21:35:39 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.023 seconds
+Wed Jan 30 2019 21:37:19 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.034 seconds
+Wed Jan 30 2019 21:37:37 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.041 seconds
+Wed Jan 30 2019 21:37:43 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.023 seconds
+Wed Jan 30 2019 21:41:15 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.022 seconds
+Wed Jan 30 2019 21:41:41 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.021 seconds
+Wed Jan 30 2019 21:42:42 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.038 seconds
+Wed Jan 30 2019 21:42:44 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.025 seconds
+Wed Jan 30 2019 21:43:12 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.03 seconds
+Wed Jan 30 2019 21:43:41 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.018 seconds
+Wed Jan 30 2019 21:44:12 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.019 seconds
+Thu Jan 31 2019 07:43:51 GMT+0100 (WAT): Render Journalist profile query took 1.043 seconds
+Thu Jan 31 2019 07:44:03 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.195 seconds
+Thu Jan 31 2019 09:05:35 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.167 seconds
+Thu Jan 31 2019 09:06:40 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.038 seconds
+Thu Jan 31 2019 09:07:18 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.022 seconds
+Thu Jan 31 2019 09:08:13 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.032 seconds
+Thu Jan 31 2019 09:08:44 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.075 seconds
+Thu Jan 31 2019 09:10:23 GMT+0100 (WAT): Render Journalist profile query took 0.049 seconds
+Thu Jan 31 2019 09:10:45 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.087 seconds
+Thu Jan 31 2019 09:10:49 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.025 seconds
+Thu Jan 31 2019 09:12:59 GMT+0100 (WAT): Render Journalist profile query took 0.032 seconds
+Thu Jan 31 2019 09:13:10 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.028 seconds
+Thu Jan 31 2019 09:13:12 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.025 seconds
+Thu Jan 31 2019 09:13:22 GMT+0100 (WAT): Render Journalist profile query took 0.022 seconds
+Thu Jan 31 2019 09:13:37 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.031 seconds
+Thu Jan 31 2019 09:13:41 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.026 seconds
+Thu Jan 31 2019 09:47:12 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.055 seconds
+Thu Jan 31 2019 09:47:18 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.049 seconds
+Thu Jan 31 2019 09:48:41 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.044 seconds
+Thu Jan 31 2019 09:56:01 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.072 seconds
+Thu Jan 31 2019 09:59:37 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.041 seconds
+Thu Jan 31 2019 10:00:35 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.027 seconds
+Thu Jan 31 2019 10:01:22 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.056 seconds
+Thu Jan 31 2019 10:09:59 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.049 seconds
+Thu Jan 31 2019 10:10:59 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.041 seconds
+Thu Jan 31 2019 10:19:44 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.056 seconds
+Thu Jan 31 2019 10:20:02 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.032 seconds
+Thu Jan 31 2019 10:20:34 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.024 seconds
+Thu Jan 31 2019 10:20:51 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.052 seconds
+Thu Jan 31 2019 10:24:07 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.087 seconds
+Thu Jan 31 2019 10:24:15 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.021 seconds
+Thu Jan 31 2019 10:24:17 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.032 seconds
+Thu Jan 31 2019 10:24:38 GMT+0100 (WAT): Render Journalist profile query took 0.037 seconds
+Thu Jan 31 2019 10:24:48 GMT+0100 (WAT): Render Journalist profile query took 0.025 seconds
+Thu Jan 31 2019 10:25:01 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.028 seconds
+Thu Jan 31 2019 10:25:04 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.031 seconds
+Thu Jan 31 2019 10:27:14 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.037 seconds
+Thu Jan 31 2019 10:27:18 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.019 seconds
+Thu Jan 31 2019 10:28:57 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.03 seconds
+Thu Jan 31 2019 10:29:01 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.026 seconds
+Thu Jan 31 2019 10:30:34 GMT+0100 (WAT): Render Journalist profile query took 0.035 seconds
+Thu Jan 31 2019 10:31:48 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.036 seconds
+Thu Jan 31 2019 10:31:52 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.022 seconds
+Thu Jan 31 2019 10:32:26 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.049 seconds
+Thu Jan 31 2019 10:32:28 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.069 seconds
+Thu Jan 31 2019 10:32:40 GMT+0100 (WAT): Render Journalist profile query took 0.031 seconds
+Thu Jan 31 2019 10:32:54 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.035 seconds
+Thu Jan 31 2019 10:32:57 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.029 seconds
+Thu Jan 31 2019 10:33:48 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.031 seconds
+Thu Jan 31 2019 10:36:22 GMT+0100 (WAT): Render Journalist profile query took 0.037 seconds
+Thu Jan 31 2019 10:36:33 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.045 seconds
+Thu Jan 31 2019 10:36:36 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.03 seconds
+Thu Jan 31 2019 10:36:57 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.042 seconds
+Thu Jan 31 2019 10:37:00 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.034 seconds
+Thu Jan 31 2019 10:37:36 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.037 seconds
+Thu Jan 31 2019 10:37:39 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.049 seconds
+Thu Jan 31 2019 10:37:53 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.025 seconds
+Thu Jan 31 2019 10:38:00 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.034 seconds
+Thu Jan 31 2019 10:38:05 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.013 seconds
+Thu Jan 31 2019 10:38:10 GMT+0100 (WAT): Render Journalist profile query took 0.028 seconds
+Thu Jan 31 2019 13:26:16 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.027 seconds
+Thu Jan 31 2019 13:26:26 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.035 seconds
+Thu Jan 31 2019 13:30:51 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.037 seconds
+Thu Jan 31 2019 13:30:59 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.034 seconds
+Thu Jan 31 2019 13:32:42 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.08 seconds
+Thu Jan 31 2019 13:32:46 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.033 seconds
+Thu Jan 31 2019 13:34:35 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.03 seconds
+Thu Jan 31 2019 13:34:41 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.033 seconds
+Thu Jan 31 2019 13:36:17 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.088 seconds
+Thu Jan 31 2019 13:36:25 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.029 seconds
+Thu Jan 31 2019 13:38:03 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.035 seconds
+Thu Jan 31 2019 13:40:41 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.021 seconds
+Thu Jan 31 2019 13:40:44 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.023 seconds
+Thu Jan 31 2019 14:20:57 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.074 seconds
+Thu Jan 31 2019 14:21:01 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.056 seconds
+Thu Jan 31 2019 14:22:28 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.059 seconds
+Thu Jan 31 2019 14:22:31 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.075 seconds
+Thu Jan 31 2019 14:54:18 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.055 seconds
+Thu Jan 31 2019 14:54:23 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.053 seconds
+Thu Jan 31 2019 14:55:06 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.032 seconds
+Thu Jan 31 2019 14:55:12 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.05 seconds
+Thu Jan 31 2019 14:56:32 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.056 seconds
+Thu Jan 31 2019 14:56:58 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.043 seconds
+Thu Jan 31 2019 14:57:26 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.032 seconds
+Thu Jan 31 2019 14:59:45 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.06 seconds
+Thu Jan 31 2019 14:59:48 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.029 seconds
+Thu Jan 31 2019 15:02:32 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.043 seconds
+Thu Jan 31 2019 15:03:04 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.032 seconds
+Thu Jan 31 2019 15:05:08 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.073 seconds
+Thu Jan 31 2019 15:05:10 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.048 seconds
+Thu Jan 31 2019 15:06:05 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.035 seconds
+Thu Jan 31 2019 15:06:08 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.056 seconds
+Thu Jan 31 2019 15:07:40 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.044 seconds
+Thu Jan 31 2019 15:07:44 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.034 seconds
+Thu Jan 31 2019 15:09:04 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.043 seconds
+Thu Jan 31 2019 15:09:07 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.025 seconds
+Thu Jan 31 2019 15:09:28 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.033 seconds
+Thu Jan 31 2019 15:09:31 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.031 seconds
+Thu Jan 31 2019 15:10:41 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.038 seconds
+Thu Jan 31 2019 15:18:30 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.028 seconds
+Thu Jan 31 2019 15:18:36 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.032 seconds
+Thu Jan 31 2019 15:19:01 GMT+0100 (WAT): Render Journalist profile query took 0.054 seconds
+Thu Jan 31 2019 15:19:14 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.028 seconds
+Thu Jan 31 2019 15:19:17 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.023 seconds
+Thu Jan 31 2019 15:19:37 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.04 seconds
+Thu Jan 31 2019 15:19:40 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.031 seconds
+Thu Jan 31 2019 15:19:51 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.015 seconds
+Thu Jan 31 2019 15:22:44 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.061 seconds
+Thu Jan 31 2019 15:22:47 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.015 seconds
+Thu Jan 31 2019 15:22:49 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.031 seconds
+Thu Jan 31 2019 15:22:53 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.055 seconds
+Thu Jan 31 2019 20:05:34 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.161 seconds
+Thu Jan 31 2019 20:05:46 GMT+0100 (WAT): Search query took 0.398 seconds
+Thu Jan 31 2019 20:07:30 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.473 seconds
+Thu Jan 31 2019 20:09:18 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.094 seconds
+Thu Jan 31 2019 20:13:47 GMT+0100 (WAT): Search query took 0.359 seconds
+Thu Jan 31 2019 20:13:50 GMT+0100 (WAT): Search query took 0.14 seconds
+Thu Jan 31 2019 20:13:52 GMT+0100 (WAT): Search query took 0.05 seconds
+Thu Jan 31 2019 20:18:43 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.028 seconds
+Thu Jan 31 2019 20:23:15 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.039 seconds
+Thu Jan 31 2019 20:27:22 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.05 seconds
+Thu Jan 31 2019 20:27:38 GMT+0100 (WAT): Search query took 0.11 seconds
+Thu Jan 31 2019 20:27:45 GMT+0100 (WAT): Search query took 0.046 seconds
+Thu Jan 31 2019 20:30:21 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.039 seconds
+Thu Jan 31 2019 20:35:08 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.028 seconds
+Thu Jan 31 2019 20:35:19 GMT+0100 (WAT): Search query took 0.289 seconds
+Thu Jan 31 2019 20:35:25 GMT+0100 (WAT): Search query took 0.026 seconds
+Thu Jan 31 2019 20:37:45 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.026 seconds
+Thu Jan 31 2019 20:47:50 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.038 seconds
+Thu Jan 31 2019 20:48:58 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.026 seconds
+Thu Jan 31 2019 20:49:08 GMT+0100 (WAT): Search query took 0.05 seconds
+Thu Jan 31 2019 20:49:15 GMT+0100 (WAT): Search query took 0.039 seconds
+Thu Jan 31 2019 20:49:55 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.039 seconds
+Thu Jan 31 2019 20:50:18 GMT+0100 (WAT): Search query took 0.042 seconds
+Thu Jan 31 2019 20:50:26 GMT+0100 (WAT): Search query took 0.051 seconds
+Thu Jan 31 2019 20:50:38 GMT+0100 (WAT): Search query took 0.044 seconds
+Thu Jan 31 2019 20:53:39 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.02 seconds
+Thu Jan 31 2019 20:54:10 GMT+0100 (WAT): Search query took 0.043 seconds
+Thu Jan 31 2019 20:54:22 GMT+0100 (WAT): Search query took 0.295 seconds
+Thu Jan 31 2019 20:54:29 GMT+0100 (WAT): Search query took 0.039 seconds
+Thu Jan 31 2019 20:54:33 GMT+0100 (WAT): Search query took 0.038 seconds
+Thu Jan 31 2019 20:54:48 GMT+0100 (WAT): Render User Profile query took 0.165 seconds
+Thu Jan 31 2019 20:54:53 GMT+0100 (WAT): Search query took 0.074 seconds
+Thu Jan 31 2019 21:03:41 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.037 seconds
+Thu Jan 31 2019 21:03:46 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.09 seconds
+Thu Jan 31 2019 21:03:56 GMT+0100 (WAT): Search query took 0.05 seconds
+Thu Jan 31 2019 21:03:58 GMT+0100 (WAT): Search query took 0.041 seconds
+Thu Jan 31 2019 21:04:06 GMT+0100 (WAT): Search query took 0.045 seconds
+Thu Jan 31 2019 21:04:23 GMT+0100 (WAT): Search query took 0.057 seconds
+Thu Jan 31 2019 21:04:30 GMT+0100 (WAT): Search query took 0.073 seconds
+Thu Jan 31 2019 21:05:21 GMT+0100 (WAT): Search query took 0.048 seconds
+Thu Jan 31 2019 21:07:40 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.021 seconds
+Thu Jan 31 2019 21:08:36 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.059 seconds
+Thu Jan 31 2019 21:11:54 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.073 seconds
+Thu Jan 31 2019 21:15:49 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.029 seconds
+Thu Jan 31 2019 21:16:10 GMT+0100 (WAT): Search query took 0.056 seconds
+Thu Jan 31 2019 21:16:23 GMT+0100 (WAT): Search query took 0.056 seconds
+Thu Jan 31 2019 21:16:31 GMT+0100 (WAT): Search query took 0.055 seconds
+Thu Jan 31 2019 21:16:37 GMT+0100 (WAT): Search query took 0.041 seconds
+Thu Jan 31 2019 21:17:14 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.024 seconds
+Thu Jan 31 2019 21:24:35 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.035 seconds
+Thu Jan 31 2019 21:28:06 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.034 seconds
+Thu Jan 31 2019 21:28:21 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.045 seconds
+Thu Jan 31 2019 21:30:35 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.032 seconds
+Thu Jan 31 2019 21:32:13 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.027 seconds
+Thu Jan 31 2019 21:35:16 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.028 seconds
+Thu Jan 31 2019 21:37:00 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.029 seconds
+Thu Jan 31 2019 21:37:07 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.012 seconds
+Thu Jan 31 2019 21:37:20 GMT+0100 (WAT): Render User Profile query took 0.065 seconds
+Thu Jan 31 2019 21:37:23 GMT+0100 (WAT): Render User Profile query took 0.022 seconds
+Thu Jan 31 2019 21:37:30 GMT+0100 (WAT): Search query took 0.044 seconds
+Thu Jan 31 2019 21:39:45 GMT+0100 (WAT): Render User Profile query took 0.111 seconds
+Thu Jan 31 2019 21:39:59 GMT+0100 (WAT): Render User Profile query took 0.049 seconds
+Thu Jan 31 2019 21:40:33 GMT+0100 (WAT): Search query took 0.054 seconds
+Thu Jan 31 2019 21:40:41 GMT+0100 (WAT): Render User Profile query took 0.024 seconds
+Thu Jan 31 2019 21:40:52 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.031 seconds
+Thu Jan 31 2019 21:40:58 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.023 seconds
+Thu Jan 31 2019 21:41:05 GMT+0100 (WAT): Search query took 0.049 seconds
+Thu Jan 31 2019 21:41:18 GMT+0100 (WAT): Search query took 0.06 seconds
+Thu Jan 31 2019 21:41:29 GMT+0100 (WAT): Search query took 0.051 seconds
+Thu Jan 31 2019 21:41:43 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.011 seconds
+Fri Feb 01 2019 09:12:19 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.31 seconds
+Fri Feb 01 2019 09:14:02 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.104 seconds
+Fri Feb 01 2019 09:14:12 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.021 seconds
+Fri Feb 01 2019 09:17:39 GMT+0100 (WAT): Render User Profile query took 0.097 seconds
+Fri Feb 01 2019 09:17:40 GMT+0100 (WAT): Render User Profile query took 0.023 seconds
+Fri Feb 01 2019 09:18:04 GMT+0100 (WAT): Render User Profile query took 0.036 seconds
+Fri Feb 01 2019 09:18:08 GMT+0100 (WAT): Render User Profile query took 0.07 seconds
+Fri Feb 01 2019 09:19:56 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.012 seconds
+Fri Feb 01 2019 09:19:59 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.018 seconds
+Fri Feb 01 2019 09:21:06 GMT+0100 (WAT): Render Journalist profile query took 0.021 seconds
+Fri Feb 01 2019 09:21:08 GMT+0100 (WAT): Render Journalist profile query took 0.027 seconds
+Fri Feb 01 2019 09:22:15 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.046 seconds
+Fri Feb 01 2019 09:22:18 GMT+0100 (WAT): Render Mobile Organisation profile query took 0.012 seconds
+Fri Feb 01 2019 09:24:55 GMT+0100 (WAT): Render User Profile query took 0.191 seconds
+Fri Feb 01 2019 09:25:10 GMT+0100 (WAT): Search query took 0.274 seconds
+Fri Feb 01 2019 09:57:20 GMT+0100 (WAT): Render User Profile query took 0.184 seconds
+Fri Feb 01 2019 09:57:30 GMT+0100 (WAT): Search query took 0.136 seconds
+Fri Feb 01 2019 09:59:53 GMT+0100 (WAT): Search query took 0.117 seconds
+Fri Feb 01 2019 09:59:57 GMT+0100 (WAT): Search query took 0.064 seconds
+Fri Feb 01 2019 09:59:59 GMT+0100 (WAT): Search query took 0.083 seconds
+Fri Feb 01 2019 10:00:05 GMT+0100 (WAT): Search query took 0.062 seconds
+Fri Feb 01 2019 10:00:12 GMT+0100 (WAT): Search query took 0.052 seconds
+Fri Feb 01 2019 10:00:39 GMT+0100 (WAT): Search query took 0.056 seconds
+Fri Feb 01 2019 10:03:25 GMT+0100 (WAT): Render User Profile query took 0.089 seconds
+Fri Feb 01 2019 10:04:42 GMT+0100 (WAT): Render User Profile query took 0.065 seconds
+Fri Feb 01 2019 10:05:27 GMT+0100 (WAT): Render User Profile query took 0.084 seconds
+Fri Feb 01 2019 10:05:41 GMT+0100 (WAT): Render User Profile query took 0.047 seconds
+Fri Feb 01 2019 10:05:47 GMT+0100 (WAT): Search query took 0.045 seconds
+Fri Feb 01 2019 10:06:03 GMT+0100 (WAT): Search query took 0.058 seconds
+Fri Feb 01 2019 10:06:44 GMT+0100 (WAT): Render User Profile query took 0.057 seconds
+Fri Feb 01 2019 10:06:51 GMT+0100 (WAT): Search query took 0.049 seconds
+Fri Feb 01 2019 10:07:00 GMT+0100 (WAT): Search query took 0.052 seconds
+Fri Feb 01 2019 10:07:03 GMT+0100 (WAT): Search query took 0.091 seconds
+Fri Feb 01 2019 10:07:35 GMT+0100 (WAT): Render User Profile query took 0.061 seconds
+Fri Feb 01 2019 10:07:39 GMT+0100 (WAT): Search query took 0.159 seconds
+Fri Feb 01 2019 10:07:42 GMT+0100 (WAT): Search query took 0.098 seconds
+Fri Feb 01 2019 10:07:50 GMT+0100 (WAT): Render User Profile query took 0.03 seconds
+Fri Feb 01 2019 10:08:23 GMT+0100 (WAT): Search query took 0.07 seconds
+Fri Feb 01 2019 10:09:03 GMT+0100 (WAT): Search query took 0.156 seconds
+Fri Feb 01 2019 10:09:06 GMT+0100 (WAT): Search query took 0.113 seconds
+Fri Feb 01 2019 10:09:40 GMT+0100 (WAT): Search query took 0.067 seconds
+Fri Feb 01 2019 10:12:13 GMT+0100 (WAT): Render User Profile query took 0.043 seconds
+Fri Feb 01 2019 10:20:52 GMT+0100 (WAT): Render User Profile query took 0.044 seconds
+Fri Feb 01 2019 10:21:36 GMT+0100 (WAT): Render User Profile query took 0.042 seconds
+Fri Feb 01 2019 10:21:39 GMT+0100 (WAT): Render User Profile query took 0.022 seconds
+Fri Feb 01 2019 10:22:06 GMT+0100 (WAT): Render User Profile query took 0.06 seconds
+Fri Feb 01 2019 10:27:38 GMT+0100 (WAT): Render User Profile query took 0.034 seconds
+Fri Feb 01 2019 10:27:48 GMT+0100 (WAT): Render User Profile query took 0.054 seconds
+Fri Feb 01 2019 10:30:44 GMT+0100 (WAT): Render User Profile query took 0.037 seconds
+Fri Feb 01 2019 10:31:20 GMT+0100 (WAT): Render User Profile query took 0.044 seconds
+Fri Feb 01 2019 10:33:51 GMT+0100 (WAT): Render User Profile query took 0.037 seconds
+Fri Feb 01 2019 10:34:15 GMT+0100 (WAT): Render User Profile query took 0.023 seconds
+Fri Feb 01 2019 10:34:43 GMT+0100 (WAT): Search query took 0.056 seconds
+Fri Feb 01 2019 10:34:48 GMT+0100 (WAT): Search query took 0.046 seconds
+Fri Feb 01 2019 10:34:55 GMT+0100 (WAT): Search query took 0.048 seconds
+Fri Feb 01 2019 10:35:24 GMT+0100 (WAT): Search query took 0.052 seconds
+Fri Feb 01 2019 10:35:32 GMT+0100 (WAT): Render User Profile query took 0.031 seconds
+Fri Feb 01 2019 10:35:36 GMT+0100 (WAT): Search query took 0.044 seconds
+Fri Feb 01 2019 10:35:52 GMT+0100 (WAT): Search query took 0.043 seconds
+Fri Feb 01 2019 10:37:45 GMT+0100 (WAT): Render User Profile query took 0.043 seconds

@@ -8,45 +8,9 @@ const ripple = require('../ripple');
 
 function update(req, res) {
     let item = {};
-    let sect = req.params.upd_type;
 
-    if (sect == 'bio') {
-        let bio = req.body.bio;
-
-        let wsp = /^\s*$/g;
-        bio.replace(wsp, '');
-        if (req.journalist.user) {
-            let username = req.journalist.user.username;
-            journalists.findOne({ username: username }, (err, ret_j) => {
-                let ret_j_p = JSON.parse(JSON.stringify(ret_j));
-                if (err) {
-                    throw err;
-                }
-                else {
-                    if (ret_j.bio !== bio) {
-                        ret_j.bio = bio;
-
-                        journalists.findOneAndUpdate({ username: username }, ret_j, (err) => {
-                            if (err) {
-                                throw err;
-                            }
-                            else {
-                                item.notif = "Successful!";
-                                req.journalist.user = ret_j;
-                                res.send(JSON.stringify({success: true, item: item}));
-                                ripple('j', ret_j_p, ret_j);
-                            }
-                        });
-                    }
-                    else {
-                        res.send(JSON.stringify({success: true}));                        
-                    }
-                }
-            });
-        }
-    }
-    else if (sect == 'dets') {
-        let { f_name, l_name, username, email, password, n_pass, org, beat } = req.body;
+    if (req.journalist) {
+        let { bio, f_name, l_name, username, email, password, n_pass, org, beat } = req.body;
         let full_name = f_name + ' ' + l_name;
         let wsp = /^\s*$/;
         
@@ -67,6 +31,10 @@ function update(req, res) {
                     let changed = false;
                     let valid = true;
                     async function checks() {
+                        if (!wsp.test(bio) || bio !== ret_j.bio) {
+                            changed = true;
+                            ret_j.bio = bio;
+                        }
                         if (username !== curr_username) {
                             changed = true;
                             let found = await check_username(username);
@@ -270,7 +238,11 @@ function update(req, res) {
                                             else {
                                                 req.journalist.user = journo;
                                                 item.notif = "Successful!";
-                                                res.send(JSON.stringify({success: true, item: item}));
+                                                let logout = false;
+                                                if(ret_j_p.username !== ret_j.username){
+                                                    logout = true;
+                                                }
+                                                res.send(JSON.stringify({success: true, logout: logout, item: item}));
                                                 ripple('j', ret_j_p, ret_j);
                                             }
                                         });
@@ -285,6 +257,9 @@ function update(req, res) {
         else {
             res.send(JSON.stringify({success: false, reason: 'Invalid Parameters'}));
         }
+    }
+    else {
+        res.send(JSON.stringify({ success: false, reason: "Invalid User" }));
     }
 }
 

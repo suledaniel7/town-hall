@@ -51,6 +51,8 @@ const followers = require('../controllers/api/followers');
 const findMention = require('../controllers/api/findMention');
 const downloadFile = require('../controllers/api/downloadFile');
 const finalizeUpload = require('../controllers/api/finalizeUpload');
+const serve_dists = require('../controllers/api/serve_dists');
+const set_bio = require('../controllers/api/set_bio');
 
 const router = express.Router();
 // const logos = multer({dest: 'public/logos/'});
@@ -160,29 +162,33 @@ router.get('/img-load', auth, load_images);
 
 router.get('/req-msg/:m_type/:timestamp', auth, msg_req);
 
-router.get('/req-type/:username', send_type);
+router.get('/req-type/:username', auth, send_type);
 
-router.get('/settings/:username', settings);
+router.get('/settings', auth, settings);
 
-router.post('/update/:u_type/:upd_type', update);
+router.post('/update/:u_type', auth, update);
 
-router.get('/organisations/reassign/:j_username', orgReassignBeatRender);
+router.get('/organisations/reassign/:j_username', auth, orgReassignBeatRender);
 
-router.post('/organisations/req-js/:r_type', reqJs);
+router.post('/organisations/req-js/:r_type', auth, reqJs);
 
-router.get('/organisations/reassign-beat/:o_username/:j_username/:code', orgReassignBeat);
+router.get('/organisations/reassign-beat/:o_username/:j_username/:code', auth, orgReassignBeat);
 
-router.get('/organisations/remove_j/:username', removeJ);
+router.get('/organisations/remove_j/:username', auth, removeJ);
 
-router.get('/followers/:username', followers);
+router.get('/followers/:username', auth, followers);
 
-router.post('/isUser', findMention);
+router.post('/isUser', auth, findMention);
 
-router.post('/upload_img', avs.single('avatar'), downloadFile);
+router.post('/upload_img', auth, avs.single('avatar'), downloadFile);
 
 router.post('/upload_conf', auth, finalizeUpload);
 
-router.get('/logout', logout);
+router.get('/serve-districts', serve_dists);
+
+router.post('/set-bio', auth, set_bio);
+
+router.get('/logout', auth, logout);
 
 router.all('*', (req, res)=>{
     res.send(JSON.stringify({success: false, reason: 'Invalid API Route', route: `${req.url}`, server_response: 'Invalid API Route'}));

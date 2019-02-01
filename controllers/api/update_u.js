@@ -8,45 +8,9 @@ const ripple = require('../ripple');
 
 function update(req, res) {
     let item = {};
-    let sect = req.params.upd_type;
 
-    if (sect == 'bio') {
-        let bio = req.body.bio;
-
-        let wsp = /^\s*$/g;
-        bio.replace(wsp, '');
-        if (req.user.user) {
-            let username = req.user.user.username;
-            users.findOne({ username: username }, (err, ret_u) => {
-                let ret_u_p = JSON.parse(JSON.stringify(ret_u));
-                if (err) {
-                    throw err;
-                }
-                else {
-                    if (ret_u.bio !== bio || fPath) {
-                        ret_u.bio = bio;
-                        
-                        users.findOneAndUpdate({ username: username }, ret_u, (err) => {
-                            if (err) {
-                                throw err;
-                            }
-                            else {
-                                item.notif = "Successful!";
-                                req.user.user = ret_u;
-                                res.send(JSON.stringify({ success: true, item: item }));
-                                ripple('u', ret_u_p, ret_u);
-                            }
-                        });
-                    }
-                    else {
-                        res.send(JSON.stringify({ success: true }));
-                    }
-                }
-            });
-        }
-    }
-    else if (sect == 'dets') {
-        let { f_name, username, email, password, n_pass, state, fed_const, sen_dist, gender } = req.body;
+    if (req.user) {
+        let { bio, f_name, username, email, password, n_pass, state, fed_const, sen_dist, gender } = req.body;
         let wsp = /^\s*$/;
         let test = (text) => {
             return wsp.test(text);
@@ -65,6 +29,10 @@ function update(req, res) {
                     let changed = false;
                     let valid = true;
                     async function checks() {
+                        if(!wsp.test(bio) || bio !== ret_u.bio){
+                            changed = true;
+                            ret_u.bio = bio;
+                        }
                         if (username !== curr_username) {
                             changed = true;
                             let found = await check_username(username);
@@ -133,7 +101,7 @@ function update(req, res) {
                                 }
                             }
                         }
-                        if (fed_const !== ret_u.fed_const) {
+                        if (fed_const !== ret_u.fed_const || changed) {
                             changed = true;
                             if (wsp.test(fed_const)) {
                                 valid = false;
@@ -150,7 +118,7 @@ function update(req, res) {
                                 }
                             }
                         }
-                        if (sen_dist !== ret_u.sen_dist) {
+                        if (sen_dist !== ret_u.sen_dist || changed) {
                             changed = true;
                             if (wsp.test(sen_dist)) {
                                 valid = false;
@@ -279,7 +247,11 @@ function update(req, res) {
                                             else {
                                                 req.user.user = user;
                                                 item.notif = "Successful!";
-                                                res.send(JSON.stringify({success: true, item: item}));
+                                                let logout = false;
+                                                if(ret_u_p.username !== ret_u.username){
+                                                    logout = true;
+                                                }
+                                                res.send(JSON.stringify({success: true, logout: logout, item: item}));
                                                 ripple('u', ret_u_p, ret_u);
                                             }
                                         });
@@ -294,6 +266,9 @@ function update(req, res) {
         else {
             res.send(JSON.stringify({success: false, reason: "Invalid Parameters"}));
         }
+    }
+    else {
+        res.send(JSON.stringify({success: false, reason: "Invalid User"}));
     }
 }
 

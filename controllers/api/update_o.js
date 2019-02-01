@@ -6,52 +6,16 @@ const ripple = require('../ripple');
 
 function update(req, res) {
     let item = {};
-    let sect = req.params.upd_type;
 
-    if (sect == 'bio') {
-        let bio = req.body.bio;
-
-        let wsp = /^\s*$/g;
-        bio.replace(wsp, '');
-        if (req.organisation.user) {
-            let username = req.organisation.user.username;
-            organisations.findOne({ username: username }, (err, ret_o) => {
-                let ret_o_p = JSON.parse(JSON.stringify(ret_o));
-                if (err) {
-                    throw err;
-                }
-                else {
-                    if (ret_o.bio !== bio) {
-                        ret_o.bio = bio;
-
-                        organisations.findOneAndUpdate({ username: username }, ret_o, (err) => {
-                            if (err) {
-                                throw err;
-                            }
-                            else {
-                                item.notif = "Successful!";
-                                req.organisation.user = ret_o;
-                                res.send(JSON.stringify({ success: true, item: item }));
-                                ripple('o', ret_o_p, ret_o);
-                            }
-                        });
-                    }
-                    else {
-                        res.send(JSON.stringify({ success: true }));
-                    }
-                }
-            });
-        }
-    }
-    else if (sect == 'dets') {
-        let { name, username, email, pub_email, password, n_pass } = req.body;
+    if (req.organisation) {
+        let { bio, name, username, email, pub_email, password, n_pass, ver } = req.body;
         let wsp = /^\s*$/;
 
         let test = (text) => {
             return wsp.test(text);
         }
         if (test(name) || test(username) || test(email) || test(pub_email)) {
-            res.send(JSON.stringify({success: false, reason: "Mandatory fields not filled out"}))
+            res.send(JSON.stringify({ success: false, reason: "Mandatory fields not filled out" }))
         }
         else if (req.organisation.user) {
             let curr_username = req.organisation.user.username;
@@ -64,6 +28,10 @@ function update(req, res) {
                     let changed = false;
                     let valid = true;
                     async function checks() {
+                        if (!wsp.test(bio) || bio !== ret_o.bio) {
+                            changed = true;
+                            ret_o.bio = bio;
+                        }
                         if (username !== curr_username) {
                             changed = true;
                             let found = await check_username(username);
@@ -107,6 +75,16 @@ function update(req, res) {
                                 ret_o.name = name;
                                 ret_o.lc_name = name.toLowerCase();
                             }
+                        }
+                        if (ver !== ret_o.verification.id) {
+                            changed = true;
+                            if (!wsp.test(ver)) {
+                                ret_o.verification.verified = true;
+                            }
+                            else {
+                                ret_o.verification.verified = false;
+                            }
+                            ret_o.verification.id = ver;
                         }
                         if (!wsp.test(password)) {
                             if (hash.verify(password, ret_o.password)) {
@@ -188,7 +166,11 @@ function update(req, res) {
                                             else {
                                                 item.notif = "Successful!";
                                                 req.organisation.user = org;
-                                                res.send(JSON.stringify({ success: true, item: item }));
+                                                let logout = false;
+                                                if(ret_o_p.username !== ret_o.username){
+                                                    logout = true;
+                                                }
+                                                res.send(JSON.stringify({success: true, logout: logout, item: item}));
                                                 ripple('o', ret_o_p, ret_o);
                                             }
                                         });
@@ -201,8 +183,11 @@ function update(req, res) {
             });
         }
         else {
-            res.send(JSON.stringify({success: false, reason: "Invalid Parameters"}));
+            res.send(JSON.stringify({ success: false, reason: "Invalid Parameters" }));
         }
+    }
+    else {
+        res.send(JSON.stringify({ success: false, reason: "Invalid User" }));
     }
 }
 

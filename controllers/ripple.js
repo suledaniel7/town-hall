@@ -234,111 +234,114 @@ function ripple(ac_type, prev, curr) {
             }
         });
         // Organisations
-        if (p_org === c_org) {
-            // Organisations: pendingBeat, journalists, pending_reqs
-            organisations.findOne({ username: p_org }, (err, ret_o) => {
-                if (err) {
-                    throw err;
-                }
-                else if (!ret_o) {
-                    console.log(`An error occured finding the registered organisation ${p_org} for ${c_username}`);
-                }
-                else {
-                    //pendingBeat
-                    if (ret_o.pending_beat) {
-                        if (ret_o.pending_beat.status && ret_o.pending_beat.username === p_username) {
-                            ret_o.pending_beat.username = c_username;
-                        }
+        if (prev.account.type === 'formal') {
+            if (p_org === c_org) {
+                // Organisations: pendingBeat, journalists, pending_reqs
+                organisations.findOne({ username: p_org }, (err, ret_o) => {
+                    if (err) {
+                        throw err;
                     }
-                    //journalists
-                    for (let i = 0; i < ret_o.journalists.length; i++) {
-                        if (ret_o.journalists[i].username === p_username) {
-                            ret_o.journalists[i].username = c_username;
-                        }
+                    else if (!ret_o) {
+                        console.log(`An error occured finding the registered organisation ${p_org} for ${c_username}`);
                     }
-                    //pending_reqs
-                    for (let i = 0; i < ret_o.pending_reqs.length; i++) {
-                        if (ret_o.pending_reqs[i].username === p_username) {
-                            ret_o.pending_reqs[i].username = c_username;
-                        }
-                    }
-
-                    organisations.findOneAndUpdate({ username: p_org }, ret_o, (err) => {
-                        if (err) {
-                            throw err;
-                        }
-                    });
-                }
-            });
-        }
-        else {
-            // Organisations - changed org: journo_num, districts, journalists, pending_reqs, pendingBeat, send request
-            organisations.findOne({ username: p_org }, (err, ret_o) => {
-                if (err) {
-                    throw err;
-                }
-                else if (!ret_o) {
-                    console.log(`Couldn't find org, ${p_org} for journalist, ${c_username}`);
-                }
-                else {
-                    //remove journo from prev org
-                    let journalistsArr = ret_o.journalists;
-                    let pendingReqs = ret_o.pending_reqs;
-                    let pendingBeat = ret_o.pendingBeat;
-                    let covered_dists = [];
-
-                    for (let i = 0; i < journalistsArr.length; i++) {
-                        if (journalistsArr[i].username === p_username) {
-                            journalistsArr.splice(i, 1);
-                            ret_o.journo_num--;
-                        }
-                        else {
-                            let beat = journalistsArr[i].beat;
-                            if (covered_dists.indexOf(beat) === -1) {
-                                covered_dists.push(beat);
+                    else {
+                        //pendingBeat
+                        if (ret_o.pending_beat) {
+                            if (ret_o.pending_beat.status && ret_o.pending_beat.username === p_username) {
+                                ret_o.pending_beat.username = c_username;
                             }
                         }
-                    }
-                    for (let i = 0; i < pendingReqs.length; i++) {
-                        if (pendingReqs[i].username === p_username) {
-                            pendingReqs.splice(i, 1);
+                        //journalists
+                        for (let i = 0; i < ret_o.journalists.length; i++) {
+                            if (ret_o.journalists[i].username === p_username) {
+                                ret_o.journalists[i].username = c_username;
+                            }
                         }
-                    }
-                    if (pendingBeat) {
-                        if (pendingBeat.status && pendingBeat.username === p_username) {
-                            pendingBeat.status = false;
-                            pendingBeat.username = null;
+                        //pending_reqs
+                        for (let i = 0; i < ret_o.pending_reqs.length; i++) {
+                            if (ret_o.pending_reqs[i].username === p_username) {
+                                ret_o.pending_reqs[i].username = c_username;
+                            }
                         }
-                    }
 
-                    ret_o.districts = covered_dists;
-                    //send req to new org
-                    organisations.findOne({ username: c_org }, (err, ret_n_o) => {
-                        if (err) {
-                            throw err;
-                        }
-                        else if (!ret_n_o) {
-                            console.log(`Invalid organisation, ${c_org} selected by journalist, ${c_username}`);
-                        }
-                        else {
-                            ret_n_o.pending_reqs.push(curr);
+                        organisations.findOneAndUpdate({ username: p_org }, ret_o, (err) => {
+                            if (err) {
+                                throw err;
+                            }
+                        });
+                    }
+                });
+            }
+            else {
+                // Organisations - changed org: journo_num, districts, journalists, pending_reqs, pendingBeat, send request
+                organisations.findOne({ username: p_org }, (err, ret_o) => {
+                    if (err) {
+                        throw err;
+                    }
+                    else if (!ret_o) {
+                        console.log(`Couldn't find org, ${p_org} for journalist, ${c_username}`);
+                    }
+                    else {
+                        //remove journo from prev org
+                        let journalistsArr = ret_o.journalists;
+                        let pendingReqs = ret_o.pending_reqs;
+                        let pendingBeat = ret_o.pendingBeat;
+                        let covered_dists = [];
 
-                            organisations.findOneAndUpdate({ username: c_org }, ret_n_o, (err) => {
-                                if (err) {
-                                    throw err;
+                        for (let i = 0; i < journalistsArr.length; i++) {
+                            if (journalistsArr[i].username === p_username) {
+                                journalistsArr.splice(i, 1);
+                                ret_o.journo_num--;
+                            }
+                            else {
+                                let beat = journalistsArr[i].beat;
+                                if (covered_dists.indexOf(beat) === -1) {
+                                    covered_dists.push(beat);
                                 }
-                            });
+                            }
                         }
-                    });
+                        for (let i = 0; i < pendingReqs.length; i++) {
+                            if (pendingReqs[i].username === p_username) {
+                                pendingReqs.splice(i, 1);
+                            }
+                        }
+                        if (pendingBeat) {
+                            if (pendingBeat.status && pendingBeat.username === p_username) {
+                                pendingBeat.status = false;
+                                pendingBeat.username = null;
+                            }
+                        }
 
-                    organisations.findOneAndUpdate({ username: p_org }, ret_o, (err) => {
-                        if (err) {
-                            throw err;
-                        }
-                    });
-                }
-            });
+                        ret_o.districts = covered_dists;
+                        //send req to new org
+                        organisations.findOne({ username: c_org }, (err, ret_n_o) => {
+                            if (err) {
+                                throw err;
+                            }
+                            else if (!ret_n_o) {
+                                console.log(`Invalid organisation, ${c_org} selected by journalist, ${c_username}`);
+                            }
+                            else {
+                                ret_n_o.pending_reqs.push(curr);
+
+                                organisations.findOneAndUpdate({ username: c_org }, ret_n_o, (err) => {
+                                    if (err) {
+                                        throw err;
+                                    }
+                                });
+                            }
+                        });
+
+                        organisations.findOneAndUpdate({ username: p_org }, ret_o, (err) => {
+                            if (err) {
+                                throw err;
+                            }
+                        });
+                    }
+                });
+            }
         }
+
         //users
         users.find({ sources: p_username }, (err, ret_us) => {
             if (err) {

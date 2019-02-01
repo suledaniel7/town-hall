@@ -56,7 +56,7 @@ function authenticate(req, res, next){
                 });
             }
             else if(u_type == 'l'){
-                legislators.findOne({email: username}, (err, ret_l)=>{
+                legislators.findOne({code: username}, (err, ret_l)=>{
                     if(err){
                         throw err;
                     }

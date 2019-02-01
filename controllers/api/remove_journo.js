@@ -116,7 +116,7 @@ function removeJ(req, res) {
                                     throw err;
                                 }
                                 else {
-                                    organisations.findOneAndUpdate({ username: ret_o }, ret_o, (err) => {
+                                    organisations.findOneAndUpdate({ username: ret_o.username }, ret_o, (err) => {
                                         if (err) {
                                             throw err;
                                         }

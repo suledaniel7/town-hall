@@ -13,7 +13,7 @@ function reAssignBeat(req, res) {
         }
         else {
             if (!ret_org) {
-                res.send(JSON.stringify({success: false, reason: "Invalid Organisation Account"}));
+                res.send(JSON.stringify({success: false, reason: "Invalid Organisation Account"+o_username}));
             }
             else {
                 //check j
@@ -98,7 +98,17 @@ function reAssignBeat(req, res) {
                                                         throw err;
                                                     }
                                                     else {
-                                                        res.send(JSON.stringify({success: true}));
+                                                        if(ret_dist.type === 'sen'){
+                                                            ret_dist.type = "Sen. ";
+                                                        }
+                                                        else {
+                                                            ret_dist.type = "Rep. ";
+                                                        }
+                                                        res.send(JSON.stringify({success: true, item: {
+                                                            dist_name: ret_dist.name,
+                                                            type: ret_dist.type,
+                                                            rep: ret_dist.rep
+                                                        }}));
                                                     }
                                                 });
                                             }

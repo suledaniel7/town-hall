@@ -36,7 +36,7 @@ function settings(req, res, username) {
                 else {
                     for (let i = 0; i < ret_ds.length; i++) {
                         let district = ret_ds[i];
-                        if (st_codes_arr.indexOf(district.state_code) === -1 && district.state_code !== state_code) {
+                        if (st_codes_arr.indexOf(district.state_code) === -1) {
                             st_codes_arr.push(district.state_code);
                             states.push({
                                 name: district.state,
@@ -46,10 +46,10 @@ function settings(req, res, username) {
                         if(district.code === ret_u.fed_const){
                             fed_const = district.name;
                         }
-                        else if(district.code === ret_u.sen_dist){
+                        if(district.code === ret_u.sen_dist){
                             sen_dist = district.name;
                         }
-                        else if (district.state_code === state_code) {
+                        if (district.state_code === state_code) {
                             if (district.type === 'sen') {
                                 sen_dists.push({
                                     name: district.name,
@@ -66,7 +66,7 @@ function settings(req, res, username) {
                     }
                 }
 
-                let notif = '';
+                let notif = null;
                 if (req.notifications.notif) {
                     notif = req.notifications.notif;
                     req.notifications.notif = null;

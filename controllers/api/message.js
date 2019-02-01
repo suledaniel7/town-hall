@@ -69,7 +69,7 @@ function messageHandler(req, res) {
                 if(!post_type){
                     post_type = 'o';
                 }
-                if(mType === 'n'){
+                if(post_type === 'n'){
                     isNews = true;
                 }
 

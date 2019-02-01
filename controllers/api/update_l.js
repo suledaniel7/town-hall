@@ -6,45 +6,9 @@ const ripple = require('../ripple');
 
 function update(req, res) {
     let item = {};
-    let sect = req.params.upd_type;
 
-    if (sect == 'bio') {
-        let bio = req.body.bio;
-
-        let wsp = /^\s*$/g;
-        bio.replace(wsp, '');
-        if (req.legislator.user) {
-            let code = req.legislator.user.code;
-            legislators.findOne({ code: code }, (err, ret_l) => {
-                let ret_l_p = JSON.parse(JSON.stringify(ret_l));
-                if (err) {
-                    throw err;
-                }
-                else {
-                    if (ret_l.bio !== bio) {
-                        ret_l.bio = bio;
-
-                        legislators.findOneAndUpdate({ code: code }, ret_l, (err) => {
-                            if (err) {
-                                throw err;
-                            }
-                            else {
-                                item.notif = "Successful!";
-                                req.legislator.user = ret_l;
-                                res.send(JSON.stringify({success: true, item: item}));
-                                ripple('l', ret_l_p, ret_l);
-                            }
-                        });
-                    }
-                    else {
-                        res.send(JSON.stringify({success: true}));
-                    }
-                }
-            });
-        }
-    }
-    else if (sect == 'dets') {
-        let { f_name, l_name, email, password, n_pass, gender } = req.body;
+    if (req.legislator) {
+        let { bio, f_name, l_name, email, password, n_pass, gender } = req.body;
         let wsp = /^\s*$/;
         let test = (text) => {
             return wsp.test(text);
@@ -64,6 +28,10 @@ function update(req, res) {
                     let changed = false;
                     let valid = true;
                     async function checks() {
+                        if (!wsp.test(bio) || bio !== ret_l.bio) {
+                            changed = true;
+                            ret_l.bio = bio;
+                        }
                         if (email !== ret_l.email) {
                             changed = true;
                             let found = await check_email(email);
@@ -181,6 +149,9 @@ function update(req, res) {
         else {
             res.send(JSON.stringify({success: false, reason: "Invalid Parameters"}));
         }
+    }
+    else {
+        res.send(JSON.stringify({ success: false, reason: "Invalid User" }));
     }
 }
 

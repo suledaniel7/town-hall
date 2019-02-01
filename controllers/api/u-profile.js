@@ -59,7 +59,7 @@ function renderProfile(req, res) {
                                                 throw err;
                                             }
                                             else {
-                                                ret_orgs = strip(ret_orgs, ['email', 'pub_email', 'password', 'pendingBeat', 'districts', 'journalists', 'pending_reqs', 'followers', 'likes', 'dislikes'])[0];
+                                                ret_orgs = strip(ret_orgs, ['email', 'pub_email', 'password', 'pendingBeat', 'districts', 'journalists', 'pending_reqs', 'followers', 'likes', 'dislikes']);
                                                 let suggested_orgs = [];
                                                 if(ret_orgs.length > 0){
                                                     ret_orgs.forEach(ret_org => {

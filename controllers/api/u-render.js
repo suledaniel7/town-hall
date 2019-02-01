@@ -12,6 +12,7 @@ function renderProfile(req, res, username, c_username) {
             res.send(JSON.stringify({success: false, reason: "Invalid Account"}));
         }
         else {
+            item.user = ret_u;
             let fed_const = ret_u.fed_const;
             let sen_dist = ret_u.sen_dist;
 

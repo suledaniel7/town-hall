@@ -61,12 +61,6 @@ function settings(req, res, username) {
                             throw err;
                         }
                         else {
-                            for(let i=0; i<ret_os.length; i++){
-                                let org = ret_os[i];
-                                if(org.username === ret_j.organisation){
-                                    ret_os.splice(i, 1);
-                                }
-                            }
                             item.organisations = ret_os;
                             if(ret_j.account.type === 'formal'){
                                 item.formal = true;

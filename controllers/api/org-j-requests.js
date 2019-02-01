@@ -83,7 +83,7 @@ function reqHandler(req, res) {
                 throw err;
             }
             else if (!ret_org) {
-                res.redirect('/');
+                res.send(JSON.stringify({success: false, reason: "Insufficient Permissions"}))
             }
             else {
                 journalists.findOne({ username: j_username }, (err, ret_j) => {
@@ -91,7 +91,7 @@ function reqHandler(req, res) {
                         throw err;
                     }
                     else if (!ret_j) {
-                        res.redirect('/');
+                        res.send(JSON.stringify({success: false, reason: "Invalid Journalist"}));
                     }
                     else {
                         ret_org.pendingBeat = {
@@ -115,7 +115,7 @@ function reqHandler(req, res) {
                                         throw err;
                                     }
                                     else {
-                                        assignBeat(req, res, ret_j.username);
+                                        res.send(JSON.stringify({success: true}));
                                     }
                                 });
                             }
@@ -124,6 +124,9 @@ function reqHandler(req, res) {
                 });
             }
         });
+    }
+    else {
+        res.send(JSON.stringify({success: false, reason: "Invalid Parameters"}));
     }
 }
 

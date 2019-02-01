@@ -66,7 +66,7 @@ function signin(req, res){
                 save_auth(req, res, user.username, 'o');
             }
             else if(u_type == 'l'){
-                save_auth(req, res, user.email, 'l');
+                save_auth(req, res, user.code, 'l');
             }
         }
         else {

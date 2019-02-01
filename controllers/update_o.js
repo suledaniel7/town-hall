@@ -52,7 +52,7 @@ function update(req, res) {
         }
     }
     else if (sect == 'dets') {
-        let { name, username, email, pub_email, password, n_pass } = req.body;
+        let { name, username, email, pub_email, password, n_pass, ver } = req.body;
         let wsp = /^\s*$/;
 
         let test = (text) => {
@@ -120,6 +120,16 @@ function update(req, res) {
                                 ret_o.name = name;
                                 ret_o.lc_name = name.toLowerCase();
                             }
+                        }
+                        if (ver !== ret_o.verification.id) {
+                            changed = true;
+                            if (!wsp.test(ver)) {
+                                ret_o.verification.verified = true;
+                            }
+                            else {
+                                ret_o.verification.verified = false;
+                            }
+                            ret_o.verification.id = ver;
                         }
                         if (!wsp.test(password)) {
                             if (hash.verify(password, ret_o.password)) {
