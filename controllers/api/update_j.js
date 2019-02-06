@@ -93,7 +93,7 @@ function update(req, res) {
                                     ret_j.verified = ret_o.verification.verified;
                                     ret_j.beat = '';
                                     ret_j.beatName = '';
-                                    ret_j.beatDets = new Object();
+                                    ret_j.beatDets = null;                                    
                                 }
                                 else {
                                     valid = false;

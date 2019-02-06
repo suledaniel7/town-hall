@@ -60,7 +60,7 @@ function removeJ(req, res) {
                             ret_j.beat = '';
                             ret_j.beatName = '';
                             ret_j.account.status = false;
-                            ret_j.beatDets = new Object();
+                            ret_j.beatDets = null;
 
                             messages.find({ sender: j_username }, (err, ret_ms) => {
                                 if (err) {
