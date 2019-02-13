@@ -121,7 +121,7 @@ function messageHandler(req, res) {
                                         res.send({success: false, reason: "An error occured in saving your message. Please try again later"});
                                     }
                                     else {
-                                        res.send({success: true, timestamp: `${username}-${timestamp}`, beats: message.beats});
+                                        res.send({success: true, username: `${username}`, timestamp: `${username}-${timestamp}`, beats: message.beats});
                                     }
                                 });
                             }
@@ -194,7 +194,7 @@ function messageHandler(req, res) {
                                             res.send({success: false, reason: "An error occured in saving your message. Please try again later"});
                                         }
                                         else {
-                                            res.send({success: true, timestamp: `${username}-${timestamp}`, beats: message.beats});
+                                            res.send({success: true, username: username, timestamp: `${username}-${timestamp}`, beats: message.beats});
                                         }
                                     });
                                 }
@@ -205,7 +205,7 @@ function messageHandler(req, res) {
                                             res.send({success: false, reason: "An error occured in saving your message. Please try again later"});
                                         }
                                         else {
-                                            res.send({success: true, timestamp: `${username}-${timestamp}`});
+                                            res.send({success: true, username: username, timestamp: `${username}-${timestamp}`, beats: message.beats});
                                         }
                                     });
                                 }
@@ -269,7 +269,7 @@ function messageHandler(req, res) {
                                         res.send({success: false, reason: "An error occured in saving your message. Please try again later"});
                                     }
                                     else {
-                                        res.send({success: true, timestamp: `${code}-${timestamp}`, beats: message.beats});
+                                        res.send({success: true, username: code, timestamp: `${code}-${timestamp}`, beats: message.beats});
                                     }
                                 });
                             }

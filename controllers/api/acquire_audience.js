@@ -4,18 +4,16 @@ const journalists = require('../schemas/journalists');
 const legislators = require('../schemas/legislators');
 const organisations = require('../schemas/organisations');
 
-function collate(id, timestamp, beats) {
+function collate(username, beats) {
     return new Promise((resolve, reject) => {
-        console.log("This runs");
-        generals.findOne({ socket_id: id }, (err, ret_g) => {
+        generals.findOne({ username: username }, (err, ret_g) => {
             if (err) {
                 reject(err);
             }
             else if(!ret_g){
-                console.log("Problems with general ", id);
+                console.log("Problems with general ", username);
             }
             else if (ret_g) {
-                console.log("General", ret_g);
                 let u_type = ret_g.identifier;
                 let username = ret_g.username;
                 if (u_type === 'j') {
@@ -51,7 +49,7 @@ function collate(id, timestamp, beats) {
                                         else {
                                             audience.push({
                                                 username: ret_l.code,
-                                                pg: ['b']
+                                                pg: ['h']
                                             });
                                             journalists.find({ $or: [{ sources: username }, { beat: ret_j.beat }] }, (err, ret_js) => {
                                                 if (err) {
@@ -60,10 +58,10 @@ function collate(id, timestamp, beats) {
                                                 else {
                                                     for (let i = 0; i < ret_js.length; i++) {
                                                         let pg = [];
-                                                        if (ret_js[i].beat === ret_j.beat) {
-                                                            pg.push('b');
+                                                        if (ret_js[i].beat === ret_j.beat && ret_js[i].username !== ret_j.username) {
+                                                            pg.push('h');
                                                         }
-                                                        if (ret_js[i].sources.indexOf(username) !== -1) {
+                                                        if (ret_js[i].sources.indexOf(username) !== -1 && ret_js[i].username !== ret_j.username) {
                                                             pg.push('h');
                                                         }
                                                         audience.push({
@@ -82,11 +80,8 @@ function collate(id, timestamp, beats) {
                                                                     pg: ['j']
                                                                 });
                                                             }
-                                                            ids(audience).then((final_audience)=>{
-                                                                resolve(final_audience);
-                                                            }).catch((err)=>{
-                                                                reject(err);
-                                                            });
+                                                            
+                                                            resolve(audience);
                                                         }
                                                     });
                                                 }
@@ -164,7 +159,7 @@ function collate(id, timestamp, beats) {
                                             for(let i=0; i<ret_ls.length; i++){
                                                 audience.push({
                                                     username: ret_ls[i].code,
-                                                    pg: ['b']
+                                                    pg: ['h']
                                                 });
                                             }
                                             journalists.find({$or: [{sources: username}, {organisation: username}]}, (err, ret_js)=>{
@@ -186,11 +181,8 @@ function collate(id, timestamp, beats) {
                                                             pg: pg
                                                         });
                                                     }
-                                                    ids(audience).then((final_audience)=>{
-                                                        resolve(final_audience);
-                                                    }).catch(err=>{
-                                                        reject(err);
-                                                    });
+                                                    
+                                                    resolve(audience);
                                                 }
                                             });
                                         }
@@ -232,7 +224,7 @@ function collate(id, timestamp, beats) {
                                                 let journo = ret_js[i];
                                                 let pg = [];
                                                 if(journo.beat === username){
-                                                    pg.push('b');
+                                                    pg.push('h');
                                                 }
                                                 if(journo.sources.indexOf(username) !== -1){
                                                     pg.push('h');
@@ -242,13 +234,9 @@ function collate(id, timestamp, beats) {
                                                     username: journo.username,
                                                     pg: pg
                                                 });
-
-                                                ids(audience).then((final_audience)=>{
-                                                    resolve(final_audience);
-                                                }).catch(err => {
-                                                    reject(err);
-                                                });
                                             }
+
+                                            resolve(audience);
                                         }
                                     });
                                 }
@@ -261,36 +249,6 @@ function collate(id, timestamp, beats) {
                 resolve(null);
             }
         });
-    });
-}
-
-function ids(audience) {
-    return new Promise((resolve, reject) => {
-        if (audience.length === 0) {
-            resolve([]);
-        }
-        else {
-            let final_audience = [];
-            let last = audience.length - 1;
-            for(let i=0; i<audience.length; i++){
-                let u_name = audience[i].username;
-                generals.findOne({username: u_name, online: true}, (err, ret_g)=>{
-                    if(err){
-                        reject(err);
-                    }
-                    else if(ret_g) {
-                        final_audience.push({
-                            username: audience[i].username,
-                            pg: audience[i].pg,
-                            socket_id: ret_g.socket_id
-                        });
-                        if(i === last){
-                            resolve(final_audience);
-                        }
-                    }
-                });
-            }
-        }
     });
 }
 //two possible outcomes from .then are null and [], apart from an actual populated array, which fits into [1]

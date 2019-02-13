@@ -1,6 +1,6 @@
 const auth = require('../schemas/auths');
 
-function saveAuth(req, res, username, u_type){
+function saveAuth(req, res, username, u_type, j_type){
     //tricky
     //first, check if ip exists, if so, change username and u_type
     //else, create
@@ -23,7 +23,7 @@ function saveAuth(req, res, username, u_type){
                     throw err;
                 }
                 else {
-                    res.send(JSON.stringify({success: true, u_type: u_type}));
+                    res.send(JSON.stringify({success: true, u_type: u_type, j_type: j_type}));
                 }
             });
         }
@@ -37,7 +37,7 @@ function saveAuth(req, res, username, u_type){
                     throw err;
                 }
                 else {
-                    res.send(JSON.stringify({success: true, u_type: u_type}));
+                    res.send(JSON.stringify({success: true, u_type: u_type, j_type: j_type}));
                 }
             });
         }

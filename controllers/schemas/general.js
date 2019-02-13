@@ -6,7 +6,7 @@ const gen = new Schema({
     email: {type: String, unique: true, required: true},
     identifier: {type: String, required: true},
     online: {type: Boolean, default: false},
-    socket_id: {type: String, unique: true, default: ''},
+    socket_id: {type: String, default: ''},
 });
 
 const general = mongoose.model('general', gen);

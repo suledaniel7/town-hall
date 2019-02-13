@@ -1,151 +1,197 @@
+const auths = require('../controllers/schemas/auths');
 const generals = require('../controllers/schemas/general');
 const acquisition = require('../controllers/api/acquire_audience');
+const districts = require('../controllers/schemas/districts');
 const messages = require('../controllers/schemas/messages');
 // const users = require('../controllers/schemas/users');
-// const journalists = require('../controllers/schemas/journalists');
+const journalists = require('../controllers/schemas/journalists');
 // const legislators = require('../controllers/schemas/legislators');
-// const organisations = require('../controllers/schemas/organisations');
-// const findType = require('../controllers/findType');
+const organisations = require('../controllers/schemas/organisations');
+const findUserWithUsername = require('../controllers/api/findUserWithUsername');
 
-function socketFn(socket) {
-    socket.on('conn', (data) => {
-        let username = data.username;
-        let id = socket.id;
-
-        generals.findOne({ username: username }, (err, ret_g) => {
-            if (err) {
-                throw err;
-            }
-            else if (ret_g) {
-                ret_g.online = true;
-                ret_g.socket_id = id;
-
-                generals.findOneAndUpdate({ username: username }, ret_g, (err) => {
-                    if (err) {
-                        throw err;
-                    }
-                });
-            }
+function socketFn(event, data) {
+    if(event === 'save_auth'){
+        return new Promise((resolve, reject)=>{
+            let ip = data;
+            auths.findOne({ip: ip}, (err, ret_a)=>{
+                if(err){
+                    reject(err);
+                }
+                else if(!ret_a){
+                    resolve(null);
+                }
+                else {
+                    resolve(ret_a.username);
+                }
+            });
         });
+    }
+    else if(event === 'message_sent') {
+        return new Promise((resolve, reject)=>{
+            let username = data.username;
+            let timestamp = data.timestamp;
+            let beats = data.beats;
 
-        // findType(username).then(u_type =>{
-        //     if(u_type === 'user'){
-        //         users.findOne({username: username}, (err, ret_u)=>{
-        //             if(err){
-        //                 throw err;
-        //             }
-        //             else if(ret_u){
-        //                 ret_u.online = true;
-        //                 ret_u.socket_id = id;
-        //                 users.findOneAndUpdate({username: username}, ret_u, (err)=>{
-        //                     if(err){
-        //                         throw err;
-        //                     }
-        //                 });
-        //             }
-        //         });
-        //     }
-        //     else if(u_type === 'journalist'){
-        //         journalists.findOne({username: username}, (err, ret_j)=>{
-        //             if(err){
-        //                 throw err;
-        //             }
-        //             else if(ret_j){
-        //                 ret_j.online = true;
-        //                 ret_j.socket_id = id;
-        //                 journalists.findOneAndUpdate({username: username}, ret_j, (err)=>{
-        //                     if(err){
-        //                         throw err;
-        //                     }
-        //                 });
-        //             }
-        //         });
-        //     }
-        //     else if(u_type === 'legislator'){
-        //         legislators.findOne({code: username}, (err, ret_l)=>{
-        //             if(err){
-        //                 throw err;
-        //             }
-        //             else if(ret_l){
-        //                 ret_l.online = true;
-        //                 ret_l.socket_id = id;
-        //                 legislators.findOneAndUpdate({code: username}, ret_l, (err)=>{
-        //                     if(err){
-        //                         throw err;
-        //                     }
-        //                 });
-        //             }
-        //         });
-        //     }
-        //     else if(u_type === 'organisation'){
-        //         organisations.findOne({username: username}, (err, ret_o)=>{
-        //             if(err){
-        //                 throw err;
-        //             }
-        //             else if(ret_o){
-        //                 ret_o.online = true;
-        //                 ret_o.socket_id = id;
-        //                 organisations.findOneAndUpdate({username: username}, ret_o, (err)=>{
-        //                     if(err){
-        //                         throw err;
-        //                     }
-        //                 });
-        //             }
-        //         });
-        //     }
-        // }).catch(err =>{
-        //     console.log("No user found for user with username: " + username);
-        // });
-    });
-
-    socket.on('message_sent', (data) => {
-        let id = socket.id;
-        // let username = data.username;
-        let timestamp = data.timestamp;
-        let beats = data.beats;
-        console.log(id);
-
-        messages.findOne({ m_timestamp: timestamp }, (err, ret_m) => {
-            if (err) {
-                throw err;
+            if(!username){
+                let pos = timestamp.indexOf('-');
+                username = timestamp.slice(0, pos);
             }
-            else if (ret_m) {
-                socket.to(id).emit('self_message', { message: ret_m })
-                acquisition(id, timestamp, beats).then((audience) => {
-                    console.log("Audience: ", audience);
-                    if (audience) {
-                        if (audience.length > 0) {
-                            for (let i = 0; i < audience.length; i++) {
-                                let person = audience[i];
-                                socket.to(person.socket_id).emit('message', { page: person.pg, message: ret_m });
-                            }
+    
+            messages.findOne({ m_timestamp: timestamp }, (err, ret_m) => {
+                if (err) {
+                    reject(err);
+                }
+                else if (ret_m) {
+                    acquisition(username, beats).then((audience) => {
+                        resolve({audience: audience, message: ret_m, username: username});
+                    }).catch(err => {
+                        reject("An error occured during acquistion. Socket.js in server. Error: " + err);
+                    });
+                }
+            });
+        });
+    }
+    else if(event === 'j_request'){
+        return new Promise((resolve, reject)=>{
+            let j_username = data.j_username;
+            let o_username = data.o_username;
+
+            organisations.findOne({username: o_username}, (err, ret_o)=>{
+                if(err){
+                    reject(err);
+                }
+                else if(!ret_o){
+                    resolve({found: false});
+                }
+                else {
+                    let p_reqs = ret_o.pending_reqs;
+                    let index = -1;
+                    for(let i=0; i<p_reqs.length; i++){
+                        let req = p_reqs[i];
+                        if(req.username === j_username){
+                            index = i;
                         }
                     }
-                }).catch(err => {
-                    console.log("An error occured during acquistion. Socket.js in server. Error: " + err);
-                });
-            }
+
+                    if(index === -1){
+                        resolve({found: false});
+                    }
+                    else {
+                        journalists.findOne({username: j_username}, (err, ret_j)=>{
+                            if(err){
+                                reject(err);
+                            }
+                            else if(!ret_j){
+                                resolve({found: false});
+                            }
+                            else {
+                                resolve({found: true, journo: ret_j});
+                            }
+                        });
+                    }
+                }
+            });
         });
-    });
+    }
+    else if(event === 'accept_j'){
+        return new Promise((resolve, reject)=>{
+            let o_username = data.o_username;
+            let j_username = data.j_username;
+    
+            organisations.findOne({username: o_username}, (err, ret_o)=>{
+                if(err){
+                    reject(err);
+                }
+                else if(!ret_o){
+                    resolve({found: false});
+                }
+                else {
+                    let o_js = ret_o.journalists;
+                    let j_index = -1;
+                    for(let i=0; i<o_js.length; i++){
+                        if(o_js[i].username === j_username){
+                            j_index = i;
+                        }
+                    }
+    
+                    if(j_index === -1){
+                        resolve({found: false});
+                    }
+                    else {
+                        journalists.findOne({username: j_username}, (err, ret_j)=>{
+                            if(err){
+                                reject(err);
+                            }
+                            else if(!ret_j){
+                                resolve({found: false});
+                            }
+                            else {
+                                let beat = ret_j.beat;
+                                districts.findOne({code: beat}, (err, ret_d)=>{
+                                    if(err){
+                                        reject(err);
+                                    }
+                                    else if(!ret_d){
+                                        resolve({found: false});
+                                    }
+                                    else {
+                                        if(ret_d.type === 'sen'){
+                                            ret_d.type = "Sen. ";
+                                        }
+                                        else {
+                                            ret_d.type = "Rep. ";
+                                        }
+                                        ret_j.beatDets = ret_d;
 
-    socket.on('disconnect', () => {
-        let socket_id = socket.id;
-        generals.findOne({ socket_id: socket_id }, (err, ret_g) => {
-            if (err) {
-                throw err;
-            }
-            else if (ret_g) {
-                ret_g.online = false;
-                ret_g.socket_id = '';
-
-                generals.findOneAndUpdate({ socket_id: socket_id }, ret_g, (err) => {
-                    if (err) {
-                        throw err;
+                                        resolve({found: true, journo: ret_j});
+                                    }
+                                });
+                            }
+                        });
+                    }
+                }
+            });
+        });
+    }
+    else if(event === 'changed_profile'){
+        return new Promise((resolve, reject)=>{
+            let username = data.username;
+            generals.findOne({username: username}, (err, ret_g)=>{
+                if(err){
+                    reject(err);
+                }
+                else if(!ret_g){
+                    resolve({found: false});
+                }
+                else {
+                    let identifier = ret_g.identifier;
+                    findUserWithUsername(identifier, username).then((user)=>{
+                        resolve(user);
+                    }).catch(err =>{
+                        reject(err);
+                    });
+                }
+            });
+        });
+    }
+    else if(event === 'assign_j'){
+        return new Promise((resolve, reject)=>{
+            let username = data;
+            if(username){
+                journalists.findOne({username: username}, (err, ret_j)=>{
+                    if(err){
+                        reject(err);
+                    }
+                    else if(!ret_j){
+                        resolve(null);
+                    }
+                    else {
+                        resolve(ret_j.beatDets);
                     }
                 });
             }
         });
-    });
+    }
 }
 
 module.exports = socketFn;

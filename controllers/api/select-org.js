@@ -51,7 +51,7 @@ function selectOrg(req, res) {
                                                 }
                                                 else {
                                                     //updated both
-                                                    res.send(JSON.stringify({success: true}));
+                                                    res.send(JSON.stringify({success: true, username: journo.username}));
                                                 }
                                             });
                                         }

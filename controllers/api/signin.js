@@ -33,40 +33,45 @@ function signin(req, res){
                                     res.send(JSON.stringify({success: false, reason: 'Invalid Town Hall Account'}));
                                 }
                                 else {
-                                    verifyUser(ret_l, 'l');
+                                    verifyUser(ret_l, 'l', null);
                                 }
-                            })
+                            });
                         }
                         else {
-                            verifyUser(ret_o, 'o');
+                            verifyUser(ret_o, 'o', null);
                         }
-                    })
+                    });
                 }
                 else {
-                    verifyUser(ret_j, 'j');
+                    if(ret_j.account.type === 'formal'){
+                        verifyUser(ret_j, 'j', 'm');
+                    }
+                    else {
+                        verifyUser(ret_j, 'j', 'f');
+                    }
                 }
-            })
+            });
         }
         else {
-            verifyUser(ret_u, 'u');
+            verifyUser(ret_u, 'u', null);
         }
     });
 
-    function verifyUser(user, u_type){
+    function verifyUser(user, u_type, j_type){
         let u_p = user.password;
         if(hash.verify(password, u_p)){
             //valid
             if(u_type == 'u'){
-                save_auth(req, res, user.username, 'u');
+                save_auth(req, res, user.username, 'u', null);
             }
             else if(u_type == 'j'){
-                save_auth(req, res, user.username, 'j');
+                save_auth(req, res, user.username, 'j', j_type);
             }
             else if(u_type == 'o'){
-                save_auth(req, res, user.username, 'o');
+                save_auth(req, res, user.username, 'o', null);
             }
             else if(u_type == 'l'){
-                save_auth(req, res, user.code, 'l');
+                save_auth(req, res, user.code, 'l', null);
             }
         }
         else {
