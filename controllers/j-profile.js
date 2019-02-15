@@ -70,11 +70,18 @@ function renderProfile(req, res) {
                 res.redirect('/');
             }
             else {
-                if(ret_l){
+                if (ret_l) {
                     journalist.rep = strip([ret_l], ['password', 'email', 'likes', 'dislikes']);
                 }
-                
-                messages.find({ sender: init_username }).sort({ timestamp: -1 }).exec((err, ret_msgs) => {
+
+                let sources = journalist.sources;
+                let searchSourceArr = [];
+                sources.forEach(source => {
+                    searchSourceArr.push({ sender: source });
+                });
+                searchSourceArr.push({sender: init_username});
+
+                messages.find({ $or: searchSourceArr }).sort({ timestamp: -1 }).exec((err, ret_msgs) => {
                     if (err) {
                         throw err;
                     }

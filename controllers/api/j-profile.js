@@ -99,7 +99,14 @@ function renderProfile(req, res) {
                 }
                 item.user = journalist;
                 if (page == 'home') {
-                    messages.find({ beats: j_beat }).sort({ timestamp: -1 }).exec((err, beat_msgs) => {
+                    let sources = journalist.sources;
+                    let searchSourceArr = [];
+                    sources.forEach(source => {
+                        searchSourceArr.push({ sender: source });
+                    });
+                    searchSourceArr.push({beats: j_beat});
+
+                    messages.find({ $or: searchSourceArr }).sort({ timestamp: -1 }).exec((err, beat_msgs) => {
                         if (err) {
                             throw err;
                         }

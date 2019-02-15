@@ -19,6 +19,7 @@ function removeJ(req, res) {
             }
             else {
                 journalists.findOne({ username: j_username }, (err, ret_j) => {
+                    let prev = JSON.parse(JSON.stringify(ret_j));
                     if (err) {
                         throw err;
                     }

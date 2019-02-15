@@ -22,6 +22,7 @@ function update(req, res) {
         }
         else if (req.journalist.user) {
             let curr_username = req.journalist.user.username;
+            let ch_org = false;
             journalists.findOne({ username: curr_username }, (err, ret_j) => {
                 let ret_j_p = JSON.parse(JSON.stringify(ret_j));
                 if (err) {
@@ -93,7 +94,8 @@ function update(req, res) {
                                     ret_j.verified = ret_o.verification.verified;
                                     ret_j.beat = '';
                                     ret_j.beatName = '';
-                                    ret_j.beatDets = null;                                    
+                                    ret_j.beatDets = null;
+                                    ch_org = true;
                                 }
                                 else {
                                     valid = false;
@@ -242,7 +244,7 @@ function update(req, res) {
                                                 if(ret_j_p.username !== ret_j.username){
                                                     logout = true;
                                                 }
-                                                res.send(JSON.stringify({success: true, logout: logout, item: item}));
+                                                res.send(JSON.stringify({success: true, logout: logout, item: item, ch_org: ch_org}));
                                                 ripple('j', ret_j_p, ret_j);
                                             }
                                         });

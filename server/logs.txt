@@ -1541,3 +1541,86 @@ Tue Feb 12 2019 07:02:17 GMT+0100 (West Africa Standard Time): Render Journalist
 Tue Feb 12 2019 07:11:59 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 0.054 seconds
 Tue Feb 12 2019 07:12:41 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 0.033 seconds
 Tue Feb 12 2019 07:13:41 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 0.026 seconds
+Wed Feb 13 2019 07:35:58 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 1.78 seconds
+Wed Feb 13 2019 09:33:21 GMT+0100 (West Africa Standard Time): Render User Profile query took 0.372 seconds
+Wed Feb 13 2019 09:33:25 GMT+0100 (West Africa Standard Time): Render User Profile query took 0.065 seconds
+Wed Feb 13 2019 09:33:40 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 0.043 seconds
+Wed Feb 13 2019 09:33:52 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 0.04 seconds
+Wed Feb 13 2019 09:34:33 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 0.032 seconds
+Wed Feb 13 2019 09:34:47 GMT+0100 (West Africa Standard Time): Search query took 0.103 seconds
+Wed Feb 13 2019 09:36:54 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 0.042 seconds
+Wed Feb 13 2019 09:37:04 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 0.028 seconds
+Wed Feb 13 2019 09:37:05 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 0.053 seconds
+Wed Feb 13 2019 09:38:36 GMT+0100 (West Africa Standard Time): Render User Profile query took 0.046 seconds
+Wed Feb 13 2019 09:38:40 GMT+0100 (West Africa Standard Time): Render User Profile query took 0.028 seconds
+Wed Feb 13 2019 09:38:43 GMT+0100 (West Africa Standard Time): Search query took 0.048 seconds
+Wed Feb 13 2019 11:26:05 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 0.407 seconds
+Wed Feb 13 2019 11:26:09 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 0.381 seconds
+Wed Feb 13 2019 11:41:23 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 0.159 seconds
+Wed Feb 13 2019 11:41:27 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 0.073 seconds
+Wed Feb 13 2019 11:42:25 GMT+0100 (West Africa Standard Time): Render User Profile query took 0.054 seconds
+Wed Feb 13 2019 11:44:03 GMT+0100 (West Africa Standard Time): Render User Profile query took 0.023 seconds
+Wed Feb 13 2019 11:44:28 GMT+0100 (West Africa Standard Time): Render Mobile Organisation profile query took 0.076 seconds
+Wed Feb 13 2019 11:44:31 GMT+0100 (West Africa Standard Time): Render Mobile Organisation profile query took 0.04 seconds
+Wed Feb 13 2019 11:48:02 GMT+0100 (West Africa Standard Time): Render Mobile Organisation profile query took 0.051 seconds
+Wed Feb 13 2019 11:48:17 GMT+0100 (West Africa Standard Time): Render Mobile Organisation profile query took 0.044 seconds
+Wed Feb 13 2019 11:48:21 GMT+0100 (West Africa Standard Time): Render Mobile Organisation profile query took 0.059 seconds
+Wed Feb 13 2019 11:48:22 GMT+0100 (West Africa Standard Time): Render Mobile Organisation profile query took 0.034 seconds
+Wed Feb 13 2019 11:52:42 GMT+0100 (West Africa Standard Time): Search query took 0.074 seconds
+Wed Feb 13 2019 11:52:52 GMT+0100 (West Africa Standard Time): Render Mobile Organisation profile query took 0.036 seconds
+Wed Feb 13 2019 11:53:57 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 0.029 seconds
+Wed Feb 13 2019 11:54:21 GMT+0100 (West Africa Standard Time): Render Mobile Organisation profile query took 0.04 seconds
+Wed Feb 13 2019 11:54:24 GMT+0100 (West Africa Standard Time): Render Mobile Organisation profile query took 0.088 seconds
+Wed Feb 13 2019 11:56:00 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 0.064 seconds
+Wed Feb 13 2019 11:56:11 GMT+0100 (West Africa Standard Time): Render Mobile Organisation profile query took 0.051 seconds
+Wed Feb 13 2019 11:56:13 GMT+0100 (West Africa Standard Time): Render Mobile Organisation profile query took 0.042 seconds
+Wed Feb 13 2019 11:58:36 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 0.019 seconds
+Wed Feb 13 2019 11:58:39 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 0.052 seconds
+Wed Feb 13 2019 11:59:02 GMT+0100 (West Africa Standard Time): Render User Profile query took 0.074 seconds
+Wed Feb 13 2019 11:59:07 GMT+0100 (West Africa Standard Time): Render Mobile Organisation profile query took 0.04 seconds
+Wed Feb 13 2019 11:59:30 GMT+0100 (West Africa Standard Time): Search query took 0.37 seconds
+Wed Feb 13 2019 12:00:41 GMT+0100 (West Africa Standard Time): Render Mobile Organisation profile query took 0.031 seconds
+Wed Feb 13 2019 12:01:02 GMT+0100 (West Africa Standard Time): Render Mobile Organisation profile query took 0.038 seconds
+Wed Feb 13 2019 12:01:09 GMT+0100 (West Africa Standard Time): Render User Profile query took 0.105 seconds
+Wed Feb 13 2019 12:01:29 GMT+0100 (West Africa Standard Time): Render User Profile query took 0.024 seconds
+Wed Feb 13 2019 12:01:35 GMT+0100 (West Africa Standard Time): Render Mobile Organisation profile query took 0.022 seconds
+Wed Feb 13 2019 12:02:03 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 0.034 seconds
+Wed Feb 13 2019 12:02:05 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 0.023 seconds
+Wed Feb 13 2019 13:54:21 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 1.154 seconds
+Wed Feb 13 2019 13:54:24 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 0.033 seconds
+Wed Feb 13 2019 13:56:22 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 0.065 seconds
+Wed Feb 13 2019 13:56:25 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 0.034 seconds
+Wed Feb 13 2019 13:58:09 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 0.025 seconds
+Wed Feb 13 2019 13:58:10 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 0.026 seconds
+Wed Feb 13 2019 14:28:33 GMT+0100 (West Africa Standard Time): Search query took 0.3 seconds
+Wed Feb 13 2019 14:28:39 GMT+0100 (West Africa Standard Time): Search query took 0.072 seconds
+Wed Feb 13 2019 14:41:35 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 0.033 seconds
+Wed Feb 13 2019 14:41:41 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 0.035 seconds
+Wed Feb 13 2019 21:54:18 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 0.583 seconds
+Wed Feb 13 2019 21:54:21 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 0.12 seconds
+Wed Feb 13 2019 21:54:56 GMT+0100 (West Africa Standard Time): Search query took 0.395 seconds
+Wed Feb 13 2019 21:55:07 GMT+0100 (West Africa Standard Time): Search query took 0.359 seconds
+Wed Feb 13 2019 21:55:22 GMT+0100 (West Africa Standard Time): Search query took 0.195 seconds
+Wed Feb 13 2019 21:55:32 GMT+0100 (West Africa Standard Time): Search query took 1.005 seconds
+Wed Feb 13 2019 21:56:02 GMT+0100 (West Africa Standard Time): Search query took 0.187 seconds
+Wed Feb 13 2019 21:56:30 GMT+0100 (West Africa Standard Time): Search query took 0.213 seconds
+Thu Feb 14 2019 07:32:02 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 0.572 seconds
+Thu Feb 14 2019 08:47:39 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 0.147 seconds
+Thu Feb 14 2019 08:48:02 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 0.074 seconds
+Thu Feb 14 2019 08:48:28 GMT+0100 (West Africa Standard Time): Search query took 0.277 seconds
+Thu Feb 14 2019 08:48:31 GMT+0100 (West Africa Standard Time): Search query took 0.099 seconds
+Thu Feb 14 2019 08:48:39 GMT+0100 (West Africa Standard Time): Search query took 0.317 seconds
+Thu Feb 14 2019 08:49:00 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 0.09 seconds
+Thu Feb 14 2019 08:52:25 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 0.361 seconds
+Thu Feb 14 2019 08:53:06 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 0.045 seconds
+Thu Feb 14 2019 08:53:17 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 0.037 seconds
+Thu Feb 14 2019 08:53:27 GMT+0100 (West Africa Standard Time): Search query took 0.133 seconds
+Thu Feb 14 2019 08:53:47 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 0.117 seconds
+Thu Feb 14 2019 08:54:26 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 0.053 seconds
+Thu Feb 14 2019 08:54:34 GMT+0100 (West Africa Standard Time): Render Mobile Organisation profile query took 0.04 seconds
+Thu Feb 14 2019 08:54:58 GMT+0100 (West Africa Standard Time): Search query took 0.097 seconds
+Thu Feb 14 2019 08:55:55 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 0.073 seconds
+Thu Feb 14 2019 21:04:49 GMT+0100 (West Africa Standard Time): Render Journalist profile query took 2.086 seconds
+Thu Feb 14 2019 21:07:11 GMT+0100 (West Africa Standard Time): Render Mobile Organisation profile query took 0.085 seconds
+Thu Feb 14 2019 21:12:13 GMT+0100 (West Africa Standard Time): Render Mobile Organisation profile query took 0.032 seconds
+Thu Feb 14 2019 21:12:59 GMT+0100 (West Africa Standard Time): Render Mobile Organisation profile query took 0.043 seconds

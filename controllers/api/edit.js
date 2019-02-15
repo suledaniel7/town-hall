@@ -138,9 +138,7 @@ function edit(req, res) {
                                 throw err;
                             }
                             else {
-                                res.send(JSON.stringify({
-                                    success: true
-                                }));
+                                res.send(JSON.stringify({success: true, username: `${username}`, timestamp: `${username}-${timestamp}`, beats: newMessage.beats}));
                             }
                         });
                     }

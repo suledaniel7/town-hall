@@ -19,21 +19,25 @@ mongoose.connect('mongodb://127.0.0.1/town_hall').catch((reason) => {
 
 io.on('connection', (socket) => {
     socketFn('save_auth', socket.conn.remoteAddress).then((username) => {
-        socket.join(username);
+        if(username){
+            socket.join(username);
+        }
     }).catch(ret_e => {
         console.log(ret_e);
     });
 
     socket.on('message_sent', (data) => {
         socketFn('message_sent', data).then((ret_d) => {
-            let audience = ret_d.audience;
-            let ret_m = ret_d.message;
-            io.in(ret_d.username).emit('self_message', ret_m);
-            if (audience) {
-                if (audience.length > 0) {
-                    for (let i = 0; i < audience.length; i++) {
-                        let person = audience[i];
-                        io.in(person.username).emit('msg', { page: person.pg, message: ret_m });
+            if (ret_d) {
+                let audience = ret_d.audience;
+                let ret_m = ret_d.message;
+                io.in(ret_d.username).emit('self_message', ret_m);
+                if (audience) {
+                    if (audience.length > 0) {
+                        for (let i = 0; i < audience.length; i++) {
+                            let person = audience[i];
+                            io.in(person.username).emit('msg', { page: person.pg, message: ret_m });
+                        }
                     }
                 }
             }
@@ -44,11 +48,13 @@ io.on('connection', (socket) => {
 
     socket.on('j_request', (data) => {
         socketFn('j_request', data).then((ret_d) => {
-            let found = ret_d.found;
-            let o_username = data.o_username;
+            if (ret_d) {
+                let found = ret_d.found;
+                let o_username = data.o_username;
 
-            if (found) {
-                io.in(o_username).emit('j_req', { page: 'j', journo: ret_d.journo });
+                if (found) {
+                    io.in(o_username).emit('j_req', { page: 'j', journo: ret_d.journo });
+                }
             }
         }).catch(ret_e => {
             console.log(ret_e);
@@ -57,9 +63,11 @@ io.on('connection', (socket) => {
 
     socket.on('accept_j', (data) => {
         socketFn('accept_j', data).then((ret_d) => {
-            if (ret_d.found) {
-                let journalist = ret_d.journo;
-                io.in(o_username).emit('new_j', { page: 'j', journo: journalist });
+            if (ret_d) {
+                if (ret_d.found) {
+                    let journalist = ret_d.journo;
+                    io.in(o_username).emit('new_j', { page: 'j', journo: journalist });
+                }
             }
         }).catch(ret_e => {
             console.log(ret_e);
@@ -90,6 +98,84 @@ io.on('connection', (socket) => {
                 io.in(username).emit('j_assigned', { beat: data });
             }
         }).catch(ret_e => {
+            console.log(ret_e);
+        });
+    });
+
+    socket.on('follow', () => {
+        let ip = socket.conn.remoteAddress;
+        socketFn('follow', { ip: ip }).then((data) => {
+            if (data) {
+                let username = data.username;
+                let msgs = data.msgs;
+
+                io.in(username).emit('following', { page: 'h', messages: msgs });
+            }
+        }).catch(ret_e => {
+            console.log(ret_e);
+        });
+    });
+
+    socket.on('j_rej', (data) => {
+        let username = data.username;
+        io.in(username).emit('rej_j');
+    });
+
+    socket.on('j_rem', (data) => {
+        let username = data.username;
+        io.in(username).emit('rem_j');
+    });
+
+    socket.on('j_acc', (data) => {
+        let username = data.username;
+        io.in(username).emit('acc_j');
+    });
+
+    socket.on('ch_org', (data) => {
+        let username = data.username;
+        let org = data.org;
+        io.in(org).emit('rem_req', { username: username });
+    });
+
+    socket.on('edit', (data) => {
+        socketFn('edit', data).then((ret_d) => {
+            if (ret_d) {
+                let audience = ret_d.audience;
+                let ret_m = ret_d.message;
+                if (audience) {
+                    if (audience.length > 0) {
+                        for (let i = 0; i < audience.length; i++) {
+                            let person = audience[i];
+                            io.in(person.username).emit('edited', { page: person.pg, message: ret_m });
+                        }
+                    }
+                }
+            }
+        }).catch(ret_e => {
+            console.log(ret_e);
+        });
+    });
+
+    socket.on('new_j_post', () => {
+        let ip = socket.conn.remoteAddress;
+        socketFn('new_j_post', ip).then(ret_d => {
+            if (ret_d) {
+                let username = ret_d.username;
+                let org = ret_d.org;
+
+                io.in(org).emit('j_post', username);
+            }
+        }).catch(ret_e => {
+            console.log(ret_e);
+        });
+    });
+
+    socket.on('comment', (data)=>{
+        socketFn('comment', data).then((ret_d)=>{
+            if(ret_d){
+                io.emit('comment_count', ret_d);
+            }
+        }).catch(ret_e =>{
             console.log(ret_e);
         });
     });
