@@ -44,7 +44,7 @@ function follow(req, res) {
 
                                     ret_l.followers.push(username);
 
-                                    ret_l.followersNo++;
+                                    ret_l.followersNo = ret_l.followers.length;
 
                                     legislators.findOneAndUpdate({ code: f_username }, ret_l, (err) => {
                                         if (err) {
@@ -85,8 +85,8 @@ function follow(req, res) {
                                     if (!ret_u.sourceSel) {
                                         ret_u.sourceSel = true;
                                     }
-                                    ret_j.followersNo++;
                                     ret_j.followers.push(username);
+                                    ret_j.followersNo = ret_j.followers.length;
 
                                     users.findOneAndUpdate({ username: username }, ret_u, (err) => {
                                         if (err) {
@@ -126,7 +126,7 @@ function follow(req, res) {
                                     }
                                     ret_u.sources.push(f_username);
                                     ret_o.followers.push(username);
-                                    ret_o.followersNo++;
+                                    ret_o.followersNo = ret_o.followers.length;
 
                                     organisations.findOneAndUpdate({ username: f_username }, ret_o, (err) => {
                                         if (err) {
@@ -189,8 +189,8 @@ function follow(req, res) {
                             else {
                                 if (ret_j.sources.indexOf(f_username) == -1 && ret_j.beat != '' && ret_j.beat != f_username) {
                                     ret_j.sources.push(f_username);
-                                    ret_l.followersNo++;
                                     ret_l.followers.push(username);
+                                    ret_l.followersNo = ret_l.followers.length;
 
                                     legislators.findOneAndUpdate({ code: f_username }, ret_l, (err) => {
                                         if (err) {
@@ -227,7 +227,7 @@ function follow(req, res) {
                                 if (ret_j.sources.indexOf(f_username) == -1 && ret_f_j.followers.indexOf(username) == -1 && username != f_username) {
                                     ret_j.sources.push(f_username);
                                     ret_f_j.followers.push(username);
-                                    ret_f_j.followersNo++;
+                                    ret_f_j.followersNo = ret_f_j.followers.length;
 
                                     journalists.findOneAndUpdate({ username: f_username }, ret_f_j, (err) => {
                                         if (err) {
@@ -264,7 +264,7 @@ function follow(req, res) {
                                 if (ret_j.sources.indexOf(f_username) == -1 && ret_o.followers.indexOf(username) == -1) {
                                     ret_j.sources.push(f_username);
                                     ret_o.followers.push(username);
-                                    ret_o.followersNo++;
+                                    ret_o.followersNo = ret_o.followers.length;
 
                                     organisations.findOneAndUpdate({ username: f_username }, ret_o, (err) => {
                                         if (err) {

@@ -54,6 +54,7 @@ const finalizeUpload = require('../controllers/api/finalizeUpload');
 const serve_dists = require('../controllers/api/serve_dists');
 const set_bio = require('../controllers/api/set_bio');
 const j_status = require('../controllers/api/j_status');
+const rejection = require('../controllers/api/rejection');
 
 const router = express.Router();
 // const logos = multer({dest: 'public/logos/'});
@@ -190,6 +191,8 @@ router.get('/serve-districts', serve_dists);
 router.post('/set-bio', auth, set_bio);
 
 router.get('/j-stat', auth, j_status);
+
+router.post('/rejection', auth, rejection);
 
 router.get('/logout', auth, logout);
 

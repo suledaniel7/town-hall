@@ -25,6 +25,9 @@ function assignBeat(req, res){
                         if(!ret_j){
                             res.send(JSON.stringify({success: false, reason: "Invalid Journalist Account"}));
                         }
+                        else if(ret_j.organisation !== o_username){
+                            res.send(JSON.stringify({success: false, reason: "This Journalist retracted their request"}));
+                        }
                         else {
                             districts.findOne({code: code}, (err, ret_dist)=>{
                                 if(err){

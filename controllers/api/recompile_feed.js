@@ -134,12 +134,41 @@ function recompile(username) {
                             
                             messages.find({ $or: searchSourceArr }).sort({ timestamp: -1 }).exec((err, beat_msgs) => {
                                 if (err) {
-                                    throw err;
+                                    reject(err);
                                 }
                                 else {
                                     resolve(beat_msgs);
                                 }
                             });
+                        }
+                    });
+                }
+                else if(u_type === 'organisation'){
+                    journalists.find({ organisation: username, beat: /^[^\s$]/ }, (err, journos) => {
+                        if (err) {
+                            reject(err);
+                        }
+                        else {
+                            let j_list = [];
+                            journos.forEach(journo => {
+                                j_list.push({
+                                    sender: journo.username
+                                });
+                            });
+
+                            if (j_list.length > 0) {
+                                messages.find({ $or: j_list }).sort({ timestamp: -1 }).exec((err, ret_jMsgs) => {
+                                    if (err) {
+                                        reject(err);
+                                    }
+                                    else {
+                                        resolve(ret_jMsgs);
+                                    }
+                                });
+                            }
+                            else {
+                                resolve([]);
+                            }
                         }
                     });
                 }

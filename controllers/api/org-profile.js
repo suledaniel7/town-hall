@@ -99,6 +99,9 @@ function profileRender(req, res) {
                                             }
                                         });
                                     }
+                                    if(o_js.length === 0){
+                                        resolve(null);
+                                    }
                                 });
                             }
                             obtain_dists(journos).then((ret_journos) => {

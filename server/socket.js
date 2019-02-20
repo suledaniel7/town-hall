@@ -5,8 +5,9 @@ const districts = require('../controllers/schemas/districts');
 const messages = require('../controllers/schemas/messages');
 const journalists = require('../controllers/schemas/journalists');
 const organisations = require('../controllers/schemas/organisations');
-const findUserWithUsername = require('../controllers/api/findUserWithUsername');
+// const findUserWithUsername = require('../controllers/api/findUserWithUsername');
 const recompile_feed = require('../controllers/api/recompile_feed');
+const recompile_profile = require('../controllers/api/recompile_profile');
 
 function socketFn(event, data) {
     if (event === 'save_auth') {
@@ -52,7 +53,7 @@ function socketFn(event, data) {
     }
     else if (event === 'j_request') {
         return new Promise((resolve, reject) => {
-            let j_username = data.j_username;
+            let j_username = data.username;
             let o_username = data.o_username;
 
             organisations.findOne({ username: o_username }, (err, ret_o) => {
@@ -160,14 +161,14 @@ function socketFn(event, data) {
                     reject(err);
                 }
                 else if (!ret_g) {
-                    resolve({ found: false });
+                    resolve(null);
                 }
                 else {
                     let identifier = ret_g.identifier;
-                    findUserWithUsername(identifier, username).then((user) => {
-                        resolve(user);
-                    }).catch(err => {
-                        reject(err);
+                    recompile_profile(identifier, username).then((item)=>{
+                        resolve(item);
+                    }).catch(ret_e =>{
+                        reject(ret_e);
                     });
                 }
             });
@@ -246,26 +247,26 @@ function socketFn(event, data) {
     else if (event === 'new_j_post') {
         return new Promise((resolve, reject) => {
             let ip = data;
-            auths.findOne({ip: ip}, (err, ret_a)=>{
-                if(err){
+            auths.findOne({ ip: ip }, (err, ret_a) => {
+                if (err) {
                     reject(err);
                 }
-                else if(!ret_a){
+                else if (!ret_a) {
                     resolve(null);
                 }
                 else {
                     let username = ret_a.username;
-                    journalists.findOne({username: username}, (err, ret_j)=>{
-                        if(err){
+                    journalists.findOne({ username: username }, (err, ret_j) => {
+                        if (err) {
                             reject(err);
                         }
-                        else if(!ret_j){
+                        else if (!ret_j) {
                             resolve(null);
                         }
                         else {
                             let org = ret_j.organisation;
-                            if(org.length > 0){
-                                resolve({username: username, org: org});
+                            if (org.length > 0) {
+                                resolve({ username: username, org: org });
                             }
                             else {
                                 resolve(null);
@@ -276,23 +277,66 @@ function socketFn(event, data) {
             });
         });
     }
-    else if(event === 'comment'){
+    else if (event === 'comment') {
         //dealing w/audience for comm, excl sender cos...
         //comment count for all
-        return new Promise((resolve, reject)=>{
+        return new Promise((resolve, reject) => {
             let m_timestamp = data.m_timestamp;
-            messages.findOne({m_timestamp: m_timestamp}, (err, ret_m)=>{
-                if(err){
+            messages.findOne({ m_timestamp: m_timestamp }, (err, ret_m) => {
+                if (err) {
                     reject(err);
                 }
-                else if(!ret_m){
+                else if (!ret_m) {
                     resolve(null);
                 }
                 else {
                     let num = ret_m.comments_no;
-                    resolve({m_timestamp: m_timestamp, num: num});
+                    resolve({ m_timestamp: m_timestamp, num: num });
                 }
             })
+        });
+    }
+    else if (event === 'ch_org') {
+        return new Promise((resolve, reject) => {
+            let j_username = data.username;
+            journalists.findOne({ username: j_username }, (err, ret_j) => {
+                if (err) {
+                    reject(err);
+                }
+                else if (!ret_j) {
+                    resolve(null);
+                }
+                else {
+                    resolve(ret_j);
+                }
+            });
+        });
+    }
+    else if (event === 'deletion') {
+        return new Promise((resolve, reject) => {
+            let sender = data.sender;
+            let beats = data.beats;
+
+            acquisition(sender, beats).then((audience) => {
+                resolve({ audience: audience });
+            }).catch(err => {
+                reject("An error occured during acquisition for deletion. Socket.js in server. Error: " + err);
+            });
+        });
+    }
+    else if(event === 'recompile'){
+        return new Promise((resolve, reject)=>{
+            let username = data.username;
+            recompile_feed(username).then((msgs) => {
+                if (!msgs) {
+                    reject("Invalid request");
+                }
+                else {
+                    resolve({ msgs: msgs });
+                }
+            }).catch(err => {
+                reject(err);
+            });
         });
     }
 }

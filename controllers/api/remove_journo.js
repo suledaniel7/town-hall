@@ -7,7 +7,7 @@ function removeJ(req, res) {
     let o_username = req.organisation.user.username;
 
     if (!o_username || !j_username) {
-        res.send(JSON.stringify({success: false, reason: "Incomplete parameters"}));
+        res.send(JSON.stringify({ success: false, reason: "Incomplete parameters" }));
     }
     else {
         organisations.findOne({ username: o_username }, (err, ret_o) => {
@@ -15,7 +15,7 @@ function removeJ(req, res) {
                 throw err;
             }
             else if (!ret_o) {
-                res.send(JSON.stringify({success: false, reason: "Invalid Account"}));
+                res.send(JSON.stringify({ success: false, reason: "Invalid Account" }));
             }
             else {
                 journalists.findOne({ username: j_username }, (err, ret_j) => {
@@ -24,7 +24,7 @@ function removeJ(req, res) {
                         throw err;
                     }
                     else if (!ret_j) {
-                        res.send(JSON.stringify({success: false, reason: "Invalid Journalist Account"}));
+                        res.send(JSON.stringify({ success: false, reason: "Invalid Journalist Account" }));
                     }
                     else {
                         let org_js = ret_o.journalists;
@@ -62,6 +62,11 @@ function removeJ(req, res) {
                             ret_j.beatName = '';
                             ret_j.account.status = false;
                             ret_j.beatDets = new Object();
+                            ret_j.rejected = {
+                                status: true,
+                                removed: true,
+                                organisation: ret_o.name
+                            }
 
                             messages.find({ sender: j_username }, (err, ret_ms) => {
                                 if (err) {
@@ -129,7 +134,7 @@ function removeJ(req, res) {
                             });
                         }
                         else {
-                            res.send(JSON.stringify({success: false, reason: "Invalid Journalist Selected"}));
+                            res.send(JSON.stringify({ success: false, reason: "Invalid Journalist Selected" }));
                         }
                     }
                 });

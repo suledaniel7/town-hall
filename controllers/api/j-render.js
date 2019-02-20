@@ -25,6 +25,9 @@ function renderJ(req, res, username, user, c_username){
                 if(user.dislikes.indexOf(ret_j.username) != -1){
                     flag = false;
                 }
+                if(user.username === username){
+                    item.canFollow = false;
+                }
                 item.following = flag;
             }
             //if journo hasn't selected a beat or an org

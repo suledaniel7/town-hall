@@ -8,7 +8,7 @@ const ripple = require('../ripple');
 
 function update(req, res) {
     let item = {};
-
+    let ch_dist = false;
     if (req.user) {
         let { bio, f_name, username, email, password, n_pass, state, fed_const, sen_dist, gender } = req.body;
         let wsp = /^\s*$/;
@@ -94,6 +94,7 @@ function update(req, res) {
                                     let ret_s = found.obj;
                                     ret_u.state = ret_s.name;
                                     ret_u.state_code = ret_s.state_code;
+                                    ch_dist = true;
                                 }
                                 else {
                                     valid = false;
@@ -111,6 +112,7 @@ function update(req, res) {
                                 let found = await check_dist(fed_const, state);
                                 if(found.status){
                                     ret_u.fed_const = fed_const;
+                                    ch_dist = true;
                                 }
                                 else {
                                     valid = false;
@@ -128,6 +130,7 @@ function update(req, res) {
                                 let found = await check_dist(sen_dist, state);
                                 if(found.status){
                                     ret_u.sen_dist = sen_dist;
+                                    ch_dist = true;
                                 }
                                 else {
                                     valid = false;
@@ -251,7 +254,7 @@ function update(req, res) {
                                                 if(ret_u_p.username !== ret_u.username){
                                                     logout = true;
                                                 }
-                                                res.send(JSON.stringify({success: true, logout: logout, item: item}));
+                                                res.send(JSON.stringify({success: true, logout: logout, item: item, ch_dist: ch_dist}));
                                                 ripple('u', ret_u_p, ret_u);
                                             }
                                         });

@@ -37,6 +37,9 @@ function reqHandler(req, res) {
                             if (!ret_j) {
                                 res.redirect('/');
                             }
+                            else if(ret_j.organisation !== username){
+                                res.send(JSON.stringify({success: false, reason: "This Journalist retracted their request"}));
+                            }
                             else {
                                 ret_j.organisation = '';
                                 ret_j.account.status = false;
@@ -92,6 +95,9 @@ function reqHandler(req, res) {
                     }
                     else if (!ret_j) {
                         res.redirect('/');
+                    }
+                    else if(ret_j.organisation !== username){
+                        res.send(JSON.stringify({success: false, reason: "This Journalist retracted their request"}));
                     }
                     else {
                         ret_org.pendingBeat = {

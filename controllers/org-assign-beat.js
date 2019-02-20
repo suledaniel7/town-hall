@@ -25,6 +25,9 @@ function assignBeat(req, res){
                         if(!ret_j){
                             res.redirect('/');
                         }
+                        else if(ret_j.organisation !== o_username){
+                            res.redirect('/');
+                        }
                         else {
                             districts.findOne({code: code}, (err, ret_dist)=>{
                                 if(err){

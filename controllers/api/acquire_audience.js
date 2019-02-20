@@ -77,7 +77,7 @@ function collate(username, beats) {
                                                             if (ret_o) {
                                                                 audience.push({
                                                                     username: ret_o.username,
-                                                                    pg: ['j']
+                                                                    pg: ['h']
                                                                 });
                                                             }
                                                             

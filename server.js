@@ -19,7 +19,7 @@ mongoose.connect('mongodb://127.0.0.1/town_hall').catch((reason) => {
 
 io.on('connection', (socket) => {
     socketFn('save_auth', socket.conn.remoteAddress).then((username) => {
-        if(username){
+        if (username) {
             socket.join(username);
         }
     }).catch(ret_e => {
@@ -51,7 +51,6 @@ io.on('connection', (socket) => {
             if (ret_d) {
                 let found = ret_d.found;
                 let o_username = data.o_username;
-
                 if (found) {
                     io.in(o_username).emit('j_req', { page: 'j', journo: ret_d.journo });
                 }
@@ -66,6 +65,7 @@ io.on('connection', (socket) => {
             if (ret_d) {
                 if (ret_d.found) {
                     let journalist = ret_d.journo;
+                    let o_username = journalist.organisation;
                     io.in(o_username).emit('new_j', { page: 'j', journo: journalist });
                 }
             }
@@ -134,7 +134,16 @@ io.on('connection', (socket) => {
     socket.on('ch_org', (data) => {
         let username = data.username;
         let org = data.org;
-        io.in(org).emit('rem_req', { username: username });
+        let init = data.init_org;
+        socketFn('ch_org', data).then((ret_d) => {
+            if (ret_d) {
+                io.in(org).emit('j_req', { page: 'j', journo: ret_d });
+            }
+            io.in(init).emit('rem_req', { username: username });
+            io.in(init).emit('j_removed', username);
+        }).catch(ret_e => {
+            console.log(ret_e);
+        });
     });
 
     socket.on('edit', (data) => {
@@ -170,12 +179,43 @@ io.on('connection', (socket) => {
         });
     });
 
-    socket.on('comment', (data)=>{
-        socketFn('comment', data).then((ret_d)=>{
-            if(ret_d){
+    socket.on('comment', (data) => {
+        socketFn('comment', data).then((ret_d) => {
+            if (ret_d) {
                 io.emit('comment_count', ret_d);
             }
-        }).catch(ret_e =>{
+        }).catch(ret_e => {
+            console.log(ret_e);
+        });
+    });
+
+    socket.on('deletion', (data) => {
+        let timestamp = data.timestamp;
+        let sender = data.sender;
+        socketFn('deletion', data).then((ret_d) => {
+            if (ret_d) {
+                let audience = ret_d.audience;
+                io.in(sender).emit('deletion_comp', { page: ['p', 'h'], timestamp: timestamp });
+                if (audience.length > 0) {
+                    for (let i = 0; i < audience.length; i++) {
+                        let person = audience[i];
+                        io.in(person.username).emit('deletion_comp', { page: person.pg, timestamp: timestamp });
+                    }
+                }
+            }
+        }).catch(ret_e => {
+            console.log(ret_e);
+        });
+    });
+
+    socket.on('recompile', (data) => {
+        let username = data.username;
+        socketFn('recompile', data).then((ret_d) => {
+            if (ret_d) {
+                let messages = ret_d.msgs;
+                io.in(username).emit('recompiled', { messages: messages });
+            }
+        }).catch(ret_e => {
             console.log(ret_e);
         });
     });

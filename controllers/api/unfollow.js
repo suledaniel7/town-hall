@@ -44,7 +44,7 @@ function unfollow(req, res) {
                                     if(splice_index > -1){
                                         ret_l.followers.splice(splice_index, 1);
                                     }
-                                    ret_l.followersNo--;
+                                    ret_l.followersNo = ret_l.followers.length;
 
                                     legislators.findOneAndUpdate({ code: f_username }, ret_l, (err) => {
                                         if (err) {
@@ -84,8 +84,8 @@ function unfollow(req, res) {
                                     let u_pop_index = ret_u.sources.indexOf(f_username);
                                     let j_pop_index = ret_j.followers.indexOf(username);
                                     ret_u.sources.splice(u_pop_index, 1);
-                                    ret_j.followersNo--;
                                     ret_j.followers.splice(j_pop_index, 1);
+                                    ret_j.followersNo = ret_j.followers.length;
                                     if (ret_u.sources.length < 1) {
                                         ret_u.sourceSel = false;
                                     }
@@ -127,7 +127,7 @@ function unfollow(req, res) {
                                     let o_pop_index = ret_o.followers.indexOf(username);
                                     ret_u.sources.splice(u_pop_index, 1);
                                     ret_o.followers.splice(o_pop_index, 1);
-                                    ret_o.followersNo--;
+                                    ret_o.followersNo = ret_o.followers.length;
                                     if (ret_u.sources.length < 1) {
                                         ret_u.sourceSel = false;
                                     }
@@ -190,7 +190,7 @@ function unfollow(req, res) {
                                 if (ret_j.sources.indexOf(f_username) != -1 && ret_j.beat != '' && ret_j.beat != f_username) {
                                     let j_pop_index = ret_j.sources.indexOf(f_username);
                                     ret_j.sources.splice(j_pop_index, 1);
-                                    ret_l.followersNo--;
+                                    ret_l.followersNo = ret_l.followers.length;
 
                                     let splice_index = ret_l.followers.indexOf(username);
                                     if(splice_index > -1){
@@ -234,7 +234,7 @@ function unfollow(req, res) {
                                     let j_pop_index = ret_j.sources.indexOf(f_username);
                                     ret_j.sources.splice(j_pop_index, 1);
                                     ret_f_j.followers.splice(f_pop_index, 1);
-                                    ret_f_j.followersNo--;
+                                    ret_f_j.followersNo = ret_f_j.followers.length;
 
                                     journalists.findOneAndUpdate({ username: f_username }, ret_f_j, (err) => {
                                         if (err) {
@@ -273,7 +273,7 @@ function unfollow(req, res) {
                                     let j_pop_index = ret_j.sources.indexOf(f_username);
                                     ret_j.sources.splice(j_pop_index, 1);
                                     ret_o.followers.splice(o_pop_index, 1);
-                                    ret_o.followersNo--;
+                                    ret_o.followersNo = ret_o.followers.length;
 
                                     organisations.findOneAndUpdate({ username: f_username }, ret_o, (err) => {
                                         if (err) {

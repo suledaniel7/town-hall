@@ -14,18 +14,18 @@ function reqHandler(req, res) {
                 throw err;
             }
             else if (!ret_org) {
-                res.send(JSON.stringify({success: false, reason: "Invalid Request"})); //fake req
+                res.send(JSON.stringify({ success: false, reason: "Invalid Request" })); //fake req
             }
             else {
                 //check for whether org is signed in
                 if (!req.organisation) {
-                    res.send(JSON.stringify({success: false, reason: "Insufficient Permissions"}));
+                    res.send(JSON.stringify({ success: false, reason: "Insufficient Permissions" }));
                 }
                 else if (!req.organisation.user) {
-                    res.send(JSON.stringify({success: false, reason: "Insufficient Permissions"}));
+                    res.send(JSON.stringify({ success: false, reason: "Insufficient Permissions" }));
                 }
                 else if (req.organisation.user.username != username) {
-                    res.send(JSON.stringify({success: false, reason: "Insufficient Permissions"}));
+                    res.send(JSON.stringify({ success: false, reason: "Insufficient Permissions" }));
                 }
                 else {
                     //check journo targeted
@@ -35,13 +35,17 @@ function reqHandler(req, res) {
                         }
                         else {
                             if (!ret_j) {
-                                res.send(JSON.stringify({success: false, reason: "Invalid Journalist Account"}));
+                                res.send(JSON.stringify({ success: false, reason: "Invalid Journalist Account" }));
+                            }
+                            else if (ret_j.organisation !== username) {
+                                res.send(JSON.stringify({ success: false, reason: "This Journalist retracted their request" }));
                             }
                             else {
                                 ret_j.organisation = '';
                                 ret_j.account.status = false;
                                 ret_j.rejected = {
                                     status: true,
+                                    removed: false,
                                     organisation: ret_org.name
                                 }
                                 ret_j.verified = false;
@@ -54,7 +58,7 @@ function reqHandler(req, res) {
                                     }
                                 }
                                 ret_org.pending = pending;
-                                
+
                                 journalists.findOneAndUpdate({ username: j_username }, ret_j, (err) => {
                                     if (err) {
                                         throw err;
@@ -65,7 +69,7 @@ function reqHandler(req, res) {
                                                 throw err;
                                             }
                                             else {
-                                                res.send(JSON.stringify({success: true}));
+                                                res.send(JSON.stringify({ success: true }));
                                             }
                                         });
                                     }
@@ -83,7 +87,7 @@ function reqHandler(req, res) {
                 throw err;
             }
             else if (!ret_org) {
-                res.send(JSON.stringify({success: false, reason: "Insufficient Permissions"}))
+                res.send(JSON.stringify({ success: false, reason: "Insufficient Permissions" }));
             }
             else {
                 journalists.findOne({ username: j_username }, (err, ret_j) => {
@@ -91,7 +95,10 @@ function reqHandler(req, res) {
                         throw err;
                     }
                     else if (!ret_j) {
-                        res.send(JSON.stringify({success: false, reason: "Invalid Journalist"}));
+                        res.send(JSON.stringify({ success: false, reason: "Invalid Journalist" }));
+                    }
+                    else if (ret_j.organisation !== username) {
+                        res.send(JSON.stringify({ success: false, reason: "This Journalist retracted their request" }));
                     }
                     else {
                         ret_org.pendingBeat = {
@@ -103,19 +110,20 @@ function reqHandler(req, res) {
                                 throw err;
                             }
                             else {
-                                if(!ret_org.verification.verified){
+                                if (!ret_org.verification.verified) {
                                     ret_j.verified = false;
                                 }
                                 else {
                                     ret_j.verified = true;
                                 }
                                 ret_j.description = `${ret_org.name} Journalist`;
+                                ret_j.rejected = { status: false };
                                 journalists.findOneAndUpdate({ username: j_username }, ret_j, (err) => {
                                     if (err) {
                                         throw err;
                                     }
                                     else {
-                                        res.send(JSON.stringify({success: true}));
+                                        res.send(JSON.stringify({ success: true }));
                                     }
                                 });
                             }
@@ -126,7 +134,7 @@ function reqHandler(req, res) {
         });
     }
     else {
-        res.send(JSON.stringify({success: false, reason: "Invalid Parameters"}));
+        res.send(JSON.stringify({ success: false, reason: "Invalid Parameters" }));
     }
 }
 
