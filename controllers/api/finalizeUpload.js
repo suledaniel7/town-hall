@@ -6,6 +6,7 @@ const journalists = require('../schemas/journalists');
 const legislators = require('../schemas/legislators');
 const findActive = require('./findActive');
 const convertPath = require('./uploadFilePathConversion');
+const ripple = require('../ripple');
 
 function finalize(req, res) {
     let u_type = findActive(req, res);
@@ -25,6 +26,7 @@ function finalize(req, res) {
                     res.send({ success: false, reason: "You must be signed in to access this feature" });
                 }
                 else {
+                    let prev = JSON.parse(JSON.stringify(ret_u));
                     copyFile().then((fPath) => {
                         ret_u.avatar = fPath;
                         users.findOneAndUpdate({ username: username }, ret_u, (err) => {
@@ -33,7 +35,9 @@ function finalize(req, res) {
                                 throw err;
                             }
                             else {
-                                res.send({ success: true });
+                                let curr = ret_u;
+                                res.send({ success: true, username: username });
+                                ripple('u', prev, curr);
                             }
                         });
                     }).catch(reason => {
@@ -54,6 +58,7 @@ function finalize(req, res) {
                     res.send({ success: false, reason: "You must be signed in to access this feature" });
                 }
                 else {
+                    let prev = JSON.parse(JSON.stringify(ret_o));
                     copyFile().then((fPath) => {
                         ret_o.logo = fPath;
                         organisations.findOneAndUpdate({ username: username }, ret_o, (err) => {
@@ -62,7 +67,9 @@ function finalize(req, res) {
                                 throw err;
                             }
                             else {
-                                res.send({ success: true });
+                                let curr = ret_o;
+                                res.send({ success: true, username: username });
+                                ripple('o', prev, curr);
                             }
                         });
                     }).catch(reason => {
@@ -83,6 +90,7 @@ function finalize(req, res) {
                     res.send({ success: false, reason: "You must be signed in to access this feature" });
                 }
                 else {
+                    let prev = JSON.parse(JSON.stringify(ret_j));
                     copyFile().then((fPath) => {
                         ret_j.avatar = fPath;
                         journalists.findOneAndUpdate({ username: username }, ret_j, (err) => {
@@ -91,7 +99,9 @@ function finalize(req, res) {
                                 throw err;
                             }
                             else {
-                                res.send({ success: true });
+                                let curr = ret_j;
+                                res.send({ success: true, username: username });
+                                ripple('j', prev, curr);
                             }
                         });
                     }).catch(reason => {
@@ -112,6 +122,7 @@ function finalize(req, res) {
                     res.send({ success: false, reason: "You must be signed in to access this feature" });
                 }
                 else {
+                    let prev = JSON.parse(JSON.stringify(ret_l));
                     copyFile().then((fPath) => {
                         ret_l.avatar = fPath;
                         legislators.findOneAndUpdate({ code: code }, ret_l, (err) => {
@@ -120,7 +131,9 @@ function finalize(req, res) {
                                 throw err;
                             }
                             else {
-                                res.send({ success: true });
+                                let curr = ret_l;
+                                res.send({ success: true, username: code });
+                                ripple('l', prev, curr);
                             }
                         });
                     }).catch(reason => {
