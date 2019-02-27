@@ -28,7 +28,8 @@ const journo = new Schema({
     sources: Array,
     likes: Array,
     dislikes: Array,
-    followers: Array
+    followers: Array,
+    blocked: Array
 });
 
 const journalist = mongoose.model('journalists', journo);

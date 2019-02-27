@@ -30,7 +30,8 @@ const legislatorSchema = new Schema({
     sources: Array,
     followers: Array,
     likes: Array,
-    dislikes: Array
+    dislikes: Array,
+    blocked: Array
 });
 
 const leg = mongoose.model('legislators', legislatorSchema);

@@ -32,7 +32,7 @@ function renderProfile(req, res) {
                             res.send({ complete: false, redirectTo: 'm' });
                         }
                         else {
-                            res.send({ success: false, reason: "Incomplete Account Registration" });
+                            res.send({ success: false, reason: "Apply to an Organisation" });
                         }
                     }
                     else {
@@ -60,7 +60,7 @@ function renderProfile(req, res) {
                             res.send({ complete: false, redirectTo: 'l' });
                         }
                         else {
-                            res.send({ success: false, reason: "Incomplete Account Registration" });
+                            res.send({ success: false, reason: "Choose your Beat" });
                         }
                     }
                     else {

@@ -7,6 +7,7 @@ const messages = require('./schemas/messages');
 const reports = require('./schemas/reports');
 const districts = require('./schemas/districts');
 const legislators = require('./schemas/legislators');
+const dms = require('./schemas/dms');
 
 function ripple(ac_type, prev, curr) {
     if (ac_type == 'o') {
@@ -30,6 +31,76 @@ function ripple(ac_type, prev, curr) {
                         //except if we put in the sender of the message, then we can change t/stamps
 
                         comments.findOneAndUpdate({ c_timestamp: comment.c_timestamp }, comment, (err) => {
+                            if (err) {
+                                throw err;
+                            }
+                        });
+
+                    }
+                }
+            }
+        });
+
+        //dms
+        dms.find({ $or: [{sender: p_username}, {recepient: p_username}] }, (err, ret_dms) => {
+            if (err) {
+                throw err;
+            }
+            else {
+                if (ret_dms.length > 0) {
+                    for (let i = 0; i < ret_dms.length; i++) {
+                        let dm = ret_dms[i];
+
+                        if(dm.sender === p_username){
+                            dm.sender = c_username;
+                            let sender_name = dm.sender_name;
+                            let sender_avatar = dm.sender_avatar;
+                            if(curr.f_name){
+                                sender_name = curr.f_name;
+                            }
+                            else {
+                                sender_name = curr.name;
+                            }
+
+                            if(curr.l_name){
+                                sender_name = sender_name + ' ' + curr.l_name;
+                            }
+
+                            if(curr.avatar){
+                                sender_avatar = curr.avatar;
+                            }
+                            else {
+                                sender_avatar = curr.logo;
+                            }
+                            dm.sender_name = sender_name;
+                            dm.sender_avatar = sender_avatar;
+                        }
+                        else if(dm.recepient === p_username){
+                            dm.recepient = c_username;
+                            let recepient_name = dm.recepient_name;
+                            let recepient_avatar = dm.recepient_avatar;
+                            if(curr.f_name){
+                                recepient_name = curr.f_name;
+                            }
+                            else {
+                                recepient_name = curr.name;
+                            }
+
+                            if(curr.l_name){
+                                recepient_name = recepient_name + ' ' + curr.l_name;
+                            }
+
+                            if(curr.avatar){
+                                recepient_avatar = curr.avatar;
+                            }
+                            else {
+                                recepient_avatar = curr.logo;
+                            }
+                            dm.recepient_name = recepient_name;
+                            dm.recepient_avatar = recepient_avatar;
+                        }
+
+                        dms.findOneAndUpdate({ d_timestamp: dm.d_timestamp }, dm, (err) => {
                             if (err) {
                                 throw err;
                             }
@@ -179,6 +250,77 @@ function ripple(ac_type, prev, curr) {
                 }
             }
         });
+
+        //dms
+        dms.find({ $or: [{sender: p_username}, {recepient: p_username}] }, (err, ret_dms) => {
+            if (err) {
+                throw err;
+            }
+            else {
+                if (ret_dms.length > 0) {
+                    for (let i = 0; i < ret_dms.length; i++) {
+                        let dm = ret_dms[i];
+
+                        if(dm.sender === p_username){
+                            dm.sender = c_username;
+                            let sender_name = dm.sender_name;
+                            let sender_avatar = dm.sender_avatar;
+                            if(curr.f_name){
+                                sender_name = curr.f_name;
+                            }
+                            else {
+                                sender_name = curr.name;
+                            }
+
+                            if(curr.l_name){
+                                sender_name = sender_name + ' ' + curr.l_name;
+                            }
+
+                            if(curr.avatar){
+                                sender_avatar = curr.avatar;
+                            }
+                            else {
+                                sender_avatar = curr.logo;
+                            }
+                            dm.sender_name = sender_name;
+                            dm.sender_avatar = sender_avatar;
+                        }
+                        else if(dm.recepient === p_username){
+                            dm.recepient = c_username;
+                            let recepient_name = dm.recepient_name;
+                            let recepient_avatar = dm.recepient_avatar;
+                            if(curr.f_name){
+                                recepient_name = curr.f_name;
+                            }
+                            else {
+                                recepient_name = curr.name;
+                            }
+
+                            if(curr.l_name){
+                                recepient_name = recepient_name + ' ' + curr.l_name;
+                            }
+
+                            if(curr.avatar){
+                                recepient_avatar = curr.avatar;
+                            }
+                            else {
+                                recepient_avatar = curr.logo;
+                            }
+                            dm.recepient_name = recepient_name;
+                            dm.recepient_avatar = recepient_avatar;
+                        }
+
+                        dms.findOneAndUpdate({ d_timestamp: dm.d_timestamp }, dm, (err) => {
+                            if (err) {
+                                throw err;
+                            }
+                        });
+
+                    }
+                }
+            }
+        });
+
         // Messages: sender, sender_name, sender_avatar, sender_position, verified
         messages.find({ sender: p_username }, (err, ret_ms) => {
             if (err) {
@@ -417,6 +559,76 @@ function ripple(ac_type, prev, curr) {
                             throw err;
                         }
                     });
+                }
+            }
+        });
+
+        //dms
+        dms.find({ $or: [{sender: p_username}, {recepient: p_username}] }, (err, ret_dms) => {
+            if (err) {
+                throw err;
+            }
+            else {
+                if (ret_dms.length > 0) {
+                    for (let i = 0; i < ret_dms.length; i++) {
+                        let dm = ret_dms[i];
+
+                        if(dm.sender === p_username){
+                            dm.sender = c_username;
+                            let sender_name = dm.sender_name;
+                            let sender_avatar = dm.sender_avatar;
+                            if(curr.f_name){
+                                sender_name = curr.f_name;
+                            }
+                            else {
+                                sender_name = curr.name;
+                            }
+
+                            if(curr.l_name){
+                                sender_name = sender_name + ' ' + curr.l_name;
+                            }
+
+                            if(curr.avatar){
+                                sender_avatar = curr.avatar;
+                            }
+                            else {
+                                sender_avatar = curr.logo;
+                            }
+                            dm.sender_name = sender_name;
+                            dm.sender_avatar = sender_avatar;
+                        }
+                        else if(dm.recepient === p_username){
+                            dm.recepient = c_username;
+                            let recepient_name = dm.recepient_name;
+                            let recepient_avatar = dm.recepient_avatar;
+                            if(curr.f_name){
+                                recepient_name = curr.f_name;
+                            }
+                            else {
+                                recepient_name = curr.name;
+                            }
+
+                            if(curr.l_name){
+                                recepient_name = recepient_name + ' ' + curr.l_name;
+                            }
+
+                            if(curr.avatar){
+                                recepient_avatar = curr.avatar;
+                            }
+                            else {
+                                recepient_avatar = curr.logo;
+                            }
+                            dm.recepient_name = recepient_name;
+                            dm.recepient_avatar = recepient_avatar;
+                        }
+
+                        dms.findOneAndUpdate({ d_timestamp: dm.d_timestamp }, dm, (err) => {
+                            if (err) {
+                                throw err;
+                            }
+                        });
+
+                    }
                 }
             }
         });
@@ -662,6 +874,76 @@ function ripple(ac_type, prev, curr) {
                         throw err;
                     }
                 });
+            }
+        });
+
+        //dms
+        dms.find({ $or: [{sender: p_username}, {recepient: p_username}] }, (err, ret_dms) => {
+            if (err) {
+                throw err;
+            }
+            else {
+                if (ret_dms.length > 0) {
+                    for (let i = 0; i < ret_dms.length; i++) {
+                        let dm = ret_dms[i];
+
+                        if(dm.sender === p_username){
+                            dm.sender = c_username;
+                            let sender_name = dm.sender_name;
+                            let sender_avatar = dm.sender_avatar;
+                            if(curr.f_name){
+                                sender_name = curr.f_name;
+                            }
+                            else {
+                                sender_name = curr.name;
+                            }
+
+                            if(curr.l_name){
+                                sender_name = sender_name + ' ' + curr.l_name;
+                            }
+
+                            if(curr.avatar){
+                                sender_avatar = curr.avatar;
+                            }
+                            else {
+                                sender_avatar = curr.logo;
+                            }
+                            dm.sender_name = sender_name;
+                            dm.sender_avatar = sender_avatar;
+                        }
+                        else if(dm.recepient === p_username){
+                            dm.recepient = c_username;
+                            let recepient_name = dm.recepient_name;
+                            let recepient_avatar = dm.recepient_avatar;
+                            if(curr.f_name){
+                                recepient_name = curr.f_name;
+                            }
+                            else {
+                                recepient_name = curr.name;
+                            }
+
+                            if(curr.l_name){
+                                recepient_name = recepient_name + ' ' + curr.l_name;
+                            }
+
+                            if(curr.avatar){
+                                recepient_avatar = curr.avatar;
+                            }
+                            else {
+                                recepient_avatar = curr.logo;
+                            }
+                            dm.recepient_name = recepient_name;
+                            dm.recepient_avatar = recepient_avatar;
+                        }
+
+                        dms.findOneAndUpdate({ d_timestamp: dm.d_timestamp }, dm, (err) => {
+                            if (err) {
+                                throw err;
+                            }
+                        });
+
+                    }
+                }
             }
         });
 

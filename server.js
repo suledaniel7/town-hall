@@ -219,6 +219,13 @@ io.on('connection', (socket) => {
             console.log(ret_e);
         });
     });
+
+    socket.on('dm', (data)=> {
+        let dm = data.dm;
+        let recepient = data.recepient;
+
+        io.in(recepient).emit('new_dm', dm);
+    });
 });
 app.use(express.static(__dirname + '/public/'));
 app.use(favicon(__dirname + '/public/img/favicon.ico'));

@@ -22,7 +22,8 @@ const orgSchema = new Schema({
     followers: Array,//of objects w/ three props: no of followers, and unique attr of beat, and name/type of beat
     logo: String,
     likes: Array,
-    dislikes: Array
+    dislikes: Array,
+    blocked: Array
 });
 
 const orgs = mongoose.model('organisations', orgSchema);

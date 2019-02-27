@@ -55,6 +55,11 @@ const serve_dists = require('../controllers/api/serve_dists');
 const set_bio = require('../controllers/api/set_bio');
 const j_status = require('../controllers/api/j_status');
 const rejection = require('../controllers/api/rejection');
+const authorized = require('../controllers/api/authorized');
+const dm = require('../controllers/api/dm');
+const dms = require('../controllers/api/dms');
+const conversation = require('../controllers/api/conversation');
+const block = require('../controllers/api/block');
 
 const router = express.Router();
 // const logos = multer({dest: 'public/logos/'});
@@ -193,6 +198,16 @@ router.post('/set-bio', auth, set_bio);
 router.get('/j-stat', auth, j_status);
 
 router.post('/rejection', auth, rejection);
+
+router.post('/authorized', authorized);
+
+router.post('/dm', auth, dm);
+
+router.post('/dms', auth, dms);
+
+router.post('/conversation', auth, conversation);
+
+router.post('/block/:b_type', auth, block);
 
 router.get('/logout', auth, logout);
 

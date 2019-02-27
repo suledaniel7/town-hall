@@ -22,7 +22,8 @@ let userSchema = new Schema({
     preferences: Object,
     likes: Array,
     dislikes: Array,
-    date_created: Date
+    date_created: Date,
+    blocked: Array
     // Preferences contains the key codes to districts the user is interested in
     // Also, it prioritizes the news organisations he'd read
     // Two properties: districts, w/unique codes et orgs
