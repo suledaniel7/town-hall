@@ -7,7 +7,7 @@ function converse(req, res) {
     let sender = req.body.sender;
     let recepient = req.body.recepient;
 
-    dms.find({ $or: [{ sender: sender, recepient: recepient }, { sender: recepient, recepient: sender }] }).sort({ timestamp: -1 }).exec((err, ret_dms) => {
+    dms.find({ $or: [{ sender: sender, recepient: recepient }, { sender: recepient, recepient: sender }] }).sort({ timestamp: 1 }).exec((err, ret_dms) => {
         if (err) {
             res.send(JSON.stringify({ success: false, reason: "An error occured on our end. We're working on it" }));
         }
