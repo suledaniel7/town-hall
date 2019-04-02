@@ -105,7 +105,7 @@ function recompile(username) {
                                                     reject(err);
                                                 }
                                                 else {
-                                                    resolve(ret_msgs);
+                                                    resolve({msgs: ret_msgs, selected: ret_u.sourceSel});
                                                 }
                                             });
                                         }

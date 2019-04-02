@@ -107,9 +107,13 @@ io.on('connection', (socket) => {
         socketFn('follow', { ip: ip }).then((data) => {
             if (data) {
                 let username = data.username;
-                let msgs = data.msgs;
+                let messages = data.msgs;
+                let selected = data.selected;
+                if(!selected){
+                    selected = false;
+                }
 
-                io.in(username).emit('following', { page: 'h', messages: msgs });
+                io.in(username).emit('following', { page: 'h', messages: messages, selected: selected });
             }
         }).catch(ret_e => {
             console.log(ret_e);
@@ -139,7 +143,7 @@ io.on('connection', (socket) => {
             if (ret_d) {
                 io.in(org).emit('j_req', { page: 'j', journo: ret_d });
             }
-            io.in(init).emit('rem_req', { username: username });
+            io.in(init).emit('rem_req', username);
             io.in(init).emit('j_removed', username);
         }).catch(ret_e => {
             console.log(ret_e);
@@ -213,7 +217,11 @@ io.on('connection', (socket) => {
         socketFn('recompile', data).then((ret_d) => {
             if (ret_d) {
                 let messages = ret_d.msgs;
-                io.in(username).emit('recompiled', { messages: messages });
+                let selected = ret_d.selected;
+                if(!selected){
+                    selected = false;
+                }
+                io.in(username).emit('recompiled', { messages: messages, selected: selected });
             }
         }).catch(ret_e => {
             console.log(ret_e);

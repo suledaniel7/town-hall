@@ -205,12 +205,16 @@ function socketFn(event, data) {
                 else {
                     let username = ret_a.username;
 
-                    recompile_feed(username).then((msgs) => {
-                        if (!msgs) {
+                    recompile_feed(username).then((m_data) => {
+                        if (!m_data) {
                             reject("Invalid request");
                         }
                         else {
-                            resolve({ msgs: msgs, username: username });
+                            if(!m_data.selected && m_data.selected !== false){
+                                m_data = {msgs: m_data};
+                            }
+                            m_data.username = username;
+                            resolve(m_data);
                         }
                     }).catch(err => {
                         reject(err);
@@ -327,12 +331,15 @@ function socketFn(event, data) {
     else if(event === 'recompile'){
         return new Promise((resolve, reject)=>{
             let username = data.username;
-            recompile_feed(username).then((msgs) => {
-                if (!msgs) {
+            recompile_feed(username).then((m_data) => {
+                if (!m_data) {
                     reject("Invalid request");
                 }
                 else {
-                    resolve({ msgs: msgs });
+                    if(!m_data.selected && m_data.selected !== false){
+                        m_data = {msgs: m_data};
+                    }
+                    resolve(m_data);
                 }
             }).catch(err => {
                 reject(err);

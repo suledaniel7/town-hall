@@ -60,6 +60,7 @@ const dm = require('../controllers/api/dm');
 const dms = require('../controllers/api/dms');
 const conversation = require('../controllers/api/conversation');
 const block = require('../controllers/api/block');
+const log_err = require('../controllers/api/error_logging');
 
 const router = express.Router();
 // const logos = multer({dest: 'public/logos/'});
@@ -208,6 +209,8 @@ router.post('/dms', auth, dms);
 router.post('/conversation', auth, conversation);
 
 router.post('/block/:b_type', auth, block);
+
+router.post('/trans-err', log_err);
 
 router.get('/logout', auth, logout);
 
