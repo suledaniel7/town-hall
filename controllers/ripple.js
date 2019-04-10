@@ -858,6 +858,8 @@ function ripple(ac_type, prev, curr) {
         let c_full_name = curr.full_name;
         let p_avatar = prev.avatar;
         let c_avatar = curr.avatar;
+        let p_username = prev.code;
+        let c_username = prev.code;
 
         general.findOne({ username: code }, (err, ret_g) => {
             if (err) {
@@ -878,7 +880,7 @@ function ripple(ac_type, prev, curr) {
         });
 
         //dms
-        dms.find({ $or: [{sender: p_username}, {recepient: p_username}] }, (err, ret_dms) => {
+        dms.find({ $or: [{sender: code}, {recepient: code}] }, (err, ret_dms) => {
             if (err) {
                 throw err;
             }

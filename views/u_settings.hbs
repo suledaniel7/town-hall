@@ -69,6 +69,11 @@
                         <input type="password" id="n_pass_c" class="uk-input">
                     </div>
 
+                    <div class="uk-width-1-1">
+                        <label for="v_id">Voter ID</label>
+                        <input type="text" name="v_id" id="v_id" required="required" class="uk-input" value="{{v_id}}">
+                    </div>
+
                     <div class="uk-width-1-1 center">
                         <label for="gender">Gender</label>
                         Female <input type="radio" class="uk-radio" name="gender" id="g_f" value="f">
@@ -130,6 +135,7 @@
             let password = document.getElementById('password').value;
             let n_pass = document.getElementById('n_pass').value;
             let n_pass_c = document.getElementById('n_pass_c').value;
+            let v_id = document.getElementById('v_id').value;
             let gender = null;
             
             let genderRads = document.getElementsByName('gender');
@@ -177,6 +183,9 @@
             if (wsp.test(f_name) || wsp.test(username) || wsp.test(email)) {
                 setNotif("First Name, Username and Email are required");
             }
+            else if(wsp.test(v_id)){
+                setNotif("Voter ID is required");
+            }
             else if (!wsp.test(password) || !wsp.test(n_pass)) {
                 if (wsp.test(password) || wsp.test(n_pass) || wsp.test(n_pass_c)) {
                     setNotif("All password fields are compulsory");
@@ -187,15 +196,15 @@
                     return false;
                 }
                 else {
-                    update(f_name, username, email, password, n_pass, state, fed_const, sen_dist, gender);
+                    update(f_name, username, email, password, n_pass, state, fed_const, sen_dist, gender, v_id);
                 }
             }
             else {
-                update(f_name, username, email, password, n_pass, state, fed_const, sen_dist, gender);
+                update(f_name, username, email, password, n_pass, state, fed_const, sen_dist, gender, v_id);
             }
         }
 
-        function update(f_name, username, email, password, n_pass, state, fed_const, sen_dist, gender) {
+        function update(f_name, username, email, password, n_pass, state, fed_const, sen_dist, gender, v_id) {
             $.ajax({
                 url: '/update/u/dets',
                 method: 'POST',
@@ -209,7 +218,8 @@
                     state: state,
                     fed_const: fed_const,
                     sen_dist: sen_dist,
-                    gender: gender
+                    gender: gender,
+                    v_id: v_id
                 }),
                 error: () => {
                     setNotif("An error occured connecting to the server. Please check your connection and try again");

@@ -54,12 +54,12 @@ function update(req, res) {
         }
     }
     else if (sect == 'dets') {
-        let { f_name, username, email, password, n_pass, state, fed_const, sen_dist, gender } = req.body;
+        let { f_name, username, email, password, n_pass, state, fed_const, sen_dist, gender, v_id } = req.body;
         let wsp = /^\s*$/;
         let test = (text) => {
             return wsp.test(text);
         }
-        if (test(f_name) || test(username) || test(email) || test(state) || test(fed_const) || test(sen_dist)) {
+        if (test(f_name) || test(username) || test(email) || test(state) || test(fed_const) || test(sen_dist) || test(v_id)) {
             res.send({success: false, reason: 'Mandatory fields not filled out'});
         }
         else if (req.user.user) {
@@ -175,6 +175,23 @@ function update(req, res) {
                                 }
                             }
                         }
+                        if(v_id !== ret_u.v_id){
+                            changed = true;
+                            if(wsp.test(v_id)){
+                                valid = false;
+                                res.send({success: false, reason: "Voter ID must be entered"});
+                            }
+                            else {
+                                let found = await check_vId(v_id);
+                                if (found) {
+                                    valid = false;
+                                    res.send({success: false, reason: 'A user exists with that Voter ID'});
+                                }
+                                else {
+                                    ret_u.v_id = v_id;
+                                }
+                            }
+                        }
                         if (!wsp.test(password)) {
                             if (hash.verify(password, ret_u.password)) {
                                 //valid. Can change if wants to
@@ -222,6 +239,22 @@ function update(req, res) {
                                     reject(err);
                                 }
                                 else if (!ret_g) {
+                                    resolve(null);
+                                }
+                                else {
+                                    resolve(true);
+                                }
+                            });
+                        });
+                    }
+
+                    function check_vId(v_id){
+                        return new Promise((resolve, reject)=>{
+                            users.findOne({v_id: v_id}, (err, ret_u_v)=>{
+                                if(err){
+                                    reject(err);
+                                }
+                                else if(!ret_u_v){
                                     resolve(null);
                                 }
                                 else {

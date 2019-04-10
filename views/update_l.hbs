@@ -1,0 +1,83 @@
+<head>
+    <link rel="stylesheet" href="/uikit/css/uikit.css">
+    <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <script src="/js/jquery-3.3.1.js"></script>
+    <script src="/uikit/js/uikit.js"></script>
+    <title>Force Legislator Update | Town Hall Administrator</title>
+</head>
+
+<body>
+    <div class="content center uk-width-2-3 block-center">
+        <div class="uk-width-1-1 block-center uk-card uk-card-hover uk-card-default uk-card-body">
+            <h3 class="uk-card-title center">Force Legislator Update</h3>
+            <div class="uk-form-success" id="notifDiv">{{notif}}</div>
+            <div class="uk-form-danger" id="errorDiv">{{error}}</div>
+            <form action="/admin/force" id="form" method="post" onsubmit="return validate();">
+                <input type="text" class="uk-input" name="code" id="code" placeholder="Enter Legislator Code">
+                <input type="text" class="uk-input" name="f_name" id="f_name" placeholder="Enter First Name">
+                <input type="text" class="uk-input" name="l_name" id="l_name" placeholder="Enter Last Name">
+                <input type="email" name="email" id="email" class="uk-input" placeholder="Enter Email Address">
+                <input type="password" name="password" id="password" class="uk-input" placeholder="Enter New Password">
+                <input type="password" id="pass1" class="uk-input" placeholder="Confirm New Password">
+                <br>
+                <br>
+                Female <input type="radio" class="uk-radio" name="gender" id="gender" checked="checked" value="f">
+                Male <input type="radio" class="uk-radio" name="gender" id="gender" value="m">
+                <br>
+                <br>
+                <button type="submit" class="button">Update Legislator</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        let wsp = /^\s*$/;
+        function obtain(id){
+            return document.getElementById(id);
+        }
+        function test(text){
+            return wsp.test(text);
+        }
+        function validate(){
+            let code = obtain('code').value;
+            let f_name = obtain('f_name').value;
+            let l_name = obtain('l_name').value;
+            let email = obtain('email').value;
+            let password = obtain('password').value;
+            let pass = obtain('pass1').value;
+
+            if(!test(code) && !test(f_name) && !test(l_name) && !test(email) && !test(password) && !test(pass)){
+                if(password !== pass){
+                    setErr("Passwords do not match");
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            }
+            else {
+                setErr("All fields are required!");
+                return false;
+            }
+        }
+        function setErr(text){
+            document.getElementById('errorDiv').textContent = text;
+            clearErr();
+        }
+
+        function clearErr(){
+            setTimeout(()=>{
+                document.getElementById('errorDiv').textContent = '';
+            }, 5000);
+        }
+
+        function clearNotif(){
+            setTimeout(()=>{
+                document.getElementById('notifDiv').textContent = '';
+            }, 5000);
+        }
+
+        clearErr();
+    </script>
+</body>

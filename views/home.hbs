@@ -80,6 +80,7 @@
                     <input type="email" class="uk-input" name="email" id="email" placeholder="Enter your Email Address" title="Email">
                     <input type="password" class="uk-input" name="password" id="password" placeholder="Create a Password" title="Password">
                     <input type="password" class="uk-input" id="password1" placeholder="Confirm Password" title="Confirm Password">
+                    <input type="text" class="uk-input" name="v_id" id="v_id" placeholder="Enter your Voter ID" title="Voter ID">
                     <h4>Gender:</h4>
                     Female: <input type="radio" name="gender" value="f" title="Female" class="radio uk-radio" id="rad2">
                     Male: <input type="radio" name="gender" value="m" title="Male" class="radio uk-radio" id="rad1">
@@ -220,7 +221,32 @@
                 }
             });
         }
+    }
 
+    document.getElementById('v_id').onblur = checkVId;
+    let invalidVId = false;
+
+    function checkVId(){
+        let v_id = document.getElementById('v_id').value;
+        let wsp = /^\s*$/;
+        if(!wsp.test(v_id)){
+            $.ajax({
+                url: '/users/checkVId/'+v_id,
+                method: 'GET',
+                success: (response)=>{
+                    if(response){
+                        setErr("The Voter ID entered is in use. Ensure you entered yours accurately");
+                        invalidVId = true;
+                    }
+                    else {
+                        invalidVId = false;
+                    }
+                },
+                error: ()=>{
+                    setErr("Please ensure that you have an active Internet connection");
+                }
+            });
+        }
     }
 
     function validate() {
@@ -230,10 +256,11 @@
         let password = document.getElementById('password').value;
         let c_pass = document.getElementById('password1').value;
         let sel_state = document.getElementById('state').selectedIndex;
+        let v_id = document.getElementById('v_id').value;
 
         let wsp = /^\s*$/;
 
-        if (wsp.test(f_name) || wsp.test(username) || wsp.test(email) || wsp.test(password) || wsp.test(c_pass) || wsp.test(sel_state)) {
+        if (wsp.test(f_name) || wsp.test(username) || wsp.test(v_id) || wsp.test(email) || wsp.test(password) || wsp.test(c_pass) || wsp.test(sel_state)) {
             setErr("Please ensure all fields are filled out");
             return false;
         }
@@ -247,6 +274,10 @@
         }
         else if (invalidEmail) {
             setErr("Please select another email address");
+            return false;
+        }
+        else if(invalidVId){
+            setErr("Please enter your accurate Voter ID");
             return false;
         }
         else if (password !== c_pass) {

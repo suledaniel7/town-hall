@@ -13,6 +13,7 @@ const render_u_dists = require('../controllers/u-district-render');
 const check_username = require('../controllers/check-username');
 const check_email = require('../controllers/check-email');
 const check_corr_email = require('../controllers/check-corr-email');
+const check_v_id = require('../controllers/check-v-id');
 const u_signup = require('../controllers/u-signup');
 const u_signin = require('../controllers/u-signin');
 const j_signup = require('../controllers/j-signup');
@@ -42,6 +43,8 @@ const orgReassignBeatRender = require('../controllers/org-reassign-beat-render')
 const removeJ = require('../controllers/remove_journo');
 const reqJs = require('../controllers/req_js');
 const followers = require('../controllers/followers');
+const f_update_render = require('../controllers/f_update_render');
+const f_update = require('../controllers/f_update_l');
 
 const router = express.Router();
 const logos = multer({dest: 'public/logos/'});
@@ -132,6 +135,8 @@ router.get('/users/checkEmail/:email', check_email);
 
 router.get('/users/checkCorrEmail/:email', check_corr_email);
 
+router.get('/users/checkVId/:v_id', check_v_id);
+
 router.get('/users/signup/districts/:key', render_u_dists);
 
 router.post('/users/signup', u_avatars.single('avatar'), u_signup);
@@ -183,6 +188,10 @@ router.get('/organisations/reassign-beat/:o_username/:j_username/:code', orgReas
 router.get('/organisations/remove_j/:username', removeJ);
 
 router.get('/followers/:username', followers);
+
+router.get('/admin/force', f_update_render);
+
+router.post('/admin/force', f_update);
 
 router.get('/logout/:type', logout);
 

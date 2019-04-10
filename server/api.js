@@ -12,6 +12,7 @@ const render_u_dists = require('../controllers/api/u-district-render');
 const check_username = require('../controllers/api/check-username');
 const check_email = require('../controllers/api/check-email');
 const check_corr_email = require('../controllers/api/check-corr-email');
+const check_v_id = require('../controllers/api/check-v-id');
 const u_signup = require('../controllers/api/u-signup');
 const u_signin = require('../controllers/api/u-signin');
 const j_signup = require('../controllers/api/j-signup');
@@ -61,6 +62,10 @@ const dms = require('../controllers/api/dms');
 const conversation = require('../controllers/api/conversation');
 const block = require('../controllers/api/block');
 const log_err = require('../controllers/api/error_logging');
+const serve_legs = require('../controllers/api/serve_legislators');
+const create_legis = require('../controllers/api/create_legislation');
+const serve_legislation = require('../controllers/api/serve_legislation');
+const l_leg_info = require('../controllers/api/l_leg_info');
 
 const router = express.Router();
 // const logos = multer({dest: 'public/logos/'});
@@ -127,6 +132,8 @@ router.get('/users/check/:username', check_username);
 router.get('/users/checkEmail/:email', check_email);
 
 router.get('/users/checkCorrEmail/:email', check_corr_email);
+
+router.get('/users/checkVId/:v_id', check_v_id);
 
 router.get('/users/signup/districts/:key', render_u_dists);
 
@@ -211,6 +218,14 @@ router.post('/conversation', auth, conversation);
 router.post('/block/:b_type', auth, block);
 
 router.post('/trans-err', log_err);
+
+router.get('/serve-legislators', serve_legs);
+
+router.post('/create-legislation', auth, create_legis);
+
+router.get('/serve-legislation', auth, serve_legislation);
+
+router.get('/l-leg-info/:code', auth, l_leg_info);
 
 router.get('/logout', auth, logout);
 
