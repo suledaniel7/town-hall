@@ -101,7 +101,7 @@ function create_legis(req, res) {
                                     code: code,
                                     description: description,
                                     text_link: text_link,
-                                    status: { active: true, s_text: "Exploratory", s_val: 'e' },
+                                    status: { active: true, s_text: "Exploratory", s_value: 'e' },
                                     date_created: d_c,
                                     time_created: t_c,
                                     timestamp: timestamp

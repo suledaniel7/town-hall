@@ -32,7 +32,7 @@ function render(req, res) {
                                 return new Promise((resolve, reject) => {
                                     if (legs) {
                                         let fin_legs = [];
-                                        let final = legs.length - 1;
+                                        let final = legs.length - 2;//removing current leg
                                         for (let i = 0; i < legs.length; i++) {
                                             let c_leg = legs[i];
                                             if (c_leg !== l_code) {
@@ -43,12 +43,11 @@ function render(req, res) {
                                                     else {
                                                         ret_leg.password = null;
                                                         fin_legs.push(ret_leg);
-
                                                         if (i === final) {
                                                             resolve(fin_legs);
                                                         }
                                                     }
-                                                })
+                                                });
                                             }
                                         }
                                         if (legs.length === 0) {
