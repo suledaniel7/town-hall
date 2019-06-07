@@ -9,6 +9,7 @@ const save_auth = require('./save_auth');
 
 function signin(req, res){
     let {email, password} = req.body;
+    email = email.toLowerCase();
 
     users.findOne({$or:[{email: email}, {username: email}]}, (err, ret_u)=>{
         if(err){

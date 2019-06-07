@@ -69,6 +69,8 @@ const l_leg_info = require('../controllers/api/l_leg_info');
 const edit_leg = require('../controllers/api/edit_legislation');
 const edit_leg_stat = require('../controllers/api/edit_legis_status');
 const edit_legis_render = require('../controllers/api/edit_legis_render');
+const serve_convo = require('../controllers/api/serve_conversation');
+const post_convo = require('../controllers/api/post_convo');
 
 const router = express.Router();
 // const logos = multer({dest: 'public/logos/'});
@@ -235,6 +237,10 @@ router.post('/edit-legislation', auth, edit_leg);
 router.post('/edit-leg-stat', auth, edit_leg_stat);
 
 router.post('/edit-leg-render', edit_legis_render);
+
+router.get('/serve-conversations/:code', auth, serve_convo);
+
+router.post('/post-convo', auth, post_convo);
 
 router.get('/logout', auth, logout);
 
